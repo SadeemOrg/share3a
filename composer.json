@@ -8,9 +8,18 @@
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
+        "laravel/nova": "^4.0",
         "laravel/sanctum": "^3.2",
-        "laravel/tinker": "^2.8"
-    },
+        "laravel/tinker": "^2.8",
+        "outl1ne/nova-settings": "^5.2",
+        "sietse85/nova-button": "^1.0",
+        "whitecube/nova-flexible-content": "^1.0"
+    },"repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    ],
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",

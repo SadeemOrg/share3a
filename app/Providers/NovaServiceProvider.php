@@ -1,0 +1,102 @@
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Nova;
+use Laravel\Nova\NovaApplicationServiceProvider;
+use Laravel\Nova\Fields\Image;
+use Whitecube\NovaFlexibleContent\Flexible;
+class NovaServiceProvider extends NovaApplicationServiceProvider
+{
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        parent::boot();
+
+        \Outl1ne\NovaSettings\NovaSettings::addSettingsFields([
+            Image::make(__('First Image'), 'First_Image_About_Us')->disk('public'),
+            Image::make(__('Second Image'), 'Second_Image_About_Us')->disk('public'),
+            Image::make(__('Third Image'), 'third_Image_About_Us')->disk('public'),
+            Text::make(__('Title'), 'title'),
+            Text::make(__('sub Title'), 'subtitle'),
+            Text::make(__('Title Second'), 'title_Second'),
+            Text::make(__('sub Title Second'), 'subtitle_Second'),
+
+            Flexible::make('Content')
+            ->addLayout('Simple content section', 'Content', [
+                Text::make('Title'),
+            ]),
+            Image::make(__('Image'), 'Image_Footer')->disk('public'),
+            Text::make(__('Title Footer'), 'Title_Footer'),
+            Text::make(__('sub Title Footer'), 'sub_Title_Footer'),
+
+        ]);
+    }
+
+    /**
+     * Register the Nova routes.
+     *
+     * @return void
+     */
+    protected function routes()
+    {
+        Nova::routes()
+                ->withAuthenticationRoutes()
+                ->withPasswordResetRoutes()
+                ->register();
+    }
+
+    /**
+     * Register the Nova gate.
+     *
+     * This gate determines who can access Nova in non-local environments.
+     *
+     * @return void
+     */
+    protected function gate()
+    {
+        Gate::define('viewNova', function ($user) {
+            return true;
+        });
+    }
+
+    /**
+     * Get the dashboards that should be listed in the Nova sidebar.
+     *
+     * @return array
+     */
+    protected function dashboards()
+    {
+        return [
+            new \App\Nova\Dashboards\Main,
+        ];
+    }
+
+    /**
+     * Get the tools that should be listed in the Nova sidebar.
+     *
+     * @return array
+     */
+    public function tools()
+    {
+        return [
+            new \Outl1ne\NovaSettings\NovaSettings
+        ];
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+}
