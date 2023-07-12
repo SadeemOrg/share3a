@@ -13,6 +13,16 @@
     <!-- Styles -->
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}?v={{ rand(0, 99) }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-
+     alpha/css/bootstrap.css"
+        rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 </head>
 
@@ -61,10 +71,20 @@
 
 
                 </ul>
-
-                @if (Session::has('success'))
-                    {{ Session::get('success') }}
-                @endif
+                <script>
+                    @if (Session::has('success'))
+                        toastr.options = {
+                            "closeButton": true,
+                            "progressBar": true
+                        }
+                        toastr.success("{{ Session::get('success') }}");
+                    @endif
+                    @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                            toastr.error("{{ $error }}");
+                        @endforeach
+                    @endif
+                </script>
                 <form class="w-full " method="post" action="{{ route('contact.store') }}">
                     <!-- CROSS Site Request Forgery Protection -->
                     @csrf
@@ -105,7 +125,7 @@
                                     id="grid-state">
                                     <option>المنطقة التي تريد التعلم فيها</option>
                                     @foreach ($areas as $area)
-                                        <option>    {{ $area->attributes->area }}</option>
+                                        <option> {{ $area->attributes->area }}</option>
                                     @endforeach
                                 </select>
 
