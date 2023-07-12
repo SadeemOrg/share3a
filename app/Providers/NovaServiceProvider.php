@@ -34,6 +34,11 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 Text::make('Title'),
 
             ]),
+            Flexible::make('المنطقة التي تريد التعلم فيها','area')
+            ->addLayout('Simple content section', 'Content', [
+                Text::make('area'),
+
+            ]),
             File::make(__('Image'), 'Image_Footer'),
             Text::make(__('Title Footer'), 'Title_Footer'),
             Text::make(__('sub Title Footer'), 'sub_Title_Footer'),
