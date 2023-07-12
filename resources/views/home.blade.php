@@ -46,17 +46,17 @@
                     </p>
                 </div>
                 @php
-$Contents=nova_get_setting('Content', '');
-$Contents = json_decode($Contents);
+                    $Contents = nova_get_setting('Content', '');
+                    $Contents = json_decode($Contents);
 
                 @endphp
                 <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
-                    @foreach ($Contents  as $Content )
-                    <li class="mb-5">
-                        <p class="text-[27px] relative pr-10">
-                            {{ $Content->attributes->title }}
-                        </p>
-                    </li>
+                    @foreach ($Contents as $Content)
+                        <li class="mb-5">
+                            <p class="text-[27px] relative pr-10">
+                                {{ $Content->attributes->title }}
+                            </p>
+                        </li>
                     @endforeach
 
 
@@ -94,14 +94,19 @@ $Contents = json_decode($Contents);
                             {{-- <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                                 area
                             </label> --}}
+                            @php
+                                $areas = nova_get_setting('area', '');
+                                $areas = json_decode($areas);
+
+                            @endphp
                             <div class="relative">
                                 <select name="area"
                                     class="bg-transparent w-full border border-gray-200 text-white py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     id="grid-state">
                                     <option>المنطقة التي تريد التعلم فيها</option>
-                                    <option>فلسطين</option>
-                                    <option>فلسطين</option>
-                                    <option>فلسطين</option>
+                                    @foreach ($areas as $area)
+                                        <option>    {{ $area->attributes->area }}</option>
+                                    @endforeach
                                 </select>
 
                             </div>
