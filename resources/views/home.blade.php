@@ -125,7 +125,7 @@
                                     id="grid-state">
                                     <option>المنطقة التي تريد التعلم فيها</option>
                                     @foreach ($areas as $area)
-                                        <option class="text-[#000]">    {{ $area->attributes->area }}</option>
+                                        <option  class="text-[#000]">    {{ $area->attributes->area }}</option>
                                     @endforeach
                                 </select>
 
