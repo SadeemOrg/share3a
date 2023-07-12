@@ -59,31 +59,7 @@
 
                 </ul>
 
-                <script>
 
-                    @if (Session::has('error'))
-                        toastr.options = {
-                            "closeButton": true,
-                            "progressBar": true
-                        }
-
-
-
-                        toastr.error("{{ Session::get('error') }}");
-                    @endif
-                    @if (Session::has('success'))
-                        toastr.options = {
-                            "closeButton": true,
-                            "progressBar": true
-                        }
-                        toastr.success("{{ Session::get('success') }}");
-                    @endif
-                    @if ($errors->any())
-                        @foreach ($errors->all() as $error)
-                            toastr.error("{{ $error }}");
-                        @endforeach
-                    @endif
-                </script>
                 <form class="w-full " method="post" action="{{ route('contact.store') }}">
                     <!-- CROSS Site Request Forgery Protection -->
                     @csrf
@@ -174,6 +150,13 @@
                 "progressBar": true
             }
             toastr.success("{{ Session::get('success') }}");
+        @endif
+        @if (Session::has('error'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.error("{{ Session::get('error') }}");
         @endif
         @if ($errors->any())
             @foreach ($errors->all() as $error)
