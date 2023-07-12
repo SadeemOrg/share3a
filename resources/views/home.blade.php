@@ -26,7 +26,7 @@
 
 </head>
 
-<body dir="rtl" class="" style="background-image: url({{asset('assets/images/bg-img.jpg')}}); background-size: auto 100%;">
+<body dir="rtl" style="background-image: url({{asset('assets/images/website-bg-img.jpg')}}); background-size: auto 100%;">
     <!-- header -->
     <header>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
