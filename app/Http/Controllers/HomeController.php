@@ -58,6 +58,7 @@ class HomeController extends Controller
         if ($exist) {
             return back()->with('error', 'لقد سجلت مسبقا');
 
+
         }
 
         $osPlatform = "Unknown OS Platform";
