@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}?v={{ rand(0, 99) }}">
 </head>
 
-<body dir="rtl" style="background-image: url({{asset('assets/images/website-bg-img.jpg')}}); background-size: auto 100%;">
+<body dir="rtl" style="background-image: url({{asset('assets/images/website-bg-img.webp')}}); background-size: auto 100%;">
     <!-- header -->
     <header>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -124,7 +124,7 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
                 <div class="md:flex items-center">
-                    <img class="mx-auto md:mx-0 md:mb-0 mb-5 max-w-[300px]" src="{{asset('assets/images/footer-books.png')}}" alt="footer books image">
+                    <img class="mx-auto md:mx-0 md:mb-0 mb-5 max-w-[300px]" src="{{asset('assets/images/footer-books.webp')}}" alt="footer books image">
                     <p class="text-[25px] md:text-[27px] lg:text-[32px] text-white">
                         <span class="text-[#EBBD22]">{{ nova_get_setting('Title_Footer', '') }} - </span>
                         {{ nova_get_setting('sub_Title_Footer', '') }}                    </p>
