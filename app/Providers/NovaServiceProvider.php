@@ -8,6 +8,7 @@ use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Laravel\Nova\Fields\Image;
 use Whitecube\NovaFlexibleContent\Flexible;
+use Laravel\Nova\Fields\File;
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
     /**
@@ -20,9 +21,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         parent::boot();
 
         \Outl1ne\NovaSettings\NovaSettings::addSettingsFields([
-            Image::make(__('First_Image'), 'First_Image'),
-            Image::make(__('Second Image'), 'Second_Image'),
-            Image::make(__('Third Image'), 'third_Image'),
+            File::make(__('First_Image'), 'First_Image')->disk('public'),
+            File::make(__('Second Image'), 'Second_Image'),
+            File::make(__('Third Image'), 'third_Image'),
             Text::make(__('Title'), 'title'),
             Text::make(__('sub Title'), 'subtitle'),
             Text::make(__('Title Second'), 'title_Second'),
@@ -31,8 +32,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             Flexible::make('Content')
             ->addLayout('Simple content section', 'Content', [
                 Text::make('Title'),
+
             ]),
-            Image::make(__('Image'), 'Image_Footer'),
+            File::make(__('Image'), 'Image_Footer'),
             Text::make(__('Title Footer'), 'Title_Footer'),
             Text::make(__('sub Title Footer'), 'sub_Title_Footer'),
 
