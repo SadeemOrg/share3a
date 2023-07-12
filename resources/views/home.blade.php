@@ -56,7 +56,27 @@
 
 
                 </ul>
-
+                <script>
+                    @if (Session::has('success'))
+                        toastr.options = {
+                            "closeButton": true,
+                            "progressBar": true
+                        }
+                        toastr.success("{{ Session::get('success') }}");
+                    @endif
+                    @if (Session::has('error'))
+                        toastr.options = {
+                            "closeButton": true,
+                            "progressBar": true
+                        }
+                        toastr.error("{{ session('error') }}");
+                    @endif
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            toastr.error("{{ $error }}");
+                        @endforeach
+                    @endif
+                </script>
                 <form class="w-full " method="post" action="{{ route('contact.store') }}">
                     <!-- CROSS Site Request Forgery Protection -->
                     @csrf
@@ -97,7 +117,7 @@
                                     id="grid-state">
                                     <option class="text-[#000]">المنطقة التي تريد التعلم فيها</option>
                                     @foreach ($areas as $area)
-                                        <option  class="text-[#000]">    {{ $area->attributes->area }}</option>
+                                        <option class="text-[#000]"> {{ $area->attributes->area }}</option>
                                     @endforeach
                                 </select>
 
@@ -127,7 +147,8 @@
                     <img class="mx-auto md:mx-0 md:mb-0 mb-5 max-w-[300px]" src="{{asset('assets/images/footer-books.png')}}" alt="footer books image">
                     <p class="text-[25px] md:text-[27px] lg:text-[32px] text-white">
                         <span class="text-[#EBBD22]">{{ nova_get_setting('Title_Footer', '') }} - </span>
-                        {{ nova_get_setting('sub_Title_Footer', '') }}                    </p>
+                        {{ nova_get_setting('sub_Title_Footer', '') }}
+                    </p>
                 </div>
             </div>
         </div>
