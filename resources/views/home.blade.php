@@ -16,7 +16,7 @@
 
 </head>
 
-<body dir="rtl" class="" style="background-image: url({{asset('assets/images/bg-img.jpg')}})">
+<body dir="rtl" class="" style="background-image: url({{asset('assets/images/bg-img.jpg')}}); background-size: auto 100%;">
     <!-- header -->
     <header>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -71,21 +71,21 @@
                     @csrf
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="w-full px-3">
-                            <input name="name" class="block w-full bg-transparent text-white border border-white rounded py-3 px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
+                            <input name="name" class="block w-full bg-transparent text-white border border-white rounded-sm py-4 px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
                                 id="grid-password" type="text" placeholder="الاسم">
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="w-full px-3">
                             <input name="phone_number"
-                                class="block w-full bg-transparent text-white border border-white rounded py-3 px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
+                                class="block w-full bg-transparent text-white border border-white rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
                                 id="grid-password" type="text" placeholder="رقم الهاتف ">
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="w-full px-3">
                             <input name="country"
-                                class="block w-full bg-transparent text-white border border-white rounded py-3 px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
+                                class="block w-full bg-transparent text-white border border-white rounded-sm py-4 px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
                                 id="grid-password" type="text" placeholder="البلد">
                         </div>
                     </div>
@@ -96,21 +96,26 @@
                             </label> --}}
                             <div class="relative">
                                 <select name="area"
-                                    class="bg-transparent w-full border border-gray-200 text-white py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    class="bg-transparent w-full border border-gray-200 text-white py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-transparent focus:border-gray-500"
                                     id="grid-state">
-                                    <option>المنطقة التي تريد التعلم فيها</option>
-                                    <option>فلسطين</option>
-                                    <option>فلسطين</option>
-                                    <option>فلسطين</option>
+                                    <option class="text-[#000]">المنطقة التي تريد التعلم فيها</option>
+                                    <option class="text-[#000]">فلسطين</option>
+                                    <option class="text-[#000]">فلسطين</option>
+                                    <option class="text-[#000]">فلسطين</option>
                                 </select>
 
                             </div>
                         </div>
 
                     </div>
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Button
-                    </button>
+                    <div class="flex gap-x-5 mt-10">
+                        <button class="bg-[#124A85] w-1/2 py-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm">
+                            تسجيل الان
+                        </button>
+                        <a href="#" class="bg-transparent w-1/2 py-4 text-center border hover:bg-transparent hover:text-[#EBBD22] hover:border-[#EBBD22] text-white font-bold py-2 px-4 rounded-sm">
+                            للمزيد من المعلومات
+                        </a>
+                    </div>
                 </form>
             </div>
         </div>
@@ -121,8 +126,18 @@
     <!-- End page content -->
 
     <!-- footer -->
-    <footer class="container max-w-7xl mx-auto sm:px-6 lg:px-8 px-4">
-        footer
+    <footer class="py-20">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-4xl">
+                <div class="flex items-center">
+                    <img class="max-w-[300px]" src="{{asset('assets/images/footer-books.png')}}" alt="footer books image">
+                    <p class="text-[32px] text-white">
+                        <span class="text-[#EBBD22]">مجانا - </span>
+                        يمكنكم الالتحاق مجانا بدورات تعليم أحكام التجويد عبر تطبيق الزوم.
+                    </p>
+                </div>
+            </div>
+        </div>
     </footer>
     <!-- /footer -->
 
