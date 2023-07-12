@@ -12,16 +12,16 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <!-- Styles -->
     @vite('resources/css/app.css')
-    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}?v={{rand(0, 99)}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}?v={{ rand(0, 99) }}">
 
 </head>
 
-<body dir="rtl" class="" style="background-image: url({{asset('assets/images/bg-img.jpg')}})">
+<body dir="rtl" class="" style="background-image: url({{ asset('assets/images/bg-img.jpg') }})">
     <!-- header -->
     <header>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
-                <img src="{{asset('assets/logos-header.svg')}}" alt="">
+                <img src="{{ asset('assets/logos-header.svg') }}" alt="">
             </div>
         </div>
 
@@ -32,46 +32,46 @@
     <section>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
-                <p class="Hebah-Font text-center text-[#E3BD2F] text-[64px] mb-10">التعليم اليوم متاح أكثر من أي وقت مضى , لا حاجة للسفر بعيدا</p>
+                <p class="Hebah-Font text-center text-[#E3BD2F] text-[64px] mb-10">{{ nova_get_setting('title', '') }}
+                </p>
                 <div class="text-white text-center">
                     <p class="text-[35px] mb-10">
-                        جمعية الامام علي شفاعمرو , وجمعية مركز الهدى نحف بالتعاون مع كلية كفر برا للعلوم الشرعية تعلنان عن افتتاح التسجيل ل
+                        {{ nova_get_setting('subtitle', '') }}
                     </p>
                     <p class="text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
-                        مساقات متفرقة في دبلوم
-                        الشريعة والعلوم الاسلامية
+                        {{ nova_get_setting('title_Second', '') }}
                     </p>
                     <p class="text-[43px] bg-[#124A85] py-3 px-4">
-                        افتتاح العام الدراسي في شهر <span>10/2023</span>
+                        {{ nova_get_setting('subtitle_Second', '') }}
                     </p>
                 </div>
+                @php
+$Contents=nova_get_setting('Content', '');
+$Contents = json_decode($Contents);
+
+                @endphp
                 <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
+                    @foreach ($Contents  as $Content )
                     <li class="mb-5">
                         <p class="text-[27px] relative pr-10">
-                            الدبلوم عبارة عن 24 مساق ومن يتمها يحصل على دبلوم في الشريعة والعلوم الااسامية من كلية كفر برا
+                            {{ $Content->attributes->title }}
                         </p>
                     </li>
-                    <li class="mb-5">
-                        <p class="text-[27px] relative pr-10">
-                            هناك امكانية للحاصلين على الدبلوم اكمال اللقب الاول في كلية اونو
-                        </p>
-                    </li>
-                    <li class="">
-                        <p class="text-[27px] relative pr-10">
-                            التعليم في شفاعمرو ونحف , وهناك امكانية للانضمام للمسار المكثف في كفر برا
-                        </p>
-                    </li>
+                    @endforeach
+
+
                 </ul>
 
-                @if(Session::has('success'))
-                    {{Session::get('success')}}
+                @if (Session::has('success'))
+                    {{ Session::get('success') }}
                 @endif
-                <form class="w-full "  method="post" action="{{ route('contact.store') }}">
+                <form class="w-full " method="post" action="{{ route('contact.store') }}">
                     <!-- CROSS Site Request Forgery Protection -->
                     @csrf
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="w-full px-3">
-                            <input name="name" class="block w-full bg-transparent text-white border border-white rounded py-3 px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
+                            <input name="name"
+                                class="block w-full bg-transparent text-white border border-white rounded py-3 px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
                                 id="grid-password" type="text" placeholder="الاسم">
                         </div>
                     </div>
