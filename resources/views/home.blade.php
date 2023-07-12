@@ -95,7 +95,7 @@
                                 id="grid-password" type="text" placeholder="البلد">
                         </div>
                     </div>
-                    <div class="flex flex-wrap -mx-3 mb-2">
+                    <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="w-full px-3">
                             {{-- <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                                 area
@@ -107,7 +107,7 @@
                             @endphp
                             <div class="relative">
                                 <select name="area"
-                                    class="bg-transparent w-full border border-gray-200 text-white py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-transparent focus:border-gray-500"
+                                    class="bg-transparent w-full border border-gray-200 text-white py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-transparent focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
                                     id="grid-state">
                                     <option class="text-[#000]">المنطقة التي تريد التعلم فيها</option>
                                     @foreach ($areas as $area)
@@ -117,17 +117,21 @@
 
                             </div>
                         </div>
-
                     </div>
-                    <div class="sm:flex gap-x-5 mt-10">
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full px-3">
+                            <textarea name="" id="" class="block w-full bg-transparent text-white border border-white rounded-sm py-4 px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]" cols="30" rows="10" placeholder="هل لديك سؤال أو استفسار يمكن إضافته؟"></textarea>
+                        </div>
+                    </div>
+                    <p class="text-white TheSansArabic-regular text-[14px] mt-5">
+                        <span class="text-[#EBBD22] ">ملاحظة:</span>
+                        طاقم الكلية سوف يعود للتواصل معك لتأكيد عملية تسجيلك.
+                    </p>
+                    <div class="text-right mt-5">
                         <button
-                            class="mb-4 mx-auto block bg-[#124A85] w-full sm:w-1/2 py-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm">
+                            class="mb-4 block bg-[#124A85] px-20 md:w-1/2 py-4 hover:bg-blue-700 text-white font-bold py-2 rounded-sm">
                             تسجيل الان
                         </button>
-                        <a href="#"
-                            class="mb-4 mx-auto block bg-transparent sm:w-1/2 py-4 text-center border hover:bg-transparent hover:text-[#EBBD22] hover:border-[#EBBD22] text-white font-bold py-2 px-4 rounded-sm">
-                            للمزيد من المعلومات
-                        </a>
                     </div>
                 </form>
             </div>
