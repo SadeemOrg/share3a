@@ -27,7 +27,8 @@
     <section>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
-                <p class="Hebah-Font text-center text-[#E3BD2F] text-[25px] md:text-[40px] lg:text-[64px] mb-10">{{ nova_get_setting('title', '') }}
+                <p class="Hebah-Font text-center text-[#E3BD2F] text-[25px] md:text-[40px] lg:text-[64px] mb-10">
+                    {{ nova_get_setting('title', '') }}
                 </p>
                 <div class="text-white text-center">
                     <p class="text-[25px] md:text-[28px] lg:text-[35px] mb-10">
@@ -56,6 +57,7 @@
 
 
                 </ul>
+
 
                 <form class="w-full " method="post" action="{{ route('contact.store') }}">
                     <!-- CROSS Site Request Forgery Protection -->
@@ -97,7 +99,7 @@
                                     id="grid-state">
                                     <option class="text-[#000]">المنطقة التي تريد التعلم فيها</option>
                                     @foreach ($areas as $area)
-                                        <option  class="text-[#000]">    {{ $area->attributes->area }}</option>
+                                        <option class="text-[#000]"> {{ $area->attributes->area }}</option>
                                     @endforeach
                                 </select>
 
@@ -106,10 +108,12 @@
 
                     </div>
                     <div class="sm:flex gap-x-5 mt-10">
-                        <button class="mb-4 mx-auto block bg-[#124A85] w-full sm:w-1/2 py-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm">
+                        <button
+                            class="mb-4 mx-auto block bg-[#124A85] w-full sm:w-1/2 py-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm">
                             تسجيل الان
                         </button>
-                        <a href="#" class="mb-4 mx-auto block bg-transparent sm:w-1/2 py-4 text-center border hover:bg-transparent hover:text-[#EBBD22] hover:border-[#EBBD22] text-white font-bold py-2 px-4 rounded-sm">
+                        <a href="#"
+                            class="mb-4 mx-auto block bg-transparent sm:w-1/2 py-4 text-center border hover:bg-transparent hover:text-[#EBBD22] hover:border-[#EBBD22] text-white font-bold py-2 px-4 rounded-sm">
                             للمزيد من المعلومات
                         </a>
                     </div>
@@ -127,7 +131,8 @@
                     <img class="mx-auto md:mx-0 md:mb-0 mb-5 max-w-[300px]" src="{{asset('assets/images/footer-books.webp')}}" alt="footer books image">
                     <p class="text-[25px] md:text-[27px] lg:text-[32px] text-white">
                         <span class="text-[#EBBD22]">{{ nova_get_setting('Title_Footer', '') }} - </span>
-                        {{ nova_get_setting('sub_Title_Footer', '') }}                    </p>
+                        {{ nova_get_setting('sub_Title_Footer', '') }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -144,8 +149,15 @@
             }
             toastr.success("{{ Session::get('success') }}");
         @endif
+        @if (Session::has('error'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.error("{{ Session::get('error') }}");
+        @endif
         @if ($errors->any())
-        @foreach ($errors->all() as $error)
+            @foreach ($errors->all() as $error)
                 toastr.error("{{ $error }}");
             @endforeach
         @endif
