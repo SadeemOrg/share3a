@@ -1,0 +1,33 @@
+@font-face {
+    font-family: Hebah-Font;
+    src: url('../fonts/Hebah-Font.ttf');
+}
+@font-face {
+    font-family: TheSansArabic-bold;
+    src: url('../fonts/TheSansArabic-Bold.ttf');
+}
+@font-face {
+    font-family: TheSansArabic-regular;
+    src: url('../fonts/TheSansArabic-regular.ttf');
+}
+body {font-family: TheSansArabic-bold;}
+.TheSansArabic-regular {font-family: TheSansArabic-regular;}
+.Hebah-Font {font-family: Hebah-Font;}
+
+.text-sh {text-shadow: 0 4px 4px #00000040;}
+
+.features-list li p::after {
+    content: '';
+    display: block;
+    height: 24px;
+    width: 25px;
+    background-image: url('../images/list-item-icon.svg');
+    position: absolute;
+    right: 0;
+    top: 8px;
+    background-size: contain;
+}
+
+::placeholder {
+    color: #fff !important;
+  }
