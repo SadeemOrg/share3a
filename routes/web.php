@@ -22,6 +22,9 @@ Route::redirect('/', '/كلية_الدعوة');//ok
 Route::get('/كلية_الدعوة', function () {
     return view('home');
 });
+Route::get('/thanks', function () {
+    return view('thanks');
+});
 
 
 Route::post('/contact', [HomeController::class, 'RegisterForm'])->name('contact.store');
