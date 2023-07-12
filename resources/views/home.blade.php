@@ -42,16 +42,16 @@
     <section>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
-                <p class="Hebah-Font text-center text-[#E3BD2F] text-[64px] mb-10">{{ nova_get_setting('title', '') }}
+                <p class="Hebah-Font text-center text-[#E3BD2F] text-[25px] md:text-[40px] lg:text-[64px] mb-10">{{ nova_get_setting('title', '') }}
                 </p>
                 <div class="text-white text-center">
-                    <p class="text-[35px] mb-10">
+                    <p class="text-[25px] md:text-[28px] lg:text-[35px] mb-10">
                         {{ nova_get_setting('subtitle', '') }}
                     </p>
-                    <p class="text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
+                    <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
                         {{ nova_get_setting('title_Second', '') }}
                     </p>
-                    <p class="text-[43px] bg-[#124A85] py-3 px-4">
+                    <p class="text-[23px] md:text-[35px] lg:text-[43px] bg-[#124A85] py-3 px-4">
                         {{ nova_get_setting('subtitle_Second', '') }}
                     </p>
                 </div>
@@ -63,7 +63,7 @@
                 <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
                     @foreach ($Contents as $Content)
                         <li class="mb-5">
-                            <p class="text-[27px] relative pr-10">
+                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
                                 {{ $Content->attributes->title }}
                             </p>
                         </li>
@@ -133,11 +133,11 @@
                         </div>
 
                     </div>
-                    <div class="flex gap-x-5 mt-10">
-                        <button class="bg-[#124A85] w-1/2 py-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm">
+                    <div class="sm:flex gap-x-5 mt-10">
+                        <button class="mb-4 mx-auto block bg-[#124A85] w-full sm:w-1/2 py-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm">
                             تسجيل الان
                         </button>
-                        <a href="#" class="bg-transparent w-1/2 py-4 text-center border hover:bg-transparent hover:text-[#EBBD22] hover:border-[#EBBD22] text-white font-bold py-2 px-4 rounded-sm">
+                        <a href="#" class="mb-4 mx-auto block bg-transparent sm:w-1/2 py-4 text-center border hover:bg-transparent hover:text-[#EBBD22] hover:border-[#EBBD22] text-white font-bold py-2 px-4 rounded-sm">
                             للمزيد من المعلومات
                         </a>
                     </div>
@@ -154,9 +154,9 @@
     <footer class="py-20">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
-                <div class="flex items-center">
-                    <img class="max-w-[300px]" src="{{asset('assets/images/footer-books.png')}}" alt="footer books image">
-                    <p class="text-[32px] text-white">
+                <div class="md:flex items-center">
+                    <img class="mx-auto md:mx-0 md:mb-0 mb-5 max-w-[300px]" src="{{asset('assets/images/footer-books.png')}}" alt="footer books image">
+                    <p class="text-[25px] md:text-[27px] lg:text-[32px] text-white">
                         <span class="text-[#EBBD22]">{{ nova_get_setting('Title_Footer', '') }} - </span>
                         {{ nova_get_setting('sub_Title_Footer', '') }}                    </p>
                 </div>
