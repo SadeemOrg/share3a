@@ -20,9 +20,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         parent::boot();
 
         \Outl1ne\NovaSettings\NovaSettings::addSettingsFields([
-            Image::make(__('First_Image'), 'First_Image')->disk('public'),
-            Image::make(__('Second Image'), 'Second_Image')->disk('public'),
-            Image::make(__('Third Image'), 'third_Image')->disk('public'),
+            Image::make(__('First_Image'), 'First_Image'),
+            Image::make(__('Second Image'), 'Second_Image'),
+            Image::make(__('Third Image'), 'third_Image'),
             Text::make(__('Title'), 'title'),
             Text::make(__('sub Title'), 'subtitle'),
             Text::make(__('Title Second'), 'title_Second'),
@@ -32,7 +32,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             ->addLayout('Simple content section', 'Content', [
                 Text::make('Title'),
             ]),
-            Image::make(__('Image'), 'Image_Footer')->disk('public'),
+            Image::make(__('Image'), 'Image_Footer'),
             Text::make(__('Title Footer'), 'Title_Footer'),
             Text::make(__('sub Title Footer'), 'sub_Title_Footer'),
 
