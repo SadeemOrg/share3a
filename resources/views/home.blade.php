@@ -4,30 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>كلية الدعوة</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}?v={{ rand(0, 99) }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-
-     alpha/css/bootstrap.css"
-        rel="stylesheet">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
 </head>
 
-<body dir="rtl" class=""
-    style="background-image: url({{ asset('assets/images/bg-img.jpg') }}); background-size: auto 100%;">
+<body dir="rtl" style="background-image: url({{asset('assets/images/website-bg-img.jpg')}}); background-size: auto 100%;">
     <!-- header -->
     <header>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -43,16 +27,16 @@
     <section>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
-                <p class="Hebah-Font text-center text-[#E3BD2F] text-[64px] mb-10">{{ nova_get_setting('title', '') }}
+                <p class="Hebah-Font text-center text-[#E3BD2F] text-[25px] md:text-[40px] lg:text-[64px] mb-10">{{ nova_get_setting('title', '') }}
                 </p>
                 <div class="text-white text-center">
-                    <p class="text-[35px] mb-10">
+                    <p class="text-[25px] md:text-[28px] lg:text-[35px] mb-10">
                         {{ nova_get_setting('subtitle', '') }}
                     </p>
-                    <p class="text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
+                    <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
                         {{ nova_get_setting('title_Second', '') }}
                     </p>
-                    <p class="text-[43px] bg-[#124A85] py-3 px-4">
+                    <p class="text-[23px] md:text-[35px] lg:text-[43px] bg-[#124A85] py-3 px-4">
                         {{ nova_get_setting('subtitle_Second', '') }}
                     </p>
                 </div>
@@ -64,7 +48,7 @@
                 <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
                     @foreach ($Contents as $Content)
                         <li class="mb-5">
-                            <p class="text-[27px] relative pr-10">
+                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
                                 {{ $Content->attributes->title }}
                             </p>
                         </li>
@@ -131,7 +115,7 @@
                                 <select name="area"
                                     class="bg-transparent w-full border border-gray-200 text-white py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-transparent focus:border-gray-500"
                                     id="grid-state">
-                                    <option>المنطقة التي تريد التعلم فيها</option>
+                                    <option class="text-[#000]">المنطقة التي تريد التعلم فيها</option>
                                     @foreach ($areas as $area)
                                         <option class="text-[#000]"> {{ $area->attributes->area }}</option>
                                     @endforeach
@@ -141,22 +125,17 @@
                         </div>
 
                     </div>
-                    <div class="flex gap-x-5 mt-10">
-                        <button
-                            class="bg-[#124A85] w-1/2 py-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm">
+                    <div class="sm:flex gap-x-5 mt-10">
+                        <button class="mb-4 mx-auto block bg-[#124A85] w-full sm:w-1/2 py-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm">
                             تسجيل الان
                         </button>
-                        <a href="#"
-                            class="bg-transparent w-1/2 py-4 text-center border hover:bg-transparent hover:text-[#EBBD22] hover:border-[#EBBD22] text-white font-bold py-2 px-4 rounded-sm">
+                        <a href="#" class="mb-4 mx-auto block bg-transparent sm:w-1/2 py-4 text-center border hover:bg-transparent hover:text-[#EBBD22] hover:border-[#EBBD22] text-white font-bold py-2 px-4 rounded-sm">
                             للمزيد من المعلومات
                         </a>
                     </div>
                 </form>
             </div>
         </div>
-
-
-
     </section>
     <!-- End page content -->
 
@@ -164,10 +143,9 @@
     <footer class="py-20">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
-                <div class="flex items-center">
-                    <img class="max-w-[300px]" src="{{ asset('assets/images/footer-books.png') }}"
-                        alt="footer books image">
-                    <p class="text-[32px] text-white">
+                <div class="md:flex items-center">
+                    <img class="mx-auto md:mx-0 md:mb-0 mb-5 max-w-[300px]" src="{{asset('assets/images/footer-books.png')}}" alt="footer books image">
+                    <p class="text-[25px] md:text-[27px] lg:text-[32px] text-white">
                         <span class="text-[#EBBD22]">{{ nova_get_setting('Title_Footer', '') }} - </span>
                         {{ nova_get_setting('sub_Title_Footer', '') }}
                     </p>
@@ -177,6 +155,22 @@
     </footer>
     <!-- /footer -->
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        @if (Session::has('success'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.success("{{ Session::get('success') }}");
+        @endif
+        @if ($errors->any())
+        @foreach ($errors->all() as $error)
+                toastr.error("{{ $error }}");
+            @endforeach
+        @endif
+    </script>
 </body>
 
 </html>
