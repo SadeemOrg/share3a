@@ -26,7 +26,8 @@
 
 </head>
 
-<body dir="rtl" class="" style="background-image: url({{asset('assets/images/bg-img.jpg')}}); background-size: auto 100%;">
+<body dir="rtl" class=""
+    style="background-image: url({{ asset('assets/images/bg-img.jpg') }}); background-size: auto 100%;">
     <!-- header -->
     <header>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -79,8 +80,15 @@
                         }
                         toastr.success("{{ Session::get('success') }}");
                     @endif
+                    @if (Session::has('error'))
+                        toastr.options = {
+                            "closeButton": true,
+                            "progressBar": true
+                        }
+                        toastr.error("{{ session('error') }}");
+                    @endif
                     @if ($errors->any())
-                    @foreach ($errors->all() as $error)
+                        @foreach ($errors->all() as $error)
                             toastr.error("{{ $error }}");
                         @endforeach
                     @endif
@@ -125,7 +133,7 @@
                                     id="grid-state">
                                     <option>المنطقة التي تريد التعلم فيها</option>
                                     @foreach ($areas as $area)
-                                        <option  class="text-[#000]">    {{ $area->attributes->area }}</option>
+                                        <option class="text-[#000]"> {{ $area->attributes->area }}</option>
                                     @endforeach
                                 </select>
 
@@ -134,10 +142,12 @@
 
                     </div>
                     <div class="flex gap-x-5 mt-10">
-                        <button class="bg-[#124A85] w-1/2 py-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm">
+                        <button
+                            class="bg-[#124A85] w-1/2 py-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm">
                             تسجيل الان
                         </button>
-                        <a href="#" class="bg-transparent w-1/2 py-4 text-center border hover:bg-transparent hover:text-[#EBBD22] hover:border-[#EBBD22] text-white font-bold py-2 px-4 rounded-sm">
+                        <a href="#"
+                            class="bg-transparent w-1/2 py-4 text-center border hover:bg-transparent hover:text-[#EBBD22] hover:border-[#EBBD22] text-white font-bold py-2 px-4 rounded-sm">
                             للمزيد من المعلومات
                         </a>
                     </div>
@@ -155,10 +165,12 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
                 <div class="flex items-center">
-                    <img class="max-w-[300px]" src="{{asset('assets/images/footer-books.png')}}" alt="footer books image">
+                    <img class="max-w-[300px]" src="{{ asset('assets/images/footer-books.png') }}"
+                        alt="footer books image">
                     <p class="text-[32px] text-white">
                         <span class="text-[#EBBD22]">{{ nova_get_setting('Title_Footer', '') }} - </span>
-                        {{ nova_get_setting('sub_Title_Footer', '') }}                    </p>
+                        {{ nova_get_setting('sub_Title_Footer', '') }}
+                    </p>
                 </div>
             </div>
         </div>
