@@ -57,7 +57,7 @@ class HomeController extends Controller
         $exist = RegisterForm::where('user_ip', $ip)->first();
         if ($exist) {
 
-            return back()->with('error','Data Deleted');
+            return back()->with('error','لقد سجلت مسبقا');
 
 
         }
