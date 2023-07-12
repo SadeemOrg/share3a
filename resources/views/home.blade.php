@@ -4,26 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>كلية الدعوة</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}?v={{ rand(0, 99) }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-
-     alpha/css/bootstrap.css"
-        rel="stylesheet">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
 </head>
 
 <body dir="rtl" style="background-image: url({{asset('assets/images/website-bg-img.jpg')}}); background-size: auto 100%;">
@@ -71,20 +56,7 @@
 
 
                 </ul>
-                <script>
-                    @if (Session::has('success'))
-                        toastr.options = {
-                            "closeButton": true,
-                            "progressBar": true
-                        }
-                        toastr.success("{{ Session::get('success') }}");
-                    @endif
-                    @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                            toastr.error("{{ $error }}");
-                        @endforeach
-                    @endif
-                </script>
+
                 <form class="w-full " method="post" action="{{ route('contact.store') }}">
                     <!-- CROSS Site Request Forgery Protection -->
                     @csrf
@@ -123,7 +95,7 @@
                                 <select name="area"
                                     class="bg-transparent w-full border border-gray-200 text-white py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-transparent focus:border-gray-500"
                                     id="grid-state">
-                                    <option>المنطقة التي تريد التعلم فيها</option>
+                                    <option class="text-[#000]">المنطقة التي تريد التعلم فيها</option>
                                     @foreach ($areas as $area)
                                         <option  class="text-[#000]">    {{ $area->attributes->area }}</option>
                                     @endforeach
@@ -144,9 +116,6 @@
                 </form>
             </div>
         </div>
-
-
-
     </section>
     <!-- End page content -->
 
@@ -165,6 +134,22 @@
     </footer>
     <!-- /footer -->
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        @if (Session::has('success'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.success("{{ Session::get('success') }}");
+        @endif
+        @if ($errors->any())
+        @foreach ($errors->all() as $error)
+                toastr.error("{{ $error }}");
+            @endforeach
+        @endif
+    </script>
 </body>
 
 </html>
