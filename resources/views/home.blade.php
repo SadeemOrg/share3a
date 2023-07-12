@@ -120,19 +120,20 @@
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="w-full px-3">
-                            <textarea name="" id="" class="block w-full bg-transparent text-white border border-white rounded-sm py-4 px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]" cols="30" rows="10" placeholder="هل لديك سؤال أو استفسار يمكن إضافته؟"></textarea>
+                            <textarea name="" id="" class="block w-full bg-transparent text-white border border-white rounded-sm py-4 px-4 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]" cols="30" rows="10" placeholder="هل لديك سؤال أو استفسار يمكن إضافته؟"></textarea>
                         </div>
                     </div>
-                    <p class="text-white TheSansArabic-regular text-[14px] mt-5">
-                        <span class="text-[#EBBD22] ">ملاحظة:</span>
-                        طاقم الكلية سوف يعود للتواصل معك لتأكيد عملية تسجيلك.
-                    </p>
-                    <div class="text-right mt-5">
+
+                    <div class="text-right mb-5">
                         <button
-                            class="mb-4 block bg-[#124A85] px-20 md:w-1/2 py-4 hover:bg-blue-700 text-white font-bold py-2 rounded-sm">
+                            class="mb-4 block bg-[#124A85] px-20 w-full py-4 hover:bg-blue-700 text-white font-bold py-2 rounded-sm">
                             تسجيل الان
                         </button>
                     </div>
+                    <p class="text-white TheSansArabic-regular text-[14px]">
+                        <span class="text-[#EBBD22] ">ملاحظة:</span>
+                        طاقم الكلية سوف يعود للتواصل معك لتأكيد عملية تسجيلك.
+                    </p>
                 </form>
             </div>
         </div>
