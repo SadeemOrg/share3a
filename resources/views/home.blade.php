@@ -67,7 +67,7 @@
                             "progressBar": true
                         }
 
-                        toastr.success("{{ Session::get('error') }}");
+
 
                         toastr.error("{{ Session::get('error') }}");
                     @endif
