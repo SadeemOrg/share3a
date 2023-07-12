@@ -20,7 +20,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         parent::boot();
 
         \Outl1ne\NovaSettings\NovaSettings::addSettingsFields([
-            Image::make(__('logo Image'), 'logo')->disk('public'),
+            Image::make(__('First_Image'), 'First_Image')->disk('public'),
+            Image::make(__('Second Image'), 'Second_Image')->disk('public'),
+            Image::make(__('Third Image'), 'third_Image')->disk('public'),
             Text::make(__('Title'), 'title'),
             Text::make(__('sub Title'), 'subtitle'),
             Text::make(__('Title Second'), 'title_Second'),
