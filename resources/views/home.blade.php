@@ -157,9 +157,8 @@
                 <div class="flex items-center">
                     <img class="max-w-[300px]" src="{{asset('assets/images/footer-books.png')}}" alt="footer books image">
                     <p class="text-[32px] text-white">
-                        <span class="text-[#EBBD22]">مجانا - </span>
-                        يمكنكم الالتحاق مجانا بدورات تعليم أحكام التجويد عبر تطبيق الزوم.
-                    </p>
+                        <span class="text-[#EBBD22]">{{ nova_get_setting('Title_Footer', '') }} - </span>
+                        {{ nova_get_setting('sub_Title_Footer', '') }}                    </p>
                 </div>
             </div>
         </div>
