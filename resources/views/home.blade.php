@@ -16,8 +16,20 @@
     <header>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
-                <img src="{{ asset('assets/logos-header.svg') }}" alt="">
+                {{-- <img src="{{ asset('assets/logos-header.svg') }}" alt=""> --}}
+                <div class="grid grid-cols-3 gap-6 ">
+                    <div class="col-span-1 flex justify-center items-center">
+                        <img class="max-w-[220px] w-full mx-auto" src="{{asset('assets/images/header-logos/rt-logo.svg')}}" alt="left logo">
+                    </div>
+                    <div class="col-span-1 flex justify-center items-center">
+                        <img class="max-w-[220px] w-full mx-auto" src="{{asset('assets/images/header-logos/middle-logo.svg')}}" alt="left logo">
+                    </div>
+                    <div class="col-span-1 flex justify-center items-center">
+                        <img class="max-w-[220px] w-full mx-auto" src="{{asset('assets/images/header-logos/lt-logo.svg')}}" alt="left logo">
+                    </div>
+                </div>
             </div>
+
         </div>
 
     </header>
