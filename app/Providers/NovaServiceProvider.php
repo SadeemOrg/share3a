@@ -34,7 +34,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 Text::make('Title'),
 
             ]),
-            Flexible::make('المنطقة التي تريد التعلم فيها','area')
+            Flexible::make('    ','area')
             ->addLayout('Simple content section', 'Content', [
                 Text::make('area'),
 
