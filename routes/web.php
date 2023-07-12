@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', function () {
+Route::get('/كلية_الدعوة', function () {
     return view('home');
 });
 
