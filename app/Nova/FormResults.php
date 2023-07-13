@@ -9,6 +9,8 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Whitecube\NovaFlexibleContent\Flexible;
 use R64\NovaFields\JSON;
+use Manogi\Tiptap\Tiptap;
+use Illuminate\Support\Str;
 
 class FormResults extends Resource
 {
@@ -56,15 +58,27 @@ class FormResults extends Resource
             Text::make('user_ip', 'user_ip'),
             Text::make('os', 'os'),
             Text::make('browser', 'browser'),
-            Textarea::make('result', 'result', function () {
-                $data = "";
-                // dd($this->result);
+            Tiptap::make('result', 'browser', function () {
+                $data = " ";
+                $healthy = ["__", "_"];
+                $yummy   = ["  ", "  "];
+                // dd( Str::replace('-', '/', '12-28-2021'));
                 foreach (json_decode($this->result) as $key => $value) {
-                    // dd($key,$value);
-                    $data .= "" .    $value->questionskey .  ' == ' . $value->questionsanswerkey ;
+                    // $series = str_replace(' ',   $healthy, $value->questionskey);
+                    // dd( $series);
+                    $data .= "<p>" .   str_replace( $healthy,  $yummy, $value->questionskey)  .  ' :' . $value->questionsanswerkey . '</p>';
                 }
                 return $data;
-            }),
+            })->alwaysShow(),
+            // Textarea::make('result', 'result', function () {
+            //     $data = "";
+            //     // dd($this->result);
+            //     foreach (json_decode($this->result) as $key => $value) {
+            //         // dd($key,$value);
+            //         $data .= "" .    $value->questionskey .  ' == ' . $value->questionsanswerkey ;
+            //     }
+            //     return $data;
+            // }),
 
 
         ];
