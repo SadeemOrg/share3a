@@ -11,6 +11,11 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Sietse85\NovaButton\Button;
 class RegisterForm extends Resource
 {
+
+    public static function availableForNavigation(Request $request)
+    {
+        return false;
+    }
     /**
      * The model the resource corresponds to.
      *

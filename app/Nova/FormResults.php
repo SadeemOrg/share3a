@@ -2,37 +2,37 @@
 
 namespace App\Nova;
 
-use App\Models\Form;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules;
-use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Outl1ne\MultiselectField\Multiselect;
+use Whitecube\NovaFlexibleContent\Flexible;
+use R64\NovaFields\JSON;
 
-class User extends Resource
+class FormResults extends Resource
 {
-
+    public static function availableForNavigation(Request $request)
+    {
+        return false;
+    }
     public static function label()
     {
-        return __('ادارة المستخدمين ');
+        return __('ادارة المشاركين ');
     }
-
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\User>
+     * @var class-string<\App\Models\FormResults>
      */
-    public static $model = \App\Models\User::class;
+    public static $model = \App\Models\FormResults::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -40,9 +40,8 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id',
     ];
-
 
     /**
      * Get the fields displayed by the resource.
@@ -54,38 +53,20 @@ class User extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('user_ip', 'user_ip'),
+            Text::make('os', 'os'),
+            Text::make('browser', 'browser'),
+            Textarea::make('result', 'result', function () {
+                $data = "";
+                // dd($this->result);
+                foreach (json_decode($this->result) as $key => $value) {
+                    // dd($key,$value);
+                    $data .= "" .    $value->questionskey .  ' == ' . $value->questionsanswerkey ;
+                }
+                return $data;
+            }),
 
-            Gravatar::make()->maxWidth(50),
 
-            Text::make('Name')
-                ->sortable()
-                ->rules('required', 'max:255'),
-
-            Text::make('Email')
-                ->sortable()
-                ->rules('required', 'email', 'max:254')
-                ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{resourceId}}'),
-
-
-            // Async model querying
-            Multiselect::make('Form Admin', 'roles')
-            ->options(function(){
-              $forms=  Form::all();
-              $address_type_admin_array =  array();
-
-              foreach ($forms as $forms) {
-
-                  $address_type_admin_array += [$forms['id'] => ($forms['name'])];
-
-              }
-                return $address_type_admin_array;
-            })
-                ,
-            Password::make('Password')
-                ->onlyOnForms()
-                ->creationRules('required', Rules\Password::defaults())
-                ->updateRules('nullable', Rules\Password::defaults()),
         ];
     }
 

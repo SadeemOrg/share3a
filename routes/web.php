@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Models\Form;
+use App\Models\FormResults;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +22,14 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', '/كلية_الدعوة');//ok
 
 Route::get('/كلية_الدعوة', function () {
-    return view('home');
+    $forms=Form::where("slug",'كلية_الدعوة')->first();
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $exist = FormResults::where('form_id', $forms->id)->where('user_ip', $ip)->first();
+    // dd($exist);
+    if ($exist) {
+        return view('thanks');
+    }
+    return view('home',compact( 'forms'));
 });
 Route::get('/thanks', function () {
     return view('thanks');
@@ -28,3 +37,10 @@ Route::get('/thanks', function () {
 
 
 Route::post('/contact', [HomeController::class, 'RegisterForm'])->name('contact.store');
+Route::post('/contact', [HomeController::class, 'formstore'])->name('form.store');
+
+
+Route::get('/forms/{slug}', function ($slug) {
+   $forms=Form::where("slug",$slug)->first();
+    return view('form',compact( 'forms'));
+});

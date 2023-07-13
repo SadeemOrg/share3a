@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}?v={{ rand(0, 99) }}">
 </head>
 
-<body dir="rtl" style="background-image: url({{asset('assets/images/website-bg-img.webp')}}); background-size: auto 100%;">
+<body dir="rtl"
+    style="background-image: url({{ asset('assets/images/website-bg-img.webp') }}); background-size: auto 100%;">
     <!-- header -->
     <header>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -19,13 +20,16 @@
                 {{-- <img src="{{ asset('assets/logos-header.svg') }}" alt=""> --}}
                 <div class="grid grid-cols-3 gap-6 ">
                     <div class="col-span-1 flex justify-center items-center">
-                        <img class="max-w-[220px] w-full mx-auto" src="{{asset('assets/images/header-logos/rt-logo.svg')}}" alt="left logo">
+                        <img class="max-w-[220px] w-full mx-auto"
+                            src="{{ asset('assets/images/header-logos/rt-logo.svg') }}" alt="left logo">
                     </div>
                     <div class="col-span-1 flex justify-center items-center">
-                        <img class="max-w-[220px] w-full mx-auto" src="{{asset('assets/images/header-logos/middle-logo.svg')}}" alt="left logo">
+                        <img class="max-w-[220px] w-full mx-auto"
+                            src="{{ asset('assets/images/header-logos/middle-logo.svg') }}" alt="left logo">
                     </div>
                     <div class="col-span-1 flex justify-center items-center">
-                        <img class="max-w-[220px] w-full mx-auto" src="{{asset('assets/images/header-logos/lt-logo.svg')}}" alt="left logo">
+                        <img class="max-w-[220px] w-full mx-auto"
+                            src="{{ asset('assets/images/header-logos/lt-logo.svg') }}" alt="left logo">
                     </div>
                 </div>
             </div>
@@ -40,42 +44,21 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
                 <p class="Hebah-Font text-center text-[#E3BD2F] text-[25px] md:text-[40px] lg:text-[64px] mb-10">
-                    {{ nova_get_setting('title', '') }}
+                    {{ $forms->text }}
                 </p>
                 <div class="text-white text-center">
                     <p class="text-[25px] md:text-[28px] lg:text-[35px] mb-10">
-                        {{ nova_get_setting('subtitle', '') }}
+                        {{ $forms->sup_text }}
                     </p>
-                    <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
-                        {{ nova_get_setting('title_Second', '') }}
-                    </p>
-                    <p class="text-[23px] md:text-[35px] lg:text-[43px] bg-[#124A85] py-3 px-4">
-                        {{ nova_get_setting('subtitle_Second', '') }}
-                    </p>
+
                 </div>
                 @php
-                    $Contents = nova_get_setting('Content', '');
-                    $Contents = json_decode($Contents);
+                    $questions = $forms->questions;
+                    $questions = json_decode($questions);
 
                 @endphp
-                <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
-                    @foreach ($Contents as $Content)
-                        <li class="mb-5">
-                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                {{ $Content->attributes->title }}
-                            </p>
-                        </li>
-                    @endforeach
 
 
-                </ul>
-
-
-                @php
-                $questions = $forms->questions;
-                $questions = json_decode($questions);
-
-            @endphp
 
                 <form class="w-full " method="post" action="{{ route('form.store') }}">
 
@@ -168,7 +151,8 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
                 <div class="md:flex items-center">
-                    <img class="mx-auto md:mx-0 md:mb-0 mb-5 max-w-[300px]" src="{{asset('assets/images/footer-books.webp')}}" alt="footer books image">
+                    <img class="mx-auto md:mx-0 md:mb-0 mb-5 max-w-[300px]"
+                        src="{{ asset('assets/images/footer-books.webp') }}" alt="footer books image">
                     <p class="text-[25px] md:text-[27px] lg:text-[32px] text-white">
                         <span class="text-[#EBBD22]">{{ nova_get_setting('Title_Footer', '') }} - </span>
                         {{ nova_get_setting('sub_Title_Footer', '') }}

@@ -4,8 +4,59 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb7657c0934f405df2235240a177e3f8",
+    "content-hash": "1c960774027340f0b00ea9de8f977f5b",
     "packages": [
+        {
+            "name": "64robots/nova-fields",
+            "version": "0.22.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/64robots/nova-fields.git",
+                "reference": "d3492da7ceaa362cde414f4435f018836fd22fa3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/64robots/nova-fields/zipball/d3492da7ceaa362cde414f4435f018836fd22fa3",
+                "reference": "d3492da7ceaa362cde414f4435f018836fd22fa3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "R64\\NovaFields\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "R64\\NovaFields\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "support": {
+                "issues": "https://github.com/64robots/nova-fields/issues",
+                "source": "https://github.com/64robots/nova-fields/tree/0.22.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/beliolfa",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-08-13T13:00:45+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.11.0",
@@ -1446,6 +1497,59 @@
                 }
             ],
             "time": "2023-01-17T01:02:51+00:00"
+        },
+        {
+            "name": "joshmoreno/nova-html-field",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JoshMoreno/nova-html-field.git",
+                "reference": "9ca4b160d102ac5a4019347a18266d7465113355"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JoshMoreno/nova-html-field/zipball/9ca4b160d102ac5a4019347a18266d7465113355",
+                "reference": "9ca4b160d102ac5a4019347a18266d7465113355",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "JoshMoreno\\Html\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JoshMoreno\\Html\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Josh Moreno",
+                    "email": "josh@joshmoreno.com"
+                }
+            ],
+            "description": "A Laravel Nova field for rendering custom html on index, detail, and forms.",
+            "keywords": [
+                "field",
+                "html",
+                "laravel",
+                "nova"
+            ],
+            "support": {
+                "issues": "https://github.com/JoshMoreno/nova-html-field/issues",
+                "source": "https://github.com/JoshMoreno/nova-html-field/tree/v0.1.0"
+            },
+            "time": "2020-03-20T16:24:28+00:00"
         },
         {
             "name": "laravel/framework",
@@ -3045,6 +3149,74 @@
                 }
             ],
             "time": "2023-06-19T07:48:22+00:00"
+        },
+        {
+            "name": "outl1ne/nova-multiselect-field",
+            "version": "4.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/outl1ne/nova-multiselect-field.git",
+                "reference": "8a3b37ed508a0495aaa6e57d0b92ce45fec49db2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/outl1ne/nova-multiselect-field/zipball/8a3b37ed508a0495aaa6e57d0b92ce45fec49db2",
+                "reference": "8a3b37ed508a0495aaa6e57d0b92ce45fec49db2",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": "^4.1",
+                "nova-kit/nova-packages-tool": "^1.0.1",
+                "outl1ne/nova-translations-loader": "^5.0",
+                "php": ">=8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Outl1ne\\MultiselectField\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Outl1ne\\MultiselectField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tarvo Reinpalu",
+                    "email": "tarvoreinpalu@gmail.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Optimist Digital",
+                    "email": "info@optimistdigital.com",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A multiple select field for Laravel Nova.",
+            "keywords": [
+                "laravel",
+                "multiselect",
+                "nova",
+                "select"
+            ],
+            "support": {
+                "issues": "https://github.com/outl1ne/nova-multiselect-field/issues",
+                "source": "https://github.com/outl1ne/nova-multiselect-field/tree/4.3.5"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/outl1ne",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-06-30T08:47:23+00:00"
         },
         {
             "name": "outl1ne/nova-settings",

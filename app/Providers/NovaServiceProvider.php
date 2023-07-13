@@ -43,7 +43,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             Text::make(__('Title Footer'), 'Title_Footer'),
             Text::make(__('sub Title Footer'), 'sub_Title_Footer'),
 
-        ]);
+        ], ['logo' => 'collection',], __('كلية الدعوة' ))س;
+
     }
 
     /**
