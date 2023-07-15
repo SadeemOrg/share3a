@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ExportForm;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -11,7 +12,7 @@ use Whitecube\NovaFlexibleContent\Flexible;
 use R64\NovaFields\JSON;
 use Manogi\Tiptap\Tiptap;
 use Illuminate\Support\Str;
-
+use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 class FormResults extends Resource
 {
     public static function availableForNavigation(Request $request)
@@ -125,6 +126,12 @@ class FormResults extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+
+
+        return [
+            // new ExportForm(),
+        //   (  new DownloadExcel())->withHeadings(),
+            // new DownloadExcel,
+        ];
     }
 }

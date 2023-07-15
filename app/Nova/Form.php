@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ExportForm;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
@@ -111,7 +112,9 @@ class Form extends Resource
      */
     public function filters(NovaRequest $request)
     {
-        return [];
+        return [
+
+        ];
     }
 
     /**
@@ -133,6 +136,8 @@ class Form extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new ExportForm(),
+        ];
     }
 }

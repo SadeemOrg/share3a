@@ -44,3 +44,7 @@ Route::get('/forms/{slug}', function ($slug) {
    $forms=Form::where("slug",$slug)->first();
     return view('form',compact( 'forms'));
 });
+
+
+
+Route::get('/export-users/{key}',[HomeController::class,'exportUsers'])->name('export-users');
