@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.1",
@@ -18,11 +21,17 @@
         "outl1ne/nova-multiselect-field": "^4.3",
         "outl1ne/nova-settings": "^5.2",
         "sietse85/nova-button": "^1.0",
-        "whitecube/nova-flexible-content": "^1.0"
-    },"repositories": [
+        "whitecube/nova-flexible-content": "^1.0",
+        "acme/analytics": "@dev"
+    },
+    "repositories": [
         {
             "type": "composer",
             "url": "https://nova.laravel.com"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Analytics"
         }
     ],
     "require-dev": {
