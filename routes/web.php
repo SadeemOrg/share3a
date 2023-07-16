@@ -35,6 +35,11 @@ Route::get('/thanks', function () {
     return view('thanks');
 });
 
+Route::get('/register_2_lpage', function () {
+    return view('light_lpage');
+});
+
+
 
 Route::post('/contact', [HomeController::class, 'RegisterForm'])->name('contact.store');
 Route::post('/contact', [HomeController::class, 'formstore'])->name('form.store');
