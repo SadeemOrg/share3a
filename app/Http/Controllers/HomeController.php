@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportForm;
+use App\Exports\ExportUser;
 use App\Models\FormResults;
 use App\Models\RegisterForm;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HomeController extends Controller
 {
@@ -224,5 +227,15 @@ class HomeController extends Controller
         $RegisterForm->save();
         //
         return back()->with('success', 'شكرا');
+    }
+
+
+    public function exportUsers(Request $request,$key){
+        // dd( $request->all());
+        $array = [];
+
+        array_push($array, 12);
+
+        return Excel::download(new ExportForm( $key ), 'users123.xlsx');
     }
 }

@@ -46,6 +46,18 @@ Route::post('/contact', [HomeController::class, 'formstore'])->name('form.store'
 
 
 Route::get('/forms/{slug}', function ($slug) {
-   $forms=Form::where("slug",$slug)->first();
-    return view('form',compact( 'forms'));
+
+    $forms=Form::where("slug",$slug)->first();
+    // $ip = $_SERVER['REMOTE_ADDR'];
+    // $exist = FormResults::where('form_id', $forms->id)->where('user_ip', $ip)->first();
+    // // dd($exist);
+    // if ($exist) {
+    //     return view('thanks');
+    // }
+    return view('light_lpage',compact( 'forms'));
+
 });
+
+
+
+Route::get('/export-users/{key}',[HomeController::class,'exportUsers'])->name('export-users');

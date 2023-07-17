@@ -2,12 +2,15 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ExportForm;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Whitecube\NovaFlexibleContent\Flexible;
+use Sietse85\NovaButton\Button;
 
 class Form extends Resource
 {
@@ -60,10 +63,12 @@ class Form extends Resource
     {
         return [
             ID::make()->sortable(),
+
             Text::make('Name', 'name'),
             Text::make('slug', 'slug'),
             Text::make('text', 'text'),
             Text::make('sup_text', 'sup_text'),
+            File::make('Profile Photo or vidio','file')->disk('public'),
             Flexible::make('questions', 'questions')
                 ->addLayout('Add select', 'select', [
                     Text::make('name'),
@@ -111,7 +116,9 @@ class Form extends Resource
      */
     public function filters(NovaRequest $request)
     {
-        return [];
+        return [
+
+        ];
     }
 
     /**
@@ -133,6 +140,8 @@ class Form extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new ExportForm(),
+        ];
     }
 }
