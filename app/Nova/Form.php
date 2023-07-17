@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Nova\Actions\ExportForm;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -65,6 +66,7 @@ class Form extends Resource
             Text::make('slug', 'slug'),
             Text::make('text', 'text'),
             Text::make('sup_text', 'sup_text'),
+            File::make('Profile Photo or vidio','file')->disk('public'),
             Flexible::make('questions', 'questions')
                 ->addLayout('Add select', 'select', [
                     Text::make('name'),

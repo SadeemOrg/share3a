@@ -58,8 +58,6 @@
 
                 @endphp
 
-
-
                 <form class="w-full " method="post" action="{{ route('form.store') }}">
 
                     <input type="hidden" name='formid' value="{{ $forms->id }}">
@@ -69,33 +67,30 @@
                         @if ($question->layout == 'select')
                             <div class="flex flex-wrap -mx-3 mb-6">
                                 <div class="w-full px-3">
-
                                     <div class="relative">
-                                        <select name="area"
-                                            class="bg-transparent w-full border border-gray-200 text-white py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-transparent focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
+                                        <select name='{{ $question->attributes->name }}'
+                                            class="bg-[#f7f7f8] w-full border border-[#115A48] text-[#115A48] py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-[#f7f7f8] focus:ring-0 focus:outline-transparent focus:border-[#E3BD2F]"
                                             id="grid-state">
-                                            <option class="text-[#000]" name='{{ $question->attributes->name }}'>
-                                                {{ $question->attributes->name }}</option>
+                                            <option class="text-[#000]" name='{{ $question->attributes->name }}'>{{ $question->attributes->name }}</option>
                                             @foreach ($question->attributes->selectform as $selectform)
-                                                <option value="{{ $selectform->attributes->text }}"
-                                                    class="text-[#000]"> {{ $selectform->attributes->text }}
-                                                </option>
+                                                <option value="{{ $selectform->attributes->text }}" class="text-[#000]"> {{ $selectform->attributes->text }}</option>
                                             @endforeach
                                         </select>
 
                                     </div>
+
                                 </div>
                             </div>
                         @endif
                         @if ($question->layout == 'text')
-                            <div class="flex flex-wrap -mx-3 mb-6">
-                                <div class="w-full px-3">
-                                    <input name="{{ $question->attributes->text }}"
-                                        class="block w-full bg-transparent text-white border border-white rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
-                                        id="grid-password" type="text"
-                                        placeholder="{{ $question->attributes->text }}">
-                                </div>
+                        <div class="flex flex-wrap -mx-3 mb-6">
+                            <div class="w-full px-3">
+                                <input name="{{ $question->attributes->text }}"
+                                    class="block w-full bg-[#f7f7f8] placeholder:text-[#f7f7f8] text-[#115A48] border border-[#115A48] rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#E3BD2F]"
+                                    id="grid-password" type="text" placeholder="{{ $question->attributes->text }}">
                             </div>
+                        </div>
+
                         @endif
                         @if ($question->layout == 'boolean')
                             <div class="flex flex-wrap -mx-3 mb-6">
@@ -109,13 +104,12 @@
                             </div>
                         @endif
                         @if ($question->layout == 'Note')
-                            <div class="flex flex-wrap -mx-3 mb-6">
-                                <div class="w-full px-3">
-                                    <textarea name="{{ $question->attributes->text }}" id=""
-                                        class="block w-full bg-transparent text-white border border-white rounded-sm py-4 px-4 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
-                                        cols="30" rows="10" placeholder="{{ $question->attributes->text }}"></textarea>
-                                </div>
+                        <div class="flex flex-wrap -mx-3 mb-6">
+                            <div class="w-full px-3">
+                                <textarea name="{{ $question->attributes->text }}" id="" class="block w-full bg-[#f7f7f8] text-[#115A48] border border-white rounded-sm py-4 px-4 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#E3BD2F]" cols="30" rows="10" placeholder="{{ $question->attributes->text }}"></textarea>
                             </div>
+                        </div>
+
                         @endif
                     @endforeach
 
