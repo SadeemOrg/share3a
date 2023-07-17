@@ -16,7 +16,9 @@ use Laravel\Nova\Fields\File;
 use Illuminate\Http\Request;
 use Laravel\Nova\Menu\MenuItem;
 use Laravel\Nova\Menu\MenuSection;
-
+use Eminiarts\Tabs\Traits\HasTabs;
+use Eminiarts\Tabs\Tabs;
+use Eminiarts\Tabs\Tab;
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
     /**
@@ -37,12 +39,35 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             ])->icon('user')->collapsable(),
             MenuSection::make(__('ادارة المحتوي'), [
                 MenuSection::make(__('كلية الدعوى'))->path('/nova-settings/kly-aldaao'),
-                // MenuSection::make( __('Counct us'))->path('nova-settings/count-us'),
+                MenuSection::make( __('الرئيسبة'))->path('/nova-settings/main-layout'),
                 // MenuSection::make( __('Footer link'))->path('/nova-settings/footer-link'),
             ])->icon('adjustments')->collapsable(),
             ];
         });
 
+        \Outl1ne\NovaSettings\NovaSettings::addSettingsFields([
+
+            Tabs::make(__('Some Title'), [
+            Tab::make(__('Header'), [
+                Image::make('Heade Logo', 'header_logo'),
+                Text::make(__('phone number'), 'header_phone_number'),
+
+
+            ]),
+
+        ]),
+        Tabs::make(__('Some Title'), [
+            Tab::make(__('Footer'), [
+                Image::make('Footer Logo', 'footer_logo'),
+
+                Text::make(__('Main Text'), 'main_text_footer'),
+                Text::make(__('phone number'), 'footer_phone_number'),
+
+
+            ]),
+        ]),
+
+        ], ['logo' => 'collection',], __('main layout' ));
         \Outl1ne\NovaSettings\NovaSettings::addSettingsFields([
             // File::make(__('First_Image'), 'First_Image')->disk('public'),
             // File::make(__('Second Image'), 'Second_Image'),

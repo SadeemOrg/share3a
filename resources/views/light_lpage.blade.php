@@ -20,11 +20,31 @@
             <div class="mx-auto max-w-4xl">
                 {{-- <img src="{{ asset('assets/logos-header.svg') }}" alt=""> --}}
                 <div class="flex justify-between items-center">
+
                     <div>
-                        <a href="/register_2_lpage">
+                        @php
+                        $imageExtensions = ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'svg', 'svgz', 'cgm', 'djv', 'djvu', 'ico', 'ief', 'jpe', 'pbm', 'pgm', 'pnm', 'ppm', 'ras', 'rgb', 'tif', 'tiff', 'wbmp', 'xbm', 'xpm', 'xwd'];
+
+                        $explodeImage =  nova_get_setting('header_logo', '') ;
+
+
+
+                    @endphp
+                    {{-- @dd(gettype($forms->file)) --}}
+
+                         @if ( $explodeImage=='')
+                         <a href="/register_2_lpage">
                             <img class="max-w-[180px] sm:max-w-[220px] w-full mx-auto"
                                 src="{{ asset('assets/images/lpage-2/logo-2.svg') }}" alt="left logo">
                         </a>
+                        @else
+                        <a href="/register_2_lpage">
+                            <img class="max-w-[180px] sm:max-w-[220px] w-full mx-auto"
+                                src="/storage/{{ nova_get_setting('header_logo', '') }}" alt="left logo">
+                        </a>
+
+                         @endif
+
                     </div>
                     <div class="flex gap-x-3 items-center">
                         <svg width="40" height="40" viewBox="0 0 49 49" fill="none"
@@ -44,7 +64,7 @@
                             </defs>
                         </svg>
                         <a href="tel: +2614516161203266">
-                            2614516161203266
+                            {{ nova_get_setting('header_phone_number', '') }}
                         </a>
                     </div>
                 </div>

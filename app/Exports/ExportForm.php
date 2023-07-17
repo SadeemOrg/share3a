@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\Form;
 use App\Models\FormResults;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -24,13 +25,24 @@ class ExportForm implements FromCollection, WithHeadings
         array_push($array, 'os');
         $healthy = ["__", "_"];
         $yummy   = ["  ", "  "];
-        $FormResults = FormResults::where('form_id',  $this->year )->first();
 
-        foreach (json_decode($FormResults->result) as $key => $value) {
-            // $series = str_replace(' ',   $healthy, $value->questionskey);
-            // dd( $series);
-            array_push($array, str_replace($healthy,  $yummy, $value->questionskey));
+        $form = Form::where('id',  $this->year)->first();
+        $questions = $form->questions;
+        $questions = json_decode($questions);
+        foreach ($questions as $question) {
+            if ($question->layout == 'select') {
+                array_push($array, str_replace($healthy,  $yummy, $question->attributes->name));
+
+            } else {
+                array_push($array, str_replace($healthy,  $yummy, $question->attributes->text));
+
+            }
         }
+        // foreach (json_decode($FormResults->result) as $key => $value) {
+        //     // $series = str_replace(' ',   $healthy, $value->questionskey);
+        //     // dd( $series);
+        //     array_push($array, str_replace($healthy,  $yummy, $value->questionskey));
+        // }
 
 
         // dd($array);
@@ -43,7 +55,7 @@ class ExportForm implements FromCollection, WithHeadings
      */
     public function collection()
     {
-// dd($this->year);
+        // dd($this->year);
         $FormResults = FormResults::select('user_ip', 'result', 'browser', 'os')->where('form_id', $this->year)->get();
 
 

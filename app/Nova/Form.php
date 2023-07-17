@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Whitecube\NovaFlexibleContent\Flexible;
+use Sietse85\NovaButton\Button;
 
 class Form extends Resource
 {
@@ -62,6 +63,7 @@ class Form extends Resource
     {
         return [
             ID::make()->sortable(),
+
             Text::make('Name', 'name'),
             Text::make('slug', 'slug'),
             Text::make('text', 'text'),

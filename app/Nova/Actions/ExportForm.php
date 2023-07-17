@@ -15,6 +15,8 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ExportForm extends Action
 {
+    public $showOnTableRow = true;
+
     use InteractsWithQueue, Queueable;
 
     /**
@@ -26,9 +28,10 @@ class ExportForm extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-
-        return Action::download(url('/export-users/'.$models[0]->id),'aaa.cvs');
-        $array = [];
+        foreach ($models as $key => $value) {
+                return   Action::download(url('/export-users/' . $value->id), 'aaa.cvs');
+            }
+         $array = [];
 
 
         foreach ($models as $model) {
@@ -37,7 +40,6 @@ class ExportForm extends Action
         }
         // dd($array);
         return redirect('/export-users');
-
     }
 
     /**

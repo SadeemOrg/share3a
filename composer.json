@@ -10,6 +10,8 @@
     "require": {
         "php": "^8.1",
         "64robots/nova-fields": "^0.22.0",
+        "acme/analytics": "@dev",
+        "eminiarts/nova-tabs": "^2.2",
         "guzzlehttp/guzzle": "^7.2",
         "joshmoreno/nova-html-field": "^0.1.0",
         "laravel/framework": "^10.10",
@@ -21,8 +23,7 @@
         "outl1ne/nova-multiselect-field": "^4.3",
         "outl1ne/nova-settings": "^5.2",
         "sietse85/nova-button": "^1.0",
-        "whitecube/nova-flexible-content": "^1.0",
-        "acme/analytics": "@dev"
+        "whitecube/nova-flexible-content": "^1.0"
     },
     "repositories": [
         {
