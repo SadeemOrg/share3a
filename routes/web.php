@@ -35,6 +35,10 @@ Route::get('/thanks', function () {
     return view('thanks');
 });
 
+Route::get('/home', function () {
+    return view('home1');
+});
+
 Route::get('/register_2_lpage', function () {
     return view('light_lpage');
 });
