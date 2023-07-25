@@ -73,7 +73,7 @@ class User extends Resource
             ->options(function(){
               $forms=  Form::all();
               $address_type_admin_array =  array();
-
+              $address_type_admin_array += ['0' => 'SuperAdmin'];
               foreach ($forms as $forms) {
 
                   $address_type_admin_array += [$forms['id'] => ($forms['name'])];
