@@ -48,13 +48,38 @@ class Form extends Resource
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
+    // public static function authorizedToCreate(Request $request)
+    // {
+    //     if ((in_array("0",json_decode(  $request->user()->userrole()) ))){
 
+    //         return true;
+    //     }
+    // }
+    // public  function authorizedToUpdate(Request $request)
+    // {
+    //     if ((in_array("0",json_decode(  $request->user()->userrole()) ))){
+
+    //         return true;
+    //     }
+    // }
+    // public function authorizedToDelete(Request $request)
+    // {
+    //     if ((in_array("0",json_decode(  $request->user()->userrole()) ))){
+
+    //         return true;
+    //     }
+    // }
      public static function indexQuery(NovaRequest $request, $query)
      {
-
+        // dd( $request->user()->userrole());
+        if ((in_array("0",json_decode(  $request->user()->userrole()) ))){
+            // dd("dd");
+            return $query;
+        }
         //  dd(in_array("1",  $request->user()->userrole()));/
         //  dd(in_array("1",json_decode( $request->user()->userrole())));
 // dd(gettype( $request->user()->userrole()));
+
 
          return $query->wherein('id',   json_decode( $request->user()->userrole()));
 

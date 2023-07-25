@@ -39,7 +39,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             ])->icon('user')->collapsable(),
             MenuSection::make(__('ادارة المحتوي'), [
                 MenuSection::make(__('كلية الدعوى'))->path('/nova-settings/kly-aldaao'),
-                MenuSection::make( __('الرئيسبة'))->path('/nova-settings/main-layout'),
+                MenuSection::make( __('الرئيسبة'))->path('/nova-settings/dd'),
                 // MenuSection::make( __('Footer link'))->path('/nova-settings/footer-link'),
             ])->icon('adjustments')->collapsable(),
             ];
@@ -49,6 +49,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
             Tabs::make(__('Some Title'), [
             Tab::make(__('Header'), [
+     File::make('Profile Photo')->disk('local'),
                 Image::make('Heade Logo', 'header_logo'),
                 Text::make(__('phone number'), 'header_phone_number'),
 
@@ -67,7 +68,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             ]),
         ]),
 
-        ], ['logo' => 'collection',], __('main layout' ));
+        ], ['logo' => 'collection',], __('main layout'));
         \Outl1ne\NovaSettings\NovaSettings::addSettingsFields([
             // File::make(__('First_Image'), 'First_Image')->disk('public'),
             // File::make(__('Second Image'), 'Second_Image'),
@@ -82,7 +83,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 Text::make('Title'),
 
             ]),
-
+     File::make('Profile Photo')->disk('local'),
             File::make(__('Image'), 'Image_Footer'),
             Text::make(__('Title Footer'), 'Title_Footer'),
             Text::make(__('sub Title Footer'), 'sub_Title_Footer'),
@@ -138,7 +139,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            new \Outl1ne\NovaSettings\NovaSettings
+            new \Outl1ne\NovaSettings\NovaSettings,
+            new \Badinansoft\LanguageSwitch\LanguageSwitch(),
         ];
     }
 
