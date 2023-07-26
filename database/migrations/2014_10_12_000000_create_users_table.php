@@ -17,6 +17,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->char('roles',2)->nullable();
+            // $table->unsignedBigInteger('user_id');
+            $table->json('pages')->nullable();
+            $table->foreignId('added_by')->nullable()->constrained()->cascadeOnDelete()->on('users');
+            $table->char('status')->default('0');
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

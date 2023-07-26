@@ -12,7 +12,9 @@
         "64robots/nova-fields": "^0.22.0",
         "acme/analytics": "@dev",
         "badinansoft/nova-language-switch": "^1.2",
+        "benjacho/belongs-to-many-field": "3.0-beta",
         "eminiarts/nova-tabs": "^2.2",
+        "ganyicz/nova-callbacks": "^1.1",
         "guzzlehttp/guzzle": "^7.2",
         "joshmoreno/nova-html-field": "^0.1.0",
         "laravel/framework": "^10.10",
@@ -24,7 +26,9 @@
         "outl1ne/nova-multiselect-field": "^4.3",
         "outl1ne/nova-settings": "^5.2",
         "sietse85/nova-button": "^1.0",
-        "whitecube/nova-flexible-content": "^1.0"
+        "stepanenko3/nova-media-field": "^2.0",
+        "whitecube/nova-flexible-content": "^1.0",
+        "yassi/nova-nested-form": "^3.0"
     },
     "repositories": [
         {

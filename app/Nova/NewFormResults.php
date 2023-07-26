@@ -13,20 +13,13 @@ use R64\NovaFields\JSON;
 use Manogi\Tiptap\Tiptap;
 use Illuminate\Support\Str;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
-class FormResults extends Resource
+
+class NewFormResults extends Resource
 {
-    // public static function availableForNavigation(Request $request)
-    // {
-    //     return false;
-    // }
-    public static function label()
-    {
-        return __('ادارة المشاركين ');
-    }
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\FormResults>
+     * @var class-string<\App\Models\NewFormResults>
      */
     public static $model = \App\Models\FormResults::class;
 
@@ -56,7 +49,7 @@ class FormResults extends Resource
      public static function indexQuery(NovaRequest $request, $query)
      {
 
-         return $query->where('is_new', 0);
+         return $query->where('is_new',1);
 
      }
     public function fields(NovaRequest $request)
@@ -66,7 +59,6 @@ class FormResults extends Resource
             Text::make('user_ip', 'user_ip'),
             Text::make('os', 'os'),
             Text::make('browser', 'browser'),
-
             Tiptap::make('result', 'result', function () {
                 $data = " ";
                 $healthy = ["__", "_"];
@@ -79,6 +71,7 @@ class FormResults extends Resource
                 }
                 return $data;
             })->alwaysShow(),
+
             // Textarea::make('result', 'result', function () {
             //     $data = "";
             //     // dd($this->result);
@@ -134,12 +127,6 @@ class FormResults extends Resource
      */
     public function actions(NovaRequest $request)
     {
-
-
-        return [
-            // new ExportForm(),
-        //   (  new DownloadExcel())->withHeadings(),
-            // new DownloadExcel,
-        ];
+        return [];
     }
 }

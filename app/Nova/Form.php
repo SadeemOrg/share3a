@@ -2,15 +2,21 @@
 
 namespace App\Nova;
 
+use App\Models\User;
 use App\Nova\Actions\ExportForm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Outl1ne\MultiselectField\Multiselect;
 use Whitecube\NovaFlexibleContent\Flexible;
 use Sietse85\NovaButton\Button;
+use Stepanenko3\NovaMediaField\Fields\Media;
 
 class Form extends Resource
 {
@@ -69,31 +75,29 @@ class Form extends Resource
     //         return true;
     //     }
     // }
-     public static function indexQuery(NovaRequest $request, $query)
-     {
-        // dd( $request->user()->userrole());
-        if ((in_array("0",json_decode(  $request->user()->userrole()) ))){
-            // dd("dd");
-            return $query;
+        public static function indexQuery(NovaRequest $request, $query)
+        {
+            // dd( $request->user()->userrole());
+            if ($request->user()->userrole()==0){
+                // dd("dd");
+                return $query;
+            }
+            //  dd(in_array("1",  $request->user()->userrole()));/
+            //  dd(in_array("1",json_decode( $request->user()->userrole())));
+    // dd(gettype( $request->user()->userrole()));
+
+
+            return $query->where('added_by',   Auth::id());
+
         }
-        //  dd(in_array("1",  $request->user()->userrole()));/
-        //  dd(in_array("1",json_decode( $request->user()->userrole())));
-// dd(gettype( $request->user()->userrole()));
-
-
-         return $query->wherein('id',   json_decode( $request->user()->userrole()));
-
-     }
     public function fields(NovaRequest $request)
     {
         return [
             ID::make()->sortable(),
-
-            Text::make('Name', 'name'),
             Text::make('slug', 'slug'),
             Text::make('text', 'text'),
             Text::make('sup_text', 'sup_text'),
-            File::make('Profile Photo or vidio','file')->disk('public'),
+            Text::make('note', 'note'),
             Flexible::make('questions', 'questions')
                 ->addLayout('Add select', 'select', [
                     Text::make('name'),
@@ -115,13 +119,55 @@ class Form extends Resource
 
                 ]),
 
+                Multiselect::make('leading', 'leadings')
+                ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) {
+                    return null;
+                })
+                ->options(function(){
+                  $forms=  User::where("added_by",Auth::id())->get()  ;
 
-            HasMany::make(__("FormResults"), "FormResults", \App\Nova\FormResults::class)
+                  $address_type_admin_array =  array();
+
+                  foreach ($forms as $forms) {
+
+                      $address_type_admin_array += [$forms['id'] => ($forms['name'])];
+
+                  }
+                    return $address_type_admin_array;
+                })->canSee(function (NovaRequest $request) {
+                    if(Auth::check())
+                    {
+                    if ($request->user()->userrole()==2){
+                        return true;
+                    }
+                }
+                })  ,
+                BelongsToMany::make(__("leadingw"), "leading", \App\Nova\User::class)->showOnCreating(),
+                hasMany::make(__("FormResults"), "FormResults", \App\Nova\FormResults::class),
 
 
         ];
     }
+    public static function beforeCreate(Request $request, $model)
+    {
+        $user = Auth::user();
+        // dd($user->roles == 1 ? 2 : 3);
+        $model->added_by = $user->id;
+    // $model->roles = $user->roles == 1 ? 2 : 3;
+    }
+    public static function aftersave(Request $request, $model)
+    {
+        foreach ($request->leadings as $key => $value) {
+            DB::table('form_users')
+            ->updateOrInsert(
+                ['form_id' => $model->id, 'user_id' =>  $value]
 
+            );
+
+            }
+
+
+    }
     /**
      * Get the cards available for the request.
      *
