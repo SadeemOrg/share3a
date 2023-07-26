@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportForm;
+use App\Exports\ExportFormReselt;
 use App\Exports\ExportUser;
 use App\Models\FormResults;
 use App\Models\RegisterForm;
@@ -228,7 +229,17 @@ class HomeController extends Controller
         //
         return back()->with('success', 'شكرا');
     }
+    public function exportForm(Request $request){
+        // dd( $request->all());
+        $array = [];
+        $data = $request->all();
+        // dd($data );
+        foreach ($data as $key => $value) {
+            array_push($array,$value);
+        }
 
+        return Excel::download(new ExportFormReselt( $array ), 'users123.xlsx');
+    }
 
     public function exportUsers(Request $request,$key){
         // dd( $request->all());

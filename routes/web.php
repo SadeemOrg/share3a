@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::redirect('/', '/كلية_الدعوة');//ok
+Route::redirect('/', '/home');//ok
 
 Route::get('/كلية_الدعوة', function () {
     $forms=Form::where("slug",'كلية_الدعوة')->first();
@@ -65,3 +65,4 @@ Route::get('/forms/{slug}', function ($slug) {
 
 
 Route::get('/export-users/{key}',[HomeController::class,'exportUsers'])->name('export-users');
+Route::get('/export-form',[HomeController::class,'exportForm'])->name('exportForm');

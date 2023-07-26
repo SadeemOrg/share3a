@@ -127,6 +127,8 @@ class NewFormResults extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new DownloadExcel,
+        ];
     }
 }
