@@ -51,12 +51,12 @@ class RegisterForm extends Resource
             Text::make('Country', 'email'),
             // Text::make('Area', 'area'),
             Boolean::make('is_read', 'is_new'),
-            // Button::make('Read Message')->action(ReadRegisterForm::class)->canSee(function () {
-            //     return $this->is_new === '0';
-            // })->reload()->style('success'),
-            // Button::make('Message Read')->visible($this->is_new === '1')->canSee(function () {
-            //     return $this->is_new === '1';
-            // })->disabled()->style('grey'),
+            Button::make('اضافة كمستخدك')->action(ReadRegisterForm::class)->canSee(function () {
+                return $this->is_new === '0';
+            })->style('success'),
+            Button::make('تمت اضافة')->visible($this->is_new === '1')->canSee(function () {
+                return $this->is_new === '1';
+            })->disabled()->style('grey'),
 
         ];
     }

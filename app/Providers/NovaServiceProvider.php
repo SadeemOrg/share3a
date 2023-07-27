@@ -103,7 +103,15 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                     // MenuItem::resource(Form::class)->name(""),
                     MenuItem::resource(RegisterForm::class)->name(__('potential clients')),
 
-                ])->icon('user')->collapsable(),
+                ])->icon('user')->collapsable()
+                ->canSee(function (NovaRequest $request) {
+                    if(Auth::check())
+                    {
+                    if ((in_array($request->user()->userrole(), [1]))) {
+                        return true;
+                    }
+                }
+                }),
 
                 MenuSection::make(__('settings'))
                     ->path('//resources/user-settings/' .Auth::id())

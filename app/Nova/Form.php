@@ -205,22 +205,42 @@ class Form extends Resource
     {
         if ($request->leadings != null) {
             if ((in_array(0, $request->leadings))) {
-                $forms =  User::where("added_by", Auth::id())->get();
+                if (Auth::user()->userrole() == 1) {
+                    $forms =  User::all();
+                } else {
+
+                    $forms =  User::where("added_by", Auth::id())->get();
+                }
+
                 foreach ( $forms as $key => $value) {
-                    // dd( $value->id);
+
                     DB::table('form_users')
                         ->updateOrInsert(
                             ['form_id' => $model->id, 'user_id' =>  $value->id]
 
                         );
+                        $details = [
+                            'title' => 'تم اضافتك الى ادارة صفحة الهبوط ',
+                            'body' => $model->slug,
+                        ];
+
+                        \Mail::to('your_receiver_email@gmail.com')->send(new \App\Mail\AddUserToForm($details));
                 }
             } else {
                 foreach ($request->leadings as $key => $value) {
+
                     DB::table('form_users')
                         ->updateOrInsert(
                             ['form_id' => $model->id, 'user_id' =>  $value]
 
                         );
+                        $details = [
+                            'title' => 'تم اضافتك الى ادارة صفحة الهبوط ',
+                            'body' => $model->slug,
+                        ];
+
+                        \Mail::to('your_receiver_email@gmail.com')->send(new \App\Mail\AddUserToForm($details));
+
                 }
             }
         }
@@ -234,7 +254,7 @@ class Form extends Resource
     public function cards(NovaRequest $request)
     {
         return [
-            // new Analytics(),
+            new Analytics(),
         ];
     }
 
