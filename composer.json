@@ -29,8 +29,7 @@
         "sietse85/nova-button": "^1.0",
         "stepanenko3/nova-media-field": "^2.0",
         "whitecube/nova-flexible-content": "^1.0",
-        "yassi/nova-nested-form": "^3.0",
-        "acme/FilterForm": "@dev"
+        "yassi/nova-nested-form": "^3.0"
     },
     "repositories": [
         {
@@ -40,10 +39,6 @@
         {
             "type": "path",
             "url": "./nova-components/Analytics"
-        },
-        {
-            "type": "path",
-            "url": "./nova-components/FilterForm"
         }
     ],
     "require-dev": {
