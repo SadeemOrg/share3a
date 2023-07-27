@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use Acme\Analytics\Analytics;
+use Acme\FilterForm\FilterForm;
 use App\Models\Form as ModelsForm;
 use App\Models\FormUser;
 use App\Models\User;
@@ -174,7 +176,9 @@ class Form extends Resource
      */
     public function cards(NovaRequest $request)
     {
-        return [];
+        return [
+            new Analytics(),
+        ];
     }
 
     /**
