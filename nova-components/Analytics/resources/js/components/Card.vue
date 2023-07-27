@@ -44,7 +44,7 @@ export default {
         this.item = this.options[0]
       },
       getSelectedValue () {
-        alert(this.item.value + '-' + this.item.text)
+
       },
 
     },

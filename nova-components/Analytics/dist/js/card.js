@@ -60,9 +60,7 @@ __webpack_require__.r(__webpack_exports__);
       // select option from parent component
       this.item = this.options[0];
     },
-    getSelectedValue: function getSelectedValue() {
-      alert(this.item.value + '-' + this.item.text);
-    }
+    getSelectedValue: function getSelectedValue() {}
   },
   mounted: function mounted() {
     //
