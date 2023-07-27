@@ -25,6 +25,11 @@ class NewFormResults extends Resource
      */
     public static $model = \App\Models\FormResults::class;
 
+    public static function label()
+    {
+        return __('ادارة العملاء الجدبدة ');
+    }
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
