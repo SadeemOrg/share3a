@@ -27,8 +27,9 @@ class Form extends Resource
 
     public static function label()
     {
-        return __('ادارة صفحات الهبوط ');
+        return __(' صفحات الهبوط ');
     }
+
     /**
      * The model the resource corresponds to.
      *
@@ -115,32 +116,32 @@ class Form extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('slug', 'slug'),
-            Text::make('text', 'text'),
-            Text::make('sup_text', 'sup_text'),
-            Text::make('note', 'note'),
-            Flexible::make('questions', 'questions')
-                ->addLayout('Add select', 'select', [
-                    Text::make('name'),
-                    Flexible::make('select', 'selectform')
-                        ->addLayout('Add select choices', 'choices', [
-                            Text::make('text'),
+            Text::make(__('slug'), 'slug'),
+            Text::make(__('text'), 'text'),
+            Text::make(__('sub_text'), 'sup_text'),
+            Text::make(__('note'), 'note'),
+            Flexible::make(__('questions'), 'questions')
+                ->addLayout(__('Add select'), 'select', [
+                    Text::make(__('name'),'name'),
+                    Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
+                        ->addLayout(__('Add select choices'), 'choices', [
+                            Text::make(__('text'),'text'),
 
                         ])
 
-                ])->addLayout('Add text', 'text', [
-                    Text::make('text'),
+                ])->addLayout(__('Add text'), 'text', [
+                    Text::make(__('text'),'text'),
 
 
-                ])->addLayout('Add Note Filed', 'Note', [
-                    Text::make('text'),
+                ])->addLayout(__('Add Note Filed'), 'Note', [
+                    Text::make(__('text'),'text'),
 
-                ])->addLayout('Add boolean Filed', 'boolean', [
-                    Text::make('text'),
+                ])->addLayout(__('Add boolean Filed'), 'boolean', [
+                    Text::make(__('text'),'text'),
 
                 ]),
 
-            Multiselect::make('leading', 'leadings')
+            Multiselect::make(__('leading'), 'leadings')
                 ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) {
                     return null;
                 })
@@ -166,7 +167,7 @@ class Form extends Resource
                         }
                     }
                 }),
-            BelongsToMany::make(__("leadingw"), "leading", \App\Nova\User::class)->hideFromDetail()->hideFromIndex()
+            BelongsToMany::make(__("leading"), "leading", \App\Nova\User::class)->hideFromDetail()->hideFromIndex()
             ->canSee(function (NovaRequest $request) {
                 if(Auth::check())
                 {

@@ -18,7 +18,8 @@ class UserSeeder extends Seeder
             'name' => 'Test',
             'email' => 'Test@test.test',
             'password' => Hash::make('10203040'),
-            'roles'=>'1'
+            'roles'=>'1',
+            'phone_number'=>'+972599043747'
         ]);
     }
 }

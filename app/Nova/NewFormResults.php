@@ -92,10 +92,10 @@ class NewFormResults extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('user_ip', 'user_ip'),
-            Text::make('os', 'os'),
-            Text::make('browser', 'browser'),
-            Tiptap::make('result', 'result', function () {
+            Text::make(__('user_ip'), 'user_ip'),
+            Text::make(__('os'), 'os'),
+            Text::make(__('browser'), 'browser'),
+            Tiptap::make(__('result'), 'result', function () {
                 $data = " ";
                 $healthy = ["__", "_"];
                 $yummy   = ["  ", "  "];
