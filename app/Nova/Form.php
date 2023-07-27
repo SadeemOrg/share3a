@@ -125,11 +125,12 @@ class Form extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make(__('slug'), 'slug'),
-            Text::make(__('text'), 'text'),
-            Text::make(__('sub_text'), 'sup_text'),
-            Text::make(__('note'), 'note'),
+            Text::make(__('slug'), 'slug')->rules('required'),
+            Text::make(__('text'), 'text')->rules('required'),
+            Text::make(__('sub_text'), 'sup_text')->rules('required'),
+            Text::make(__('note'), 'note')->rules('required'),
             Flexible::make(__('questions'), 'questions')
+            ->rules('required')
                 ->addLayout(__('Add select'), 'select', [
                     Text::make(__('name'), 'name'),
                     Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
@@ -151,6 +152,7 @@ class Form extends Resource
                 ]),
 
             Multiselect::make(__('leading'), 'leadings')
+            ->placeholder('للبحث عن مسؤولين')
                 ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) {
                     return null;
                 })
