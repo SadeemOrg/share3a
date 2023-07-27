@@ -8,7 +8,7 @@
     <h1>{{ $details['title'] }}</h1>
 المستخدم  <p>{{ $details['email'] }}</p>
   كلمة السر  <p>{{ $details['password'] }}</p>
-  <a href="https://sajilne.com/nova">  لدخول الى المنضومة
+  <a href="https://sajilne.com/Admin">  لدخول الى المنضومة
   </a>
 
 
