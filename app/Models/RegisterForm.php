@@ -13,6 +13,6 @@ class RegisterForm extends Model
         'phone_number',
         'area',
         'country',
-        'is_read'
+        'is_new'
     ];
 }

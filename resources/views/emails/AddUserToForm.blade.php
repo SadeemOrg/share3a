@@ -4,11 +4,10 @@
     <title>sajilne.com</title>
 </head>
 <body  class="center">
-    <h1>تهانبنا {{ $details['name'] }}</h1>
-    <h1>{{ $details['title'] }}</h1>
-المستخدم  <p>{{ $details['email'] }}</p>
-  كلمة السر  <p>{{ $details['password'] }}</p>
-  <a href="https://sajilne.com/nova">  لدخول الى المنضومة
+    <h1> {{ $details['title'] }}</h1>
+    <h1>{{ $details['body'] }}</h1>
+
+  <a href="https://sajilne.com/forms/".{{ $details['body']  }}>  اضغط هنا
   </a>
 
 

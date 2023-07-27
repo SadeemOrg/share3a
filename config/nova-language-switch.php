@@ -23,7 +23,7 @@ return [
      * string
     */
     'rtl-languages' => [
-        'ar'
+      'ar'
     ],
 
 ];

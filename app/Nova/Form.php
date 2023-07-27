@@ -125,11 +125,12 @@ class Form extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make(__('slug'), 'slug'),
-            Text::make(__('text'), 'text'),
-            Text::make(__('sub_text'), 'sup_text'),
-            Text::make(__('note'), 'note'),
+            Text::make(__('slug'), 'slug')->rules('required'),
+            Text::make(__('text'), 'text')->rules('required'),
+            Text::make(__('sub_text'), 'sup_text')->rules('required'),
+            Text::make(__('note'), 'note')->rules('required'),
             Flexible::make(__('questions'), 'questions')
+            ->rules('required')
                 ->addLayout(__('Add select'), 'select', [
                     Text::make(__('name'), 'name'),
                     Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
@@ -151,6 +152,7 @@ class Form extends Resource
                 ]),
 
             Multiselect::make(__('leading'), 'leadings')
+            ->placeholder('للبحث عن مسؤولين')
                 ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) {
                     return null;
                 })
@@ -203,22 +205,42 @@ class Form extends Resource
     {
         if ($request->leadings != null) {
             if ((in_array(0, $request->leadings))) {
-                $forms =  User::where("added_by", Auth::id())->get();
+                if (Auth::user()->userrole() == 1) {
+                    $forms =  User::all();
+                } else {
+
+                    $forms =  User::where("added_by", Auth::id())->get();
+                }
+
                 foreach ( $forms as $key => $value) {
-                    // dd( $value->id);
+
                     DB::table('form_users')
                         ->updateOrInsert(
                             ['form_id' => $model->id, 'user_id' =>  $value->id]
 
                         );
+                        $details = [
+                            'title' => 'تم اضافتك الى ادارة صفحة الهبوط ',
+                            'body' => $model->slug,
+                        ];
+
+                        \Mail::to('your_receiver_email@gmail.com')->send(new \App\Mail\AddUserToForm($details));
                 }
             } else {
                 foreach ($request->leadings as $key => $value) {
+
                     DB::table('form_users')
                         ->updateOrInsert(
                             ['form_id' => $model->id, 'user_id' =>  $value]
 
                         );
+                        $details = [
+                            'title' => 'تم اضافتك الى ادارة صفحة الهبوط ',
+                            'body' => $model->slug,
+                        ];
+
+                        \Mail::to('your_receiver_email@gmail.com')->send(new \App\Mail\AddUserToForm($details));
+
                 }
             }
         }
@@ -232,7 +254,7 @@ class Form extends Resource
     public function cards(NovaRequest $request)
     {
         return [
-            // new Analytics(),
+            new Analytics(),
         ];
     }
 
