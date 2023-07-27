@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use App\Models\Form as ModelsForm;
+use App\Models\FormUser;
 use App\Models\User;
 use App\Nova\Actions\ExportForm;
 use Illuminate\Http\Request;
@@ -54,43 +56,36 @@ class Form extends Resource
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
+
     public static function authorizedToCreate(Request $request)
-    {
+    { if (Auth::check()) {
         if ((in_array($request->user()->userrole(), [1, 2]))) {
             return true;
         } else return false;
+    }
     }
     public  function authorizedToUpdate(Request $request)
     {
-
+        if (Auth::check()) {
         if ((in_array($request->user()->userrole(), [1, 2]))) {
             return true;
         } else return false;
     }
-    // public function authorizedToDelete(Request $request)
-    // {
-    //     if ((in_array("0",json_decode(  $request->user()->userrole()) ))){
+    }
 
-    //         return true;
-    //     }
-    // }
 
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        // dd( $request->user()->userrole());
         if ($request->user()->userrole() == 1) {
             // dd("dd");
             return $query;
         }
-        //  dd(in_array("1",  $request->user()->userrole()));/
-        //  dd(in_array("1",json_decode( $request->user()->userrole())));
-        // dd(gettype( $request->user()->userrole()));
-        if ($request->user()->userrole() == 2) {
-            dd( Auth::user()->leadingform()) ;// $query->where('added_by',   Auth::id());
-        }
 
-        // return $query->where('added_by',   Auth::id());
+        $user = Auth::user();
+        $formsarray = FormUser::where(['user_id' => Auth::id()])->Select('form_id')->pluck('form_id')->toArray();
+
+        $query->where('added_by', $user->id)->orWherein('id', $formsarray);
     }
     public function fields(NovaRequest $request)
     {
@@ -126,10 +121,9 @@ class Form extends Resource
                     return null;
                 })
                 ->options(function () {
-                    if (Auth::user()->userrole()==1) {
+                    if (Auth::user()->userrole() == 1) {
                         $forms =  User::all();
-                    }
-                    else{
+                    } else {
 
                         $forms =  User::where("added_by", Auth::id())->get();
                     }
@@ -143,7 +137,7 @@ class Form extends Resource
                     return $address_type_admin_array;
                 })->canSee(function (NovaRequest $request) {
                     if (Auth::check()) {
-                        if ($request->user()->userrole() !=3) {
+                        if ($request->user()->userrole() != 3) {
                             return true;
                         }
                     }

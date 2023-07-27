@@ -3,6 +3,8 @@
 use App\Http\Controllers\HomeController;
 use App\Models\Form;
 use App\Models\FormResults;
+use App\Models\FormUser;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +38,12 @@ Route::get('/thanks', function () {
 });
 
 Route::get('/home', function () {
+    $user = Auth::user();
+           $formsarray =FormUser::where(['user_id'=>Auth::id()])->Select('form_id')->pluck('form_id')->toArray();
+        //    dd($formsarray);
+           dd (Form::Wherein('id',$formsarray)->get());
+
+
     return view('home1');
 });
 

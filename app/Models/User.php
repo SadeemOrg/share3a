@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Nova\Fields\Select;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -75,6 +77,9 @@ class User extends Authenticatable
     }
     public function leadingform()
     {
-        return $this->BelongsToMany(Form::class,'form_users');
+
+        $forms= FormUser::where(['user_id'=>Auth::id()])->Select('id')->pluck('id')->toArray();
+
+        return $forms;
     }
 }
