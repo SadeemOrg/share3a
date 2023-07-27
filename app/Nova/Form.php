@@ -2,15 +2,21 @@
 
 namespace App\Nova;
 
+use App\Models\User;
 use App\Nova\Actions\ExportForm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Outl1ne\MultiselectField\Multiselect;
 use Whitecube\NovaFlexibleContent\Flexible;
 use Sietse85\NovaButton\Button;
+use Stepanenko3\NovaMediaField\Fields\Media;
 
 class Form extends Resource
 {
@@ -48,20 +54,19 @@ class Form extends Resource
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    // public static function authorizedToCreate(Request $request)
-    // {
-    //     if ((in_array("0",json_decode(  $request->user()->userrole()) ))){
+    public static function authorizedToCreate(Request $request)
+    {
+        if ((in_array($request->user()->userrole(), [1, 2]))) {
+            return true;
+        } else return false;
+    }
+    public  function authorizedToUpdate(Request $request)
+    {
 
-    //         return true;
-    //     }
-    // }
-    // public  function authorizedToUpdate(Request $request)
-    // {
-    //     if ((in_array("0",json_decode(  $request->user()->userrole()) ))){
-
-    //         return true;
-    //     }
-    // }
+        if ((in_array($request->user()->userrole(), [1, 2]))) {
+            return true;
+        } else return false;
+    }
     // public function authorizedToDelete(Request $request)
     // {
     //     if ((in_array("0",json_decode(  $request->user()->userrole()) ))){
@@ -69,31 +74,32 @@ class Form extends Resource
     //         return true;
     //     }
     // }
-     public static function indexQuery(NovaRequest $request, $query)
-     {
+
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
         // dd( $request->user()->userrole());
-        if ((in_array("0",json_decode(  $request->user()->userrole()) ))){
+        if ($request->user()->userrole() == 1) {
             // dd("dd");
             return $query;
         }
         //  dd(in_array("1",  $request->user()->userrole()));/
         //  dd(in_array("1",json_decode( $request->user()->userrole())));
-// dd(gettype( $request->user()->userrole()));
+        // dd(gettype( $request->user()->userrole()));
+        if ($request->user()->userrole() == 2) {
+            dd( Auth::user()->leadingform()) ;// $query->where('added_by',   Auth::id());
+        }
 
-
-         return $query->wherein('id',   json_decode( $request->user()->userrole()));
-
-     }
+        // return $query->where('added_by',   Auth::id());
+    }
     public function fields(NovaRequest $request)
     {
         return [
             ID::make()->sortable(),
-
-            Text::make('Name', 'name'),
             Text::make('slug', 'slug'),
             Text::make('text', 'text'),
             Text::make('sup_text', 'sup_text'),
-            File::make('Profile Photo or vidio','file')->disk('public'),
+            Text::make('note', 'note'),
             Flexible::make('questions', 'questions')
                 ->addLayout('Add select', 'select', [
                     Text::make('name'),
@@ -115,13 +121,57 @@ class Form extends Resource
 
                 ]),
 
+            Multiselect::make('leading', 'leadings')
+                ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) {
+                    return null;
+                })
+                ->options(function () {
+                    if (Auth::user()->userrole()==1) {
+                        $forms =  User::all();
+                    }
+                    else{
 
-            HasMany::make(__("FormResults"), "FormResults", \App\Nova\FormResults::class)
+                        $forms =  User::where("added_by", Auth::id())->get();
+                    }
+
+                    $address_type_admin_array =  array();
+
+                    foreach ($forms as $forms) {
+
+                        $address_type_admin_array += [$forms['id'] => ($forms['name'])];
+                    }
+                    return $address_type_admin_array;
+                })->canSee(function (NovaRequest $request) {
+                    if (Auth::check()) {
+                        if ($request->user()->userrole() !=3) {
+                            return true;
+                        }
+                    }
+                }),
+            BelongsToMany::make(__("leadingw"), "leading", \App\Nova\User::class)->showOnCreating(),
+            hasMany::make(__("new FormResults"), "FormResults", \App\Nova\NewFormResults::class),
+            hasMany::make(__("old FormResults"), "FormResults", \App\Nova\FormResults::class),
 
 
         ];
     }
+    public static function beforeCreate(Request $request, $model)
+    {
+        $user = Auth::user();
+        // dd($user->roles == 1 ? 2 : 3);
+        $model->added_by = $user->id;
+        // $model->roles = $user->roles == 1 ? 2 : 3;
+    }
+    public static function aftersave(Request $request, $model)
+    {
+        foreach ($request->leadings as $key => $value) {
+            DB::table('form_users')
+                ->updateOrInsert(
+                    ['form_id' => $model->id, 'user_id' =>  $value]
 
+                );
+        }
+    }
     /**
      * Get the cards available for the request.
      *
@@ -141,9 +191,7 @@ class Form extends Resource
      */
     public function filters(NovaRequest $request)
     {
-        return [
-
-        ];
+        return [];
     }
 
     /**

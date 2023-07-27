@@ -4,13 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Form extends Model
 {
-    use HasFactory;
+    use HasFactory ,SoftDeletes;
+
     public function FormResults()
     {
         return $this->hasMany(FormResults::class);
+    }
+
+
+    public function leading()
+    {
+        return $this->BelongsToMany(User::class,'form_users');
     }
 
 }

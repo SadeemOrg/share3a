@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use Stepanenko3\NovaMediaField\Fields\Media;
 return new class extends Migration
 {
     /**
@@ -14,14 +14,18 @@ return new class extends Migration
 
         Schema::create('forms', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->json('icons')->nullable();
             $table->string('slug');
             $table->string('text');
             $table->string('sup_text');
-            $table->json('content')->nullable();
+            $table->string('note',500)->nullable();
             $table->json('questions');
             $table->char('status',1)->default(1);
-            $table->dateTime('stop_vote')->nullable();
+            $table->dateTime('stop_form')->nullable();
+            $table->json('leading')->nullable();
+            $table->foreignId('added_by')->nullable()->constrained()->cascadeOnDelete()->on('users');
+            $table->softDeletes();
+
 
             $table->timestamps();
         });

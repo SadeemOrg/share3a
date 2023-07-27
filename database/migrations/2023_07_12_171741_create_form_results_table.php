@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('user_ip')->nullable();
             $table->string('browser')->nullable();
             $table->string('os')->nullable();
+            $table->string('is_new')->default(1);
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }
