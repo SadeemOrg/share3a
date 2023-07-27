@@ -17,6 +17,11 @@ use Sietse85\NovaButton\Button;
 
 class UserSetting extends Resource
 {
+
+    public static function label()
+    {
+        return __('المستخدم');
+    }
     /**
      * The model the resource corresponds to.
      *
@@ -52,11 +57,12 @@ class UserSetting extends Resource
 
 
 
-            Text::make('Name')
+
+            Text::make(__('Name'),'name')
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            Text::make('Email')
+            Text::make(__('Email'),'email')
                 ->sortable()
                 ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email')
@@ -65,7 +71,7 @@ class UserSetting extends Resource
 
 
 
-            Password::make('Password')
+                Password::make(__('Password'),'password')
                 ->onlyOnForms()
                 ->creationRules('required', Rules\Password::defaults())
                 ->updateRules('nullable', Rules\Password::defaults()),
