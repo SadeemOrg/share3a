@@ -23,8 +23,9 @@ class Form extends Resource
 
     public static function label()
     {
-        return __('ادارة صفحات الهبوط ');
+        return __(' صفحات الهبوط ');
     }
+
     /**
      * The model the resource corresponds to.
      *
@@ -54,19 +55,23 @@ class Form extends Resource
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public static function authorizedToCreate(Request $request)
-    {
-        if ((in_array($request->user()->userrole(), [1, 2]))) {
-            return true;
-        } else return false;
-    }
-    public  function authorizedToUpdate(Request $request)
-    {
+    public static function createButtonLabel()
+{
+    return __('Publish Post');
+}
+    // public static function authorizedToCreate(Request $request)
+    // {
+    //     if ((in_array($request->user()->userrole(), [1, 2]))) {
+    //         return true;
+    //     } else return false;
+    // }
+    // public  function authorizedToUpdate(Request $request)
+    // {
 
-        if ((in_array($request->user()->userrole(), [1, 2]))) {
-            return true;
-        } else return false;
-    }
+    //     if ((in_array($request->user()->userrole(), [1, 2]))) {
+    //         return true;
+    //     } else return false;
+    // }
     // public function authorizedToDelete(Request $request)
     // {
     //     if ((in_array("0",json_decode(  $request->user()->userrole()) ))){
@@ -96,32 +101,32 @@ class Form extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('slug', 'slug'),
-            Text::make('text', 'text'),
-            Text::make('sup_text', 'sup_text'),
-            Text::make('note', 'note'),
-            Flexible::make('questions', 'questions')
-                ->addLayout('Add select', 'select', [
-                    Text::make('name'),
-                    Flexible::make('select', 'selectform')
-                        ->addLayout('Add select choices', 'choices', [
-                            Text::make('text'),
+            Text::make(__('slug'), 'slug'),
+            Text::make(__('text'), 'text'),
+            Text::make(__('sub_text'), 'sup_text'),
+            Text::make(__('note'), 'note'),
+            Flexible::make(__('questions'), 'questions')
+                ->addLayout(__('Add select'), 'select', [
+                    Text::make(__('name')),
+                    Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
+                        ->addLayout(__('Add select choices'), 'choices', [
+                            Text::make(__('text')),
 
                         ])
 
-                ])->addLayout('Add text', 'text', [
-                    Text::make('text'),
+                ])->addLayout(__('Add text'), 'text', [
+                    Text::make(__('text')),
 
 
-                ])->addLayout('Add Note Filed', 'Note', [
-                    Text::make('text'),
+                ])->addLayout(__('Add Note Filed'), 'Note', [
+                    Text::make(__('text')),
 
-                ])->addLayout('Add boolean Filed', 'boolean', [
-                    Text::make('text'),
+                ])->addLayout(__('Add boolean Filed'), 'boolean', [
+                    Text::make(__('text')),
 
                 ]),
 
-            Multiselect::make('leading', 'leadings')
+            Multiselect::make(__('leading'), 'leadings')
                 ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) {
                     return null;
                 })

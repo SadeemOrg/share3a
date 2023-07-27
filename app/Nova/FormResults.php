@@ -25,6 +25,7 @@ class FormResults extends Resource
     {
         return __('ادارة المشاركين ');
     }
+
     /**
      * The model the resource corresponds to.
      *

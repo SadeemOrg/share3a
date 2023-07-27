@@ -22,9 +22,8 @@ class User extends Resource
 
     public static function label()
     {
-        return __('ادارة المستخدمين ');
+        return __('User');
     }
-
     /**
      * The model the resource corresponds to.
      *
@@ -63,6 +62,7 @@ class User extends Resource
          }
         else return false;
      }
+
     public static function indexQuery(NovaRequest $request, $query)
     {
 
@@ -87,19 +87,19 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make()->maxWidth(50),
+            // Gravatar::make()->maxWidth(50),
 
-            Text::make('Name')
+            Text::make(__('Name'),'name')
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            Text::make('Email')
+            Text::make(__('Email'),'email')
                 ->sortable()
                 ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
-                Text::make('phone number','phone_number')
+                Text::make(__('phone number'),'phone_number')
                 ->sortable()
                 ->rules('max:14'),
 
@@ -107,7 +107,7 @@ class User extends Resource
 
 
 
-            Password::make('Password')
+            Password::make(__('Password'),'password')
                 ->onlyOnForms()
                 ->creationRules('required', Rules\Password::defaults())
                 ->updateRules('nullable', Rules\Password::defaults()),
@@ -124,7 +124,7 @@ class User extends Resource
                 })->hideFromIndex(),
             BelongsTo::make(__('added_by'), 'addedby', \App\Nova\User::class)->hideWhenCreating()->hideWhenUpdating(),
             // BelongsTo::make(__('role'), 'role', \App\Nova\User::class)->hideWhenCreating()->hideWhenUpdating(),
-            FieldsHasMany::make(__('useradd'), 'useradd', \App\Nova\User::class)->hideWhenCreating()->hideWhenUpdating()
+            FieldsHasMany::make(__('userAdded'), 'useradd', \App\Nova\User::class)->hideWhenCreating()->hideWhenUpdating()
             ->canSee(function (NovaRequest $request) {
                 if(Auth::check())
                 {
