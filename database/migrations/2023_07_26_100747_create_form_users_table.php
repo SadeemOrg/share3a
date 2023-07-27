@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('form_id')->nullable()->constrained()->cascadeOnDelete()->on('forms');
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete()->on('users');
             $table->char('rules',1)->default(0);
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }
