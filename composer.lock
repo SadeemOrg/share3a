@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f6fdcfab28f8bcd6b36cdda0a89ddbe",
+    "content-hash": "01beb6382fbb4ebe80307a2d957af5b1",
     "packages": [
         {
             "name": "64robots/nova-fields",
@@ -59,7 +59,7 @@
         },
         {
             "name": "acme/analytics",
-            "version": "dev-Ameed_F1",
+            "version": "dev-Zeyad_BE!",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/Analytics",
@@ -10761,5 +10761,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }

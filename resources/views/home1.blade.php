@@ -52,7 +52,8 @@
                             </form>
                         </div>
                         <div class="login-form">
-                            <form action="">
+                            <form method="POST" action="{{ route('login') }}">
+                                @csrf
                                 <div class="flex flex-wrap mb-5">
                                     <div class="w-full">
                                         <input name="email" class="block w-full bg-transparent text-[#115A48] border border-[#115A48] rounded-sm py-4  px-4 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]" id="" type="email" placeholder="البريد الالكتروني">

@@ -201,6 +201,7 @@ return [
     'impersonation' => [
         'started' => '/',
         'stopped' => '/',
+
     ],
 
 ];

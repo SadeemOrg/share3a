@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Models\Form;
 use App\Models\FormResults;
+use App\Nova\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::redirect('/', '/nova');//ok
+Route::redirect('/', '/welcome');//ok
 
 Route::get('/كلية_الدعوة', function () {
     $forms=Form::where("slug",'كلية_الدعوة')->first();
@@ -35,7 +36,7 @@ Route::get('/thanks', function () {
     return view('thanks');
 });
 
-Route::get('/home', function () {
+Route::get('/welcome', function () {
 
     return view('home1');
 });
@@ -83,3 +84,10 @@ Route::get('send-mail', function () {
 
     dd("Email is Sent.");
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::post('nova/logout', [LoginController::class, 'logout'])->name('nova.logout');
