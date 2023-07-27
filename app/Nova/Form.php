@@ -3,7 +3,7 @@
 namespace App\Nova;
 
 use Acme\Analytics\Analytics;
-use Acme\FilterForm\FilterForm;
+
 use App\Models\Form as ModelsForm;
 use App\Models\FormUser;
 use App\Models\User;
@@ -76,8 +76,30 @@ class Form extends Resource
     }
     }
 
-
-
+    public  function authorizedToDelete(Request $request)
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1, 2]))) {
+                return true;
+            } else return false;
+        }
+    }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1]))) {
+                return true;
+            } else return false;
+        }
+    }
+    public  function authorizedToReplicate(Request $request)
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1, 2]))) {
+                return true;
+            } else return false;
+        }
+    }
     public static function indexQuery(NovaRequest $request, $query)
     {
         if ($request->user()->userrole() == 1) {
@@ -145,7 +167,15 @@ class Form extends Resource
                         }
                     }
                 }),
-            BelongsToMany::make(__("leading"), "leading", \App\Nova\User::class)->showOnCreating(),
+            BelongsToMany::make(__("leading"), "leading", \App\Nova\User::class)->hideFromDetail()->hideFromIndex()
+            ->canSee(function (NovaRequest $request) {
+                if(Auth::check())
+                {
+                if ((in_array($request->user()->userrole(), [1, 2]))) {
+                    return true;
+                }
+            }
+            }),
             hasMany::make(__("new FormResults"), "FormResults", \App\Nova\NewFormResults::class),
             hasMany::make(__("old FormResults"), "FormResults", \App\Nova\FormResults::class),
 

@@ -24,8 +24,7 @@ return new class extends Migration
             $table->json('pages')->nullable();
             $table->foreignId('added_by')->nullable()->constrained()->cascadeOnDelete()->on('users');
             $table->char('status')->default('0');
-            $table->char('permission',1)->nullable();
-
+            $table->char('permission',1)->default('1')->nullable();
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

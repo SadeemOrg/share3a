@@ -68,10 +68,24 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
                 MenuSection::make(__("pages"), [
                     // MenuItem::resource(Form::class)->name(""),
-                    MenuItem::make(__('Add Form'))->path('/resources/forms/new'),
+                    MenuItem::make(__('Add Form'))->path('/resources/forms/new')->canSee(function (NovaRequest $request) {
+                        if(Auth::check())
+                        {
+                        if ((in_array($request->user()->userrole(), [1, 2]))) {
+                            return true;
+                        }
+                    }
+                    }),
                     MenuItem::resource(Form::class)->name(__('Modify Form')),
                     // MenuItem::resource(Form::class)->name(__('Deleted Form')),
-                    MenuItem::make(__('Deleted Form'))->path('/resources/forms?forms_trashed=only'),
+                    MenuItem::make(__('Deleted Form'))->path('/resources/forms?forms_trashed=only')->canSee(function (NovaRequest $request) {
+                        if(Auth::check())
+                        {
+                        if ((in_array($request->user()->userrole(), [1, 2]))) {
+                            return true;
+                        }
+                    }
+                    }),
 
                 ])->icon('user')->collapsable(),
 

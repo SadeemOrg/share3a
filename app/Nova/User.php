@@ -55,6 +55,32 @@ class User extends Resource
      * @return array
      */
 
+
+
+    public  function authorizedToDelete(Request $request)
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1, 2]))) {
+                return true;
+            } else return false;
+        }
+    }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1]))) {
+                return true;
+            } else return false;
+        }
+    }
+    public  function authorizedToReplicate(Request $request)
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1, 2]))) {
+                return true;
+            } else return false;
+        }
+    }
      public static function availableForNavigation(Request $request)
      {
          if ((in_array( $request->user()->userrole(),[1,2] ) )){
