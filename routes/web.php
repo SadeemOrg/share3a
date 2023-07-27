@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::redirect('/', '/home');//ok
+Route::redirect('/', '/nova');//ok
 
 Route::get('/كلية_الدعوة', function () {
     $forms=Form::where("slug",'كلية_الدعوة')->first();

@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\Actions\ExportForm;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -45,13 +46,21 @@ class NewFormResults extends Resource
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
+    public static function authorizedToCreate(Request $request)
+    {
+        return false;
+    }
+    public  function authorizedToUpdate(Request $request)
+    {
+        return false;
+    }
 
-     public static function indexQuery(NovaRequest $request, $query)
-     {
+    public static function indexQuery(NovaRequest $request, $query)
+    {
 
-         return $query->where('is_new',1);
 
-     }
+        return $query->whereDate('created_at', Carbon::now()->subDays(10));
+    }
     public function fields(NovaRequest $request)
     {
         return [
@@ -67,7 +76,7 @@ class NewFormResults extends Resource
                 foreach (json_decode($this->result) as $key => $value) {
                     // $series = str_replace(' ',   $healthy, $value->questionskey);
                     // dd( $series);
-                    $data .= "<p>" .   str_replace( $healthy,  $yummy, $value->questionskey)  .  ' :' . $value->questionsanswerkey . '</p>';
+                    $data .= "<p>" .   str_replace($healthy,  $yummy, $value->questionskey)  .  ' :' . $value->questionsanswerkey . '</p>';
                 }
                 return $data;
             })->alwaysShow(),
