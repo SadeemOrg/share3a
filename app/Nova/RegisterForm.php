@@ -12,10 +12,7 @@ use Sietse85\NovaButton\Button;
 class RegisterForm extends Resource
 {
 
-    public static function availableForNavigation(Request $request)
-    {
-        return false;
-    }
+
     /**
      * The model the resource corresponds to.
      *
@@ -50,16 +47,16 @@ class RegisterForm extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Name', 'name'),
-            Text::make('Phone Number', 'phone_number'),
-            Text::make('Country', 'country'),
-            Text::make('Area', 'area'),
-            Boolean::make('is_read', 'is_read'),
-            Button::make('Read Message')->action(ReadRegisterForm::class)->canSee(function () {
-                return $this->is_read === '0';
-            })->reload()->style('success'),
-            Button::make('Message Read')->visible($this->is_read === '1')->canSee(function () {
-                return $this->is_read === '1';
-            })->disabled()->style('grey'),
+            Text::make('Phone Number', 'phone'),
+            Text::make('Country', 'email'),
+            // Text::make('Area', 'area'),
+            Boolean::make('is_read', 'is_new'),
+            // Button::make('Read Message')->action(ReadRegisterForm::class)->canSee(function () {
+            //     return $this->is_new === '0';
+            // })->reload()->style('success'),
+            // Button::make('Message Read')->visible($this->is_new === '1')->canSee(function () {
+            //     return $this->is_new === '1';
+            // })->disabled()->style('grey'),
 
         ];
     }

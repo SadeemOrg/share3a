@@ -6,6 +6,7 @@ use App\Nova\Dashboards\Main;
 use App\Nova\Form;
 use App\Nova\FormResults;
 use App\Nova\NewFormResults;
+use App\Nova\RegisterForm;
 use App\Nova\User;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Fields\Text;
@@ -95,6 +96,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                     MenuItem::resource(NewFormResults::class)->name(__('new Client')),
                     MenuItem::resource(FormResults::class)->name(__('Old Client')),
                     MenuItem::make(__('Deleted Client'))->path('/resources/form-results?form-results_trashed=only'),
+
+                ])->icon('user')->collapsable(),
+
+                MenuSection::make(__("Homepage"), [
+                    // MenuItem::resource(Form::class)->name(""),
+                    MenuItem::resource(RegisterForm::class)->name(__('potential clients')),
 
                 ])->icon('user')->collapsable(),
 

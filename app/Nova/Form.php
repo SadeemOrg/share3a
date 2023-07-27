@@ -11,6 +11,7 @@ use App\Nova\Actions\ExportForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
@@ -61,19 +62,27 @@ class Form extends Resource
      */
 
     public static function authorizedToCreate(Request $request)
-    { if (Auth::check()) {
-        if ((in_array($request->user()->userrole(), [1, 2]))) {
-            return true;
-        } else return false;
-    }
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1, 2]))) {
+                return true;
+            } else return false;
+        }
     }
     public  function authorizedToUpdate(Request $request)
     {
         if (Auth::check()) {
-        if ((in_array($request->user()->userrole(), [1, 2]))) {
-            return true;
-        } else return false;
-    }
+            if ((in_array($request->user()->userrole(), [1, 2]))) {
+                return true;
+            }
+            else{
+
+                if ($request->user()->usepermission()==2) {
+                    return true;
+                }
+            }
+            // return false;
+        }
     }
 
     public  function authorizedToDelete(Request $request)
@@ -122,22 +131,22 @@ class Form extends Resource
             Text::make(__('note'), 'note'),
             Flexible::make(__('questions'), 'questions')
                 ->addLayout(__('Add select'), 'select', [
-                    Text::make(__('name'),'name'),
+                    Text::make(__('name'), 'name'),
                     Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
                         ->addLayout(__('Add select choices'), 'choices', [
-                            Text::make(__('text'),'text'),
+                            Text::make(__('text'), 'text'),
 
                         ])
 
                 ])->addLayout(__('Add text'), 'text', [
-                    Text::make(__('text'),'text'),
+                    Text::make(__('text'), 'text'),
 
 
                 ])->addLayout(__('Add Note Filed'), 'Note', [
-                    Text::make(__('text'),'text'),
+                    Text::make(__('text'), 'text'),
 
                 ])->addLayout(__('Add boolean Filed'), 'boolean', [
-                    Text::make(__('text'),'text'),
+                    Text::make(__('text'), 'text'),
 
                 ]),
 
@@ -154,7 +163,7 @@ class Form extends Resource
                     }
 
                     $address_type_admin_array =  array();
-
+                    $address_type_admin_array += [0 => 'All'];
                     foreach ($forms as $forms) {
 
                         $address_type_admin_array += [$forms['id'] => ($forms['name'])];
@@ -165,18 +174,18 @@ class Form extends Resource
                         if ((in_array($request->user()->userrole(), [1, 2]))) {
                             return true;
                         }
-
                     }
                 }),
-            BelongsToMany::make(__("leading"), "leading", \App\Nova\User::class)->hideFromIndex()
-           ->canSee(function (NovaRequest $request) {
-                    if (Auth::check()) {
-                        if ((in_array($request->user()->userrole(), [1, 2]))) {
-                            return true;
-                        }
+            BelongsToMany::make(__("leading"), "leading", \App\Nova\User::class)->hideFromIndex(),
 
+            BelongsTo::make(__('added_by'), 'addedby', \App\Nova\User::class)->hideWhenCreating()->hideWhenUpdating()->canSee(function (NovaRequest $request) {
+                if (Auth::check()) {
+                    if ((in_array($request->user()->userrole(), [1, 2]))) {
+                        return true;
                     }
-                }),
+                }
+            }),
+
             hasMany::make(__("new FormResults"), "FormResults", \App\Nova\NewFormResults::class),
             hasMany::make(__("old FormResults"), "FormResults", \App\Nova\FormResults::class),
 
@@ -192,15 +201,27 @@ class Form extends Resource
     }
     public static function aftersave(Request $request, $model)
     {
-        if ($request->leadings !=null) {
-            foreach ($request->leadings as $key => $value) {
-                DB::table('form_users')
-                    ->updateOrInsert(
-                        ['form_id' => $model->id, 'user_id' =>  $value]
+        if ($request->leadings != null) {
+            if ((in_array(0, $request->leadings))) {
+                $forms =  User::where("added_by", Auth::id())->get();
+                foreach ( $forms as $key => $value) {
+                    // dd( $value->id);
+                    DB::table('form_users')
+                        ->updateOrInsert(
+                            ['form_id' => $model->id, 'user_id' =>  $value->id]
 
-                    );
-            }        }
+                        );
+                }
+            } else {
+                foreach ($request->leadings as $key => $value) {
+                    DB::table('form_users')
+                        ->updateOrInsert(
+                            ['form_id' => $model->id, 'user_id' =>  $value]
 
+                        );
+                }
+            }
+        }
     }
     /**
      * Get the cards available for the request.
