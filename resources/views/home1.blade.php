@@ -27,7 +27,9 @@
                     </div>
                     <div class="register-form mt-5">
                         <div class="hidden register-form-1">
-                            <form action="">
+                            <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{url('store-form')}}">
+                                @csrf
+
                                 <div class="flex flex-wrap mb-5">
                                     <div class="w-full">
                                         <input name="name" class="block w-full bg-transparent text-[#115A48] border border-[#115A48] rounded-sm py-4  px-4 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]" id="" type="text" placeholder="الاسم">
@@ -43,11 +45,7 @@
                                         <input name="phone" class="block w-full bg-transparent text-[#115A48] border border-[#115A48] rounded-sm py-4  px-4 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]" id="" type="text" placeholder=" رقم الهاتف">
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap mb-5">
-                                    <div class="w-full">
-                                        <input name="password" class="block w-full bg-transparent text-[#115A48] border border-[#115A48] rounded-sm py-4  px-4 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]" id="" type="password" placeholder="كلمة المرور">
-                                    </div>
-                                </div>
+
                                 <button class="border w-full py-4 hover:text-white text-white bg-[#115A48] hover:bg-[#207661] duration-300">
                                     انشاء حساب
                                 </button>

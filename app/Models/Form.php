@@ -23,5 +23,9 @@ class Form extends Model
     {
         return $this->BelongsToMany(User::class,'form_users');
     }
+    public function addedby()
+    {
+        return $this->belongsTo('App\Models\user','added_by');
+    }
 
 }

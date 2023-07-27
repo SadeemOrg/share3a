@@ -107,8 +107,8 @@ class HomeController extends Controller
         }
         // dd($finallresult);
         $FormResults = new FormResults();
-        $FormResults->form_id=$request->formid;
-        $FormResults->result=json_encode($finallresult);
+        $FormResults->form_id = $request->formid;
+        $FormResults->result = json_encode($finallresult);
         $FormResults->user_ip = $ip;
         $FormResults->browser = $browser;
         $FormResults->os = $osPlatform;
@@ -229,24 +229,37 @@ class HomeController extends Controller
         //
         return back()->with('success', 'شكرا');
     }
-    public function exportForm(Request $request){
+    public function exportForm(Request $request)
+    {
         // dd( $request->all());
         $array = [];
         $data = $request->all();
         // dd($data );
         foreach ($data as $key => $value) {
-            array_push($array,$value);
+            array_push($array, $value);
         }
 
-        return Excel::download(new ExportFormReselt( $array ), 'users123.xlsx');
+        return Excel::download(new ExportFormReselt($array), 'users123.xlsx');
     }
 
-    public function exportUsers(Request $request,$key){
+    public function exportUsers(Request $request, $key)
+    {
         // dd( $request->all());
         $array = [];
 
         array_push($array, 12);
 
-        return Excel::download(new ExportForm( $key ), 'users123.xlsx');
+        return Excel::download(new ExportForm($key), 'users123.xlsx');
+    }
+
+    public function store(Request $request)
+    {
+        $FormResults = new RegisterForm();
+        $FormResults->name = $request->name;
+        $FormResults->email = $request->email;
+        $FormResults->phone = $request->phone   ;
+
+        $FormResults->save();
+        return redirect('thanks')->with('status', 'Blog Post Form Data Has Been inserted');
     }
 }
