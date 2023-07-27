@@ -232,7 +232,7 @@ class Form extends Resource
     public function cards(NovaRequest $request)
     {
         return [
-            new Analytics(),
+            // new Analytics(),
         ];
     }
 
