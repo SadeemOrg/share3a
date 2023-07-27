@@ -59,7 +59,7 @@ class NewFormResults extends Resource
     {
 
 
-        return $query->whereDate('created_at', Carbon::now()->subDays(10));
+        return $query->whereBetween('created_at',  [Carbon::now()->subDays(10),Carbon::now()]);
     }
     public function fields(NovaRequest $request)
     {
