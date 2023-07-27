@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Nova\Actions\ExportForm;
 use App\Nova\Actions\ExportFormReselt;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -55,13 +56,19 @@ class FormResults extends Resource
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
+    public static function authorizedToCreate(Request $request)
+    {
+        return false;
+    }
+    public  function authorizedToUpdate(Request $request)
+    {
+        return false;
+    }
 
-     public static function indexQuery(NovaRequest $request, $query)
-     {
-
-         return $query->where('is_new', 0);
-
-     }
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->whereNotBetween('created_at', [Carbon::now()->subDays(10), Carbon::now()]);
+    }
     public function fields(NovaRequest $request)
     {
         return [
@@ -78,7 +85,7 @@ class FormResults extends Resource
                 foreach (json_decode($this->result) as $key => $value) {
                     // $series = str_replace(' ',   $healthy, $value->questionskey);
                     // dd( $series);
-                    $data .= "<p>" .   str_replace( $healthy,  $yummy, $value->questionskey)  .  ' :' . $value->questionsanswerkey . '</p>';
+                    $data .= "<p>" .   str_replace($healthy,  $yummy, $value->questionskey)  .  ' :' . $value->questionsanswerkey . '</p>';
                 }
                 return $data;
             })->alwaysShow(),
@@ -143,7 +150,7 @@ class FormResults extends Resource
             new ExportForm(),
             new ExportFormReselt(),
             // new ExportForm(),
-        //   (  new DownloadExcel())->withHeadings(),
+            //   (  new DownloadExcel())->withHeadings(),
             // new DownloadExcel,
         ];
     }
