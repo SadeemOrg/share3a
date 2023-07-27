@@ -140,6 +140,16 @@ class User extends Resource
                 Select::make('permission','permission')->options([
                     '1' => 'read',
                     '2' => 'write && read',
+                ])->hideFromIndex()->canSee(function (NovaRequest $request) {
+                    if (Auth::check()) {
+                        if ((in_array($request->user()->userrole(), [2]))) {
+                            return true;
+                        } else return false;
+                    }
+                })->displayUsingLabels(),
+                Select::make('permission','permission')->options([
+                    '1' => 'read',
+                    '2' => 'write && read',
                 ])->canSee(function (NovaRequest $request) {
                     if(Auth::check())
                     {
@@ -147,7 +157,7 @@ class User extends Resource
                         return true;
                     }
                 }
-                })->hideFromIndex(),
+                })->hideFromIndex()->hideFromDetail()->hideWhenCreating()->hideWhenUpdating()->displayUsingLabels(),
             BelongsTo::make(__('added_by'), 'addedby', \App\Nova\User::class)->hideWhenCreating()->hideWhenUpdating(),
             // BelongsTo::make(__('role'), 'role', \App\Nova\User::class)->hideWhenCreating()->hideWhenUpdating(),
             FieldsHasMany::make(__('userAdded'), 'useradd', \App\Nova\User::class)->hideWhenCreating()->hideWhenUpdating()

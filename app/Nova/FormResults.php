@@ -25,7 +25,7 @@ class FormResults extends Resource
     // }
     public static function label()
     {
-        return __('ادارة المشاركين ');
+        return __('ادارة العملاء القدم ');
     }
 
     /**
@@ -99,11 +99,11 @@ class FormResults extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('user_ip', 'user_ip'),
-            Text::make('os', 'os'),
-            Text::make('browser', 'browser'),
+            Text::make(__('user_ip'), 'user_ip'),
+            Text::make(__('os'), 'os'),
+            Text::make(__('browser'), 'browser'),
 
-            Tiptap::make('result', 'result', function () {
+            Tiptap::make(__('result'), 'result', function () {
                 $data = " ";
                 $healthy = ["__", "_"];
                 $yummy   = ["  ", "  "];

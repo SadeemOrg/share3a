@@ -162,20 +162,21 @@ class Form extends Resource
                     return $address_type_admin_array;
                 })->canSee(function (NovaRequest $request) {
                     if (Auth::check()) {
-                        if ($request->user()->userrole() != 3) {
+                        if ((in_array($request->user()->userrole(), [1, 2]))) {
                             return true;
                         }
+
                     }
                 }),
-            BelongsToMany::make(__("leading"), "leading", \App\Nova\User::class)->hideFromDetail()->hideFromIndex()
-            ->canSee(function (NovaRequest $request) {
-                if(Auth::check())
-                {
-                if ((in_array($request->user()->userrole(), [1, 2]))) {
-                    return true;
-                }
-            }
-            }),
+            BelongsToMany::make(__("leading"), "leading", \App\Nova\User::class)->hideFromIndex()
+           ->canSee(function (NovaRequest $request) {
+                    if (Auth::check()) {
+                        if ((in_array($request->user()->userrole(), [1, 2]))) {
+                            return true;
+                        }
+
+                    }
+                }),
             hasMany::make(__("new FormResults"), "FormResults", \App\Nova\NewFormResults::class),
             hasMany::make(__("old FormResults"), "FormResults", \App\Nova\FormResults::class),
 
@@ -191,13 +192,15 @@ class Form extends Resource
     }
     public static function aftersave(Request $request, $model)
     {
-        foreach ($request->leadings as $key => $value) {
-            DB::table('form_users')
-                ->updateOrInsert(
-                    ['form_id' => $model->id, 'user_id' =>  $value]
+        if ($request->leadings !=null) {
+            foreach ($request->leadings as $key => $value) {
+                DB::table('form_users')
+                    ->updateOrInsert(
+                        ['form_id' => $model->id, 'user_id' =>  $value]
 
-                );
-        }
+                    );
+            }        }
+
     }
     /**
      * Get the cards available for the request.
