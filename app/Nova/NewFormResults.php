@@ -5,6 +5,7 @@ namespace App\Nova;
 use App\Nova\Actions\ExportForm;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
@@ -53,6 +54,32 @@ class NewFormResults extends Resource
     public  function authorizedToUpdate(Request $request)
     {
         return false;
+    }
+
+
+    public  function authorizedToDelete(Request $request)
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1, 2]))) {
+                return true;
+            } else return false;
+        }
+    }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1]))) {
+                return true;
+            } else return false;
+        }
+    }
+    public  function authorizedToReplicate(Request $request)
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1, 2]))) {
+                return true;
+            } else return false;
+        }
     }
 
     public static function indexQuery(NovaRequest $request, $query)

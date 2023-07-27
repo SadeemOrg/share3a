@@ -6,6 +6,7 @@ use App\Nova\Actions\ExportForm;
 use App\Nova\Actions\ExportFormReselt;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
@@ -64,6 +65,31 @@ class FormResults extends Resource
         return false;
     }
 
+
+    public  function authorizedToDelete(Request $request)
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1, 2]))) {
+                return true;
+            } else return false;
+        }
+    }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1]))) {
+                return true;
+            } else return false;
+        }
+    }
+    public  function authorizedToReplicate(Request $request)
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1, 2]))) {
+                return true;
+            } else return false;
+        }
+    }
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->whereNotBetween('created_at', [Carbon::now()->subDays(10), Carbon::now()]);
