@@ -100,22 +100,22 @@ class Form extends Resource
             Text::make(__('note'), 'note'),
             Flexible::make(__('questions'), 'questions')
                 ->addLayout(__('Add select'), 'select', [
-                    Text::make(__('name')),
+                    Text::make(__('name'),'name'),
                     Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
                         ->addLayout(__('Add select choices'), 'choices', [
-                            Text::make(__('text')),
+                            Text::make(__('text'),'text'),
 
                         ])
 
                 ])->addLayout(__('Add text'), 'text', [
-                    Text::make(__('text')),
+                    Text::make(__('text'),'text'),
 
 
                 ])->addLayout(__('Add Note Filed'), 'Note', [
-                    Text::make(__('text')),
+                    Text::make(__('text'),'text'),
 
                 ])->addLayout(__('Add boolean Filed'), 'boolean', [
-                    Text::make(__('text')),
+                    Text::make(__('text'),'text'),
 
                 ]),
 
@@ -145,7 +145,7 @@ class Form extends Resource
                         }
                     }
                 }),
-            BelongsToMany::make(__("leadingw"), "leading", \App\Nova\User::class)->showOnCreating(),
+            BelongsToMany::make(__("leading"), "leading", \App\Nova\User::class)->showOnCreating(),
             hasMany::make(__("new FormResults"), "FormResults", \App\Nova\NewFormResults::class),
             hasMany::make(__("old FormResults"), "FormResults", \App\Nova\FormResults::class),
 
