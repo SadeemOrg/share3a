@@ -10,6 +10,7 @@
 </template>
 
 <script>
+
 import { ModelSelect } from 'vue-search-select'
 import 'vue-search-select/dist/VueSearchSelect.css'
 export default {
