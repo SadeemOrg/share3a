@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\HasMany as FieldsHasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Outl1ne\MultiselectField\Multiselect;
@@ -98,38 +99,44 @@ class User extends Resource
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
+                Text::make('phone number','phone_number')
+                ->sortable()
+                ->rules('max:14'),
 
             // Async model querying
 
-            Multiselect::make('Form Admin', 'pages')
-            ->options(function(){
-              $forms=  Form::where("added_by",Auth::id())->get()  ;
 
-              $address_type_admin_array =  array();
-
-              foreach ($forms as $forms) {
-
-                  $address_type_admin_array += [$forms['id'] => ($forms['name'])];
-
-              }
-                return $address_type_admin_array;
-            })->canSee(function (NovaRequest $request) {
-                if(Auth::check())
-                {
-                if ($request->user()->userrole()==2){
-                    return true;
-                }
-            }
-            })
-                ,
 
             Password::make('Password')
                 ->onlyOnForms()
                 ->creationRules('required', Rules\Password::defaults())
                 ->updateRules('nullable', Rules\Password::defaults()),
+                Select::make('permission','permission')->options([
+                    '1' => 'read',
+                    '2' => 'write && read',
+                ])->canSee(function (NovaRequest $request) {
+                    if(Auth::check())
+                    {
+                    if ($this->roles==3){
+                        return true;
+                    }
+                }
+                })->hideFromIndex(),
             BelongsTo::make(__('added_by'), 'addedby', \App\Nova\User::class)->hideWhenCreating()->hideWhenUpdating(),
             // BelongsTo::make(__('role'), 'role', \App\Nova\User::class)->hideWhenCreating()->hideWhenUpdating(),
-            FieldsHasMany::make(__('useradd'), 'useradd', \App\Nova\User::class)->hideWhenCreating()->hideWhenUpdating(),
+            FieldsHasMany::make(__('useradd'), 'useradd', \App\Nova\User::class)->hideWhenCreating()->hideWhenUpdating()
+            ->canSee(function (NovaRequest $request) {
+                if(Auth::check())
+                {
+                if ($this->roles==3){
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            }) ,
             FieldsHasMany::make(__('Forms'), 'Forms', \App\Nova\Form::class)->hideWhenCreating()->hideWhenUpdating(),
 
 

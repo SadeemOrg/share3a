@@ -25,7 +25,7 @@ class ReadRegisterForm extends Action
     {
         foreach ($models as $model) {
             $model->update([
-                'is_read'=>'1',
+                'is_new'=>'0',
 
             ]);
         }

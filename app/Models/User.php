@@ -51,6 +51,12 @@ class User extends Authenticatable
         return $this->roles;
     }
 
+    public function usepermission()
+    {
+        return $this->permission;
+    }
+
+
     public function addedby()
     {
         return $this->belongsTo('App\Models\user','added_by');
@@ -66,5 +72,9 @@ class User extends Authenticatable
     public function Forms()
     {
         return $this->hasMany('App\Models\Form','added_by');
+    }
+    public function leadingform()
+    {
+        return $this->BelongsToMany(Form::class,'form_users');
     }
 }

@@ -15,13 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('phone_number');
+
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();;
             $table->char('roles',2)->nullable();
             // $table->unsignedBigInteger('user_id');
             $table->json('pages')->nullable();
             $table->foreignId('added_by')->nullable()->constrained()->cascadeOnDelete()->on('users');
             $table->char('status')->default('0');
+            $table->char('permission',1)->nullable();
+
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

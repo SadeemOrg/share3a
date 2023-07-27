@@ -54,20 +54,19 @@ class Form extends Resource
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    // public static function authorizedToCreate(Request $request)
-    // {
-    //     if ((in_array("0",json_decode(  $request->user()->userrole()) ))){
+    public static function authorizedToCreate(Request $request)
+    {
+        if ((in_array($request->user()->userrole(), [1, 2]))) {
+            return true;
+        } else return false;
+    }
+    public  function authorizedToUpdate(Request $request)
+    {
 
-    //         return true;
-    //     }
-    // }
-    // public  function authorizedToUpdate(Request $request)
-    // {
-    //     if ((in_array("0",json_decode(  $request->user()->userrole()) ))){
-
-    //         return true;
-    //     }
-    // }
+        if ((in_array($request->user()->userrole(), [1, 2]))) {
+            return true;
+        } else return false;
+    }
     // public function authorizedToDelete(Request $request)
     // {
     //     if ((in_array("0",json_decode(  $request->user()->userrole()) ))){
@@ -75,21 +74,24 @@ class Form extends Resource
     //         return true;
     //     }
     // }
-        public static function indexQuery(NovaRequest $request, $query)
-        {
-            // dd( $request->user()->userrole());
-            if ($request->user()->userrole()==0){
-                // dd("dd");
-                return $query;
-            }
-            //  dd(in_array("1",  $request->user()->userrole()));/
-            //  dd(in_array("1",json_decode( $request->user()->userrole())));
-    // dd(gettype( $request->user()->userrole()));
 
 
-            return $query->where('added_by',   Auth::id());
-
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        // dd( $request->user()->userrole());
+        if ($request->user()->userrole() == 1) {
+            // dd("dd");
+            return $query;
         }
+        //  dd(in_array("1",  $request->user()->userrole()));/
+        //  dd(in_array("1",json_decode( $request->user()->userrole())));
+        // dd(gettype( $request->user()->userrole()));
+        if ($request->user()->userrole() == 2) {
+            dd( Auth::user()->leadingform()) ;// $query->where('added_by',   Auth::id());
+        }
+
+        // return $query->where('added_by',   Auth::id());
+    }
     public function fields(NovaRequest $request)
     {
         return [
@@ -119,31 +121,36 @@ class Form extends Resource
 
                 ]),
 
-                Multiselect::make('leading', 'leadings')
+            Multiselect::make('leading', 'leadings')
                 ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) {
                     return null;
                 })
-                ->options(function(){
-                  $forms=  User::where("added_by",Auth::id())->get()  ;
+                ->options(function () {
+                    if (Auth::user()->userrole()==1) {
+                        $forms =  User::all();
+                    }
+                    else{
 
-                  $address_type_admin_array =  array();
+                        $forms =  User::where("added_by", Auth::id())->get();
+                    }
 
-                  foreach ($forms as $forms) {
+                    $address_type_admin_array =  array();
 
-                      $address_type_admin_array += [$forms['id'] => ($forms['name'])];
+                    foreach ($forms as $forms) {
 
-                  }
+                        $address_type_admin_array += [$forms['id'] => ($forms['name'])];
+                    }
                     return $address_type_admin_array;
                 })->canSee(function (NovaRequest $request) {
-                    if(Auth::check())
-                    {
-                    if ($request->user()->userrole()==2){
-                        return true;
+                    if (Auth::check()) {
+                        if ($request->user()->userrole() !=3) {
+                            return true;
+                        }
                     }
-                }
-                })  ,
-                BelongsToMany::make(__("leadingw"), "leading", \App\Nova\User::class)->showOnCreating(),
-                hasMany::make(__("FormResults"), "FormResults", \App\Nova\FormResults::class),
+                }),
+            BelongsToMany::make(__("leadingw"), "leading", \App\Nova\User::class)->showOnCreating(),
+            hasMany::make(__("new FormResults"), "FormResults", \App\Nova\NewFormResults::class),
+            hasMany::make(__("old FormResults"), "FormResults", \App\Nova\FormResults::class),
 
 
         ];
@@ -153,20 +160,17 @@ class Form extends Resource
         $user = Auth::user();
         // dd($user->roles == 1 ? 2 : 3);
         $model->added_by = $user->id;
-    // $model->roles = $user->roles == 1 ? 2 : 3;
+        // $model->roles = $user->roles == 1 ? 2 : 3;
     }
     public static function aftersave(Request $request, $model)
     {
         foreach ($request->leadings as $key => $value) {
             DB::table('form_users')
-            ->updateOrInsert(
-                ['form_id' => $model->id, 'user_id' =>  $value]
+                ->updateOrInsert(
+                    ['form_id' => $model->id, 'user_id' =>  $value]
 
-            );
-
-            }
-
-
+                );
+        }
     }
     /**
      * Get the cards available for the request.
@@ -187,9 +191,7 @@ class Form extends Resource
      */
     public function filters(NovaRequest $request)
     {
-        return [
-
-        ];
+        return [];
     }
 
     /**
