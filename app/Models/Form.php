@@ -8,10 +8,15 @@ use Spatie\MediaLibrary\Models\Media;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Whitecube\NovaFlexibleContent\Value\FlexibleCast;
 
 class Form extends Model
 {
     use HasFactory ,SoftDeletes;
+
+    protected $casts = [
+        'icons' => FlexibleCast::class
+    ];
 
     public function FormResults()
     {
