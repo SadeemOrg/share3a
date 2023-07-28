@@ -40,11 +40,14 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
                 <p class="Hebah-Font text-center text-[#E3BD2F] text-[25px] md:text-[40px] lg:text-[64px] mb-10">
-                    {{ nova_get_setting('title', '') }}
+                    {{-- {{ nova_get_setting('title', '') }} --}}
+                    {{$forms->text  }}
                 </p>
                 <div class="text-white text-center">
                     <p class="text-[25px] md:text-[28px] lg:text-[35px] mb-10">
-                        {{ nova_get_setting('subtitle', '') }}
+                        {{-- {{ nova_get_setting('subtitle', '') }} --}}
+                    {{$forms->sup_text  }}
+
                     </p>
                     <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
                         {{ nova_get_setting('title_Second', '') }}
