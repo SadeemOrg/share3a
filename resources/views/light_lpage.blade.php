@@ -23,27 +23,24 @@
 
                     <div>
                         @php
-                        $imageExtensions = ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'svg', 'svgz', 'cgm', 'djv', 'djvu', 'ico', 'ief', 'jpe', 'pbm', 'pgm', 'pnm', 'ppm', 'ras', 'rgb', 'tif', 'tiff', 'wbmp', 'xbm', 'xpm', 'xwd'];
+                            $imageExtensions = ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'svg', 'svgz', 'cgm', 'djv', 'djvu', 'ico', 'ief', 'jpe', 'pbm', 'pgm', 'pnm', 'ppm', 'ras', 'rgb', 'tif', 'tiff', 'wbmp', 'xbm', 'xpm', 'xwd'];
 
-                        $explodeImage =  nova_get_setting('header_logo', '') ;
+                            $explodeImage = nova_get_setting('header_logo', '');
 
+                        @endphp
+                        {{-- @dd(gettype($forms->file)) --}}
 
-
-                    @endphp
-                    {{-- @dd(gettype($forms->file)) --}}
-
-                         @if ( $explodeImage=='')
-                         <a href="/register_2_lpage">
-                            <img class="max-w-[180px] sm:max-w-[220px] w-full mx-auto"
-                                src="{{ asset('assets/images/lpage-2/logo-2.svg') }}" alt="left logo">
-                        </a>
+                        @if ($explodeImage == '')
+                            <a href="/register_2_lpage">
+                                <img class="max-w-[180px] sm:max-w-[220px] w-full mx-auto"
+                                    src="{{ asset('assets/images/lpage-2/logo-2.svg') }}" alt="left logo">
+                            </a>
                         @else
-                        <a href="/register_2_lpage">
-                            <img class="max-w-[180px] sm:max-w-[220px] w-full mx-auto"
-                                src="/storage/{{ nova_get_setting('header_logo', '') }}" alt="left logo">
-                        </a>
-
-                         @endif
+                            <a href="/register_2_lpage">
+                                <img class="max-w-[180px] sm:max-w-[220px] w-full mx-auto"
+                                    src="/storage/{{ nova_get_setting('header_logo', '') }}" alt="left logo">
+                            </a>
+                        @endif
 
                     </div>
                     <div class="flex gap-x-3 items-center">
@@ -95,23 +92,21 @@
 
                             $explodeImage = explode('.', 'path/image.jpg');
                             $extension = end($explodeImage);
-                            $Is_image=0;
+                            $Is_image = 0;
                             if (in_array($extension, $imageExtensions)) {
-                                $Is_image=1;
+                                $Is_image = 1;
                             }
 
                         @endphp
                         {{-- @dd(gettype($forms->file)) --}}
 
-                             @if ( $Is_image)
-                             <img src="/storage/{{ $forms->file }}" alt="Italian Trulli">
-
-                             @else
-
-                        <div class="video-container" style="--aspect-ratio: 2 / 3;">
-                            <iframe src="/storage/{{ $forms->file }}"></iframe>
-                        </div>
-                             @endif
+                        @if ($Is_image)
+                            <img src="/storage/{{ $forms->file }}" alt="Italian Trulli">
+                        @else
+                            <div class="video-container" style="--aspect-ratio: 2 / 3;">
+                                <iframe src="/storage/{{ $forms->file }}"></iframe>
+                            </div>
+                        @endif
 
                     </div>
                 </div>
@@ -202,16 +197,7 @@
                         @endif
                     @endforeach
 
-                    {{--
 
-
-                <div class="flex flex-wrap -mx-3 mb-6">
-                    <div class="w-full px-3">
-                        <textarea name="note" id=""
-                            class="block w-full bg-transparent text-white border border-white rounded-sm py-4 px-4 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
-                            cols="30" rows="10" placeholder="هل لديك سؤال أو استفسار يمكن إضافته؟"></textarea>
-                    </div>
-                </div> --}}
 
                     <div class="text-right mb-5">
                         <button
