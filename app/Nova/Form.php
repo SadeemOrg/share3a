@@ -130,7 +130,7 @@ class Form extends Resource
 
         Flexible::make(__('logo'),'icons')
         ->addLayout(__('add logo'), 'iconslogo', [
-            Image::make(__('logo'),'icons'),
+            Image::make(__('logo'),'icons')->disk("public"),
 
         ])  ->button(__('add logo')),
 

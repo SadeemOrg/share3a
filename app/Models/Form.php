@@ -14,9 +14,6 @@ class Form extends Model
 {
     use HasFactory ,SoftDeletes;
 
-    protected $casts = [
-        'icons' => FlexibleCast::class
-    ];
 
     public function FormResults()
     {
