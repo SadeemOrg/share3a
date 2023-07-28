@@ -22,6 +22,7 @@ use Outl1ne\MultiselectField\Multiselect;
 use Whitecube\NovaFlexibleContent\Flexible;
 use Sietse85\NovaButton\Button;
 use Stepanenko3\NovaMediaField\Fields\Media;
+use Laravel\Nova\Fields\Image;
 
 class Form extends Resource
 {
@@ -126,6 +127,13 @@ class Form extends Resource
         return [
             ID::make()->sortable(),
             Text::make(__('slug'), 'slug')->rules('required'),
+
+        Flexible::make(__('logo'),'icons')
+        ->addLayout(__('add logo'), 'iconslogo', [
+            Image::make(__('logo'),'icons'),
+
+        ])  ->button(__('add logo')),
+
             Text::make(__('text'), 'text')->rules('required'),
             Text::make(__('sub_text'), 'sup_text')->rules('required'),
             Text::make(__('note'), 'note')->rules('required'),
