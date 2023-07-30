@@ -18,7 +18,7 @@
             <div class="mx-auto max-w-4xl">
                 {{-- <img src="{{ asset('assets/logos-header.svg') }}" alt=""> --}}
                 <div class="grid grid-cols-3 gap-6 ">
-                    @php
+                    {{-- @php
                     $logo = $forms->icons;
                     $logo = json_decode( $logo);
 
@@ -28,9 +28,16 @@
                     <div class="col-span-1 flex justify-center items-center">
                         <img class="max-w-[220px] w-full mx-auto" src="/storage/{{ $icons->attributes->icons}}" alt="left logo">
                     </div>
-                    @endforeach
-
-
+                    @endforeach --}}
+                    <div class="col-span-1 flex justify-center items-center">
+                        <img class="max-w-[220px] w-full mx-auto" src="{{asset('assets/images/header-logos/rt-logo.svg')}}" alt="left logo">
+                    </div>
+                    <div class="col-span-1 flex justify-center items-center">
+                        <img class="max-w-[220px] w-full mx-auto" src="{{asset('assets/images/header-logos/middle-logo.svg')}}" alt="left logo">
+                    </div>
+                    <div class="col-span-1 flex justify-center items-center">
+                        <img class="max-w-[220px] w-full mx-auto" src="{{asset('assets/images/header-logos/lt-logo.svg')}}" alt="left logo">
+                    </div>
                 </div>
             </div>
 

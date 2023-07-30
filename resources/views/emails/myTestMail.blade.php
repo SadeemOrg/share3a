@@ -4,7 +4,7 @@
     <title>sajilne.com</title>
 </head>
 <body  class="center">
-    <h1>تهانبنا {{ $details['name'] }}</h1>
+    <h1>تهانينا {{ $details['name'] }}</h1>
     <h1>{{ $details['title'] }}</h1>
 المستخدم  <p>{{ $details['email'] }}</p>
   كلمة السر  <p>{{ $details['password'] }}</p>
