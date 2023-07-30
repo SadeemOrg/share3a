@@ -144,16 +144,16 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
         \Outl1ne\NovaSettings\NovaSettings::addSettingsFields([
 
-            Tabs::make(__('Some Title'), [
-                Tab::make(__('Header'), [
-                    // File::make('Profile Photo')->disk('local'),
-                    Image::make(__('Logo'), 'header_logo'),
-                    Text::make(__('phone number'), 'header_phone_number'),
+            // Tabs::make(__('Some Title'), [
+            //     Tab::make(__('Header'), [
+            //         // File::make('Profile Photo')->disk('local'),
+            //         // Image::make(__('Logo'), 'header_logo'),
+            //         Text::make(__('phone number'), 'header_phone_number'),
 
 
-                ]),
+            //     ]),
 
-            ]),
+            // ]),
             Tabs::make(__('Some Title'), [
                 Tab::make(__('Footer'), [
 
