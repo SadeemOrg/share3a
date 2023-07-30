@@ -1,5 +1,7 @@
 {
-    "main layout":"dd",
+    "Header":"رأس",
+     "Logo":"شعار",
+     "phone number":"رقم التليفون",
     "Create": "اا",
     "Details":"dd"
 }
