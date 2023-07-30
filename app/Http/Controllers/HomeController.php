@@ -257,9 +257,18 @@ class HomeController extends Controller
         $FormResults = new RegisterForm();
         $FormResults->name = $request->name;
         $FormResults->email = $request->email;
-        $FormResults->phone = $request->phone   ;
+        $FormResults->phone = $request->phone;
 
         $FormResults->save();
+
+        $details = [
+            'title' => 'Mail from ItSolutionStuff.com',
+            'body' => 'This is for testing email using smtp'
+        ];
+
+        \Mail::to('your_receiver_email@gmail.com')->send(new \App\Mail\RegisterMail($details));
+
+
         return redirect('thanks')->with('status', 'Blog Post Form Data Has Been inserted');
     }
 }

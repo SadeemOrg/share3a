@@ -23,8 +23,7 @@ use Whitecube\NovaFlexibleContent\Flexible;
 use Sietse85\NovaButton\Button;
 use Stepanenko3\NovaMediaField\Fields\Media;
 use Laravel\Nova\Fields\Image;
-
-class Form extends Resource
+class CustomsForm extends Resource
 {
 
     public static function label()
@@ -114,13 +113,13 @@ class Form extends Resource
     {
         if ($request->user()->userrole() == 1) {
             // dd("dd");
-            return $query->where('type',0);
+            return $query->where('type',1);
         }
 
         $user = Auth::user();
         $formsarray = FormUser::where(['user_id' => Auth::id()])->Select('form_id')->pluck('form_id')->toArray();
 
-        $query->where('type',0)->where('added_by', $user->id)->orWherein('id', $formsarray);
+        $query->where('type',1)->where('added_by', $user->id)->orWherein('id', $formsarray);
     }
     public function fields(NovaRequest $request)
     {
