@@ -38,7 +38,7 @@
                         @else
                             <a href="/register_2_lpage">
                                 <img class="max-w-[180px] sm:max-w-[220px] w-full mx-auto"
-                                    src="/storage/{{ nova_get_setting('header_logo', '') }}" alt="left logo">
+                                    src="/storage/{{ $explodeImage }}" alt="left logo">
                             </a>
                         @endif
 
@@ -101,7 +101,7 @@
                         {{-- @dd(gettype($forms->file)) --}}
 
                         @if ($Is_image)
-                            <img src="/storage/{{ $forms->file }}" alt="Italian Trulli">
+                            <img src="/storage/{{ $forms->icons }}" alt="Italian Trulli">
                         @else
                             <div class="video-container" style="--aspect-ratio: 2 / 3;">
                                 <iframe src="/storage/{{ $forms->file }}"></iframe>
@@ -205,10 +205,11 @@
                             تسجيل الان
                         </button>
                     </div>
-                    {{-- <p class="text-white TheSansArabic-regular text-[14px]">
-                        <span class="text-[#EBBD22] ">ملاحظة:</span>
-                        طاقم الكلية سوف يعود للتواصل معك لتأكيد عملية تسجيلك.
-                    </p> --}}
+                    <p class="text-white TheSansArabic-regular text-[14px]">
+                        <span class="text-[#EBBD22]">ملاحظة:</span>
+                        <span class="text-black"> {{ $forms->note }}</span>
+
+                    </p>
                 </form>
             </div>
         </div>
@@ -216,7 +217,7 @@
     <!-- End register form -->
 
     <!--logos -->
-    <section class="mb-20">
+    {{-- <section class="mb-20">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
                 <div class="flex items-center justify-center mb-3 gap-x-3">
@@ -261,7 +262,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- /logos -->
 
     <!-- footer -->

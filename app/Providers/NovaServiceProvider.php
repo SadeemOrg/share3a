@@ -100,7 +100,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 ])->icon('user')->collapsable(),
 
                 MenuSection::make(__("Homepage"), [
-                    // MenuItem::resource(Form::class)->name(""),
+                    MenuItem::make(__('تغير المحتوى'))->path('/nova-settings/main-layout'),
+
+                    // MenuItem::resource(Form::class)->name("تغير المحتوى"),
                     MenuItem::resource(RegisterForm::class)->name(__('potential clients')),
 
                 ])->icon('user')->collapsable()
@@ -124,7 +126,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 // ])->icon('user')->collapsable(),
 
                 // MenuSection::make(__('ادارة المحتوي'), [
-                //     MenuSection::make(__('كلية الدعوى'))->path('/nova-settings/kly-aldaao'),
+                //     MenuSection::make(__('كلية الدعوى'))->path('/nova-settings/main layout'),
                 //     MenuSection::make(__('الرئيسبة'))->path('/nova-settings/dd'),
                 //     // MenuSection::make( __('Footer link'))->path('/nova-settings/footer-link'),
                 // ])->icon('adjustments')->collapsable(),
@@ -135,8 +137,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
             Tabs::make(__('Some Title'), [
                 Tab::make(__('Header'), [
-                    File::make('Profile Photo')->disk('local'),
-                    Image::make('Heade Logo', 'header_logo'),
+                    // File::make('Profile Photo')->disk('local'),
+                    Image::make(__('Logo'), 'header_logo'),
                     Text::make(__('phone number'), 'header_phone_number'),
 
 
@@ -145,7 +147,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             ]),
             Tabs::make(__('Some Title'), [
                 Tab::make(__('Footer'), [
-                    Image::make('Footer Logo', 'footer_logo'),
+                    Image::make('Logo', 'footer_logo'),
 
                     Text::make(__('Main Text'), 'main_text_footer'),
                     Text::make(__('phone number'), 'footer_phone_number'),
