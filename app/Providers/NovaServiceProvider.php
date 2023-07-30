@@ -156,10 +156,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             ]),
             Tabs::make(__('Some Title'), [
                 Tab::make(__('Footer'), [
-                    Image::make('Logo', 'footer_logo'),
+
 
                     Text::make(__('Main Text'), 'main_text_footer'),
-                    Text::make(__('phone number'), 'footer_phone_number'),
+                    Text::make(__('Main Text'), 'sub_text_footer'),
+
+                    // Text::make(__('phone number'), 'footer_phone_number'),
 
 
                 ]),
