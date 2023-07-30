@@ -43,7 +43,8 @@
 
                             <a href="/register_2_lpage">
                                 <img class="max-w-[120px] sm:max-w-[143px] w-full mx-auto"
-                                    src="https://sajilne.com/storage/w9f9HTQTbshjLE4Oy9bwf5UO4P4LHOiPJoqIexJK.png" alt="left logo">
+                                    src="https://sajilne.com/storage/w9f9HTQTbshjLE4Oy9bwf5UO4P4LHOiPJoqIexJK.png"
+                                    alt="left logo">
                             </a>
                         @endif
 
@@ -105,9 +106,11 @@
                         {{-- @dd(gettype($forms->file)) --}}
 
                         @if ($Is_image)
-                            <img class="w-full h-full rounded-full object-cover" src="/storage/{{ $forms->icons }}" alt="Italian Trulli">
+                            <img class="w-full h-full rounded-full object-cover" src="/storage/{{ $forms->icons }}"
+                                alt="Italian Trulli">
                         @else
-                            <div class="video-container w-full h-full rounded-full object-cover" style="--aspect-ratio: 2 / 3;">
+                            <div class="video-container w-full h-full rounded-full object-cover"
+                                style="--aspect-ratio: 2 / 3;">
                                 <iframe src="/storage/{{ $forms->file }}"></iframe>
                             </div>
                         @endif
@@ -286,10 +289,10 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl text-center">
                 {{-- <img class="mx-auto" src="{{ asset('assets/images/lpage-2/footer-logo.svg') }}" alt="logo footer"> --}}
-                <h2 class="text-[20px] sm:text-[35px] text-white">سجلني</h2>
+                <h2 class="text-[20px] sm:text-[35px] text-white">{{ nova_get_setting('main_text_footer', '') }}</h2>
                 <p class="my-5 text-[18px] sm:text-[20px] text-white">
-                    هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل
-                </p>
+
+                    {{ nova_get_setting('sub_text_footer', '') }} </p>
                 {{-- <div class="flex gap-x-3 items-center justify-center text-white ">
                     <svg width="40" height="40" viewBox="0 0 49 49" fill="none"
                         xmlns="http://www.w3.org/2000/svg">

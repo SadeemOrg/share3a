@@ -43,6 +43,10 @@
     <section>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
+                @php
+
+                    dd($forms->text );
+                @endphp
                 <p class="Hebah-Font text-center text-[#E3BD2F] text-[25px] md:text-[40px] lg:text-[64px] mb-10">
                     {{ $forms->text }}
                 </p>

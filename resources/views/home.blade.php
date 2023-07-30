@@ -61,10 +61,10 @@
 
                     </p>
                     <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
-                        {{ nova_get_setting('title_Second', '') }}
+                        {{$forms->second_text  }}
                     </p>
                     <p class="text-[23px] md:text-[35px] lg:text-[43px] bg-[#124A85] py-3 px-4">
-                        {{ nova_get_setting('subtitle_Second', '') }}
+                        {{$forms->second_sup_text  }}
                     </p>
                 </div>
                 @php
@@ -103,7 +103,7 @@
 
                                     <div class="relative">
                                         <select name='{{ $question->attributes->name }}'
-                                            class="bg-transparent select-option w-full border border-gray-200 text-[#ddd] py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-transparent focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
+                                            class="bg-transparent w-full border border-gray-200 text-white py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-transparent focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
                                             id="grid-state">
                                             <option class="text-[#000]" >
                                                 {{ $question->attributes->name }}</option>
