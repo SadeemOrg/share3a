@@ -16,7 +16,7 @@
 <body dir="rtl">
     <!-- header -->
     <header>
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 hidden">
             <div class="mx-auto max-w-4xl">
                 {{-- <img src="{{ asset('assets/logos-header.svg') }}" alt=""> --}}
                 <div class="flex justify-between items-center">
@@ -32,13 +32,18 @@
 
                         @if ($explodeImage == '')
                             <a href="/register_2_lpage">
-                                <img class="max-w-[180px] sm:max-w-[220px] w-full mx-auto"
+                                <img class="max-w-[120px] sm:max-w-[143px] w-full mx-auto"
                                     src="{{ asset('assets/images/lpage-2/logo-2.svg') }}" alt="left logo">
                             </a>
                         @else
-                            <a href="/register_2_lpage">
-                                <img class="max-w-[180px] sm:max-w-[220px] w-full mx-auto"
+                            {{-- <a href="/register_2_lpage">
+                                <img class="max-w-[120px] sm:max-w-[143px] w-full mx-auto"
                                     src="/storage/{{ $explodeImage }}" alt="left logo">
+                            </a> --}}
+
+                            <a href="/register_2_lpage">
+                                <img class="max-w-[120px] sm:max-w-[143px] w-full mx-auto"
+                                    src="https://sajilne.com/storage/w9f9HTQTbshjLE4Oy9bwf5UO4P4LHOiPJoqIexJK.png" alt="left logo">
                             </a>
                         @endif
 
@@ -69,6 +74,10 @@
 
         </div>
 
+        <div class="text-center bg-[#115A48] py-4">
+            <a class="text-white text-[20px]" href="/register_2_lpage">سجلني</a>
+        </div>
+
     </header>
     <!-- /header -->
 
@@ -76,16 +85,11 @@
     <section class="pt-10 mb-14">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div>
-                        <p class="text-[20px] md:text-[23px] lg:text-[30px] mb-7 text-[#E3BD2F]">
-                            {{ $forms->text }}
-                        </p>
-                        <p class="text-[20px] md:text-[23px] lg:text-[30px] mb-10">
-                            {{ $forms->sup_text }}
-                        </p>
-                    </div>
-                    <div class="relative flex items-center">
+
+
+                <div class="">
+
+                    <div class="rounded-full w-[200px] h-[200px] p-3 mx-auto bg-[#eaebed] overflow-hidden">
 
                         @php
                             $imageExtensions = ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'svg', 'svgz', 'cgm', 'djv', 'djvu', 'ico', 'ief', 'jpe', 'pbm', 'pgm', 'pnm', 'ppm', 'ras', 'rgb', 'tif', 'tiff', 'wbmp', 'xbm', 'xpm', 'xwd'];
@@ -101,15 +105,26 @@
                         {{-- @dd(gettype($forms->file)) --}}
 
                         @if ($Is_image)
-                            <img src="/storage/{{ $forms->icons }}" alt="Italian Trulli">
+                            <img class="w-full h-full rounded-full object-cover" src="/storage/{{ $forms->icons }}" alt="Italian Trulli">
                         @else
-                            <div class="video-container" style="--aspect-ratio: 2 / 3;">
+                            <div class="video-container w-full h-full rounded-full object-cover" style="--aspect-ratio: 2 / 3;">
                                 <iframe src="/storage/{{ $forms->file }}"></iframe>
                             </div>
                         @endif
 
                     </div>
+                    <div class="text-center">
+                        <p class="text-[20px] md:text-[23px] lg:text-[30px] my-5 text-[#E3BD2F]">
+                            {{ $forms->text }}
+                        </p>
+                        <p class="text-[20px] md:text-[23px] lg:text-[27px] TheSansArabic-regular">
+                            {{ $forms->sup_text }}
+                        </p>
+                    </div>
                 </div>
+
+
+
             </div>
         </div>
     </section>
@@ -119,7 +134,7 @@
     <section class="mb-20">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
-                <div class="flex items-center gap-x-3 mb-3">
+                <div class="flex items-center justify-center gap-x-3 mb-8">
                     <svg width="29" height="28" viewBox="0 0 29 28" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <rect width="9.61218" height="9.61218"
@@ -201,15 +216,16 @@
 
                     <div class="text-right mb-5">
                         <button
-                            class="mb-4 block bg-[#124A85] px-20 w-full py-4 hover:bg-blue-700 text-white font-bold py-2 rounded-sm">
+                            class="border w-full py-4 hover:text-white text-white bg-[#115A48] hover:bg-[#207661] duration-300">
                             تسجيل الان
                         </button>
                     </div>
-                    <p class="text-white TheSansArabic-regular text-[14px]">
-                        <span class="text-[#EBBD22]">ملاحظة:</span>
+                    <p class="text-black TheSansArabic-regular text-[14px]">
+                        <span class="text-[#115a48]">ملاحظة:</span>
                         <span class="text-black"> {{ $forms->note }}</span>
 
                     </p>
+
                 </form>
             </div>
         </div>
@@ -269,8 +285,9 @@
     <footer class="py-20 pb-16" style="background-image: url({{ asset('assets/images/lpage-2/footer-bg.jpg') }})">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl text-center">
-                <img class="mx-auto" src="{{ asset('assets/images/lpage-2/footer-logo.svg') }}" alt="logo footer">
-                <p class="my-5 text-[20px] sm:text-[24px] text-white">
+                {{-- <img class="mx-auto" src="{{ asset('assets/images/lpage-2/footer-logo.svg') }}" alt="logo footer"> --}}
+                <h2 class="text-[20px] sm:text-[35px] text-white">سجلني</h2>
+                <p class="my-5 text-[18px] sm:text-[20px] text-white">
                     هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل
                 </p>
                 <div class="flex gap-x-3 items-center justify-center text-white ">
