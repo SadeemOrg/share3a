@@ -137,6 +137,8 @@ class CustomsForm extends Resource
 
             Text::make(__('text'), 'text')->rules('required'),
             Text::make(__('sub_text'), 'sup_text')->rules('required'),
+            Text::make(__('second_text'), 'second_text')->rules('required'),
+            Text::make(__('second_sup_text'), 'second_sup_text')->rules('required'),
             Text::make(__('note'), 'note')->rules('required'),
             Flexible::make(__('questions'), 'questions')
             ->rules('required')

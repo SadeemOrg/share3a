@@ -61,10 +61,10 @@
 
                     </p>
                     <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
-                        {{ nova_get_setting('title_Second', '') }}
+                        {{$forms->second_text  }}
                     </p>
                     <p class="text-[23px] md:text-[35px] lg:text-[43px] bg-[#124A85] py-3 px-4">
-                        {{ nova_get_setting('subtitle_Second', '') }}
+                        {{$forms->second_sup_text  }}
                     </p>
                 </div>
                 @php
