@@ -103,7 +103,7 @@
 
                                     <div class="relative">
                                         <select name='{{ $question->attributes->name }}'
-                                            class="bg-transparent w-full border border-gray-200 text-[#ddd] py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-transparent focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
+                                            class="bg-transparent select-option w-full border border-gray-200 text-[#ddd] py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-transparent focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
                                             id="grid-state">
                                             <option class="text-[#000]" >
                                                 {{ $question->attributes->name }}</option>
