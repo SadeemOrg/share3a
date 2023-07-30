@@ -221,7 +221,7 @@
                         </button>
                     </div>
                     <p class="text-black TheSansArabic-regular text-[14px]">
-                        <span class="text-[#115a48]">ملاحظة:</span>
+                        <span class="text-[#EBBD22] ">ملاحظة:</span>
                         <span class="text-black"> {{ $forms->note }}</span>
 
                     </p>
@@ -290,7 +290,7 @@
                 <p class="my-5 text-[18px] sm:text-[20px] text-white">
                     هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل
                 </p>
-                <div class="flex gap-x-3 items-center justify-center text-white ">
+                {{-- <div class="flex gap-x-3 items-center justify-center text-white ">
                     <svg width="40" height="40" viewBox="0 0 49 49" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_80_38)">
@@ -310,7 +310,7 @@
                     <a class="text-[20px]" href="tel: +2614516161203266">
                         2614516161203266
                     </a>
-                </div>
+                </div> --}}
                 <div class="sm:flex justify-between mt-20">
                     <ul class="flex justify-center sm:justify-start gap-x-4 mb-4 sm:mb-0">
                         <li>
