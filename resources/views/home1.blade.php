@@ -46,9 +46,13 @@
                                     </div>
                                 </div>
 
-                                <button class="border w-full py-4 hover:text-white text-white bg-[#115A48] hover:bg-[#207661] duration-300">
+                                <button class="border mb-4 w-full py-4 hover:text-white text-white bg-[#115A48] hover:bg-[#207661] duration-300">
                                     انشاء حساب
                                 </button>
+                                <p class="text-black TheSansArabic-regular text-[14px]">
+                                    <span class="text-[#115a48] ">ملاحظة:</span>
+                                    الرجاء إدخال رقم الهاتف بشكل صحيح حتى يتم التواصل معك.
+                                </p>
                             </form>
                         </div>
                         <div class="login-form">
