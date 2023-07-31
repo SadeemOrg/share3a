@@ -5,6 +5,7 @@ namespace App\Nova;
 use App\Models\Form;
 use App\Nova\Actions\ExportForm;
 use App\Nova\Actions\ExportFormReselt;
+use App\Nova\Filters\FormType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -154,7 +155,9 @@ class FormResults extends Resource
      */
     public function filters(NovaRequest $request)
     {
-        return [];
+        return [
+            new FormType
+        ];
     }
 
     /**
