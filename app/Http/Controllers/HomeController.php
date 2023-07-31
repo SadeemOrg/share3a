@@ -116,7 +116,7 @@ class HomeController extends Controller
 
         $FormResults->save();
         $form = Form::find($request->formid);
-        if ($form->type==1)   return view('thanks');
+        if ($form->type == 1)   return view('thanks');
         return view('light_thanks');
     }
     public function RegisterForm(Request $request)
@@ -254,7 +254,19 @@ class HomeController extends Controller
 
         return Excel::download(new ExportForm($key), 'users123.xlsx');
     }
+    public function exportformreseat(Request $request)
+    {
 
+        $array = [];
+        $data = $request->all();
+
+        foreach ($data as $key => $value) {
+            array_push($array, $value);
+
+        }
+
+        return Excel::download(new ExportFormReselt($array), 'users123.xlsx');
+    }
     public function store(Request $request)
     {
         $FormResults = new RegisterForm();

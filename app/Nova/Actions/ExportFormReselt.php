@@ -23,13 +23,28 @@ class ExportFormReselt extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
+
         // ?name=AASAS&email=qqq%40jjf.f&phone=Q&password=ASASA
         $string = '?';
         foreach ($models as $key => $value) {
+            // dump($key);
+            $test = $key;
+            if ($test != 0) {
+
+                if (!( $models[--$test]->form_id == $value->form_id))
+                {
+                    return Action::danger('لا يمكن طباعة نتيجة لاكثر من صفحة');
+                }
+            }
+
+            $value->update([
+                'is_new' => '0',
+
+            ]);
             $string .= 'reselt' . $key . '=' . $value->id . '&&';
         }
         // dd('/export-form/' .$string);
-            return   Action::download(url('/export-form/' .$string ), 'aaa.cvs');
+        return   Action::download(url('/export-form-reseat/' . $string), 'aaa.cvs');
     }
 
     /**

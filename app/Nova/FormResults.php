@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Models\Form;
 use App\Nova\Actions\ExportForm;
 use App\Nova\Actions\ExportFormReselt;
 use Carbon\Carbon;
@@ -93,12 +94,17 @@ class FormResults extends Resource
     }
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->whereNotBetween('created_at', [Carbon::now()->subDays(10), Carbon::now()]);
+        return $query->where('is_new',0);
+        // return $query->whereNotBetween('created_at', [Carbon::now()->subDays(10), Carbon::now()]);
     }
     public function fields(NovaRequest $request)
     {
         return [
             ID::make()->sortable(),
+            Text::make(__('Page'), 'form_id',function(){
+               $form= Form::find($this->form_id);
+                return$form->slug;
+            })->sortable(),
             Text::make(__('user_ip'), 'user_ip'),
             Text::make(__('os'), 'os'),
             Text::make(__('browser'), 'browser'),
@@ -173,8 +179,8 @@ class FormResults extends Resource
 
 
         return [
-            new ExportForm(),
-            new ExportFormReselt(),
+            // new ExportForm(),
+            // new ExportFormReselt(),
             // new ExportForm(),
             //   (  new DownloadExcel())->withHeadings(),
             // new DownloadExcel,

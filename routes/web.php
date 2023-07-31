@@ -71,6 +71,7 @@ Route::get('/forms/{slug}', function ($slug) {
 
 Route::get('/export-users/{key}',[HomeController::class,'exportUsers'])->name('export-users');
 Route::get('/export-form',[HomeController::class,'exportForm'])->name('exportForm');
+Route::get('/export-form-reseat',[HomeController::class,'exportformreseat'])->name('exportformreseat');
 
 
 Route::post('store-form', [HomeController::class, 'store']);
