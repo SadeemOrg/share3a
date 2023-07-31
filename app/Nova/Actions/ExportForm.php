@@ -18,7 +18,10 @@ class ExportForm extends Action
     public $showOnTableRow = true;
 
     use InteractsWithQueue, Queueable;
-
+    public function name()
+    {
+        return __('ExportForm');
+    }
     /**
      * Perform the action on the given models.
      *

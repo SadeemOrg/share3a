@@ -12,6 +12,10 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class ExportFormReselt extends Action
 {
+    public function name()
+    {
+        return __('ExportFormReselt');
+    }
     use InteractsWithQueue, Queueable;
 
     /**

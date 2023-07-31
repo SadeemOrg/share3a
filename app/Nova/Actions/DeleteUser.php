@@ -16,6 +16,10 @@ class DeleteUser extends Action
 {
     use InteractsWithQueue, Queueable;
 
+    public function name()
+    {
+        return __('DeleteUser');
+    }
     /**
      * Perform the action on the given models.
      *

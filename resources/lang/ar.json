@@ -71,5 +71,8 @@
 
     "customs Form": " تعديل صفحات خاصة" ,
     "second_text": "نص الرئيسي للفقرة الثانية",
-    "second_sup_text": "نص فرعي للفقرة الثانية"
+    "second_sup_text": "نص فرعي للفقرة الثانية",
+    "ReadRegisterForm":"تصدير إلى Excel",
+    "ExportFormReselt":"تصدير إلى Excel",
+    "ExportForm":"تصدير إلى Excel"
 }
