@@ -25,8 +25,9 @@ class ExportFormReselt implements FromCollection, WithHeadings
         array_push($array, 'os');
         $healthy = ["__", "_"];
         $yummy   = ["  ", "  "];
+        $FormResults = FormResults::where('id', $this->year[0])->first();
 
-        $form = Form::where('id',  18)->first();
+        $form = Form::where('id', $FormResults->form_id)->first();
         $questions = $form->questions;
         $questions = json_decode($questions);
         foreach ($questions as $question) {
