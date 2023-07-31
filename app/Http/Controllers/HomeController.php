@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\ExportForm;
 use App\Exports\ExportFormReselt;
 use App\Exports\ExportUser;
+use App\Models\Form;
 use App\Models\FormResults;
 use App\Models\RegisterForm;
 use Illuminate\Http\Request;
@@ -114,7 +115,9 @@ class HomeController extends Controller
         $FormResults->os = $osPlatform;
 
         $FormResults->save();
-        return view('thanks');
+        $form = Form::find($request->formid);
+        if ($form->type==1)   return view('thanks');
+        return view('light_thanks');
     }
     public function RegisterForm(Request $request)
     {
