@@ -44,6 +44,9 @@ Route::get('/welcome', function () {
 Route::get('/register_2_lpage', function () {
     return view('light_lpage');
 });
+Route::get('/light_thanks', function () {
+    return view('light_thanks');
+});
 
 
 
