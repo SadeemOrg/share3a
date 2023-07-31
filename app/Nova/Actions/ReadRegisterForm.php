@@ -17,6 +17,10 @@ class ReadRegisterForm extends Action
 {
     use InteractsWithQueue, Queueable;
 
+    public function name()
+    {
+        return __('ReadRegisterForm');
+    }
     /**
      * Perform the action on the given models.
      *

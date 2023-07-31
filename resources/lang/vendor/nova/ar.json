@@ -1,5 +1,5 @@
 {
-  "Actions": "Actions",
+  "Actions": "أجراءات",
   "Details": "Details",
   "If you did not request a password reset, no further action is required.": "If you did not request a password reset, no further action is required.",
   "Reset Password": "Reset Password",
@@ -72,7 +72,7 @@
   "Only Trashed": "العناصر المحذوفة",
   "Per Page": "لكل صفحة",
   "Page": "صفحة",
-
+"DeleteUser":"مسح المستخدم",
   "Preview": "Preview",
   "Previous": "السابق",
   "No Data": "لايوجد بيانات",
