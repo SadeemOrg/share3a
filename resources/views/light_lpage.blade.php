@@ -168,6 +168,9 @@
                             <div class="flex flex-wrap -mx-3 mb-6">
                                 <div class="w-full px-3">
                                     <div class="relative">
+                                        <label for="{{ $question->attributes->name }}"
+                                            class="block mb-2 text-sm font-medium text-gray-900 ">{{ $question->attributes->name }}</label>
+
                                         <select name='{{ $question->attributes->name }}'
                                             class="bg-[#f7f7f8] w-full border border-[#115A48] text-[#115A48] py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-[#f7f7f8] focus:ring-0 focus:outline-transparent focus:border-[#E3BD2F]"
                                             id="grid-state">
@@ -187,50 +190,109 @@
                         @if ($question->layout == 'text')
                             <div class="flex flex-wrap -mx-3 mb-6">
                                 <div class="w-full px-3">
+                                    <label for="{{ $question->attributes->text }}"
+                                        class="block mb-2 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
                                     <input name="{{ $question->attributes->text }}"
                                         class="block w-full bg-[#f7f7f8] placeholder:text-[#f7f7f8] text-[#115A48] border border-[#115A48] rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#E3BD2F]"
                                         id="grid-password" type="text"
-                                        placeholder="{{ $question->attributes->text }}">
+                                        placeholder="{{ $question->attributes->text }}"
+                                        @if ($question->attributes->required == '1') required @endif>
                                 </div>
                             </div>
                         @endif
                         @if ($question->layout == 'boolean')
                             <div class="flex flex-wrap -mx-3 mb-6">
                                 <div class="w-full px-3">
-                                    <input id="remember" type="checkbox" name="{{ $question->attributes->text }}"
-                                        class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                                        required>
-                                    {{ $question->attributes->text }}
+                                    <div class="relative">
+                                        <label for="{{ $question->attributes->text }}"
+                                            class="block mb-2 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
+
+                                        <select name='{{ $question->attributes->text }}'
+                                            class="bg-[#f7f7f8] w-full border border-[#115A48] text-[#115A48] py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-[#f7f7f8] focus:ring-0 focus:outline-transparent focus:border-[#E3BD2F]"
+                                            id="grid-state">
+                                            <option class="text-[#000]" name='{{ $question->attributes->text }}'>
+                                                {{ $question->attributes->text }}</option>
+                                            <option value="صح" class="text-[#000]"> صح</option>
+                                            <option value="خطا" class="text-[#000]"> خطا</option>
+                                        </select>
+
+                                    </div>
+
                                 </div>
                             </div>
                         @endif
                         @if ($question->layout == 'Note')
                             <div class="flex flex-wrap -mx-3 mb-6">
                                 <div class="w-full px-3">
+                                    <label for="{{ $question->attributes->text }}"
+                                        class="block mb-2 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
+
                                     <textarea name="{{ $question->attributes->text }}" id=""
                                         class="block w-full bg-[#f7f7f8] text-[#115A48] border border-white rounded-sm py-4 px-4 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#E3BD2F]"
-                                        cols="30" rows="10" placeholder="{{ $question->attributes->text }}"></textarea>
+                                        cols="30" rows="10" placeholder="{{ $question->attributes->text }}"
+                                        @if ($question->attributes->required == '1') required @endif></textarea>
+                                </div>
+                            </div>
+                        @endif
+                        @if ($question->layout == 'phone')
+                            <div class="flex flex-wrap -mx-3 mb-6">
+                                <div class="w-full px-3">
+                                    <label for="{{ $question->attributes->text }}"
+                                        class="block mb-2 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
+
+                                    <input name="{{ $question->attributes->text }}"
+                                        class="block w-full bg-[#f7f7f8] placeholder:text-[#f7f7f8] text-[#115A48] border border-[#115A48] rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#E3BD2F]"
+                                        id="grid-password" type="text" pattern="[0-9]{10}"
+                                        placeholder="{{ $question->attributes->text }}"
+                                        @if ($question->attributes->required == '1') required @endif>
+                                </div>
+                            </div>
+                        @endif
+                        @if ($question->layout == 'email')
+                            <div class="flex flex-wrap -mx-3 mb-6">
+                                <div class="w-full px-3">
+                                    <label for="{{ $question->attributes->text }}"
+                                        class="block mb-2 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
+
+                                    <input name="{{ $question->attributes->text }}"
+                                        class="block w-full bg-[#f7f7f8] placeholder:text-[#f7f7f8] text-[#115A48] border border-[#115A48] rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#E3BD2F]"
+                                        id="grid-password" type="email" placeholder="john.doe@company.com">
                                 </div>
                             </div>
                         @endif
                     @endforeach
+                    @foreach ($questions as $question)
+                        @if ($question->layout == 'Privacy_Policy')
+                        <div class="flex  -mx-3 mb-6">
+                            <div class="w-full px-3">
+                            <input id="remember" type="checkbox" name="{{ $question->attributes->text }}"
+                            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                            required >
 
+                                <a href="{{ $question->attributes->link }}" target="_blank">
+                                    <u>
+                                    {{ $question->attributes->text }}
+                                    </u>
+                                </a>
+                            </div>
 
-
-                    <div class="text-right mb-5">
-                        <button
-                            class="border w-full py-4 hover:text-white text-white bg-[#115A48] hover:bg-[#207661] duration-300">
-                            تسجيل الان
-                        </button>
-                    </div>
-                    <p class="text-black TheSansArabic-regular text-[14px]">
-                        <span class="text-[#EBBD22] ">ملاحظة:</span>
-                        <span class="text-black"> {{ $forms->note }}</span>
-
-                    </p>
-
-                </form>
             </div>
+            @endif
+            @endforeach
+            <div class="text-right mb-5">
+                <button
+                    class="border w-full py-4 hover:text-white text-white bg-[#115A48] hover:bg-[#207661] duration-300">
+                    تسجيل الان
+                </button>
+            </div>
+            <p class="text-black TheSansArabic-regular text-[14px]">
+                <span class="text-[#EBBD22] ">ملاحظة:</span>
+                <span class="text-black"> {{ $forms->note }}</span>
+
+            </p>
+
+            </form>
+        </div>
         </div>
     </section>
     <!-- End register form -->
