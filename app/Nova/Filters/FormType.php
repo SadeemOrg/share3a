@@ -8,6 +8,12 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class FormType extends Filter
 {
+
+    public function name()
+    {
+        return __('FormType');
+    }
+
     /**
      * The filter's component.
      *

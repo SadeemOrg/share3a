@@ -13,6 +13,10 @@ class RegisterForm extends Resource
 {
 
 
+    public static function label()
+    {
+        return __('العملاء  المحتملون');
+    }
     /**
      * The model the resource corresponds to.
      *
@@ -36,6 +40,15 @@ class RegisterForm extends Resource
         'id',
     ];
 
+    public static function authorizedToCreate(Request $request)
+    {
+        return false;
+    }
+    public  function authorizedToUpdate(Request $request)
+    {
+        return false;
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -46,11 +59,11 @@ class RegisterForm extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Name', 'name'),
-            Text::make('Phone Number', 'phone'),
-            Text::make('Country', 'email'),
+            Text::make(__('Name'), 'name'),
+            Text::make(__('Phone Number'), 'phone'),
+            Text::make(__('Email'), 'email'),
             // Text::make('Area', 'area'),
-            Boolean::make('is_read', 'is_new'),
+            Boolean::make(__('is_read'), 'is_new'),
             Button::make('اضافة كمستخدك')->action(ReadRegisterForm::class)->canSee(function () {
                 return $this->is_new === '0';
             })->style('success'),

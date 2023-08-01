@@ -176,7 +176,7 @@ class CustomsForm extends Resource
                     }
 
                     $address_type_admin_array =  array();
-                    $address_type_admin_array += [0 => 'All'];
+                    $address_type_admin_array += [0 => 'الكل'];
                     foreach ($forms as $forms) {
 
                         $address_type_admin_array += [$forms['id'] => ($forms['name'])];

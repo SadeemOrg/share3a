@@ -8,6 +8,7 @@ use App\Models\Form as ModelsForm;
 use App\Models\FormUser;
 use App\Models\User;
 use App\Nova\Actions\ExportForm;
+use App\Rules\RequiredRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -129,7 +130,7 @@ class Form extends Resource
             ID::make()->sortable(),
 
             Button::make(__('go to page'))->link( ($this->type=='1') ? url('/') .'/كلية_الدعوة'  :   url('/') . '/forms/' . $this->slug)->style('primary'),
-            Text::make(__('slug'), 'slug')->rules('required')->hideFromIndex()->hideFromDetail()->hideFromDetail(),
+            Text::make(__('slug'), 'slug')->hideFromIndex()->hideFromDetail()->hideFromDetail()->rules( 'required'),
             Image::make(__('logo'),'icons')->disk("public"),
         // Flexible::make(__('logo'),'icons')
         // ->addLayout(__('add logo'), 'iconslogo', [
