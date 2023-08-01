@@ -41,6 +41,10 @@
     "Add select choices": "أضافة خيار جديد",
     "Add text": "اضافة سؤال كتابي",
     "Add Note Filed": "اضافة ملاحظة",
+    "Add phone Filed": "إضافة الهاتف",
+    "Add Email Filed": "أضف بريدًا إلكترونيًا",
+    "Privacy Policy and Terms of Use": "سياسة الخصوصية وشروط الاستخدام",
+
     "Add boolean Filed": "اضافة سؤال جوابه بنعم او لا",
     "leading": "المسؤلين عن الصفحة",
     "user_ip": "IP للمستخدم",

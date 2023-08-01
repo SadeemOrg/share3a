@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
@@ -147,17 +148,27 @@ class Form extends Resource
                         ->addLayout(__('Add select choices'), 'choices', [
                             Text::make(__('text'), 'text'),
 
-                        ])
-
+                        ]),
+                        Boolean::make(__('required'), 'required'),
                 ])->addLayout(__('Add text'), 'text', [
                     Text::make(__('text'), 'text'),
-
+                    Boolean::make(__('required'), 'required'),
 
                 ])->addLayout(__('Add Note Filed'), 'Note', [
                     Text::make(__('text'), 'text'),
-
+                    Boolean::make(__('required'), 'required'),
                 ])->addLayout(__('Add boolean Filed'), 'boolean', [
                     Text::make(__('text'), 'text'),
+                    Boolean::make(__('required'), 'required'),
+                ])->addLayout(__('Add Email Filed'), 'email', [
+                    Text::make(__('text'), 'text'),
+                    Boolean::make(__('required'), 'required'),
+                ])->addLayout(__('Add phone Filed'), 'phone', [
+                    Text::make(__('text'), 'text'),
+                    Boolean::make(__('required'), 'required'),
+                ])->addLayout(__('Privacy Policy and Terms of Use'), 'Privacy_Policy', [
+                    Text::make(__('text'), 'text'),
+                    Text::make(__('link'), 'link'),
 
                 ]),
 
