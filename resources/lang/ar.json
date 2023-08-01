@@ -23,6 +23,10 @@
     "User": "المستخدم",
     "Create :resource": "انشاء :resource",
     "ID": "المعرف",
+    "is_read":"مقروء",
+    "Phone Number":"رقم التليفون",
+    "of": "من",
+
     "added_by": "اضيف بواسطة",
     "userAdded": "المستخدمين الذين تم اضافتهم",
     "Forms": "الصفحات",
@@ -44,7 +48,10 @@
     "Add phone Filed": "إضافة الهاتف",
     "Add Email Filed": "أضف بريدًا إلكترونيًا",
     "Privacy Policy and Terms of Use": "سياسة الخصوصية وشروط الاستخدام",
-
+"this field is required":"هذه الخانة مطلوبه",
+"validation.required":"هذه الخانة مطلوبه",
+"FormType":"الصفحات",
+"Page":"صفحة",
     "Add boolean Filed": "اضافة سؤال جوابه بنعم او لا",
     "leading": "المسؤلين عن الصفحة",
     "user_ip": "IP للمستخدم",
