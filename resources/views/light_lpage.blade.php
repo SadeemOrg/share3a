@@ -232,7 +232,7 @@
                                         class="block mb-2 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
 
                                     <input name="{{ $question->attributes->text }}"
-                                        class="block w-full bg-[#f7f7f8]  text-black border border-gray- rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#115A48]"
+                                        class="block w-full bg-[#f7f7f8]  text-black rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#115A48]"
                                         id="grid-password" type="text" pattern="[0-9]{10}"
                                         placeholder="{{ $question->attributes->text }}"
                                         @if ($question->attributes->required == '1') required @endif>
