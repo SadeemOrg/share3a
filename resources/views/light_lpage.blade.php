@@ -246,8 +246,8 @@
                                         class="block mb-2 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
 
                                     <input name="{{ $question->attributes->text }}"
-                                        class="placeholder-red-600 block w-full bg-[#f7f7f8] text-black border border-gray-200 rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#115A48]"
-                                        id="grid-password" type="email" placeholder="john.doe@company.com">
+                                        class=" block w-full bg-[#f7f7f8] text-black border border-gray-200 rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#115A48]"
+                                        id="grid-password" type="email" placeholder="البريد الالكتروني">
                                 </div>
                             </div>
                         @endif
