@@ -8,6 +8,7 @@
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     @vite('resources/css/app.css')
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}?v={{ rand(0, 99) }}">
 </head>
 
 <body dir="rtl">
@@ -21,9 +22,9 @@
                     <div>
                         @php
                             $imageExtensions = ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'svg', 'svgz', 'cgm', 'djv', 'djvu', 'ico', 'ief', 'jpe', 'pbm', 'pgm', 'pnm', 'ppm', 'ras', 'rgb', 'tif', 'tiff', 'wbmp', 'xbm', 'xpm', 'xwd'];
-                            
+
                             $explodeImage = nova_get_setting('header_logo', '');
-                            
+
                         @endphp
                         {{-- @dd(gettype($forms->file)) --}}
 
@@ -86,14 +87,14 @@
 
                         @php
                             $imageExtensions = ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'svg', 'svgz', 'cgm', 'djv', 'djvu', 'ico', 'ief', 'jpe', 'pbm', 'pgm', 'pnm', 'ppm', 'ras', 'rgb', 'tif', 'tiff', 'wbmp', 'xbm', 'xpm', 'xwd'];
-                            
+
                             $explodeImage = explode('.', 'path/image.jpg');
                             $extension = end($explodeImage);
                             $Is_image = 0;
                             if (in_array($extension, $imageExtensions)) {
                                 $Is_image = 1;
                             }
-                            
+
                         @endphp
                         {{-- @dd(gettype($forms->file)) --}}
 
@@ -147,7 +148,7 @@
                 @php
                     $questions = $forms->questions;
                     $questions = json_decode($questions);
-                    
+
                 @endphp
 
                 <form class="w-full register-form" method="post" action="{{ route('form.store') }}">
@@ -160,7 +161,7 @@
                                 <div class="w-full px-3">
                                     <div class="relative">
                                         <label for="{{ $question->attributes->name }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 ">{{ $question->attributes->name }}</label>
+                                            class="block mb-3 text-sm font-medium text-gray-900 ">{{ $question->attributes->name }}</label>
 
                                         <select name='{{ $question->attributes->name }}'
                                             class="custom-select bg-[#f7f7f8] w-full border border-gray-200  text-black py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-[#f7f7f8] focus:ring-0 focus:outline-transparent focus:border-[#115A48]"
@@ -182,7 +183,7 @@
                             <div class="flex flex-wrap -mx-3 mb-6">
                                 <div class="w-full px-3">
                                     <label for="{{ $question->attributes->text }}"
-                                        class="block mb-2 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
+                                        class="block mb-3 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
                                     <input name="{{ $question->attributes->text }}"
                                         class="block w-full bg-[#f7f7f8] placeholder:text-[#f7f7f8] text-black border border-gray-200 rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#115A48]"
                                         id="grid-password" type="text"
@@ -196,7 +197,7 @@
                                 <div class="w-full px-3">
                                     <div class="relative">
                                         <label for="{{ $question->attributes->text }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
+                                            class="block mb-3 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
                                         <select name='{{ $question->attributes->text }}'
                                             class="custom-select bg-[#f7f7f8] w-full border border-gray-200 text-black py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-[#f7f7f8] focus:ring-0 focus:outline-transparent focus:border-[#115A48]"
                                             id="grid-state">
@@ -216,7 +217,7 @@
                             <div class="flex flex-wrap -mx-3 mb-6">
                                 <div class="w-full px-3">
                                     <label for="{{ $question->attributes->text }}"
-                                        class="block mb-2 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
+                                        class="block mb-3 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
 
                                     <textarea name="{{ $question->attributes->text }}" id=""
                                         class="block w-full bg-[#f7f7f8] text-black border border-gray-200 rounded-sm py-4 px-4 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#115A48]"
@@ -229,7 +230,7 @@
                             <div class="flex flex-wrap -mx-3 mb-6">
                                 <div class="w-full px-3">
                                     <label for="{{ $question->attributes->text }}"
-                                        class="block mb-2 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
+                                        class="block mb-3 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
 
                                     <input name="{{ $question->attributes->text }}"
                                         class="block w-full bg-[#f7f7f8] border border-gray-200 text-black rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#115A48]"
@@ -243,7 +244,7 @@
                             <div class="flex flex-wrap -mx-3 mb-6">
                                 <div class="w-full px-3">
                                     <label for="{{ $question->attributes->text }}"
-                                        class="block mb-2 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
+                                        class="block mb-3 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
 
                                     <input name="{{ $question->attributes->text }}"
                                         class=" block w-full bg-[#f7f7f8] text-black border border-gray-200 rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#115A48]"
