@@ -276,11 +276,10 @@
                             تسجيل الان
                         </button>
                     </div>
-                    <p class="text-black TheSansArabic-regular text-[14px]">
-                        <span class="text-[#115A48] font-bold ">ملاحظة:</span>
-                        <span class="text-black"> {{ $forms->note }}</span>
-
-                    </p>
+                    <div class="flex flex-row items-center justify-start gap-x-1 text-black TheSansArabic-regular text-[16px]">
+                        <span class="text-[#115A48] font-bold "> ملاحظات :  </span>
+                        <span class="text-black "> {{ $forms->note }}</span>
+                    </div>
                 </form>
             </div>
         </div>
