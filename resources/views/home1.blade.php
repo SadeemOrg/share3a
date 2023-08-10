@@ -115,20 +115,31 @@
             
             $.validator.addMethod( "mobileNumber", function( value, element ) {
                 return this.optional( element ) || /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test( value );
-            }, "الرجاء إدخال رقم الهاتف بطريقة صحيحة" );
+            }, "الرجاء إدخال رقم الهاتف بطريقة صحيحة" );            
             $("#add-blog-post-form").validate({                
-                rules: {
-                    // simple rule, converted to {required:true}
-                    name: "required",                    
-                    // compound rule                    
+                rules: {                                     
                     email: {
                         required: true,
-                        email: true
+                        email: true,
+                        remote: {
+                            url: "{{ route('form.store') }}",
+                            type: "post"
+                        }
                     },
                     phone: {
                         required: true,
                         mobileNumber: true
                     },
+                },
+                messages: {
+                    email: {
+                        required: "Please enter your email address.",
+                        email: "Please enter a valid email address.",
+                        remote: "Email already in use!"
+                    }
+                },
+                submitHandler: function(form) {
+                    form.submit();
                 }
             });
             jQuery.extend(jQuery.validator.messages, {
