@@ -253,15 +253,16 @@
                                 </div>
                             </div>
                         @endif
-                    @endforeach                    
+                    @endforeach
                     @foreach ($questions as $question)
                         @if ($question->layout == 'Privacy_Policy')
+                        @isset($question->attributes->choices[0])
                             <div class="flex  -mx-3 mb-6">
                                 <div class="checkbox w-full px-3">
                                     <input id="remember" type="checkbox" name="{{ $question->attributes->text }}"
                                         class=" w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 "
                                         required>
-                                    @isset($question->attributes->choices[0])
+
                                         @if ($question->attributes->choices[0]->layout == 'text')
                                             <a href="{{ $question->attributes->choices[0]->attributes->text }}"
                                                 class="open-modal" target="_blank">
@@ -325,12 +326,13 @@
                                                 </u>
                                             </a>
                                         @endif
-                                    @endisset
+
 
 
                                 </div>
 
                             </div>
+                            @endisset
                         @endif
                     @endforeach
                     <div class="text-right mb-5">
@@ -477,8 +479,8 @@
         @endif
 
         $( document ).ready(function() {
-            // validation form 
-            $("#register_form").validate({                
+            // validation form
+            $("#register_form").validate({
                 rules: {
                     // simple rule, converted to {required:true}
                     name: "required",
