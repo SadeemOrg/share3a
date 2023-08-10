@@ -25,6 +25,7 @@ use Whitecube\NovaFlexibleContent\Flexible;
 use Sietse85\NovaButton\Button;
 use Stepanenko3\NovaMediaField\Fields\Media;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Textarea;
 
 class Form extends Resource
 {
@@ -77,10 +78,9 @@ class Form extends Resource
         if (Auth::check()) {
             if ((in_array($request->user()->userrole(), [1, 2]))) {
                 return true;
-            }
-            else{
+            } else {
 
-                if ($request->user()->usepermission()==2) {
+                if ($request->user()->usepermission() == 2) {
                     return true;
                 }
             }
@@ -116,33 +116,35 @@ class Form extends Resource
     {
         if ($request->user()->userrole() == 1) {
             // dd("dd");
-            return $query->where('type',0);
+            return $query->where('type', 0);
         }
 
         $user = Auth::user();
         $formsarray = FormUser::where(['user_id' => Auth::id()])->Select('form_id')->pluck('form_id')->toArray();
 
-        $query->where('type',0)->where('added_by', $user->id)->orWherein('id', $formsarray);
+        $query->where('type', 0)->where('added_by', $user->id)->orWherein('id', $formsarray);
     }
     public function fields(NovaRequest $request)
     {
         return [
             ID::make()->sortable(),
 
-            Button::make(__('go to page'))->link( ($this->type=='1') ? url('/') .'/كلية_الدعوة'  :   url('/') . '/forms/' . $this->slug)->style('primary'),
-            Text::make(__('slug'), 'slug')->hideFromIndex()->hideFromDetail()->hideFromDetail()->rules( 'required'),
-            Image::make(__('logo'),'icons')->disk("public"),
-        // Flexible::make(__('logo'),'icons')
-        // ->addLayout(__('add logo'), 'iconslogo', [
-        //     Image::make(__('logo'),'icons')->disk("public"),
+            Button::make(__('go to page'))->link(($this->type == '1') ? url('/') . '/كلية_الدعوة'  :   url('/') . '/forms/' . $this->slug)->style('primary'),
+            Text::make(__('slug'), 'slug')->hideFromIndex()->hideFromDetail()->hideFromDetail()->rules('required'),
+            Image::make(__('logo'), 'icons')->disk("public"),
+            // Flexible::make(__('logo'),'icons')
+            // ->addLayout(__('add logo'), 'iconslogo', [
+            //     Image::make(__('logo'),'icons')->disk("public"),
 
-        // ])  ->button(__('add logo')),
+            // ])  ->button(__('add logo')),
 
             Text::make(__('text'), 'text')->rules('required'),
             Text::make(__('sub_text'), 'sup_text')->rules('required'),
-            Text::make(__('note'), 'note')->rules('required'),
+            Text::make(__('note Form'), 'note')->rules('required'),
+            Text::make(__('text_thanks'), 'text_thanks'),
+            Text::make(__('sup_text_thanks'), 'sup_text_thanks'),
             Flexible::make(__('questions'), 'questions')
-            ->rules('required')
+                ->rules('required')
                 ->addLayout(__('Add select'), 'select', [
                     Text::make(__('name'), 'name'),
                     Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
@@ -150,7 +152,7 @@ class Form extends Resource
                             Text::make(__('text'), 'text'),
 
                         ]),
-                        Boolean::make(__('required'), 'required'),
+                    Boolean::make(__('required'), 'required'),
                 ])->addLayout(__('Add text'), 'text', [
                     Text::make(__('text'), 'text'),
                     Boolean::make(__('required'), 'required'),
@@ -169,12 +171,19 @@ class Form extends Resource
                     Boolean::make(__('required'), 'required'),
                 ])->addLayout(__('Privacy Policy and Terms of Use'), 'Privacy_Policy', [
                     Text::make(__('text'), 'text'),
-                    Text::make(__('link'), 'link'),
 
+                    Flexible::make(__('select'), 'choices')->button(__('Add  choices'))
+                        ->addLayout(__('Add link'), 'link', [
+                            Text::make(__('link'), 'link'),
+
+                        ])->addLayout(__('Add pop up'), 'text', [
+                            Text::make(__('text'), 'text'),
+
+                        ])->limit(1),
                 ]),
 
             Multiselect::make(__('leading'), 'leadings')
-            ->placeholder('للبحث عن مسؤولين')
+                ->placeholder('للبحث عن مسؤولين')
                 ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) {
                     return null;
                 })
@@ -234,19 +243,19 @@ class Form extends Resource
                     $forms =  User::where("added_by", Auth::id())->get();
                 }
 
-                foreach ( $forms as $key => $value) {
+                foreach ($forms as $key => $value) {
 
                     DB::table('form_users')
                         ->updateOrInsert(
                             ['form_id' => $model->id, 'user_id' =>  $value->id]
 
                         );
-                        $details = [
-                            'title' => 'تم اضافتك الى ادارة صفحة الهبوط ',
-                            'body' => $model->slug,
-                        ];
+                    $details = [
+                        'title' => 'تم اضافتك الى ادارة صفحة الهبوط ',
+                        'body' => $model->slug,
+                    ];
 
-                        \Mail::to('your_receiver_email@gmail.com')->send(new \App\Mail\AddUserToForm($details));
+                    \Mail::to($forms->email)->send(new \App\Mail\AddUserToForm($details));
                 }
             } else {
                 foreach ($request->leadings as $key => $value) {
@@ -256,13 +265,12 @@ class Form extends Resource
                             ['form_id' => $model->id, 'user_id' =>  $value]
 
                         );
-                        $details = [
-                            'title' => 'تم اضافتك الى ادارة صفحة الهبوط ',
-                            'body' => $model->slug,
-                        ];
+                    $details = [
+                        'title' => 'تم اضافتك الى ادارة صفحة الهبوط ',
+                        'body' => $model->slug,
+                    ];
 
-                        \Mail::to('your_receiver_email@gmail.com')->send(new \App\Mail\AddUserToForm($details));
-
+                    \Mail::to($forms->email)->send(new \App\Mail\AddUserToForm($details));
                 }
             }
         }

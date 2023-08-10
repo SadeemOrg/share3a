@@ -10,26 +10,17 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}?v={{ rand(0, 99) }}">
 </head>
 
-<body dir="rtl">
+<body dir="rtl" >
     <!-- Start page content -->
     <section class="flex items-center justify-center h-[100vh]">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
                 <h2 class="text-[38px] md:text-[48px] text-center">سجلني</h2>
                 <p class="Hebah-Font text-center text-[#E3BD2F] text-[35px] md:text-[40px] lg:text-[64px] mb-8">
-                    @if (!empty($form->text_thanks))
-                        {{ $form->text_thanks }}
-                    @else
-                        شكرا لك للتسجيل معنا
-                    @endif
-
+                    شكرا لك للتسجيل معنا
                 </p>
                 <p class="text-[25px] md:text-[28px] lg:text-[35px] text-[#115A48] text-center">
-                    @if (!empty($form->sup_text_thanks))
-                        {{ $form->sup_text_thanks }}
-                    @else
-                        سيتم التواصل معكم قريبا
-                    @endif
+                     سيتم التواصل معكم قريبا من قبل احد المسؤولين
                 </p>
             </div>
         </div>
