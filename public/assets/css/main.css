@@ -51,4 +51,12 @@ body {font-family: TheSansArabic-bold;}
     width: 100%;
     height: 100%;
   }
+ 
 
+  .checkbox input[type='checkbox']:checked, [type='radio']:checked {
+    border-color: transparent;
+    background-color: #115A48 ;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
