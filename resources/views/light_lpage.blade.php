@@ -492,7 +492,7 @@
                 }
             });
             jQuery.extend(jQuery.validator.messages, {
-                required: "هذا السؤال مطلوب الاجابة عليه",
+                required: "هذا الحقل مطلوب ",
                 email: "الرجاء إدخال البريد الالكتروني بشكل صحيح",
             });
 
