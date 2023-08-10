@@ -275,7 +275,7 @@ class HomeController extends Controller
             'phone' => 'required'
         ]);
         if ($validator->fails()) {
-        dd($validator->messages()->first());
+        // dd($validator->messages()->first());
             return redirect()->back()->with('error','Data Deleted');
        }
         $FormResults = new RegisterForm();
@@ -286,8 +286,8 @@ class HomeController extends Controller
         $FormResults->save();
 
         $details = [
-            'title' => 'Mail from ItSolutionStuff.com',
-            'body' => 'This is for testing email using smtp'
+            'title' => 'شكرا لتسجيلك معنا',
+            'body' => 'سيتم التواصل معكم قريبا من قبل احد المسولين'
         ];
 
         \Mail::to($request->email)->send(new \App\Mail\RegisterMail($details));

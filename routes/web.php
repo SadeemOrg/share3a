@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Models\Form;
 use App\Models\FormResults;
 use App\Nova\Http\Controllers\LoginController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -82,7 +83,7 @@ Route::post('store-form', [HomeController::class, 'store']);
 Route::get('send-mail', function () {
 
     $details = [
-        'title' => 'Mail from ItSolutionStuff.com',
+        'title' => 'Mail from sajilne.com',
         'body' => 'This is for testing email using smtp'
     ];
 

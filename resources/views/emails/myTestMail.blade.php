@@ -12,8 +12,7 @@
   </a>
 
 
-
-    <p>Thank you</p>
+  <title>sajilne.com</title>
 </body>
 </html>
 <style>
