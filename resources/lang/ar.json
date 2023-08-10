@@ -86,5 +86,7 @@
     "second_sup_text": "نص فرعي للفقرة الثانية",
     "ReadRegisterForm": "تصدير إلى Excel",
     "ExportFormReselt": "تصدير إلى Excel",
-    "ExportForm": "تصدير إلى Excel"
+    "ExportForm": "تصدير إلى Excel",
+    "Add link":"إضافة رابط",
+    "Add pop up":"أضف نص"
 }
