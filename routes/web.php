@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Models\Form;
 use App\Models\FormResults;
 use App\Nova\Http\Controllers\LoginController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,10 +36,12 @@ Route::get('/كلية_الدعوة', function () {
 Route::get('/thanks', function () {
     return view('thanks');
 });
-
+Route::get('/register_thanks', function () {
+    return view('register_thanks');
+});
 Route::get('/welcome', function () {
 
-    return view('home1');
+    return view('home1')->with('message','Data added Successfully');
 });
 
 Route::get('/register_2_lpage', function () {
@@ -80,7 +83,7 @@ Route::post('store-form', [HomeController::class, 'store']);
 Route::get('send-mail', function () {
 
     $details = [
-        'title' => 'Mail from ItSolutionStuff.com',
+        'title' => 'Mail from sajilne.com',
         'body' => 'This is for testing email using smtp'
     ];
 
