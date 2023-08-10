@@ -151,7 +151,7 @@
 
                 @endphp
 
-                <form class="w-full register-form" method="post" action="{{ route('form.store') }}">
+                <form id="register_form" class="w-full register-form" method="post" action="{{ route('form.store') }}">
                     @csrf
                     <input type="hidden" name='formid' value="{{ $forms->id }}">
                     <!-- CROSS Site Request Forgery Protection -->
@@ -422,6 +422,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script>
         @if (Session::has('success'))
             toastr.options = {
@@ -444,6 +445,9 @@
         @endif
 
         $( document ).ready(function() {
+            // validation form 
+            $("#register_form").validate();
+            // =============================================== //
             $('.modal-content').click(function(event) {
                 event.stopPropagation()
             })
