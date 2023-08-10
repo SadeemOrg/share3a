@@ -77,8 +77,7 @@ Route::get('/export-form',[HomeController::class,'exportForm'])->name('exportFor
 Route::get('/export-form-reseat',[HomeController::class,'exportformreseat'])->name('exportformreseat');
 
 
-Route::post('store-form', [HomeController::class, 'store']);
-
+Route::post('store-form', [HomeController::class, 'store'])->name('form.store');;
 
 Route::get('send-mail', function () {
 
