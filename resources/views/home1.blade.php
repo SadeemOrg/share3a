@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="flex flex-wrap mb-5">
                                     <div class="w-full">
-                                        <input name="phone" class="block w-full bg-transparent text-[#115A48] border border-[#115A48] rounded-sm py-4  px-4 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]" id="" type="text" placeholder=" رقم الهاتف">
+                                        <input name="phone" class="block w-full bg-transparent text-[#115A48] border border-[#115A48] rounded-sm py-4  px-4 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]" id="" type="text" placeholder=" رقم الهاتف" required>
                                     </div>
                                 </div>
 
@@ -107,8 +107,26 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script>
-        $( document ).ready(function() {
+        $( document ).ready(function() {            
+            // validation form 
+            $("#add-blog-post-form").validate({                
+                rules: {
+                    // simple rule, converted to {required:true}
+                    name: "required",                    
+                    // compound rule                    
+                    email: {
+                        required: true,
+                        email: true
+                    }
+                }
+            });
+            jQuery.extend(jQuery.validator.messages, {
+                required: "هذا الحقل مطلوب ",
+                email: "الرجاء إدخال البريد الالكتروني بشكل صحيح",
+            });
+
             $('.register-btn').click(function() {
                 $('.register-form-1').fadeIn();
                 $('.login-form').hide();
