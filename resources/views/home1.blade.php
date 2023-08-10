@@ -122,7 +122,7 @@
                         required: true,
                         email: true,
                         remote: {
-                            url: "{{ route('posts.store') }}",
+                            url: "{{ route('form.store') }}",
                             type: "post"
                         }
                     },
