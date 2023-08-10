@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="flex flex-wrap mb-5">
                                     <div class="w-full">
-                                        <input name="phone" class="block w-full bg-transparent text-[#115A48] border border-[#115A48] rounded-sm py-4  px-4 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]" id="" type="text" placeholder=" رقم الهاتف" required>
+                                        <input name="phone" class="block w-full bg-transparent text-[#115A48] border border-[#115A48] rounded-sm py-4  px-4 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]" id="phone" type="text" placeholder=" رقم الهاتف" required>
                                     </div>
                                 </div>
 
@@ -108,9 +108,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
     <script>
         $( document ).ready(function() {            
             // validation form 
+            
+            $.validator.addMethod( "mobileNumber", function( value, element ) {
+                return this.optional( element ) || /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test( value );
+            }, "الرجاء إدخال رقم الهاتف بطريقة صحيحة" );
             $("#add-blog-post-form").validate({                
                 rules: {
                     // simple rule, converted to {required:true}
@@ -119,7 +124,11 @@
                     email: {
                         required: true,
                         email: true
-                    }
+                    },
+                    phone: {
+                        required: true,
+                        mobileNumber: true
+                    },
                 }
             });
             jQuery.extend(jQuery.validator.messages, {
