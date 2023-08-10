@@ -275,9 +275,7 @@ class HomeController extends Controller
             'phone' => 'required'
         ]);
         if ($validator->fails()) {
-            return response()->json([
-                'error' => $validator->errors()->all()
-            ]);
+            return false;
         }
         $FormResults = new RegisterForm();
         $FormResults->name = $request->name;
