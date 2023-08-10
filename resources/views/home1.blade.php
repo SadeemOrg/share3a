@@ -115,7 +115,7 @@
             
             $.validator.addMethod( "mobileNumber", function( value, element ) {
                 return this.optional( element ) || /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test( value );
-            }, "الرجاء إدخال رقم الهاتف بطريقة صحيحة" );
+            }, "الرجاء إدخال رقم الهاتف بطريقة صحيحة" );            
             $("#add-blog-post-form").validate({                
                 rules: {                                     
                     email: {
@@ -130,8 +130,6 @@
                         required: true,
                         mobileNumber: true
                     },
-
-
                 },
                 messages: {
                     email: {
