@@ -11,6 +11,7 @@ use App\Models\RegisterForm;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
+
 class HomeController extends Controller
 {
     public function formstore(Request $request)
@@ -117,7 +118,7 @@ class HomeController extends Controller
         $FormResults->save();
         $form = Form::find($request->formid);
         if ($form->type == 1)   return view('thanks');
-        return view('light_thanks',compact('form'));
+        return view('light_thanks', compact('form'));
     }
     public function RegisterForm(Request $request)
     {
@@ -262,7 +263,6 @@ class HomeController extends Controller
 
         foreach ($data as $key => $value) {
             array_push($array, $value);
-
         }
 
         return Excel::download(new ExportFormReselt($array), 'users123.xlsx');
@@ -275,9 +275,10 @@ class HomeController extends Controller
             'phone' => 'required'
         ]);
         if ($validator->fails()) {
-        // dd($validator->messages()->first());
-            return redirect()->back()->with('error','Data Deleted');
-       }
+            return response()->json([
+                'error' => $validator->errors()->all()
+            ]);
+        }
         $FormResults = new RegisterForm();
         $FormResults->name = $request->name;
         $FormResults->email = $request->email;
