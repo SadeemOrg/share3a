@@ -140,7 +140,9 @@ class Form extends Resource
 
             Text::make(__('text'), 'text')->rules('required'),
             Text::make(__('sub_text'), 'sup_text')->rules('required'),
-            Text::make(__('note'), 'note')->rules('required'),
+            Text::make(__('note Form'), 'note')->rules('required'),
+            Text::make(__('text_thanks'), 'text_thanks'),
+            Text::make(__('sup_text_thanks'), 'sup_text_thanks'),
             Flexible::make(__('questions'), 'questions')
             ->rules('required')
                 ->addLayout(__('Add select'), 'select', [
@@ -246,7 +248,7 @@ class Form extends Resource
                             'body' => $model->slug,
                         ];
 
-                        \Mail::to('your_receiver_email@gmail.com')->send(new \App\Mail\AddUserToForm($details));
+                        \Mail::to($forms->email )->send(new \App\Mail\AddUserToForm($details));
                 }
             } else {
                 foreach ($request->leadings as $key => $value) {
@@ -261,7 +263,7 @@ class Form extends Resource
                             'body' => $model->slug,
                         ];
 
-                        \Mail::to('your_receiver_email@gmail.com')->send(new \App\Mail\AddUserToForm($details));
+                        \Mail::to($forms->email )->send(new \App\Mail\AddUserToForm($details));
 
                 }
             }

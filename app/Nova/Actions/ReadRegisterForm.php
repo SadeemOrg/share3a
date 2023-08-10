@@ -57,7 +57,7 @@ class ReadRegisterForm extends Action
 
             ];
 
-            \Mail::to('your_receiver_email@gmail.com')->send(new \App\Mail\MyUSerMail($details));
+            \Mail::to($model->email)->send(new \App\Mail\MyUSerMail($details));
         }
     }
 

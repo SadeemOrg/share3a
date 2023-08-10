@@ -10,7 +10,7 @@ use App\Models\FormResults;
 use App\Models\RegisterForm;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Illuminate\Support\Facades\Validator;
 class HomeController extends Controller
 {
     public function formstore(Request $request)
@@ -117,7 +117,7 @@ class HomeController extends Controller
         $FormResults->save();
         $form = Form::find($request->formid);
         if ($form->type == 1)   return view('thanks');
-        return view('light_thanks');
+        return view('light_thanks',compact('form'));
     }
     public function RegisterForm(Request $request)
     {
@@ -269,6 +269,15 @@ class HomeController extends Controller
     }
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:50',
+            'email' => 'required|email|unique:register_forms',
+            'phone' => 'required'
+        ]);
+        if ($validator->fails()) {
+        dd($validator->messages()->first());
+            return redirect()->back()->with('error','Data Deleted');
+       }
         $FormResults = new RegisterForm();
         $FormResults->name = $request->name;
         $FormResults->email = $request->email;
@@ -281,9 +290,9 @@ class HomeController extends Controller
             'body' => 'This is for testing email using smtp'
         ];
 
-        \Mail::to('your_receiver_email@gmail.com')->send(new \App\Mail\RegisterMail($details));
+        \Mail::to($request->email)->send(new \App\Mail\RegisterMail($details));
 
 
-        return redirect('thanks')->with('status', 'Blog Post Form Data Has Been inserted');
+        return redirect('register_thanks')->with('status', 'Blog Post Form Data Has Been inserted');
     }
 }
