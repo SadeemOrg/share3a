@@ -12,12 +12,16 @@
 </head>
 
 <body dir="rtl">
-    <section>
+    <!-- Start header -->
+    <header>        
+        <div class="text-center bg-[#115A48] py-4">
+            <a class="text-white text-[20px]" href="/register_2_lpage">سجلني</a>
+        </div>
+    </header>
+    <!-- End header -->
+    <section class="mt-28">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="mx-auto max-w-4xl">
-                <div>
-                    <img class="max-w-[220px] w-full mx-auto" src="https://sajilne.com/assets/images/header-logos/rt-logo.svg" alt="logo">
-                </div>
+            <div class="mx-auto max-w-4xl">                
                 <div class="py-5 mb-20 reg-log-box">
                     <div class="tabs-container flex gap-x-3">
                         <button class="login-btn border w-1/2 py-4 hover:text-white text-white bg-[#115A48] hover:bg-[#115A48] duration-300">تسجيل دخول</button>
