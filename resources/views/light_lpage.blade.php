@@ -261,68 +261,72 @@
                                     <input id="remember" type="checkbox" name="{{ $question->attributes->text }}"
                                         class=" w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 "
                                         required>
-
-                                    @if ($question->attributes->choices[0]->layout == 'text')
-                                        <a href="{{ $question->attributes->choices[0]->attributes->text }}"
-                                            class="open-modal" target="_blank">
-                                            <u>
-                                                {{ $question->attributes->text }}
-                                            </u>
-                                        </a>
-                                        <!-- Start modal popUp -->
-                                        <div class="relative z-10 hidden modal-close popup-modal"
-                                            aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                                            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity">
-                                            </div>
-                                            <div class="fixed inset-0 z-10 overflow-y-auto">
-                                                <div
-                                                    class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                                    @isset($question->attributes->choices[0])
+                                        @if ($question->attributes->choices[0]->layout == 'text')
+                                            <a href="{{ $question->attributes->choices[0]->attributes->text }}"
+                                                class="open-modal" target="_blank">
+                                                <u>
+                                                    {{ $question->attributes->text }}
+                                                </u>
+                                            </a>
+                                            <!-- Start modal popUp -->
+                                            <div class="relative z-10 hidden modal-close popup-modal"
+                                                aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                                                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity">
+                                                </div>
+                                                <div class="fixed inset-0 z-10 overflow-y-auto">
                                                     <div
-                                                        class="modal-content relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-10 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 sm:pt-10">
-                                                        <div class="absolute right-0 top-0  pr-4 pt-4 block">
-                                                            <button type="button"
-                                                                class="modal-close rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                                                <span class="sr-only">Close</span>
-                                                                <svg class="h-6 w-6" fill="none"
-                                                                    viewBox="0 0 24 24" stroke-width="1.5"
-                                                                    stroke="currentColor" aria-hidden="true">
-                                                                    <path stroke-linecap="round"
-                                                                        stroke-linejoin="round"
-                                                                        d="M6 18L18 6M6 6l12 12" />
-                                                                </svg>
-                                                            </button>
-                                                        </div>
-                                                        <div>
-                                                            <div
-                                                                class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#115A48] ">
-                                                                <svg class="h-6 w-6 text-white" fill="none"
-                                                                    viewBox="0 0 24 24" stroke-width="1.5"
-                                                                    stroke="currentColor" aria-hidden="true">
-                                                                    <path stroke-linecap="round"
-                                                                        stroke-linejoin="round"
-                                                                        d="M4.5 12.75l6 6 9-13.5" />
-                                                                </svg>
+                                                        class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                                                        <div
+                                                            class="modal-content relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-10 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 sm:pt-10">
+                                                            <div class="absolute right-0 top-0  pr-4 pt-4 block">
+                                                                <button type="button"
+                                                                    class="modal-close rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                                                    <span class="sr-only">Close</span>
+                                                                    <svg class="h-6 w-6" fill="none"
+                                                                        viewBox="0 0 24 24" stroke-width="1.5"
+                                                                        stroke="currentColor" aria-hidden="true">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M6 18L18 6M6 6l12 12" />
+                                                                    </svg>
+                                                                </button>
                                                             </div>
-                                                            <div class="mt-3 text-center sm:mt-5">
-                                                                {{-- <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Payment successful</h3> --}}
-                                                                <div class="mt-2">
-                                                                    <p class="text-sm text-gray-500">{{ $question->attributes->choices[0]->attributes->text }}</p>
+                                                            <div>
+                                                                <div
+                                                                    class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#115A48] ">
+                                                                    <svg class="h-6 w-6 text-white" fill="none"
+                                                                        viewBox="0 0 24 24" stroke-width="1.5"
+                                                                        stroke="currentColor" aria-hidden="true">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M4.5 12.75l6 6 9-13.5" />
+                                                                    </svg>
+                                                                </div>
+                                                                <div class="mt-3 text-center sm:mt-5">
+                                                                    {{-- <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Payment successful</h3> --}}
+                                                                    <div class="mt-2">
+                                                                        <p class="text-sm text-gray-500">
+                                                                            {{ $question->attributes->choices[0]->attributes->text }}
+                                                                        </p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- End modal popUp -->
-                                    @elseif ($question->attributes->choices[0]->layout == 'link')
-                                        <a href="{{ $question->attributes->choices[0]->attributes->link }}"
-                                            class="" target="_blank">
-                                            <u>
-                                                {{ $question->attributes->text }}
-                                            </u>
-                                        </a>
-                                    @endif
+                                            <!-- End modal popUp -->
+                                        @elseif ($question->attributes->choices[0]->layout == 'link')
+                                            <a href="{{ $question->attributes->choices[0]->attributes->link }}"
+                                                class="" target="_blank">
+                                                <u>
+                                                    {{ $question->attributes->text }}
+                                                </u>
+                                            </a>
+                                        @endif
+                                    @endisset
+
 
                                 </div>
 
