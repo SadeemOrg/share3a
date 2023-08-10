@@ -165,7 +165,7 @@
 
                                         <select name='{{ $question->attributes->name }}'
                                             class="custom-select bg-[#f7f7f8] w-full border border-gray-200  text-black py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-[#f7f7f8] focus:ring-0 focus:outline-transparent focus:border-[#115A48]"
-                                            id="grid-state">
+                                            id="grid-state" required>
                                             <option class="text-[#000]" disabled selected
                                                 name='{{ $question->attributes->name }}'>
                                                 {{ $question->attributes->name }}</option>
@@ -187,7 +187,7 @@
                                         class="block mb-3 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
                                     <input name="{{ $question->attributes->text }}"
                                         class="block w-full bg-[#f7f7f8] placeholder:text-[#f7f7f8] text-black border border-gray-200 rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#115A48]"
-                                        id="grid-password" type="text"
+                                        type="text"
                                         placeholder="{{ $question->attributes->text }}"
                                         @if ($question->attributes->required == '1') required @endif>
                                 </div>
@@ -201,7 +201,7 @@
                                             class="block mb-3 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
                                         <select name='{{ $question->attributes->text }}'
                                             class="custom-select bg-[#f7f7f8] w-full border border-gray-200 text-black py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-[#f7f7f8] focus:ring-0 focus:outline-transparent focus:border-[#115A48]"
-                                            id="grid-state">
+                                            id="grid-state1" required>
                                             <option class="text-[#000]" disabled selected
                                                 name='{{ $question->attributes->text }}'>
                                                 {{ $question->attributes->text }}</option>
@@ -249,11 +249,11 @@
 
                                     <input name="{{ $question->attributes->text }}"
                                         class=" block w-full bg-[#f7f7f8] text-black border border-gray-200 rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#115A48]"
-                                        id="grid-password" type="email" placeholder="البريد الالكتروني">
+                                         type="email" placeholder="البريد الالكتروني"  required>
                                 </div>
                             </div>
                         @endif
-                    @endforeach
+                    @endforeach                    
                     @foreach ($questions as $question)
                         @if ($question->layout == 'Privacy_Policy')
                             <div class="flex  -mx-3 mb-6">
@@ -452,7 +452,7 @@
     </footer>
     <!-- /footer -->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script>
@@ -478,22 +478,22 @@
 
         $( document ).ready(function() {
             // validation form 
-            $("#register_form").validate({
+            $("#register_form").validate({                
                 rules: {
+                    // simple rule, converted to {required:true}
                     name: "required",
+                    // compound rule
                     email: {
-                    required: true,
-                    email: true
-                    }
-                },
-                messages: {
-                    name: "Please specify your name",
-                    email: {
-                    required: "We need your email address to contact you",
-                    email: "Your email address must be in the format of name@domain.com"
+                        required: true,
+                        email: true
                     }
                 }
             });
+            jQuery.extend(jQuery.validator.messages, {
+                required: "هذا السؤال مطلوب الاجابة عليه",
+                email: "الرجاء إدخال البريد الالكتروني بشكل صحيح",
+            });
+
             // =============================================== //
             $('.modal-content').click(function(event) {
                 event.stopPropagation()

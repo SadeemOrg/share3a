@@ -60,3 +60,10 @@ body {font-family: TheSansArabic-bold;}
     background-position: center;
     background-repeat: no-repeat;
 }
+
+.register-form .error {
+  font-size: 13px;
+  color: #f00;
+  display: block;
+  margin-top: 0.5rem;
+}
