@@ -54,7 +54,7 @@ Route::get('/light_thanks', function () {
 
 
 Route::post('/contact', [HomeController::class, 'RegisterForm'])->name('contact.store');
-Route::post('/contact', [HomeController::class, 'formstore'])->name('form.store');
+Route::post('/formstore', [HomeController::class, 'formstore'])->name('form.store');
 
 
 Route::get('/forms/{slug}', function ($slug) {
@@ -77,7 +77,7 @@ Route::get('/export-form',[HomeController::class,'exportForm'])->name('exportFor
 Route::get('/export-form-reseat',[HomeController::class,'exportformreseat'])->name('exportformreseat');
 
 
-Route::get('store-form', [HomeController::class, 'store'])->name('form.store');;
+Route::get('store-form', [HomeController::class, 'store'])->name('form.stores');;
 
 Route::get('send-mail', function () {
 
