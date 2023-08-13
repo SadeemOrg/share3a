@@ -269,13 +269,31 @@ class HomeController extends Controller
     }
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:50',
+            'name' => 'required|string|min:3|max:50',
             'email' => 'required|email|unique:register_forms',
-            'phone' => 'required'
+            'phone' => 'required|digits_between:10,14'
+        ],
+        [
+            'name.required' => 'الرجاء ادخال الاسم. ',
+            'name.string' => 'الرجاء ادخال الاسم بشكل صحيح . ',
+            'name.min' => 'الاسم يجب ان يكون على الأقل 3 حروف. ',
+            'name.max' => 'الاسم يجب ان لا يزيد عن 50 حرف. ',
+
+            'email.required' => 'الرجاء ادخال ايميل',
+            'email.email' => "يجب ان يكون الايميل صحيح",
+            'email.unique' => 'يجب ان يكون الايميل غير مكرر',
+
+            'phone.required' => 'الرجاء ادخال الاسم. ',
+            'phone.digits_between' => 'الرجاء ادخال رقم الهاتف بشكل صحيح. ',
+
         ]);
         if ($validator->fails()) {
-            return false;
+
+            return response()->json([
+                'error' => $validator->errors()->all()
+            ]);
         }
         $FormResults = new RegisterForm();
         $FormResults->name = $request->name;
