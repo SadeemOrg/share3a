@@ -38,7 +38,7 @@ Route::get('/thanks', function () {
 });
 Route::get('/register_thanks', function () {
     return view('register_thanks');
-});
+})->name('register_thanks');
 Route::get('/welcome', function () {
 
     return view('home1')->with('message','Data added Successfully');
@@ -77,7 +77,7 @@ Route::get('/export-form',[HomeController::class,'exportForm'])->name('exportFor
 Route::get('/export-form-reseat',[HomeController::class,'exportformreseat'])->name('exportformreseat');
 
 
-Route::post('store-form', [HomeController::class, 'store'])->name('form.store');;
+Route::get('store-form', [HomeController::class, 'store'])->name('form.store');;
 
 Route::get('send-mail', function () {
 
