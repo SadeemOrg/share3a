@@ -183,6 +183,7 @@
                 },
                 success: function(data) {
                     if ($.isEmptyObject(data.error)) {
+                        toastr.success('تمت عمليةالتسجيل بنجاح')
                         window.location.href = "{{ route('register_thanks')}}";
                     } else {
                         toastr.options = {
@@ -195,12 +196,12 @@
                             "showMethod": "fadeIn",
                             "hideMethod": "fadeOut"
                         };
-                        toastr.error(data.error);
+                        toastr.error(data.error[0]);
                     }
                 },
                 error: function() {
                     console.log("err");
-                    console.log(data.error);
+                    console.log(data.error[0]);
                 }
             })
         })
