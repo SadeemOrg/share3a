@@ -18,7 +18,7 @@
                 {{-- <img src="{{ asset('assets/logos-header.svg') }}" alt=""> --}}
                 <div class="grid grid-cols-3 gap-6 ">
                     <div class="col-span-1 flex justify-center items-center">
-                        <img class="max-w-[220px] w-full mx-auto" src="{{asset('assets/images/header-logos/rt-logo.png')}}" alt="left logo">
+                        <img class="max-w-[220px] w-full mx-auto" src="{{asset('assets/images/header-logos/rt-logo-header.png')}}" alt="left logo">
                     </div>
                     <div class="col-span-1 flex justify-center items-center">
                         <img class="max-w-[220px] w-full mx-auto" src="{{asset('assets/images/header-logos/middle-logo.svg')}}" alt="left logo">
