@@ -55,7 +55,7 @@
                     {{$forms->text  }}
                 </p>
                 <div class="text-white text-center">
-                    <p class="text-[25px] md:text-[28px] lg:text-[35px] mb-10">
+                    <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] mb-10">
                         {{-- {{ nova_get_setting('subtitle', '') }} --}}
                     {!! $forms->sup_text !!}
 
