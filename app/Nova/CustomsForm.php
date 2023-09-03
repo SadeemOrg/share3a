@@ -163,6 +163,7 @@ class CustomsForm extends Resource
                 ]),
 
             Multiselect::make(__('leading'), 'leadings')->rules('required')
+
                 ->placeholder('للبحث عن مسؤولين')
                 ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) {
                     return null;
@@ -214,7 +215,7 @@ class CustomsForm extends Resource
     }
     public static function aftersave(Request $request, $model)
     {
-        dd($request->leadings != null);
+        dd($request->leadings == null);
         if ($request->leadings != null) {
             if ((in_array(0, $request->leadings))) {
                 if (Auth::user()->userrole() == 1) {
