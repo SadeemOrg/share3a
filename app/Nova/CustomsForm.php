@@ -163,6 +163,7 @@ class CustomsForm extends Resource
                 ]),
 
             Multiselect::make(__('leading'), 'leadings')->rules('required')
+
                 ->placeholder('للبحث عن مسؤولين')
                 ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) {
                     return null;
@@ -212,51 +213,51 @@ class CustomsForm extends Resource
         $model->added_by = $user->id;
         // $model->roles = $user->roles == 1 ? 2 : 3;
     }
-    public static function aftersave(Request $request, $model)
-    {
-        dd($request->leadings != null);
-        if ($request->leadings != null) {
-            if ((in_array(0, $request->leadings))) {
-                if (Auth::user()->userrole() == 1) {
-                    $forms =  User::all();
-                } else {
+    // public static function aftersave(Request $request, $model)
+    // {
 
-                    $forms =  User::where("added_by", Auth::id())->get();
-                }
+    //     if ($request->leadings != null) {
+    //         if ((in_array(0, $request->leadings))) {
+    //             if (Auth::user()->userrole() == 1) {
+    //                 $forms =  User::all();
+    //             } else {
 
-                foreach ($forms as $key => $value) {
+    //                 $forms =  User::where("added_by", Auth::id())->get();
+    //             }
 
-                    DB::table('form_users')
-                        ->updateOrInsert(
-                            ['form_id' => $model->id, 'user_id' =>  $value->id]
+    //             foreach ($forms as $key => $value) {
 
-                        );
-                    $details = [
-                        'title' => 'تم اضافتك الى ادارة صفحة الهبوط ',
-                        'body' => $model->slug,
-                    ];
+    //                 DB::table('form_users')
+    //                     ->updateOrInsert(
+    //                         ['form_id' => $model->id, 'user_id' =>  $value->id]
 
-                    \Mail::to($value->email)->send(new \App\Mail\AddUserToForm($details));
-                }
-            } else {
-                foreach ($request->leadings as $key => $value) {
+    //                     );
+    //                 $details = [
+    //                     'title' => 'تم اضافتك الى ادارة صفحة الهبوط ',
+    //                     'body' => $model->slug,
+    //                 ];
+
+    //                 \Mail::to($value->email)->send(new \App\Mail\AddUserToForm($details));
+    //             }
+    //         } else {
+    //             foreach ($request->leadings as $key => $value) {
 
 
-                    DB::table('form_users')
-                        ->updateOrInsert(
-                            ['form_id' => $model->id, 'user_id' =>  $value]
+    //                 DB::table('form_users')
+    //                     ->updateOrInsert(
+    //                         ['form_id' => $model->id, 'user_id' =>  $value]
 
-                        );
-                    $details = [
-                        'title' => 'تم اضافتك الى ادارة صفحة الهبوط ',
-                        'body' => $model->slug,
-                    ];
-                     $userid= User::where("id", $value)->first();
-                    \Mail::to($userid->email)->send(new \App\Mail\AddUserToForm($details));
-                }
-            }
-        }
-    }
+    //                     );
+    //                 $details = [
+    //                     'title' => 'تم اضافتك الى ادارة صفحة الهبوط ',
+    //                     'body' => $model->slug,
+    //                 ];
+    //                  $userid= User::where("id", $value)->first();
+    //                 \Mail::to($userid->email)->send(new \App\Mail\AddUserToForm($details));
+    //             }
+    //         }
+    //     }
+    // }
     /**
      * Get the cards available for the request.
      *
