@@ -232,50 +232,50 @@ class Form extends Resource
         $model->added_by = $user->id;
         // $model->roles = $user->roles == 1 ? 2 : 3;
     }
-    public static function aftersave(Request $request, $model)
-    {
-        dd ($request->leadings , $request->leadings  === null);
-        if ($request->leadings != null) {
-            if ((in_array(0, $request->leadings))) {
-                if (Auth::user()->userrole() == 1) {
-                    $forms =  User::all();
-                } else {
+    // public static function aftersave(Request $request, $model)
+    // {
+    //     dd ($request->leadings , $request->leadings  === null);
+    //     if ($request->leadings != null) {
+    //         if ((in_array(0, $request->leadings))) {
+    //             if (Auth::user()->userrole() == 1) {
+    //                 $forms =  User::all();
+    //             } else {
 
-                    $forms =  User::where("added_by", Auth::id())->get();
-                }
+    //                 $forms =  User::where("added_by", Auth::id())->get();
+    //             }
 
-                foreach ($forms as $key => $value) {
+    //             foreach ($forms as $key => $value) {
 
-                    DB::table('form_users')
-                        ->updateOrInsert(
-                            ['form_id' => $model->id, 'user_id' =>  $value->id]
+    //                 DB::table('form_users')
+    //                     ->updateOrInsert(
+    //                         ['form_id' => $model->id, 'user_id' =>  $value->id]
 
-                        );
-                    $details = [
-                        'title' => 'تم اضافتك الى ادارة صفحة الهبوط ',
-                        'body' => $model->slug,
-                    ];
+    //                     );
+    //                 $details = [
+    //                     'title' => 'تم اضافتك الى ادارة صفحة الهبوط ',
+    //                     'body' => $model->slug,
+    //                 ];
 
-                    \Mail::to($forms->email)->send(new \App\Mail\AddUserToForm($details));
-                }
-            } else {
-                foreach ($request->leadings as $key => $value) {
+    //                 \Mail::to($forms->email)->send(new \App\Mail\AddUserToForm($details));
+    //             }
+    //         } else {
+    //             foreach ($request->leadings as $key => $value) {
 
-                    DB::table('form_users')
-                        ->updateOrInsert(
-                            ['form_id' => $model->id, 'user_id' =>  $value]
+    //                 DB::table('form_users')
+    //                     ->updateOrInsert(
+    //                         ['form_id' => $model->id, 'user_id' =>  $value]
 
-                        );
-                    $details = [
-                        'title' => 'تم اضافتك الى ادارة صفحة الهبوط ',
-                        'body' => $model->slug,
-                    ];
+    //                     );
+    //                 $details = [
+    //                     'title' => 'تم اضافتك الى ادارة صفحة الهبوط ',
+    //                     'body' => $model->slug,
+    //                 ];
 
-                    \Mail::to($forms->email)->send(new \App\Mail\AddUserToForm($details));
-                }
-            }
-        }
-    }
+    //                 \Mail::to($forms->email)->send(new \App\Mail\AddUserToForm($details));
+    //             }
+    //         }
+    //     }
+    // }
     /**
      * Get the cards available for the request.
      *
