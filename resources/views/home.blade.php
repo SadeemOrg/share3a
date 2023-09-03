@@ -57,7 +57,7 @@
                 <div class="text-white text-center">
                     <p class="text-[25px] md:text-[28px] lg:text-[35px] mb-10">
                         {{-- {{ nova_get_setting('subtitle', '') }} --}}
-                    {{$forms->sup_text  }}
+                    {!! $forms->sup_text !!}
 
                     </p>
                     <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
@@ -172,7 +172,7 @@
                         طاقم الكلية سوف يعود للتواصل معك لتأكيد عملية تسجيلك.
                     </p>
                     <p class="text-white TheSansArabic-regular text-[14px]">
-                        <span class="text-[#EBBD22] ">للإستفسار:</span>
+                        <span class="text-[#EBBD22] ">للاستفسار:</span>
                         <a href="tel:0545431188" class="underline underline-offset-1">0545431188</a>
                     </p>
                 </form>
