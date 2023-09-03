@@ -162,7 +162,7 @@ class CustomsForm extends Resource
 
                 ]),
 
-            Multiselect::make(__('leading'), 'leadings')->rules('required')
+            Multiselect::make(__('leading'), 'leadings')
 
                 ->placeholder('للبحث عن مسؤولين')
                 ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) {
@@ -216,7 +216,8 @@ class CustomsForm extends Resource
     // public static function aftersave(Request $request, $model)
     // {
 
-    //     if ($request->leadings != null) {
+    //     dd ($request->leadings , ($request->leadings !==  null));
+    //     if (!($request->leadings ===  null)) {
     //         if ((in_array(0, $request->leadings))) {
     //             if (Auth::user()->userrole() == 1) {
     //                 $forms =  User::all();
