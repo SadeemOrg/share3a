@@ -234,6 +234,7 @@ class Form extends Resource
     }
     public static function aftersave(Request $request, $model)
     {
+        dd ($request->leadings , $request->leadings != null);
         if ($request->leadings != null) {
             if ((in_array(0, $request->leadings))) {
                 if (Auth::user()->userrole() == 1) {
