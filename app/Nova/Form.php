@@ -182,7 +182,7 @@ class Form extends Resource
                         ])->limit(1),
                 ]),
 
-            Multiselect::make(__('leading'), 'leadings')
+            Multiselect::make(__('leading'), 'leadings')->rules('required')
                 ->placeholder('للبحث عن مسؤولين')
                 ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) {
                     return null;
