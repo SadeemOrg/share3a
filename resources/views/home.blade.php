@@ -164,7 +164,7 @@
                     <div class="text-right mb-5">
                         <button
                             class="mb-4 block bg-[#124A85] px-20 w-full py-4 hover:bg-blue-700 text-white font-bold py-2 rounded-sm">
-                            تسجيل الان
+                            اضغط لإكمال عملية التسجيل
                         </button>
                     </div>
                     <p class="text-white TheSansArabic-regular text-[14px] mb-3">
