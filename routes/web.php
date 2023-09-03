@@ -29,7 +29,7 @@ Route::get('/كلية_الدعوة', function () {
     $exist = FormResults::where('form_id', $forms->id)->where('user_ip', $ip)->first();
     // dd($exist);
     if ($exist) {
-        return view('thanks');
+        // return view('thanks');
     }
     return view('home',compact( 'forms'));
 });
