@@ -167,9 +167,13 @@
                             تسجيل الان
                         </button>
                     </div>
-                    <p class="text-white TheSansArabic-regular text-[14px]">
+                    <p class="text-white TheSansArabic-regular text-[14px] mb-3">
                         <span class="text-[#EBBD22] ">ملاحظة:</span>
                         طاقم الكلية سوف يعود للتواصل معك لتأكيد عملية تسجيلك.
+                    </p>
+                    <p class="text-white TheSansArabic-regular text-[14px]">
+                        <span class="text-[#EBBD22] ">للإستفسار:</span>
+                        <a href="tel:0545431188" class="underline underline-offset-1">0545431188</a>
                     </p>
                 </form>
             </div>
@@ -185,7 +189,8 @@
                     <img class="mx-auto md:mx-0 md:mb-0 mb-5 max-w-[300px]" src="{{asset('assets/images/footer-books.webp')}}" alt="footer books image">
                     <p class="text-[25px] md:text-[27px] lg:text-[32px] text-white">
                         <span class="text-[#EBBD22]">{{ nova_get_setting('Title_Footer', '') }} - </span>
-                        {{ nova_get_setting('sub_Title_Footer', '') }}
+                        {{-- {{ nova_get_setting('sub_Title_Footer', '') }} --}}
+                        يمكنكم الالتحاق أيضًا بدورات تعليم أحكام التجويد عبر تطبيق الزوم.
                     </p>
                 </div>
             </div>
