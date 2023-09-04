@@ -53,13 +53,35 @@
                 <p class="Hebah-Font text-center text-[#E3BD2F] text-[25px] md:text-[40px] lg:text-[64px] mb-10">
                     {{-- {{ nova_get_setting('title', '') }} --}}
                     {{$forms->text  }}
-                </p>
+                </p>                
+                
                 <div class="text-white text-center">
-                    <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] mb-10">
-                        {{-- {{ nova_get_setting('subtitle', '') }} --}}
+                    {{-- <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] mb-10">
+                        {{ nova_get_setting('subtitle', '') }}
                     {!! $forms->sup_text !!}
 
+                    </p> --}}
+                    <ul class="text-white features-list titles-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">                
+                        <li class="mb-5">
+                            <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
+                                مركز الهدى الثقافي دار القرآن الكريم نحف
+                            </p>
+                        </li>
+                        <li class="mb-5">
+                            <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
+                                مركز ومسجد الإمام علي شفاعمرو (جمعية هدهد سليمان)
+                            </p>
+                        </li>
+                        <li class="mb-5">
+                            <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
+                                كلية العلوم الشرعية كفربرا
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] mb-10">
+                        يعلنون عن بدء التسجيل ل:
                     </p>
+
                     <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
                         {{$forms->second_text  }}
                     </p>
