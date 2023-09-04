@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-span-1 flex justify-center items-center">
                         <img class="max-w-[220px] w-full mx-auto"
-                            src="{{ asset('assets/images/header-logos/middle-logo.svg') }}" alt="left logo">
+                            src="{{ asset('assets/images/header-logos/middle-logo.png') }}" alt="left logo">
                     </div>
                     <div class="col-span-1 flex justify-center items-center">
                         <img class="max-w-[220px] w-full mx-auto"
