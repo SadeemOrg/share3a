@@ -69,7 +69,7 @@
                         </li>
                         <li class="mb-5">
                             <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
-                                مركز ومسجد الإمام علي شفاعمرو (جمعية هدهد سليمان)
+                                كلية ومسجد الإمام علي شفاعمرو (جمعية هدهد سليمان)
                             </p>
                         </li>
                         <li class="mb-5">
