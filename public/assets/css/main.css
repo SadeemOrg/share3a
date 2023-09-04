@@ -28,6 +28,15 @@ body {font-family: TheSansArabic-bold;}
     background-size: contain;
 }
 
+.titles-list li p::after {
+  top: 16px;
+}
+@media (max-width: 767px) {
+  .titles-list li p::after {
+    top: 6px;
+  }
+}
+
 ::placeholder, .select-option {color: #ddd !important;}
 /* .register-form ::placeholder {
     color: #ffffffa3 !important;
