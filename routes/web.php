@@ -23,13 +23,13 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::redirect('/', '/welcome');//ok
 
-Route::get('/كلية_الدعوة', function () {
+Route::get('/share3a', function () {
     $forms=Form::where("slug",'كلية_الدعوة')->first();
     $ip = $_SERVER['REMOTE_ADDR'];
     $exist = FormResults::where('form_id', $forms->id)->where('user_ip', $ip)->first();
     // dd($exist);
     if ($exist) {
-        return view('thanks');
+        // return view('thanks');
     }
     return view('home',compact( 'forms'));
 });
