@@ -121,7 +121,7 @@
                         @if ($question->layout == 'text')
                             <div class="flex flex-wrap -mx-3 mb-6">
                                 <div class="w-full px-3">
-                                    <input name="{{ $question->attributes->text }}"
+                                    <input required name="{{ $question->attributes->text }}"
                                         class="block w-full bg-transparent text-white border border-white rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
                                         id="grid-password" type="text"
                                         placeholder="{{ $question->attributes->text }}">
