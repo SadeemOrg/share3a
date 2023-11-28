@@ -29,10 +29,23 @@ Route::get('/share3a', function () {
     $exist = FormResults::where('form_id', $forms->id)->where('user_ip', $ip)->first();
     // dd($exist);
     if ($exist) {
-        // return view('thanks');
     }
-    return view('home',compact( 'forms'));
+    $nqp = false;
+    return view('home',compact( 'forms','nqp'));
 });
+
+
+Route::get('/share3a/nqp', function () {
+    $forms=Form::where("slug",'كلية_الدعوة_النقب')->first();
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $exist = FormResults::where('form_id', $forms->id)->where('user_ip', $ip)->first();
+    // dd($exist);
+    if ($exist) {
+    }
+    $nqp = true;
+    return view('home',compact( 'forms','nqp'));
+});
+
 Route::get('/thanks', function () {
     return view('thanks');
 });
