@@ -18,26 +18,33 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
                 {{-- <img src="{{ asset('assets/logos-header.svg') }}" alt=""> --}}
+                @if ($nqp == false)
                 <div class="grid grid-cols-3 gap-6 ">
-                    <div class="col-span-1 flex justify-center items-center">
-                        <img class="max-w-[220px] w-full mx-auto"
-                            src="{{ asset('assets/images/header-logos/rt-logo-h.png') }}" alt="left logo">
-                    </div>
-                    <div class="col-span-1 flex justify-center items-center">
-                        @if ($nqp == false)
+                        <div class="col-span-1 flex justify-center items-center">
+                            <img class="max-w-[220px] w-full mx-auto"
+                                src="{{ asset('assets/images/header-logos/rt-logo-h.png') }}" alt="left logo">
+                        </div>
+                        <div class="col-span-1 flex justify-center items-center">
                             <img class="max-w-[220px] w-full mx-auto"
                                 src="{{ asset('assets/images/header-logos/middle-logo.png') }}" alt="left logo">
-                        @else
-                        <img class="max-w-[220px] w-full mx-auto rounded-2xl"
-                        src="{{ asset('assets/images/header-logos/nqp.jpeg') }}" alt="left logo">
-
-                        @endif
+                        </div>
+                        <div class="col-span-1 flex justify-center items-center">
+                            <img class="max-w-[220px] w-full mx-auto"
+                                src="{{ asset('assets/images/header-logos/lt-logo.svg') }}" alt="left logo">
+                        </div>
                     </div>
-                    <div class="col-span-1 flex justify-center items-center">
-                        <img class="max-w-[220px] w-full mx-auto"
-                            src="{{ asset('assets/images/header-logos/lt-logo.svg') }}" alt="left logo">
+                    @else
+                    <div class="flex flex-row items-center w-full my-4 justify-between">
+                        <div class="flex justify-center items-center">
+                            <img class="max-w-[220px] w-full mx-auto"
+                                src="{{ asset('assets/images/header-logos/middle-logo.png') }}" alt="left logo">
+                        </div>
+                        <div class="flex justify-center items-center">
+                            <img class="max-w-[220px] w-full mx-auto"
+                                src="{{ asset('assets/images/header-logos/nqp.jpeg') }}" alt="left logo">
+                        </div>
                     </div>
-                </div>
+                    @endif
             </div>
 
         </div>
@@ -95,9 +102,11 @@
                             </li>
                         @endif
                     </ul>
+                    @if($nqp == false)
                     <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] mb-10">
                         يعلنون عن بدء التسجيل ل:
                     </p>
+                    @endif
 
                     <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
                         {{ $forms->second_text }}
