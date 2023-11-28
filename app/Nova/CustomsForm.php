@@ -126,8 +126,10 @@ class CustomsForm extends Resource
         return [
             ID::make()->sortable(),
 
-            Button::make(__('go to page'))->link(($this->type == '1') ? url('/') . '/share3a'  :   url('/') . '/forms/' . $this->slug)->style('primary'),
+            Button::make(__('go to page'))->link(url('/') . '/share3a' . $this->url)->style('primary'),
             Text::make(__('slug'), 'slug')->rules('required')->hideFromIndex()->hideFromDetail()->hideFromDetail(),
+            Text::make(__('url'), 'url')->hideFromIndex()->hideFromDetail()->hideFromDetail(),
+
             Image::make(__('logo'), 'icons')->disk("public"),
             // Flexible::make(__('logo'),'icons')
             // ->addLayout(__('add logo'), 'iconslogo', [
