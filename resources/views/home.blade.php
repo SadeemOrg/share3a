@@ -24,8 +24,14 @@
                             src="{{ asset('assets/images/header-logos/rt-logo-h.png') }}" alt="left logo">
                     </div>
                     <div class="col-span-1 flex justify-center items-center">
-                        <img class="max-w-[220px] w-full mx-auto"
-                            src="{{ asset('assets/images/header-logos/middle-logo.png') }}" alt="left logo">
+                        @if ($nqp == false)
+                            <img class="max-w-[220px] w-full mx-auto"
+                                src="{{ asset('assets/images/header-logos/middle-logo.png') }}" alt="left logo">
+                        @else
+                        <img class="max-w-[220px] w-full mx-auto rounded-2xl"
+                        src="{{ asset('assets/images/header-logos/nqp.jpeg') }}" alt="left logo">
+
+                        @endif
                     </div>
                     <div class="col-span-1 flex justify-center items-center">
                         <img class="max-w-[220px] w-full mx-auto"
@@ -55,38 +61,38 @@
 
                     </p> --}}
                     <ul class="text-white features-list titles-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
-                        @if($nqp == false)
-                        <li class="mb-5">
-                            <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
-                                مركز الهدى الثقافي دار القرآن الكريم نحف
-                            </p>
-                        </li>
-                        <li class="mb-5">
-                            <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
-                                كلية ومسجد الإمام علي شفاعمرو (جمعية هدهد سليمان)
-                            </p>
-                        </li>
-                        <li class="mb-5">
-                            <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
-                                كلية العلوم الشرعية كفربرا
-                            </p>
-                        </li>
+                        @if ($nqp == false)
+                            <li class="mb-5">
+                                <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
+                                    مركز الهدى الثقافي دار القرآن الكريم نحف
+                                </p>
+                            </li>
+                            <li class="mb-5">
+                                <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
+                                    كلية ومسجد الإمام علي شفاعمرو (جمعية هدهد سليمان)
+                                </p>
+                            </li>
+                            <li class="mb-5">
+                                <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
+                                    كلية العلوم الشرعية كفربرا
+                                </p>
+                            </li>
                         @else
-                        <li class="mb-5">
-                            <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
-                                جمعية السلام كسيفة 
-                            </p>
-                        </li>
-                        <li class="mb-5">
-                            <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
-                                وكلية العلوم الشرعية كفربرا
-                            </p>
-                        </li>
-                        <li class="mb-5">
-                            <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
-                                يعلنان للأهل في النقب عن بدء التسجيل لـ :
-                            </p>
-                        </li>
+                            <li class="mb-5">
+                                <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
+                                    جمعية السلام كسيفة
+                                </p>
+                            </li>
+                            <li class="mb-5">
+                                <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
+                                    وكلية العلوم الشرعية كفربرا
+                                </p>
+                            </li>
+                            <li class="mb-5">
+                                <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
+                                    يعلنان للأهل في النقب عن بدء التسجيل لـ :
+                                </p>
+                            </li>
                         @endif
                     </ul>
                     <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] mb-10">
@@ -243,13 +249,13 @@
                         @if ($nqp == false)
                             <a href="tel:0545431188" class="underline underline-offset-1">0545431188</a>
                         @else
-                        <div class="flex flex-col justify-start mt-4">
+                            <div class="flex flex-col justify-start mt-4">
 
-                            <a href="tel:0508223804" class="underline underline-offset-1">كيان أبو عجاج
-                                0508223804
-                            </a>
-                            <a href="tel:0506300535" class="underline underline-offset-1">آمنة الددا
-                                0506300535</a>
+                                <a href="tel:0508223804" class="underline underline-offset-1">كيان أبو عجاج
+                                    0508223804
+                                </a>
+                                <a href="tel:0506300535" class="underline underline-offset-1">آمنة الددا
+                                    0506300535</a>
                             </div>
                         @endif
                     </div>
