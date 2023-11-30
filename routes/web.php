@@ -35,7 +35,7 @@ Route::get('/share3a', function () {
 });
 
 
-Route::get('/share3a/nqp', function () {
+Route::get('share3a-nqb', function () {
     $forms=Form::where("slug",'كلية_الدعوة_النقب')->first();
     $ip = $_SERVER['REMOTE_ADDR'];
     $exist = FormResults::where('form_id', $forms->id)->where('user_ip', $ip)->first();

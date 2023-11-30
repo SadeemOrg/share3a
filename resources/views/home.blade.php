@@ -17,7 +17,6 @@
     <header>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
-                {{-- <img src="{{ asset('assets/logos-header.svg') }}" alt=""> --}}
                 @if ($nqp == false)
                 <div class="grid grid-cols-3 gap-6 ">
                         <div class="col-span-1 flex justify-center items-center">
@@ -34,12 +33,17 @@
                         </div>
                     </div>
                     @else
-                    <div class="flex flex-row sm:flex-nowrap sm:gap-y-0 gap-y-5 flex-wrap items-center w-full my-4 justify-center sm:justify-between">
-                        <div class="flex min-w-[300px] justify-center items-center">
+
+                    <div class="grid grid-cols-3 gap-6 ">
+                        <div class="col-span-1 flex justify-center items-center">
                             <img class="max-w-[220px] w-full mx-auto"
-                                src="{{ asset('assets/images/header-logos/middle-logo.png') }}" alt="left logo">
+                                src="{{ asset('assets/images/header-logos/middlelogo-nqp.jpeg') }}" alt="left logo">
                         </div>
-                        <div class="flex justify-center min-w-[300px] items-center">
+                        <div class="col-span-1 flex justify-center items-center">
+                            <img class="max-w-[220px] w-full mx-auto"
+                            src="{{ asset('assets/images/header-logos/middle-logo.png') }}" alt="left logo">
+                        </div>
+                        <div class="col-span-1 flex justify-center items-center">
                             <img class="max-w-[220px] w-full mx-auto"
                                 src="{{ asset('assets/images/header-logos/nqp.jpeg') }}" alt="left logo">
                         </div>
@@ -88,6 +92,11 @@
                             <li class="mb-5">
                                 <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
                                     جمعية السلام كسيفة
+                                </p>
+                            </li>
+                            <li class="mb-5">
+                                <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
+                                    جمعية هاجر لتمكين المرأة
                                 </p>
                             </li>
                             <li class="mb-5">
