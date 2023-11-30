@@ -76,7 +76,7 @@
                             </li>
                             <li class="mb-5">
                                 <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
-                                    كلية ومسجد الإمام علي شفاعمرو (جمعية هدهد سليمان)
+                                    كلية ومسجد الإمام علي شفاعمرو
                                 </p>
                             </li>
                             <li class="mb-5">
@@ -121,14 +121,36 @@
                 @endphp
 
                 @if ($nqp == false)
-                    <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
-                        @foreach ($Contents as $Content)
-                            <li class="mb-5">
-                                <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                    {{ $Content->attributes->title }}
-                                </p>
-                            </li>
-                        @endforeach
+                                 <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
+                        <li class="mb-5">
+                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
+                                أيام التعليم: كل يوم سبت.
+                            </p>
+                        </li>
+                        <li class="mb-5">
+                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
+                                التعليم عبارة عن 24 مساقًا، ومن يتمّها يحصل على دبلوم في الشريعة والعلوم الإسلاميّة من كلّيّة كفربرا.
+                            </p>
+                        </li>
+                        <li class="mb-5">
+                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
+                                هناك إمكانيّة للحاصلين على الدبلوم إكمال اللقب الأوّل في كليّة أونو.
+                            </p>
+                        </li>
+                        <li class="mb-5">
+                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
+                                التعليم في نحف وشفاعمرو، مساقان كل فصل دراسي، 6 مساقات في السنة. وهناك إمكانيّة للانضمام للمسار المكثّف في كفربرا.   
+                            </p>
+                        </li>
+                        <li class="mb-5">
+                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
+                                مساقات الفصل الثاني: عقيدة 1 + عبادات 1.
+                            </p>
+                        </li>
+                        <li class="mb-5">
+                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
+                                كلفة التسجيل للمساقين: 1800 شيكل، 900 شيكل عن كل مساق.                            </p>
+                        </li>
                     </ul>
                 @else
                     <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
