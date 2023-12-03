@@ -256,6 +256,9 @@
                                 </a>
                                 <a href="tel:0506300535" class="underline underline-offset-1">آمنة الددا
                                     0506300535</a>
+                                    <a href="tel:0509949911" class="underline underline-offset-1"> محمد أبو فرحان
+
+                                        0509949911</a>
                             </div>
                         @endif
                     </div>
