@@ -19,38 +19,47 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::get('/', function () {
+
+//     $forms=Form::find(13);
+//     $Contents = json_decode($forms->questions);
+//     dd($Contents);
+//     dd("dd");
+
 //     return view('welcome');
 // });
-Route::redirect('/', '/welcome');//ok
+// Route::redirect('/', '/welcome');//ok
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::redirect('/', '/welcome'); //ok
 Route::get('/1', function () {
-    $forms=Form::find(13);
+    $forms = Form::find(13);
     $Contents = json_decode($forms->questions);
-    dd($Contents);
-    return view('sadaqat.index',compact('Contents'));
+    return view('sadaqat.index', compact('Contents'));
 });
 
 
 Route::get('/share3a', function () {
-    $forms=Form::where("slug",'كلية_الدعوة')->first();
+    $forms = Form::where("slug", 'كلية_الدعوة')->first();
     $ip = $_SERVER['REMOTE_ADDR'];
     $exist = FormResults::where('form_id', $forms->id)->where('user_ip', $ip)->first();
     // dd($exist);
     if ($exist) {
     }
     $nqp = false;
-    return view('home',compact( 'forms','nqp'));
+    return view('home', compact('forms', 'nqp'));
 });
 
 
 Route::get('share3a-nqb', function () {
-    $forms=Form::where("slug",'كلية_الدعوة_النقب')->first();
+    $forms = Form::where("slug", 'كلية_الدعوة_النقب')->first();
     $ip = $_SERVER['REMOTE_ADDR'];
     $exist = FormResults::where('form_id', $forms->id)->where('user_ip', $ip)->first();
     // dd($exist);
     if ($exist) {
     }
     $nqp = true;
-    return view('home',compact( 'forms','nqp'));
+    return view('home', compact('forms', 'nqp'));
 });
 
 Route::get('/thanks', function () {
@@ -61,7 +70,7 @@ Route::get('/register_thanks', function () {
 })->name('register_thanks');
 Route::get('/welcome', function () {
 
-    return view('home1')->with('message','Data added Successfully');
+    return view('home1')->with('message', 'Data added Successfully');
 });
 
 Route::get('/register_2_lpage', function () {
@@ -79,22 +88,21 @@ Route::post('/formstore', [HomeController::class, 'formstore'])->name('form.stor
 
 Route::get('/forms/{slug}', function ($slug) {
 
-    $forms=Form::where("slug",$slug)->first();
+    $forms = Form::where("slug", $slug)->first();
     // $ip = $_SERVER['REMOTE_ADDR'];
     // $exist = FormResults::where('form_id', $forms->id)->where('user_ip', $ip)->first();
     // // dd($exist);
     // if ($exist) {
     //     return view('thanks');
     // }
-    return view('light_lpage',compact( 'forms'));
-
+    return view('light_lpage', compact('forms'));
 });
 
 
 
-Route::get('/export-users/{key}',[HomeController::class,'exportUsers'])->name('export-users');
-Route::get('/export-form',[HomeController::class,'exportForm'])->name('exportForm');
-Route::get('/export-form-reseat',[HomeController::class,'exportformreseat'])->name('exportformreseat');
+Route::get('/export-users/{key}', [HomeController::class, 'exportUsers'])->name('export-users');
+Route::get('/export-form', [HomeController::class, 'exportForm'])->name('exportForm');
+Route::get('/export-form-reseat', [HomeController::class, 'exportformreseat'])->name('exportformreseat');
 
 
 Route::get('store-form', [HomeController::class, 'store'])->name('form.stores');;

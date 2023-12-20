@@ -1,5 +1,6 @@
 <template>
-    <div dir="rtl" class="bg-[#FFFFFF]">
+    <div 
+    dir="rtl" class="bg-[#FFFFFF] font-Tijawal">
       <Emar />
     </div>
   </template>
