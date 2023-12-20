@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Nova\Dashboards\Main;
+use App\Nova\DependsOnForm;
 use App\Nova\Form;
 use App\Nova\FormResults;
 use App\Nova\NewFormResults;
@@ -87,6 +88,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         }
                     }
                     }),
+                    MenuItem::resource(DependsOnForm::class)->name(__('DependsOnForm Form')),
+
                     // MenuItem::resource(Form::class)->name(__('Deleted Form')),
                     MenuItem::make(__('Deleted Form'))->path('/resources/forms?forms_trashed=only')->canSee(function (NovaRequest $request) {
                         if(Auth::check())
