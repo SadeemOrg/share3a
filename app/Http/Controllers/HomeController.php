@@ -270,25 +270,28 @@ class HomeController extends Controller
     public function store(Request $request)
     {
 
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|min:3|max:50',
-            'email' => 'required|email|unique:register_forms',
-            'phone' => 'required|digits_between:10,14'
-        ],
-        [
-            'name.required' => 'الرجاء ادخال الاسم. ',
-            'name.string' => 'الرجاء ادخال الاسم بشكل صحيح . ',
-            'name.min' => 'الاسم يجب ان يكون على الأقل 3 حروف. ',
-            'name.max' => 'الاسم يجب ان لا يزيد عن 50 حرف. ',
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|string|min:3|max:50',
+                'email' => 'required|email|unique:register_forms',
+                'phone' => 'required|digits_between:10,14'
+            ],
+            [
+                'name.required' => 'الرجاء ادخال الاسم. ',
+                'name.string' => 'الرجاء ادخال الاسم بشكل صحيح . ',
+                'name.min' => 'الاسم يجب ان يكون على الأقل 3 حروف. ',
+                'name.max' => 'الاسم يجب ان لا يزيد عن 50 حرف. ',
 
-            'email.required' => 'الرجاء ادخال ايميل',
-            'email.email' => "يجب ان يكون الايميل صحيح",
-            'email.unique' => 'يجب ان يكون الايميل غير مكرر',
+                'email.required' => 'الرجاء ادخال ايميل',
+                'email.email' => "يجب ان يكون الايميل صحيح",
+                'email.unique' => 'يجب ان يكون الايميل غير مكرر',
 
-            'phone.required' => 'الرجاء ادخال الاسم. ',
-            'phone.digits_between' => 'الرجاء ادخال رقم الهاتف بشكل صحيح. ',
+                'phone.required' => 'الرجاء ادخال الاسم. ',
+                'phone.digits_between' => 'الرجاء ادخال رقم الهاتف بشكل صحيح. ',
 
-        ]);
+            ]
+        );
         if ($validator->fails()) {
 
             return response()->json([
@@ -311,5 +314,13 @@ class HomeController extends Controller
 
 
         return redirect('register_thanks')->with('status', 'Blog Post Form Data Has Been inserted');
+    }
+    public function formQuestions(Request $request)
+    {
+
+        $forms = Form::find($request->id);
+
+        $Contents = json_decode($forms->questions);
+        return $Contents;
     }
 }
