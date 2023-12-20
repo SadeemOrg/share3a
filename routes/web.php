@@ -22,6 +22,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 Route::redirect('/', '/welcome');//ok
+Route::get('/1', function () {
+    return view('sadaqat.index');
+});
+
 
 Route::get('/share3a', function () {
     $forms=Form::where("slug",'كلية_الدعوة')->first();
