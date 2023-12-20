@@ -29,6 +29,12 @@ use Illuminate\Support\Facades\Route;
 // });
 // Route::redirect('/', '/welcome');//ok
 // Route::get('/', function () {
+
+//     $forms=Form::find(13);
+//     $Contents = json_decode($forms->questions);
+//     dd($Contents);
+//     dd("dd");
+
 //     return view('welcome');
 // });
 Route::redirect('/', '/welcome'); //ok
