@@ -1,5 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appvue')
 @section('content')
-{{-- <example-component></example-component> --}}
 <app-component></app-component>
 @endsection

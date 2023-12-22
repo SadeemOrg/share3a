@@ -1,21 +1,21 @@
 <template>
-    <div class="mx-auto max-w-6xl sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl  px-6 lg:px-8 py-8">
         <div class="flex flex-col items-center justify-center">
-            <img src="https://i.postimg.cc/pdnRmpPj/image-1-removebg-preview-1.png" class="max-w-[420px] max-h-48"
+            <img src="https://i.postimg.cc/pdnRmpPj/image-1-removebg-preview-1.png" class="max-w-[420px] w-64 md:w-72 max-h-48"
                 alt="MSF Logo" />
-            <p class="font-Tijawal-Bold mt-12 text-center text-3xl text-[#42542A]">
+            <p v-if="!showForm" class="font-Tijawal-Bold mt-12 text-center text-xl md:text-3xl text-[#42542A]">
                 تعمل المؤسّسة في القطاع الإغاثي الإنساني على دعم ورعاية وتمكين
                 العائلات من الفقراء والأيتام والمحتاجين في المجتمع العربي، والتي
                 تعاني من أوضاع اقتصادية اجتماعية صعبة، خصوصا في السنوات الأخيرة
                 في ظل غلاء المعيشة وتفشّي البطالة واتساع الفجوة الاقتصاديّة
             </p>
         </div>
-        <div class="flex flex-col items-start justify-start mt-8">
-            <p class="font-Tijawal-Bold mt-12 text-center text-2xl text-[#42542A]">
+        <div v-if="!showForm" class="flex flex-col items-start justify-start mt-8">
+            <p class="font-Tijawal-Bold mt-12 text-center text-lg md:text-2xl text-[#42542A]">
                 هذه الاستمارة مخصّصة للفئات التالية:
             </p>
             <div
-                class="font-Tijawal flex flex-col items-start justify-start text-xl font-medium text-[#42542A] mt-2 gap-y-1">
+                class="font-Tijawal flex flex-col items-start justify-start text-lg md:text-xl  text-[#42542A] mt-2 gap-y-1">
                 <!-- List of categories -->
                 <p>1. عائلة محتاجة ذات دخل أقل من 6000 ش.ج</p>
                 <p>2. أيتام</p>
@@ -23,7 +23,8 @@
                 <p>4. مساعدة طارئة لمرة واحدة</p>
                 <p>5. محتاج غير قادر على سد احتياجات معيشية أساسية مثل: إيجار بيت وديون في دفعات الكهرباء وغيرها....</p>
                 <button type="button"
-                    class="font-Tijawal-Bold rounded-md bg-[#42542A] mt-3 w-60 h-12 px-2.5 py-1.5 font-bold text-lg text-white shadow-sm hover:bg-[#B0C277]">
+                    class="font-Tijawal-Bold rounded-md bg-[#42542A] mt-3 w-60 h-12 px-2.5 py-1.5 font-bold text-lg text-white shadow-sm hover:bg-[#B0C277]"
+                    @click="navigateToFormQuestions">
                     قم بتعبئة الاستمارة
                 </button>
             </div>
@@ -48,18 +49,246 @@
                 </div>
             </button>
         </div>
+        <!-- Form Page-->
+        <div v-if="showForm">
+            <div v-if="counter == 1">
+                <div
+                    class="flex flex-col-reverse gap-y-6 md:gap-y-0 md:flex-row items-center md:items-start justify-between mt-24">
+                    <div class="flex flex-row items-start justify-start gap-x-2">
+                        <svg width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 -1.31134e-06L25.9904 22.5L0.00962073 22.5L13 -1.31134e-06Z" fill="#B1C376" />
+                        </svg>
+                        <p class="font-Tijawal-Bold text-right md:text-center text-2xl text-[#42542A]">قم بتعبئة استمارة تقديم العائلات
+                            المحتاجة</p>
+                    </div>
+                    <div class="flex flex-row items-center justify-center rounded-full w-14 h-14 bg-[#B1C376] ">
+                        <p class="pt-4 text-xl text-white font-Tijawal">{{ counter }}</p>
+                    </div>
+                </div>
+                <div v-for="section in firstPage" class="my-4 border-b border-[#B1C376] py-4">
+                    <div class=" flex flex-row items-start justify-start gap-x-2">
+                        <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="8.5" cy="8.5" r="8.5" fill="#B1C376" />
+                        </svg>
+                        <p class="font-Tijawal-Bold text-center text-xl text-[#42542A]">{{ section.attributes.section_name
+                        }}
+                        </p>
+                    </div>
+                    <div class="flex flex-row items-center justify-center md:justify-start flex-wrap mt-4 ">
+                        <div class="w-[90%] md:w-1/2 " v-for="(question, index) in section.attributes.questions"
+                            :key="index">
+                            <div v-if="question.layout !== 'radio_select'" class="w-full">
+                                <label :for="question.key"
+                                    class="block text-base -pt-2 mt-3 font-Tijawal-Bold  text-[#42542A]">{{
+                                        question.attributes.text }}</label>
+                                <input :dir="question.layout === 'file' ? ltr : rtl" :type="question.layout"
+                                    :name="question.attributes.text" :id="question.key"
+                                    :class="question.layout == 'file' ? 'file_input' : ''"
+                                    class="block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A]  shadow-sm ring-1 focus:border-[#B1C376] " />
+                            </div>
+                            <div v-else-if="question.layout == 'radio_select'">
+                                <label :for="question.key"
+                                    class="block text-base -pt-2 mt-3 font-Tijawal-Bold  text-[#42542A]">{{
+                                        question.attributes.name }}</label>
+                                <div class="flex flex-row items-start mt-2 "
+                                    v-for="choice in question.attributes.selectform" :key="choice.key">
+                                    <input type="radio" :name="question.key" :id="choice.key"
+                                        :value="choice.attributes.text"
+                                        :class="question.layout === 'file' ? 'file_input' : ''"
+                                        class="block  rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]" />
+                                    <label class="mx-1 -pt-1" :for="choice.key">{{ choice.attributes.text }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-if="counter == 2">
+                <div
+                    class="flex flex-col-reverse gap-y-6 md:gap-y-0 md:flex-row items-center md:items-start justify-between mt-24">
+                    <div class="flex flex-row items-start justify-start gap-x-2">
+                        <svg width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 -1.31134e-06L25.9904 22.5L0.00962073 22.5L13 -1.31134e-06Z" fill="#B1C376" />
+                        </svg>
+                        <p class="font-Tijawal-Bold text-right md:text-center text-2xl text-[#42542A]">قم بتعبئة استمارة حالة الاحتياج</p>
+                    </div>
+                    <div class="flex flex-row items-center justify-center rounded-full w-14 h-14 bg-[#B1C376] ">
+                        <p class="pt-4 text-xl text-white font-Tijawal">{{ counter }}</p>
+                    </div>
+                </div>
+                <div v-for="section in secondPage" class="my-4 border-b border-[#B1C376] py-4">
+                    <div class=" flex flex-row items-start justify-start gap-x-2">
+                        <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="8.5" cy="8.5" r="8.5" fill="#B1C376" />
+                        </svg>
+                        <p class="font-Tijawal-Bold text-center text-xl text-[#42542A]">{{ section.attributes.section_name
+                        }}
+                        </p>
+                    </div>
+                    <div class="flex flex-row items-center justify-center md:justify-start flex-wrap mt-4 ">
+                        <div :class="question.layout !== 'radio_select' ? 'w-[90%] md:w-1/2' : 'w-[90%]'"
+                            v-for="(question, index) in section.attributes.questions" :key="index">
+                            <div v-if="question.layout !== 'radio_select'" class="w-full">
+                                <label :for="question.key"
+                                    class="block text-base -pt-2 mt-3 font-Tijawal-Bold  text-[#42542A]">{{
+                                        question.attributes.text }}</label>
+                                <input :dir="question.layout === 'file' ? ltr : rtl" :type="question.layout"
+                                    :name="question.attributes.text" :id="question.key"
+                                    :class="question.layout == 'file' ? 'file_input' : ''"
+                                    class="block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A]  shadow-sm ring-1 focus:border-[#B1C376] " />
+                            </div>
+                            <div v-else-if="question.layout == 'radio_select'" class="">
+                                <label :for="question.key"
+                                    class="block text-base -pt-2 mt-3 font-Tijawal-Bold  text-[#42542A]">{{
+                                        question.attributes.name }}</label>
+                                <div class="flex flex-row items-start justify-start  mt-2 "
+                                    v-for="choice in question.attributes.selectform" :key="choice.key">
+                                    <input type="radio" :name="question.key" :id="choice.key"
+                                        :value="choice.attributes.text"
+                                        :class="question.layout === 'file' ? 'file_input' : ''"
+                                        class="block  rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]" />
+                                    <label class="mx-1 -pt-1" :for="choice.key">{{ choice.attributes.text }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="section.attributes.section_name == ' تفاصيل الأبناء حتى جيل 16 عاما '"
+                            class="w-1/2 mt-4">
+                            <button v-if="counter == 2" type="button"
+                                class="font-Tijawal-Bold bg-[#B1C376] block w-[95%] gap-y-4 my-2 text-white h-14 rounded-md mt-4 shadow-sm ring-1 hover:bg-[#42542A]"
+                                @click="addNewChild">
+                                اضافة طفل آخر
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-start">
+                    <NewChildrenForm v-for="(children, index) in newChildren" :key="index" :children="children" :index="index" ltr="ltr" rtl="rtl" />
+                </div>
+            </div>
+            <div class="flex flex-row items-center md:justify-start justify-center gap-x-2 w-full ">
+                <button type="button"
+                    class="font-Tijawal-Bold rounded-md bg-[#42542A] mt-3 w-60 h-12 px-2.5 py-1.5 font-bold text-lg text-white shadow-sm hover:bg-[#B0C277]"
+                    @click="navigateToNextPage">
+                    {{ counter == 1 ? 'التالي' : 'انهاء الطلب' }}
+                </button>
+                <button v-if="counter == 2" type="button"
+                    class="font-Tijawal-Bold rounded-md bg-[#FBFDF5]  mt-3 w-60 h-12 px-2.5 py-1.5 font-bold text-lg text-[#42542A] shadow-sm hover:bg-[#B0C277]"
+                    @click="navigateToPreviousPage">
+                    السابق
+                </button>
+            </div>
+        </div>
         <footer>
-            <div class="mt-16 rounded-tl-md h-52 bg-white">
-                <img class="w-[80%] mx-auto" src="https://i.postimg.cc/h4YGG2Db/Group-1000004132.png" alt="">
+            <div class="mt-16 rounded-tl-3xl h-32  md:h-52 bg-white">
+                <img class="w-[80%] mx-auto pt-4" src="https://i.postimg.cc/h4YGG2Db/Group-1000004132.png" alt="">
 
             </div>
         </footer>
     </div>
 </template>
-
 <script>
+import { ref } from 'vue';
+import axios from 'axios';
+import NewChildrenForm from './NewChildrenForm.vue'
 export default {
-    // Your component logic here
+    components:{NewChildrenForm},
+    setup() {
+        const data = ref([]);
+        const showForm = ref(false);
+        const counter = ref(1);
+        const totalPages = ref(null);
+        const currentPage = ref({});
+        const firstPage = ref({});
+        const secondPage = ref({});
+        const secondPageAddchild = ref({});
+        const newChildren = ref([]);
+        const childrenCounter = ref([100]);
+
+        const rtl = ref('rtl');
+        const ltr = ref('ltr');
+
+
+
+        const fetchFormData = async () => {
+            try {
+                const response = await axios.get(`${window.location.origin}/form_questions`, {
+                    params: {
+                        id: 13,
+                    },
+                });
+                data.value = Object.freeze([...response.data]);
+                firstPage.value = Object.freeze(response.data[0].attributes.questions);
+                secondPage.value = Object.freeze(response.data[1].attributes.questions);
+                secondPageAddchild.value = Object.freeze(secondPage.value[2]['attributes']['questions']);
+                totalPages.value = response.data.length;
+
+                console.log("🚀 ~ file: emar.vue:92 ~ fetchFormData ~ data:", data.value.length, response.data, secondPage.value);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        const navigateToFormQuestions = () => {
+            showForm.value = !showForm.value;
+        };
+        const navigateToNextPage = () => {
+            counter.value == 1 ? counter.value = counter.value + 1 : counter.value = counter.value;
+        };
+        const navigateToPreviousPage = () => {
+            counter.value = counter.value - 1;
+        }
+        const addNewChild = () => {
+            const newItem = {
+                id: childrenCounter.value[0], 
+                data: secondPageAddchild.value,
+            };
+            childrenCounter.value[0]++;
+            newChildren.value.push(newItem);
+            console.log(',,,,,', newChildren.value[0])
+        }
+
+
+        fetchFormData(); // Fetch data when the component is mounted
+
+        return {
+            data,
+            showForm,
+            navigateToFormQuestions,
+            navigateToNextPage,
+            navigateToPreviousPage,
+            addNewChild,
+            counter,
+            totalPages,
+            currentPage,
+            firstPage,
+            secondPage,
+            secondPageAddchild,
+            newChildren,
+            childrenCounter,
+            rtl,
+            ltr
+        };
+    },
 };
 </script>
+<style scoped>
+.file_input {
+    padding-left: 10px;
+    max-height: 58px;
+    border: 1px solid #42542A;
+}
 
+input[type="radio"] {
+    /* Your default styles for radio buttons here */
+    background-color: #FBFDF5;
+    border: 1px solid #42542A;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+input[type="radio"]:checked {
+    /* Your styles for checked radio buttons here */
+    background-color: #B1C376;
+    /* Add any other styles you want for the checked state */
+}
+</style>

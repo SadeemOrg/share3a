@@ -38,12 +38,14 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 Route::redirect('/', '/welcome'); //ok
-Route::get('/1', function () {
+Route::get('/emar', function () {
     $forms = Form::find(13);
     $Contents = json_decode($forms->questions);
     return view('sadaqat.index', compact('Contents'));
 });
 
+
+Route::get('/form_questions',[HomeController::class,'formQuestions'])->name('formQuestions');
 
 Route::get('/share3a', function () {
     $forms = Form::where("slug", 'كلية_الدعوة')->first();
