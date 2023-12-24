@@ -246,6 +246,10 @@ class HomeController extends Controller
         return Excel::download(new ExportFormReselt($array), 'users123.xlsx');
     }
 
+    public function  sendForm(Request $request){
+        dd($request->all());
+    }
+
     public function exportUsers(Request $request, $key)
     {
         // dd( $request->all());
