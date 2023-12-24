@@ -323,20 +323,28 @@ class HomeController extends Controller
         $Contents = json_decode($forms->questions);
         foreach ($Contents as $key => $page) {
             $array = [];
-            // $sections =[1];
-            foreach ( $page->attributes->questions as $key => $sections) {
-                # code...
-    
-            foreach ($sections->attributes->questions as $key22 => $questions) {
-    
-                if ( $questions->attributes->required ) {
-                    array_push($array,  $questions->attributes->text);
+            foreach ($page->attributes->questions as $key => $sections) {
+                if ($sections->layout == "Flexible_section") {
+                    $sectionsArray = [];
+                    foreach ($sections->attributes->questions as $key22 => $questions) {
+                        if ($questions->attributes->required) {
+                            array_push($sectionsArray,  $questions->attributes->text);
+                        }
+                    }
+                    $sections->attributes->validation = $sectionsArray;
                 }
-    
+
+
+                foreach ($sections->attributes->questions as $key22 => $questions) {
+
+                    if ($questions->attributes->required) {
+                        array_push($array,  $questions->attributes->text);
+                    }
+                }
             }
-        }
-    
-        $page->validation=$array;
+
+
+            $page->validation = $array;
         }
         return $Contents;
     }
