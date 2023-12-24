@@ -321,6 +321,23 @@ class HomeController extends Controller
         $forms = Form::find($request->id);
 
         $Contents = json_decode($forms->questions);
+        foreach ($Contents as $key => $page) {
+            $array = [];
+            // $sections =[1];
+            foreach ( $page->attributes->questions as $key => $sections) {
+                # code...
+    
+            foreach ($sections->attributes->questions as $key22 => $questions) {
+    
+                if ( $questions->attributes->required ) {
+                    array_push($array,  $questions->attributes->text);
+                }
+    
+            }
+        }
+    
+        $page->validation=$array;
+        }
         return $Contents;
     }
 }
