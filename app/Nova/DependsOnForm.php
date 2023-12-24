@@ -134,7 +134,7 @@ class DependsOnForm extends Resource
                                 ->fullWidth()
                                 ->button('Add questions')
                                 ->addLayout(__('Add select'), 'select', [
-                                    Text::make(__('name'), 'name'),
+                                    Text::make(__('text'), 'text'),
                                     Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
                                         ->fullWidth()
                                         ->addLayout(__('Add select choices'), 'choices', [
