@@ -88,8 +88,11 @@
                                     :name="question.attributes.text" :id="question.key"
                                     :required="question.attributes.required"
                                     v-model="formDataFields[question.attributes.text]"
+                                    @input="clearError(question.attributes.text)"
                                     :class="question.layout == 'file' ? 'file_input' : ''"
                                     class="block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A]  shadow-sm ring-1 focus:border-[#B1C376] " />
+                                <p v-if="validationErrors[question.attributes.text]" class="text-red-500">{{
+                                    validationErrors[question.attributes.text] }}</p>
                             </div>
                             <div v-else-if="question.layout == 'radio_select'">
                                 <label :for="question.key"
@@ -106,6 +109,9 @@
                                         class="block  rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]" />
                                     <label class="mx-1 -pt-1" :for="choice.key">{{ choice.attributes.text }}</label>
                                 </div>
+                                <!-- <p v-if="validationErrors[question.attributes.text]" class="text-red-500">{{
+                                        validationErrors[question.attributes.text] }}</p> -->
+
                             </div>
                         </div>
                     </div>
@@ -148,6 +154,11 @@
                                     v-model="formDataFields[question.attributes.text]"
                                     :class="question.layout == 'file' ? 'file_input' : ''"
                                     class="block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A]  shadow-sm ring-1 focus:border-[#B1C376] " />
+                                <!-- Example of displaying validation errors in the template -->
+                                <!-- <p v-if="validationErrors[fieldName]" class="text-red-500">
+                                    {{ validationErrors[fieldName] }}
+                                </p> -->
+
                             </div>
                             <div v-else-if="question.layout == 'radio_select'">
                                 <label :for="question.key"
@@ -207,19 +218,6 @@
 import { ref, reactive, watch } from 'vue';
 import axios from 'axios';
 import NewChildrenForm from './NewChildrenForm.vue';
-const useFormValidation = (formDataFields, currentPage) => {
-    const validationError = ref(false);
-    const validateCurrentPage = () => {
-        console.log("hiii")
-    }
-    const getRequiredFieldsForCurrentPage = (currentPage) => {
-        console.log("hi2")
-    }
-    return {
-    validationError,
-    validateCurrentPage,
-  };
-}
 export default {
     components: { NewChildrenForm },
     setup() {
@@ -236,6 +234,12 @@ export default {
         const childrenCounter = ref([100]);
         const rtl = ref('rtl');
         const ltr = ref('ltr');
+        const firstPageValidation = ref({});
+        const validationErrors = reactive({});
+        const secondPageValidation = ref({});
+        const validationSecondPageErrors = reactive({});
+
+
 
         const fetchFormData = async () => {
             try {
@@ -246,20 +250,72 @@ export default {
                 });
                 data.value = Object.freeze([...response.data]);
                 firstPage.value = Object.freeze(response.data[0].attributes.questions);
+                firstPageValidation.value = response.data[0].validation;
+                secondPageValidation.value = response.data[1].validation;
                 currentPage.value = firstPage.value;
                 secondPage.value = Object.freeze(response.data[1].attributes.questions);
                 secondPageAddchild.value = Object.freeze(secondPage.value[3]['attributes']['questions']);
                 totalPages.value = response.data.length;
 
-                console.log("🚀 ~ file: emar.vue:92 ~ fetchFormData ~ data:", currentPage.value);
+                console.log("🚀 ~ file: emar.vue:92 ~ fetchFormData ~ data:", response.data, firstPageValidation.value);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
+        const validateCurrentPage = () => {
+            if (counter.value === 1) {
+                Object.values(firstPageValidation.value).forEach(fieldName => {
+                    const validationRule = fieldName;
+                    const fieldValue = formDataFields[fieldName];
+
+                    if (validationRule && !fieldValue) {
+                        validationErrors[fieldName] = `${fieldName} is required.`;
+                        console.error(`${fieldName} is required.`);
+                    } else {
+                        validationErrors[fieldName] = null;
+                    }
+                });
+            } else if (counter.value === 2) {
+                validateSecondPage();
+            }
+        };
+
+        // const validateCurrentPage = () => {
+        //     if (counter.value === 1) {
+        //         for (const fieldName in firstPageValidation.value) {
+        //             const validationRule = firstPageValidation.value[fieldName];
+        //             const fieldValue = formDataFields[fieldName];
+
+        //             if (validationRule && !fieldValue) {
+        //                 validationErrors[fieldName] = `${fieldName} is required.`;
+        //                 console.error(`${fieldName} is required.`);
+        //             } else {
+        //                 validationErrors[fieldName] = null;
+        //             }
+        //         }
+        //     } else if (counter.value === 2) {
+        //         for (const fieldName in secondPageValidation.value) {
+        //             const validationRule = secondPageValidation.value[fieldName];
+        //             const fieldValue = formDataFields[fieldName];
+
+        //             if (validationRule && !fieldValue) {
+        //                 validationSecondPageErrors[fieldName] = `${fieldName} is required.`;
+        //                 console.error(`${fieldName} is required.`);
+        //             } else {
+        //                 validationSecondPageErrors[fieldName] = null;
+        //             }
+        //         }
+        //     }
+        // };
+
+        // const clearError = (fieldName) => {
+        //     // Clear the error for the specified field
+        //     validationErrors[fieldName] = null;
+        // };
 
         watch(counter, () => {
             currentPage.value = counter.value === 1 ? firstPage.value : secondPage.value;
-            console.log("currentPage:", currentPage.value, "counter:", counter.value);
+            validateCurrentPage();
         });
 
 
@@ -268,6 +324,15 @@ export default {
             showForm.value = !showForm.value;
         };
         const navigateToNextPage = () => {
+            // Validate the current page before navigating to the next page
+            validateCurrentPage();
+
+            // Check if there are any validation errors
+            if (Object.values(validationErrors).some(error => error !== null)) {
+                // If there are validation errors, do not proceed to the next page
+                console.log('Validation errors. Cannot proceed to the next page.');
+                return;
+            }
             // counter.value == 1 ? counter.value = counter.value + 1 : counter.value = counter.value;
             counter.value = Math.min(counter.value + 1, totalPages.value);
 
@@ -313,6 +378,9 @@ export default {
             handleUpdateFormData,
             newChildren,
             childrenCounter,
+            validationErrors,
+            secondPageValidation,
+            clearError,
             rtl,
             ltr,
         };
