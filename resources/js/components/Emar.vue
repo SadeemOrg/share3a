@@ -109,8 +109,9 @@
                                         class="block  rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]" />
                                     <label class="mx-1 -pt-1" :for="choice.key">{{ choice.attributes.text }}</label>
                                 </div>
-                                <!-- <p v-if="validationErrors[question.attributes.text]" class="text-red-500">{{
-                                        validationErrors[question.attributes.text] }}</p> -->
+                                <!-- <p v-if="validationErrors[question.attributes.text]" class="text-red-500">
+                                    {{ validationErrors[question.attributes.text] }}
+                                </p> -->
 
                             </div>
                         </div>
@@ -155,9 +156,8 @@
                                     :class="question.layout == 'file' ? 'file_input' : ''"
                                     class="block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A]  shadow-sm ring-1 focus:border-[#B1C376] " />
                                 <!-- Example of displaying validation errors in the template -->
-                                <!-- <p v-if="validationErrors[fieldName]" class="text-red-500">
-                                    {{ validationErrors[fieldName] }}
-                                </p> -->
+                                <p v-if="validationSecondPageErrors[question.attributes.text]" class="text-red-500">{{
+                                    validationSecondPageErrors[question.attributes.text] }}</p>
 
                             </div>
                             <div v-else-if="question.layout == 'radio_select'">
@@ -238,6 +238,7 @@ export default {
         const validationErrors = reactive({});
         const secondPageValidation = ref({});
         const validationSecondPageErrors = reactive({});
+        
 
 
 
@@ -275,43 +276,26 @@ export default {
                         validationErrors[fieldName] = null;
                     }
                 });
-            } else if (counter.value === 2) {
-                validateSecondPage();
+            }  if (counter.value === 2) {
+                Object.values(secondPageValidation.value).forEach(fieldName => {
+                    const validationSecondPageRule = fieldName;
+                    const fieldSecondValue = formDataFields[fieldName];
+
+                    if (validationSecondPageRule && !fieldSecondValue) {
+                        validationSecondPageErrors[fieldName] = `${fieldName} is required.`;
+                        console.error(`${fieldName} is required.`);
+                    } else {
+                        validationSecondPageErrors[fieldName] = null;
+                    }
+                });
             }
         };
 
-        // const validateCurrentPage = () => {
-        //     if (counter.value === 1) {
-        //         for (const fieldName in firstPageValidation.value) {
-        //             const validationRule = firstPageValidation.value[fieldName];
-        //             const fieldValue = formDataFields[fieldName];
-
-        //             if (validationRule && !fieldValue) {
-        //                 validationErrors[fieldName] = `${fieldName} is required.`;
-        //                 console.error(`${fieldName} is required.`);
-        //             } else {
-        //                 validationErrors[fieldName] = null;
-        //             }
-        //         }
-        //     } else if (counter.value === 2) {
-        //         for (const fieldName in secondPageValidation.value) {
-        //             const validationRule = secondPageValidation.value[fieldName];
-        //             const fieldValue = formDataFields[fieldName];
-
-        //             if (validationRule && !fieldValue) {
-        //                 validationSecondPageErrors[fieldName] = `${fieldName} is required.`;
-        //                 console.error(`${fieldName} is required.`);
-        //             } else {
-        //                 validationSecondPageErrors[fieldName] = null;
-        //             }
-        //         }
-        //     }
-        // };
-
-        // const clearError = (fieldName) => {
-        //     // Clear the error for the specified field
-        //     validationErrors[fieldName] = null;
-        // };
+        const clearError = (fieldName) => {
+            // Clear the error for the specified field
+            validationErrors[fieldName] = null;
+            validationSecondPageErrors[fieldName] = null;
+        };
 
         watch(counter, () => {
             currentPage.value = counter.value === 1 ? firstPage.value : secondPage.value;
@@ -326,15 +310,28 @@ export default {
         const navigateToNextPage = () => {
             // Validate the current page before navigating to the next page
             validateCurrentPage();
-
-            // Check if there are any validation errors
-            if (Object.values(validationErrors).some(error => error !== null)) {
-                // If there are validation errors, do not proceed to the next page
-                console.log('Validation errors. Cannot proceed to the next page.');
-                return;
+            if (counter.value == 1) {
+                // Check if there are any validation errors
+                if (Object.values(validationErrors).some(error => error !== null)) {
+                    // If there are validation errors, do not proceed to the next page
+                    console.log('Validation errors. Cannot proceed to the next page.');
+                    return;
+                }
+                counter.value = Math.min(counter.value + 1, totalPages.value);
             }
+            if (counter.value == 2) {
+                if (Object.values(validationSecondPageErrors).some(error => error !== null)) {
+                    // If there are validation errors, do not proceed to the next page
+                    console.log('Validation errors. Cannot proceed to the next page.');
+                    return;
+                }
+                counter.value = Math.min(counter.value + 1, totalPages.value);
+            }
+
+
+
+
             // counter.value == 1 ? counter.value = counter.value + 1 : counter.value = counter.value;
-            counter.value = Math.min(counter.value + 1, totalPages.value);
 
         };
         const navigateToPreviousPage = () => {
@@ -380,6 +377,7 @@ export default {
             childrenCounter,
             validationErrors,
             secondPageValidation,
+             validationSecondPageErrors,
             clearError,
             rtl,
             ltr,
