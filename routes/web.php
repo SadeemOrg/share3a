@@ -3,7 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Models\Form;
 use App\Models\FormResults;
-use App\Nova\Http\Controllers\LoginController;
+use App\Nova\Http\Cdontrollers\LoginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
@@ -62,7 +62,6 @@ Route::get('/emar', function () {
     $page->validation=$array;
         // dd($array);
     }
-
     return view('sadaqat.index', compact('Contents'));
 });
 
