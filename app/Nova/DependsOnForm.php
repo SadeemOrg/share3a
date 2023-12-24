@@ -143,7 +143,7 @@ class DependsOnForm extends Resource
                                         ]),
                                     Boolean::make(__('required'), 'required'),
                                 ])  ->addLayout(__('Add radio select'), 'radio_select', [
-                                    Text::make(__('name'), 'name'),
+                                    Text::make(__('text'), 'text'),
                                     Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
                                         ->fullWidth()
                                         ->addLayout(__('Add select choices'), 'choices', [
