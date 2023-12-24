@@ -47,7 +47,7 @@ class Form extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'slug';
 
     /**
      * The columns that should be searched.
