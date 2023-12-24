@@ -103,10 +103,10 @@
                                 {{ question.attributes.text }}
                                 <div class="flex flex-row items-start mt-2 "
                                     v-for="choice in question.attributes.selectform" :key="choice.key">
-                                    <input type="radio" :name="question.attributes.text " :id="choice.key"
-                                        :required="question.attributes.required" v-model="formDataFields[question.attributes.text ]"
-                                        @input="clearError(question.attributes.text)"
-                                        :value="choice.attributes.text"
+                                    <input type="radio" :name="question.attributes.text" :id="choice.key"
+                                        :required="question.attributes.required"
+                                        v-model="formDataFields[question.attributes.text]"
+                                        @input="clearError(question.attributes.text)" :value="choice.attributes.text"
                                         :class="question.layout === 'file' ? 'file_input' : ''"
                                         class="block  rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]" />
                                     <label class="mx-1 -pt-1" :for="choice.key">{{ choice.attributes.text }}</label>
@@ -171,18 +171,17 @@
                                 <div class="flex flex-row items-start mt-2 "
                                     v-for="choice in question.attributes.selectform" :key="choice.key">
                                     <input type="radio" :name="question.attributes.text" :id="choice.key"
-                                    @input="clearError(question.attributes.text)"
+                                        @input="clearError(question.attributes.text)"
                                         v-model="formDataFields[question.attributes.text]" :value="choice.attributes.text"
                                         :class="question.layout === 'file' ? 'file_input' : ''"
                                         class="block  rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]" />
                                     <label class="mx-1 -pt-1" :for="choice.key">{{ choice.attributes.text }}</label>
                                 </div>
-                            </div>
-                            <p v-if="validationSecondPageErrors[question.attributes.text]" class="text-red-500">{{
+                                <p v-if="validationSecondPageErrors[question.attributes.text]" class="text-red-500">{{
                                     validationSecondPageErrors[question.attributes.text] }}</p>
+                            </div>
                         </div>
-                        <div v-if="section.layout =='Flexible_section'"
-                            class="w-1/2 mt-4">
+                        <div v-if="section.layout == 'Flexible_section'" class="w-1/2 mt-4">
                             <button v-if="counter == 2" type="button"
                                 class="font-Tijawal-Bold bg-[#B1C376] block w-[95%] gap-y-4 my-2 text-white h-14 rounded-md mt-4 shadow-sm ring-1 hover:bg-[#42542A]"
                                 @click="addNewChild">
@@ -209,7 +208,7 @@
                     السابق
                 </button>
             </div>
-            <!-- <p>{{ formDataFields }}</p> -->
+            <p>{{ formDataFields }}</p>
         </div>
         <footer>
             <div class="mt-16 rounded-tl-3xl h-32  md:h-52 bg-white">
@@ -243,6 +242,7 @@ export default {
         const validationErrors = reactive({});
         const secondPageValidation = ref({});
         const validationSecondPageErrors = reactive({});
+        const addNewChildValidation = ref([])
 
 
 
@@ -261,9 +261,10 @@ export default {
                 currentPage.value = firstPage.value;
                 secondPage.value = Object.freeze(response.data[1].attributes.questions);
                 secondPageAddchild.value = Object.freeze(secondPage.value[3]['attributes']['questions']);
+                addNewChildValidation.value = Object.freeze(secondPage.value[3]['attributes'])
                 totalPages.value = response.data.length;
 
-                console.log("🚀 ~ file: emar.vue:92 ~ fetchFormData ~ data:", response.data, firstPageValidation.value);
+                console.log("🚀 ~ file: emar.vue:92 ~ fetchFormData ~ data:", response.data, addNewChildValidation.value);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -296,6 +297,7 @@ export default {
             }
         };
 
+
         const clearError = (fieldName) => {
             // Clear the error for the specified field
             validationErrors[fieldName] = null;
@@ -320,15 +322,36 @@ export default {
                 }
                 counter.value = Math.min(counter.value + 1, totalPages.value);
             }
-            if (counter.value == 2) {
-                validationErrors.value = { /* ... */ };
-                validationSecondPageErrors.value = { /* ... */ };
+            else if (counter.value == 2) {
+
                 if (Object.values(validationSecondPageErrors).some(error => error !== null)) {
-                    // If there are validation errors, do not proceed to the next page
                     console.log('Validation errors. Cannot proceed to the next page.');
                     return;
                 }
                 counter.value = Math.min(counter.value + 1, totalPages.value);
+
+                const endpointUrl = `${window.location.origin}/sendform`; // Replace with your actual endpoint URL
+
+                // Assuming you want to send formDataFields as JSON
+                const requestData = {
+                    formDataFields: { ...formDataFields },
+                };
+
+                // Send the POST request using Axios
+                axios.post(endpointUrl, requestData)
+                    .then(response => {
+                        // Handle the response data as needed
+                        console.log('Success:', response.data);
+
+                        // Increment the counter or perform any other navigation logic
+                        counter.value = Math.min(counter.value + 1, totalPages.value);
+                    })
+                    .catch(error => {
+                        // Handle errors
+                        console.error('Error:', error);
+                    });
+
+
             }
             // counter.value == 1 ? counter.value = counter.value + 1 : counter.value = counter.value;
         };
@@ -340,6 +363,7 @@ export default {
             const newItem = {
                 id: childrenCounter.value[0],
                 data: secondPageAddchild.value,
+                validation: addNewChildValidation.value['validation'],
             };
             childrenCounter.value[0]++;
             newChildren.value.push(newItem);
@@ -376,6 +400,7 @@ export default {
             validationErrors,
             secondPageValidation,
             validationSecondPageErrors,
+            addNewChildValidation,
             clearError,
             rtl,
             ltr,

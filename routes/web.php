@@ -67,6 +67,7 @@ Route::get('/emar', function () {
 
 
 Route::get('/form_questions', [HomeController::class, 'formQuestions'])->name('formQuestions');
+Route::post('/sendform', [HomeController::class, 'sendForm'])->name('sendform');
 
 Route::get('/share3a', function () {
     $forms = Form::where("slug", 'كلية_الدعوة')->first();
