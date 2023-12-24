@@ -109,10 +109,6 @@
                                         class="block  rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]" />
                                     <label class="mx-1 -pt-1" :for="choice.key">{{ choice.attributes.text }}</label>
                                 </div>
-                                <!-- <p v-if="validationErrors[question.attributes.text]" class="text-red-500">
-                                    {{ validationErrors[question.attributes.text] }}
-                                </p> -->
-
                             </div>
                         </div>
                     </div>
@@ -153,6 +149,7 @@
                                 <input :dir="question.layout === 'file' ? ltr : rtl" :type="question.layout"
                                     :name="question.attributes.text" :id="question.key"
                                     v-model="formDataFields[question.attributes.text]"
+                                    @input="clearError(question.attributes.text)"
                                     :class="question.layout == 'file' ? 'file_input' : ''"
                                     class="block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A]  shadow-sm ring-1 focus:border-[#B1C376] " />
                                 <!-- Example of displaying validation errors in the template -->
@@ -238,7 +235,7 @@ export default {
         const validationErrors = reactive({});
         const secondPageValidation = ref({});
         const validationSecondPageErrors = reactive({});
-        
+
 
 
 
@@ -276,7 +273,7 @@ export default {
                         validationErrors[fieldName] = null;
                     }
                 });
-            }  if (counter.value === 2) {
+            } else if (counter.value === 2) {
                 Object.values(secondPageValidation.value).forEach(fieldName => {
                     const validationSecondPageRule = fieldName;
                     const fieldSecondValue = formDataFields[fieldName];
@@ -299,11 +296,7 @@ export default {
 
         watch(counter, () => {
             currentPage.value = counter.value === 1 ? firstPage.value : secondPage.value;
-            validateCurrentPage();
         });
-
-
-
         const navigateToFormQuestions = () => {
             showForm.value = !showForm.value;
         };
@@ -320,6 +313,8 @@ export default {
                 counter.value = Math.min(counter.value + 1, totalPages.value);
             }
             if (counter.value == 2) {
+                validationErrors.value = { /* ... */ };
+                validationSecondPageErrors.value = { /* ... */ };
                 if (Object.values(validationSecondPageErrors).some(error => error !== null)) {
                     // If there are validation errors, do not proceed to the next page
                     console.log('Validation errors. Cannot proceed to the next page.');
@@ -327,12 +322,7 @@ export default {
                 }
                 counter.value = Math.min(counter.value + 1, totalPages.value);
             }
-
-
-
-
             // counter.value == 1 ? counter.value = counter.value + 1 : counter.value = counter.value;
-
         };
         const navigateToPreviousPage = () => {
             // counter.value = counter.value - 1;
@@ -377,7 +367,7 @@ export default {
             childrenCounter,
             validationErrors,
             secondPageValidation,
-             validationSecondPageErrors,
+            validationSecondPageErrors,
             clearError,
             rtl,
             ltr,
