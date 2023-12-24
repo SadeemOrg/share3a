@@ -62,7 +62,7 @@ Route::get('/emar', function () {
     $page->validation=$array;
         // dd($array);
     }
-    dd($Contents);
+
     return view('sadaqat.index', compact('Contents'));
 });
 
