@@ -100,16 +100,21 @@
                                     <p class="p-0 m-0 "> {{ question.attributes.name }}</p>
                                     <p v-if="question.attributes.required" class="text-[#FF0000] p-0 m-0 text-2xl">*</p>
                                 </label>
+                                {{ question.attributes.text }}
                                 <div class="flex flex-row items-start mt-2 "
                                     v-for="choice in question.attributes.selectform" :key="choice.key">
-                                    <input type="radio" :name="question.key" :id="choice.key"
-                                        :required="question.attributes.required" v-model="formDataFields[question.key]"
+                                    <input type="radio" :name="question.attributes.text " :id="choice.key"
+                                        :required="question.attributes.required" v-model="formDataFields[question.attributes.text ]"
+                                        @input="clearError(question.attributes.text)"
                                         :value="choice.attributes.text"
                                         :class="question.layout === 'file' ? 'file_input' : ''"
                                         class="block  rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]" />
                                     <label class="mx-1 -pt-1" :for="choice.key">{{ choice.attributes.text }}</label>
                                 </div>
+                                <p v-if="validationErrors[question.attributes.text]" class="text-red-500">{{
+                                    validationErrors[question.attributes.text] }}</p>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -165,15 +170,18 @@
                                 </label>
                                 <div class="flex flex-row items-start mt-2 "
                                     v-for="choice in question.attributes.selectform" :key="choice.key">
-                                    <input type="radio" :name="question.key" :id="choice.key"
-                                        v-model="formDataFields[question.key]" :value="choice.attributes.text"
+                                    <input type="radio" :name="question.attributes.text" :id="choice.key"
+                                    @input="clearError(question.attributes.text)"
+                                        v-model="formDataFields[question.attributes.text]" :value="choice.attributes.text"
                                         :class="question.layout === 'file' ? 'file_input' : ''"
                                         class="block  rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]" />
                                     <label class="mx-1 -pt-1" :for="choice.key">{{ choice.attributes.text }}</label>
                                 </div>
                             </div>
+                            <p v-if="validationSecondPageErrors[question.attributes.text]" class="text-red-500">{{
+                                    validationSecondPageErrors[question.attributes.text] }}</p>
                         </div>
-                        <div v-if="section.attributes.section_name == ' تفاصيل الأبناء حتى جيل 16 عاما '"
+                        <div v-if="section.layout =='Flexible_section'"
                             class="w-1/2 mt-4">
                             <button v-if="counter == 2" type="button"
                                 class="font-Tijawal-Bold bg-[#B1C376] block w-[95%] gap-y-4 my-2 text-white h-14 rounded-md mt-4 shadow-sm ring-1 hover:bg-[#42542A]"
