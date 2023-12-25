@@ -11,20 +11,27 @@
                         <p class="p-0 m-0 "> {{ question.attributes.text }}</p>
                         <p v-if="question.attributes.required" class="text-[#FF0000] p-0 m-0 text-2xl">*</p>
                     </label>
-                    <input :dir="question.layout === 'file' ? ltr : rtl" :type="question.layout"
+                    <input v-if="question.layout !== 'file'" :type="question.layout"
                         :name="`${question.attributes.text}_${children.id}`" :id="`${question.key}_${children.id}`"
                         v-model="formDataFields[`${question.attributes.text}_${children.id}`]"
                         @input="clearError(question.attributes.text)"
-                         :class="question.layout == 'file' ? 'file_input' : ''"
                         class="block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A]  shadow-sm ring-1 focus:border-[#B1C376] " />
+
+                    <input dir="ltr" v-if="question.layout === 'file'" :type="question.layout"
+                        :name="`${question.attributes.text}_${children.id}`" :id="`${question.key}_${children.id}`"
+                        @change="handleFileInput(question,children)" @input="clearError(question.attributes.text)"
+                        class="file_input block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A]  shadow-sm ring-1 focus:border-[#B1C376]" />
                     <p v-if="validationErrors[`${question.attributes.text}_${children.id}`]" class="text-red-500">{{
                         validationErrors[`${question.attributes.text}_${children.id}`] }}</p>
                 </div>
                 <div v-else-if="question.layout == 'radio_select'" class="">
-                    <label :for="question.key" class="block text-base -pt-2 mt-3 font-Tijawal-Bold  text-[#42542A]">{{
-                        question.attributes.name }}</label>
-                    <div class="flex flex-row items-start justify-start  mt-2 "
-                        v-for="choice in question.attributes.selectform" :key="choice.key">
+                    <label :for="question.key"
+                        class="flex flex-row gap-x-3 text-base -pt-2 py-0.5 font-Tijawal-Bold  text-[#42542A]">
+                        <p class="p-0 m-0 "> {{ question.attributes.name }}</p>
+                        <p v-if="question.attributes.required" class="text-[#FF0000] p-0 m-0 text-2xl">*</p>
+                    </label>
+                    <div class="flex flex-row items-start mt-2" v-for="choice in question.attributes.selectform"
+                        :key="choice.key">
                         <input type="radio" :name="`${question.attributes.text}_${children.id}`"
                             :id="`${choice.key}_${children.id}`"
                             v-model="formDataFields[`${question.attributes.text}_${children.id}`]"
@@ -32,12 +39,11 @@
                             class="block  rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]" />
                         <label :for="`${choice.key}_${children.id}`"
                             class="flex flex-row gap-x-3 text-base -pt-2 py-0.5 font-Tijawal-Bold  text-[#42542A]">
-                            <p class="p-0 m-0 "> {{ choice.attributes.text }}</p>
-                            <p v-if="choice.attributes.required" class="text-[#FF0000] p-0 m-0 text-2xl">*</p>
+                            <p class="mx-1 -pt-1 -mt-0.5"> {{ choice.attributes.text }}</p>
                         </label>
                     </div>
-                    <p v-if="validationErrors[question.attributes.text]" class="text-red-500">{{
-                        validationErrors[question.attributes.text] }}</p>
+                    <p v-if="validationErrors[`${question.attributes.text}_${children.id}`]" class="text-red-500">{{
+                        validationErrors[`${question.attributes.text}_${children.id}`] }}</p>
                 </div>
             </div>
         </div>
@@ -66,32 +72,38 @@ export default {
         const validationErrors = reactive({})
 
 
-        // const validateCurrentPage = () => {
-        //     Object.values(props.children.validation).forEach(fieldName => {
-        //         const   validationRule = `${fieldName}_${props.children.id}`;
-        //         const fieldValue = formDataFields[`${fieldName}_${props.children.id}`];
-        //         if (validationRule && !fieldValue) {
-        //             validationErrors[`${fieldName}_${props.children.id}`] = `${fieldName} is required.`;
-        //             console.error(`${`${fieldName}`} is required.`);
-        //         } else {
-        //             validationErrors[`${fieldName}_${props.children.id}`] = null;
-        //         }
-        //     })
-        // }
+        const validateFlexibleComponent = () => {
+            Object.values(props.children.validation).forEach(fieldName => {
+                const validationRule = fieldName;
+                const fieldValue = formDataFields.value[fieldName];
+                if (validationRule && !fieldValue) {
+                    validationErrors[fieldName] = `${fieldName.split('_')[0]} is required.`;
+                    console.error(`${`${fieldName.split('_')[0]}`} is required.`);
+                } else {
+                    validationErrors[fieldName] = null;
+                }
 
-        // const clearError = (fieldName) => {
-        //     // Clear the error for the specified field
-        //     validationErrors[`${fieldName}_${props.children.id}`] = null;
-        // };
+            })
+        }
 
+        const clearError = (fieldName) => {
+            // Clear the error for the specified field
+            validationErrors[`${fieldName}_${props.children.id}`] = null;
+        };
+
+        const handleFileInput = (question,children) => {
+            const inputElement = document.getElementById(`${question.key}_${children.id}`);
+            const file = inputElement.files[0];            
+            formDataFields.value[`${question.attributes.text}_${children.id}`] = file;
+        }
         // Define methods
         const confirmAddChild = () => {
-            // validateCurrentPage()
-            // if (Object.values(validationErrors).some(error => error !== null)) {
-            //     // If there are validation errors, do not proceed to the next page
-            //     console.log('Validation errors. Cannot proceed to the next page.');
-            //     return;
-            // }
+            validateFlexibleComponent()
+            if (Object.values(validationErrors).some(error => error !== null)) {
+                // If there are validation errors, do not proceed to the next page
+                console.log('Validation errors. Cannot proceed to the next page.');
+                return;
+            }
             showAddCildComponent.value = false;
             // Emit an event to update the parent's formDataFields
             emit('updateFormData', props.index, { ...formDataFields.value });
@@ -103,7 +115,8 @@ export default {
             confirmAddChild,
             showAddCildComponent,
             validationErrors,
-            // clearError
+            clearError,
+            handleFileInput
 
         };
     },
