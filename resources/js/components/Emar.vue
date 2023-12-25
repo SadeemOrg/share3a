@@ -208,7 +208,6 @@
                     السابق
                 </button>
             </div>
-            <!-- <p>{{ formDataFields }}</p> -->
         </div>
         <div v-if="SuccessSubmitedForm" class="my-20">
         <p class="font-Tijawal-Bold text-center text-4xl  text-[#42542A] ">لقد تم تسجيل طلبك بنجاح شكرا لتعاملك مع مؤسسة إعمار الدارين للصدقات</p>
@@ -220,9 +219,6 @@
             </div>
         </footer>
     </div>
-    <!-- <div class="mx-auto max-w-6xl  px-6 lg:px-8 py-8 " v-else>
-        لقد تم ارسال الطلب بنجاح شكرا لك
-    </div> -->
 </template>
 <script>
 import { ref, reactive, watch } from 'vue';
@@ -271,7 +267,7 @@ export default {
                 addNewChildValidation.value = Object.freeze(secondPage.value[3]['attributes'])
                 totalPages.value = response.data.length;
 
-                console.log("🚀 ~ file: emar.vue:92 ~ fetchFormData ~ data:", response.data, addNewChildValidation.value);
+                console.log("🚀 ~ file: emar.vue:92 ~ fetchFormData ~ data:", response.data, addNewChildValidation.value,secondPageAddchild.value );
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -281,7 +277,7 @@ export default {
                 Object.values(firstPageValidation.value).forEach(fieldName => {
                     const validationRule = fieldName;
                     const fieldValue = formDataFields[fieldName];
-
+console.log('validationRule && !fieldValue',validationRule && !fieldValue,validationRule , !fieldValue)
                     if (validationRule && !fieldValue) {
                         validationErrors[fieldName] = `${fieldName} is required.`;
                         console.error(`${fieldName} is required.`);
@@ -374,8 +370,10 @@ export default {
                 validation: addNewChildValidation.value['validation'],
             };
             childrenCounter.value[0]++;
+            console.log({newItem})
+            newItem.validation = newItem.validation.map(item => `${item}_${newItem.id}`);
+
             newChildren.value.push(newItem);
-            console.log(',,,,,', newChildren.value[0])
         }
 
         const onConfirmAddChild = (index, formDataFields) => {
