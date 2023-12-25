@@ -28,8 +28,8 @@
                     قم بتعبئة الاستمارة
                 </button>
             </div>
-            <button type="button"
-                class="font-Tijawal-Bold rounded-md bg-[#B0C277] w-full mt-5 h-12 px-2.5 py-1.5 font-bold text-lg text-white shadow-sm hover:bg-[#42542A]">
+            <div type="button"
+                class="font-Tijawal-Bold rounded-md bg-[#B0C277] w-full mt-5 h-auto md:h-12 px-2.5 py-1.5 font-bold text-base md:text-lg text-white shadow-sm hover:bg-[#42542A]">
                 <!-- Support conditions -->
                 <div class="flex flex-row items-start mt-1 justify-center gap-x-1">
                     <svg width="47" height="30" viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -47,10 +47,10 @@
                         تقديم الدعم مشروط بتوفر المعايير المطلوبة والموارد اللازمة
                     </p>
                 </div>
-            </button>
+            </div>
         </div>
         <!-- Form Page-->
-        <div v-if="showForm &&!SuccessSubmitedForm">    
+        <div v-if="showForm &&!SuccessSubmitedForm">
             <div v-if="counter == 1">
                 <div
                     class="flex flex-col-reverse gap-y-6 md:gap-y-0 md:flex-row items-center md:items-start justify-between mt-24">
