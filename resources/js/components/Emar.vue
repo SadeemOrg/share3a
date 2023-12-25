@@ -1,16 +1,16 @@
 <template>
-    <div class="mx-auto max-w-6xl  px-6 lg:px-8 py-8">
+    <div  class="mx-auto max-w-6xl  px-6 lg:px-8 py-8">
         <div class="flex flex-col items-center justify-center">
             <img src="https://i.postimg.cc/pdnRmpPj/image-1-removebg-preview-1.png"
                 class="max-w-[420px] w-64 md:w-72 max-h-48" alt="MSF Logo" />
-            <p v-if="!showForm" class="font-Tijawal-Bold mt-12 text-center text-xl md:text-3xl text-[#42542A]">
+            <p v-if="!showForm &&!SuccessSubmitedForm" class="font-Tijawal-Bold mt-12 text-center text-xl md:text-3xl text-[#42542A]">
                 تعمل المؤسّسة في القطاع الإغاثي الإنساني على دعم ورعاية وتمكين
                 العائلات من الفقراء والأيتام والمحتاجين في المجتمع العربي، والتي
                 تعاني من أوضاع اقتصادية اجتماعية صعبة، خصوصا في السنوات الأخيرة
                 في ظل غلاء المعيشة وتفشّي البطالة واتساع الفجوة الاقتصاديّة
             </p>
         </div>
-        <div v-if="!showForm" class="flex flex-col items-start justify-start mt-8">
+        <div v-if="!showForm &&!SuccessSubmitedForm" class="flex flex-col items-start justify-start mt-8">
             <p class="font-Tijawal-Bold mt-12 text-center text-lg md:text-2xl text-[#42542A]">
                 هذه الاستمارة مخصّصة للفئات التالية:
             </p>
@@ -50,7 +50,7 @@
             </button>
         </div>
         <!-- Form Page-->
-        <div v-if="showForm">
+        <div v-if="showForm &&!SuccessSubmitedForm">    
             <div v-if="counter == 1">
                 <div
                     class="flex flex-col-reverse gap-y-6 md:gap-y-0 md:flex-row items-center md:items-start justify-between mt-24">
@@ -208,7 +208,10 @@
                     السابق
                 </button>
             </div>
-            <p>{{ formDataFields }}</p>
+            <!-- <p>{{ formDataFields }}</p> -->
+        </div>
+        <div v-if="SuccessSubmitedForm" class="my-20">
+        <p class="font-Tijawal-Bold text-center text-4xl  text-[#42542A] ">لقد تم تسجيل طلبك بنجاح شكرا لتعاملك مع مؤسسة إعمار الدارين للصدقات</p>
         </div>
         <footer>
             <div class="mt-16 rounded-tl-3xl h-32  md:h-52 bg-white">
@@ -217,6 +220,9 @@
             </div>
         </footer>
     </div>
+    <!-- <div class="mx-auto max-w-6xl  px-6 lg:px-8 py-8 " v-else>
+        لقد تم ارسال الطلب بنجاح شكرا لك
+    </div> -->
 </template>
 <script>
 import { ref, reactive, watch } from 'vue';
@@ -243,6 +249,7 @@ export default {
         const secondPageValidation = ref({});
         const validationSecondPageErrors = reactive({});
         const addNewChildValidation = ref([])
+        const SuccessSubmitedForm = ref(false)
 
 
 
@@ -341,6 +348,7 @@ export default {
                 axios.post(endpointUrl, requestData)
                     .then(response => {
                         // Handle the response data as needed
+                        SuccessSubmitedForm.value = true;
                         console.log('Success:', response.data);
 
                         // Increment the counter or perform any other navigation logic
@@ -402,6 +410,7 @@ export default {
             validationSecondPageErrors,
             addNewChildValidation,
             clearError,
+            SuccessSubmitedForm,
             rtl,
             ltr,
         };
