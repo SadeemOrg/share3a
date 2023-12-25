@@ -1,3 +1,4 @@
+// vite.config.js
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
@@ -14,9 +15,12 @@ export default defineConfig({
       refresh: true,
     }),
   ],
+  build: {
+    outDir: 'public/build',
+  },
   resolve: {
     alias: {
-      'vue': 'vue/dist/vue.esm.js', // Change to non-minified version
+      'vue': 'vue/dist/vue.esm-bundler.js',
     },
   },
 });
