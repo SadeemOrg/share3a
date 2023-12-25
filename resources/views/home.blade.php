@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>كلية الشريعة</title>
+    <title>{{ $forms->slug }}</title>
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     @vite('resources/css/app.css')
@@ -295,9 +295,6 @@
                                 </a>
                                 <a href="tel:0506300535" class="underline underline-offset-1">آمنة الددا
                                     0506300535</a>
-                                    <a href="tel:0509949911" class="underline underline-offset-1"> محمد أبو فرحان
-
-                                        0509949911</a>
                             </div>
                         @endif
                     </div>

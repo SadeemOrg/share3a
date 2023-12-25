@@ -10,8 +10,58 @@
     font-family: TheSansArabic-regular;
     src: url('../fonts/TheSansArabic-regular.ttf');
 }
+/* @font-face {
+  font-family: Tijawal-ExtaBold;
+  src: url('../fonts/Tajawal-ExtraBold.ttf');
+}
+@font-face {
+  font-family: Tijawal-Bold;
+  src: url('../fonts/Tajawal-Bold.ttf');
+}
+@font-face {
+  font-family: Tijawal;
+  src: url('../fonts/Tajawal-Regular.ttf');
+}
+@font-face {
+  font-family: 'Tijawal-Medium';
+  src: url('../fonts/Tajawal-Medium.ttf');
+} */
+@font-face {
+  font-family: 'Tijawal-ExtraBold';
+  src: url('../fonts/Tajawal-ExtraBold.ttf');
+}
+
+@font-face {
+  font-family: 'Tijawal-Bold';
+  src: url('../fonts/Tajawal-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Tijawal';
+  src: url('../fonts/Tajawal-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Tijawal-Medium';
+  src: url('../fonts/Tajawal-Medium.ttf');
+}
 body {font-family: TheSansArabic-bold;}
 .TheSansArabic-regular {font-family: TheSansArabic-regular;}
+.font-Tijawal-ExtraBold {
+  font-family: 'Tijawal-ExtraBold';
+}
+
+.font-Tijawal-Bold {
+  font-family: 'Tijawal-Bold';
+}
+
+.font-Tijawal {
+  font-family: 'Tijawal';
+}
+
+.font-Tijawal-Medium {
+  font-family: 'Tijawal-Medium';
+}
 .Hebah-Font {font-family: Hebah-Font;}
 
 .text-sh {text-shadow: 0 4px 4px #00000040;}

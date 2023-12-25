@@ -29,5 +29,10 @@ class Form extends Model
     {
         return $this->belongsTo('App\Models\user','added_by');
     }
-
+    public function getFlexibleContentAttribute()
+    {
+        return $this->flexible('flexible-content', [
+            'wysiwyg' => \App\Nova\Flexible\Layouts\WysiwygLayout::class,
+        ]);
+    }
 }
