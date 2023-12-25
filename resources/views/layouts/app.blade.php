@@ -12,11 +12,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-x    <link rel="stylesheet" href="{{ asset('/assets/css/main.css') }}">
 
     <!-- Scripts -->
-    <script src="https://unpkg.com/vue@3"></script>
-    @vite('resources/css/app.css')
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
@@ -74,6 +71,7 @@ x    <link rel="stylesheet" href="{{ asset('/assets/css/main.css') }}">
                 </div>
             </div>
         </nav>
+
         <main class="py-4">
             @yield('content')
         </main>
