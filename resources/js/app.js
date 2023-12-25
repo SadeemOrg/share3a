@@ -1,9 +1,7 @@
 import './bootstrap';
 
 import { createApp } from 'vue';
-// import App from './app.vue'
-import App from '/resources/js/app.vue';
-
+import App from './app.vue'
 
 createApp({
 })
