@@ -247,7 +247,7 @@ class HomeController extends Controller
     }
 
     public function  sendForm(Request $request){
-        dd($request->all());
+        // dd($request->all());
     }
 
     public function exportUsers(Request $request, $key)
