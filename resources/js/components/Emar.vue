@@ -51,7 +51,6 @@
         </div>
         <!-- Form Page-->
         <div v-if="showForm &&!SuccessSubmitedForm">
-            <!-- <form @submit.prevent="handleSubmit" enctype="multipart/form-data"> -->
             <div v-if="counter == 1">
                 <div
                     class="flex flex-col-reverse gap-y-6 md:gap-y-0 md:flex-row items-center md:items-start justify-between mt-24">
@@ -209,8 +208,6 @@
                     السابق
                 </button>
             </div>
-            <!-- </form> -->
-            <!-- <p>{{ formDataFields }}</p> -->
         </div>
         <div v-if="SuccessSubmitedForm" class="my-20">
         <p class="font-Tijawal-Bold text-center text-4xl  text-[#42542A] ">لقد تم تسجيل طلبك بنجاح شكرا لتعاملك مع مؤسسة إعمار الدارين للصدقات</p>
