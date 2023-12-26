@@ -270,7 +270,7 @@ export default {
             try {
                 const response = await axios.get(`${window.location.origin}/form_questions`, {
                     params: {
-                        id: 13,
+                        id: 15,
                     },
                 });
                 data.value = Object.freeze([...response.data]);
@@ -279,8 +279,8 @@ export default {
                 secondPageValidation.value = response.data[1].validation;
                 currentPage.value = firstPage.value;
                 secondPage.value = Object.freeze(response.data[1].attributes.questions);
-                secondPageAddchild.value = Object.freeze(secondPage.value[3]['attributes']['questions']);
-                addNewChildValidation.value = Object.freeze(secondPage.value[3]['attributes'])
+                secondPageAddchild.value = Object.freeze(secondPage.value[3]?.attributes?.questions || []);
+                addNewChildValidation.value = Object.freeze(secondPage.value[3]?.attributes || {});
                 totalPages.value = response.data.length;
 
                 // console.log("🚀 ~ file: emar.vue:92 ~ fetchFormData ~ data:", response.data, addNewChildValidation.value, secondPageAddchild.value);
