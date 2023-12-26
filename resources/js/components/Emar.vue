@@ -51,7 +51,7 @@
             </div>
         </div>
         <!-- Form Page-->
-        <form @submit.prevent="handleSubmit" enctype="multipart/form-data">
+        <form @submit.prevent="handleSubmit"  enctype="multipart/form-data">
             <div v-if="showForm && !SuccessSubmitedForm">
                 <div v-if="counter == 1">
                     <div
@@ -342,7 +342,14 @@ export default {
             }
 
             // Send the POST request using Axios
-            axios.post(endpointUrl, formData)
+            const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+
+            axios.post(endpointUrl, formData, {
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'multipart/form-data', // Use 'multipart/form-data' for FormData
+                },
+            })
                 .then(response => {
                     // Handle the response data as needed
                     SuccessSubmitedForm.value = true;
