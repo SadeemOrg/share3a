@@ -223,7 +223,7 @@
                 </div>
             </div>
         </form>
-        <p>{{ formDataFields }}</p>
+        <!-- <p>{{ formDataFields }}</p> -->
         <div v-if="SuccessSubmitedForm" class="my-20">
             <p class="font-Tijawal-Bold text-center text-4xl  text-[#42542A] ">لقد تم تسجيل طلبك بنجاح شكرا لتعاملك مع مؤسسة
                 إعمار الدارين للصدقات</p>
