@@ -89,11 +89,7 @@
                                 </p>
                             </li>
                         @else
-                            <li class="mb-5">
-                                <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
-                                    جمعية السلام كسيفة
-                                </p>
-                            </li>
+  
                             <li class="mb-5">
                                 <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
                                     جمعية هاجر لتمكين المرأة
@@ -101,7 +97,12 @@
                             </li>
                             <li class="mb-5">
                                 <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
-                                    وكلية العلوم الشرعية كفربرا
+                                    كلية العلوم الشرعية كفربرا
+                                </p>
+                            </li>
+                            <li class="mb-5">
+                                <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
+                                    جمعية السلام كسيفة
                                 </p>
                             </li>
                             <li class="mb-5">
@@ -181,7 +182,7 @@
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                التعليم في قاعة مسجد الأنصار في كسيفة، مساقان كل فصل دراسي، 6 مساقات بالسنة. وهناك
+                                التعليم في قاعة مسجد الأنصار في كسيفة، وفي قاعدة مسجد الرحمة في رهط، مساقان كل فصل دراسي، 6 مساقات بالسنة. وهناك
                                 إمكانيّة للانضمام للمسار المكثّف في كفربرا.
                             </p>
                         </li>
