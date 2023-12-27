@@ -52,6 +52,7 @@
         </div>
         <!-- Form Page-->
         <form @submit.prevent="handleSubmit"  enctype="multipart/form-data">
+            <input type="hidden" name='formid' :value="formId">
             <div v-if="showForm && !SuccessSubmitedForm">
                 <div v-if="counter == 1">
                     <div
@@ -262,15 +263,26 @@ export default {
         const validationSecondPageErrors = reactive({});
         const addNewChildValidation = ref([])
         const SuccessSubmitedForm = ref(false)
+        const formId=ref(null)
 
+        const fetchFormId = async () => {
+            try {
+                const response = await axios.get(`${window.location.origin}/form_id`, {
+                    params: {
+                        id: window.location.pathname.replace(/^\/+|\/+$/g, ''),
+                    },
 
-
-
+                });
+                formId.value = response.data;
+          } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
         const fetchFormData = async () => {
             try {
                 const response = await axios.get(`${window.location.origin}/form_questions`, {
                     params: {
-                        id: 15,
+                        id: window.location.pathname.replace(/^\/+|\/+$/g, ''),
                     },
                 });
                 data.value = Object.freeze([...response.data]);
@@ -340,7 +352,7 @@ export default {
             for (const [key, file] of Object.entries(formDataFields)) {
                 formData.append(key, file);
             }
-
+            formData.append('id', formId.value);
             // Send the POST request using Axios
             const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
 
@@ -412,8 +424,8 @@ export default {
             formDataFields.value = { ...formDataFields.value, ...formData };
         };
 
+        fetchFormId();
         fetchFormData(); // Fetch data when the component is mounted
-
         return {
             data,
             showForm,
@@ -441,6 +453,7 @@ export default {
             handleFileInput,
             rtl,
             ltr,
+            formId,
         };
     },
 };

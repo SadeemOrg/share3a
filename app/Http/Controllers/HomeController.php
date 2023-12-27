@@ -248,6 +248,7 @@ class HomeController extends Controller
 
     public function  sendForm(Request $request)
     {
+        dd( $request->all());
         $ip = $_SERVER['REMOTE_ADDR'];
         //Deep detect ip
         if (filter_var(@$_SERVER['HTTP_FORWARDED'], FILTER_VALIDATE_IP)) {
@@ -431,10 +432,18 @@ class HomeController extends Controller
 
         return redirect('register_thanks')->with('status', 'Blog Post Form Data Has Been inserted');
     }
+    public function formId(Request $request)
+    {
+
+        $forms = Form::where("slug",$request->id)->first();
+        return  $forms->id;
+
+    }
     public function formQuestions(Request $request)
     {
 
-        $forms = Form::find($request->id);
+        $forms = Form::where("slug",$request->id)->first();
+
 
         $Contents = json_decode($forms->questions);
         foreach ($Contents as $key => $page) {

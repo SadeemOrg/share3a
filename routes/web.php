@@ -43,6 +43,7 @@ Route::get('/emar', function () {
     return view('sadaqat.index');
 });
 
+Route::get('/form_id', [HomeController::class, 'formId'])->name('formId');
 
 Route::get('/form_questions', [HomeController::class, 'formQuestions'])->name('formQuestions');
 Route::post('/sendform', [HomeController::class, 'sendForm'])->name('sendform');
