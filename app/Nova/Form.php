@@ -64,7 +64,10 @@ class Form extends Resource
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-
+    public static function availableForNavigation(Request $request)
+    {
+        return false;
+    }
     public static function authorizedToCreate(Request $request)
     {
         if (Auth::check()) {

@@ -89,5 +89,25 @@
     "ExportForm": "تصدير إلى Excel",
     "Add link":"إضافة رابط",
     "Add pop up":"أضف نص",
-    "Add page":"إضافة صفحة"
+    "Add page":"إضافة صفحة",
+    "Content":"محتوى",
+    "DependsOnForm":"إضافة صفحة جديدة",
+    "page":"صفحة",
+    "Content page":" محتوى الصفحة",
+    "Add section":"إضافة القسم",
+    "section":"قسم",
+    "section name":"اسم القسم",
+    "Add questions":"أضف أسئلة",
+    "required":"مطلوب",
+    "Add radio select":"اضافة اختيار radio",
+    "Add date":"إضافة تاريخ",
+    "Add file":"اضف ملف",
+    "Multi section":"قسم متعدد",
+    "select name":"اسم القسم",
+    "choice":"خيار",
+    "Flexible Section":"قسم متكرر",
+    "DependsOnForm Form":"تعديل صفحة جديدة",
+    "":""
+
+
 }
