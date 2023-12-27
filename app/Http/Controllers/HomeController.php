@@ -248,7 +248,7 @@ class HomeController extends Controller
 
     public function  sendForm(Request $request)
     {
-        dd( $request->all());
+        dd($request->all());
         $ip = $_SERVER['REMOTE_ADDR'];
         //Deep detect ip
         if (filter_var(@$_SERVER['HTTP_FORWARDED'], FILTER_VALIDATE_IP)) {
@@ -333,7 +333,6 @@ class HomeController extends Controller
                 $fileName = time() . '_' . $file->getClientOriginalName();
                 $file->storeAs('uploads', $fileName, 'public');
                 $data[$key] = $fileName;
-
             }
         }
 
@@ -359,8 +358,6 @@ class HomeController extends Controller
         $form = Form::find($request->formid);
 
         return view('light_thanks', compact('form'));
-
-
     }
 
     public function exportUsers(Request $request, $key)
@@ -435,14 +432,13 @@ class HomeController extends Controller
     public function formId(Request $request)
     {
 
-        $forms = Form::where("slug",$request->id)->first();
+        $forms = Form::where("slug", $request->id)->first();
         return  $forms->id;
-
     }
     public function formQuestions(Request $request)
     {
 
-        $forms = Form::where("slug",$request->id)->first();
+        $forms = Form::where("id", $request->id)->first();
 
 
         $Contents = json_decode($forms->questions);
@@ -459,18 +455,21 @@ class HomeController extends Controller
                     $sections->attributes->validation = $sectionsArray;
                 }
 
+                if ($sections->layout == "section") {
+                    # code...
 
-                foreach ($sections->attributes->questions as $key22 => $questions) {
+                    foreach ($sections->attributes->questions as $key22 => $questions) {
 
-                    if ($questions->attributes->required) {
-                        array_push($array,  $questions->attributes->text);
+                        if ($questions->attributes->required) {
+                            array_push($array,  $questions->attributes->text);
+                        }
                     }
                 }
             }
 
-
             $page->validation = $array;
         }
+
         return $Contents;
     }
 }
