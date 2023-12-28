@@ -5,10 +5,7 @@
                 class="max-w-[420px] w-64 md:w-72 max-h-48" alt="MSF Logo" />
             <p v-if="!showForm && !SuccessSubmitedForm"
                 class="font-Tijawal-Bold mt-12 text-center text-xl md:text-3xl text-[#42542A]">
-                تعمل المؤسّسة في القطاع الإغاثي الإنساني على دعم ورعاية وتمكين
-                العائلات من الفقراء والأيتام والمحتاجين في المجتمع العربي، والتي
-                تعاني من أوضاع اقتصادية اجتماعية صعبة، خصوصا في السنوات الأخيرة
-                في ظل غلاء المعيشة وتفشّي البطالة واتساع الفجوة الاقتصاديّة
+                {{ mainParagraphText }}
             </p>
         </div>
         <div v-if="!showForm && !SuccessSubmitedForm" class="flex flex-col items-start justify-start mt-8">
@@ -18,11 +15,7 @@
             <div
                 class="font-Tijawal flex flex-col items-start justify-start text-lg md:text-xl  text-[#42542A] mt-2 gap-y-1">
                 <!-- List of categories -->
-                <p>1. عائلة محتاجة ذات دخل أقل من 6000 ش.ج</p>
-                <p>2. أيتام</p>
-                <p>3. عائلات أحادية الوالدين (حالات طلاق)</p>
-                <p>4. مساعدة طارئة لمرة واحدة</p>
-                <p>5. محتاج غير قادر على سد احتياجات معيشية أساسية مثل: إيجار بيت وديون في دفعات الكهرباء وغيرها....</p>
+                <p v-for="(category, index) in categoriesList" :key="index">{{ category }}</p>
                 <button type="button"
                     class="font-Tijawal-Bold rounded-md bg-[#42542A] mt-3 w-60 h-12 px-2.5 py-1.5 font-bold text-lg text-white shadow-sm hover:bg-[#B0C277]"
                     @click="navigateToFormQuestions">
@@ -241,6 +234,7 @@
 import { ref, reactive, watch } from 'vue';
 import axios from 'axios';
 import NewChildrenForm from './NewChildrenForm.vue';
+import { mainParagraphText, categoriesList } from '../data';
 export default {
     components: { NewChildrenForm },
     setup() {
@@ -255,8 +249,6 @@ export default {
         const secondPageAddchild = ref({});
         const newChildren = ref([]);
         const childrenCounter = ref([100]);
-        const rtl = ref('rtl');
-        const ltr = ref('ltr');
         const firstPageValidation = ref({});
         const validationErrors = reactive({});
         const secondPageValidation = ref({});
@@ -451,32 +443,11 @@ export default {
             clearError,
             SuccessSubmitedForm,
             handleFileInput,
-            rtl,
-            ltr,
             formId,
+            categoriesList,
+            mainParagraphText
         };
     },
 };
 </script>
-<style scoped>
-.file_input {
-    padding-left: 10px;
-    max-height: 58px;
-    border: 1px solid #42542A;
-}
 
-input[type="radio"] {
-    /* Your default styles for radio buttons here */
-    background-color: #FBFDF5;
-    border: 1px solid #42542A;
-    border-radius: 0.25rem;
-    padding: 0.5rem;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-input[type="radio"]:checked {
-    /* Your styles for checked radio buttons here */
-    background-color: #B1C376;
-    /* Add any other styles you want for the checked state */
-}
-</style>
