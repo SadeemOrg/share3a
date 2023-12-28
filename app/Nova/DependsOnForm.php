@@ -324,7 +324,25 @@ class DependsOnForm extends Resource
                                                 ])->addLayout(__('Add phone Filed'), 'phone', [
                                                     Text::make(__('text'), 'text'),
                                                     Boolean::make(__('required'), 'required'),
-                                                ])
+                                                ])->addLayout(__('radio select depend'), 'radio_select_depend', [
+
+                                                    text::make(__('questions text'), 'text'),
+                                                    text::make(__('true answer'), 'yes'),
+                                                    text::make(__('false answer'), 'no'),
+
+                                                    Flexible::make(__('questions'), 'questions')
+                                                    ->fullWidth()
+                                                    ->button(__('Add questions'))
+                                                    ->addLayout(__('Add select'), 'select', [
+                                                        Text::make(__('text'), 'text'),
+                                                        Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
+                                                            ->fullWidth()
+                                                            ->addLayout(__('Add select choices'), 'choices', [
+                                                                Text::make(__('text'), 'text'),
+
+                                                            ]),
+                                                        Boolean::make(__('required'), 'required'),
+                                                    ])
 
 
                                         ])
@@ -380,7 +398,25 @@ class DependsOnForm extends Resource
                                                 ])->addLayout(__('Add phone Filed'), 'phone', [
                                                     Text::make(__('text'), 'text'),
                                                     Boolean::make(__('required'), 'required'),
-                                                ])
+                                                ])->addLayout(__('radio select depend'), 'radio_select_depend', [
+
+                                                    text::make(__('questions text'), 'text'),
+                                                    text::make(__('true answer'), 'yes'),
+                                                    text::make(__('false answer'), 'no'),
+
+                                                    Flexible::make(__('questions'), 'questions')
+                                                    ->fullWidth()
+                                                    ->button(__('Add questions'))
+                                                    ->addLayout(__('Add select'), 'select', [
+                                                        Text::make(__('text'), 'text'),
+                                                        Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
+                                                            ->fullWidth()
+                                                            ->addLayout(__('Add select choices'), 'choices', [
+                                                                Text::make(__('text'), 'text'),
+
+                                                            ]),
+                                                        Boolean::make(__('required'), 'required'),
+                                                    ])
 
 
                                         ])->addLayout(__('Multi section'), 'multi_section', [
@@ -446,7 +482,25 @@ class DependsOnForm extends Resource
                                                                 ])->addLayout(__('Add phone Filed'), 'phone', [
                                                                     Text::make(__('text'), 'text'),
                                                                     Boolean::make(__('required'), 'required'),
-                                                                ])
+                                                                ])->addLayout(__('radio select depend'), 'radio_select_depend', [
+
+                                                                    text::make(__('questions text'), 'text'),
+                                                                    text::make(__('true answer'), 'yes'),
+                                                                    text::make(__('false answer'), 'no'),
+
+                                                                    Flexible::make(__('questions'), 'questions')
+                                                                    ->fullWidth()
+                                                                    ->button(__('Add questions'))
+                                                                    ->addLayout(__('Add select'), 'select', [
+                                                                        Text::make(__('text'), 'text'),
+                                                                        Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
+                                                                            ->fullWidth()
+                                                                            ->addLayout(__('Add select choices'), 'choices', [
+                                                                                Text::make(__('text'), 'text'),
+
+                                                                            ]),
+                                                                        Boolean::make(__('required'), 'required'),
+                                                                    ])
 
 
                                                         ])
@@ -502,7 +556,25 @@ class DependsOnForm extends Resource
                                                                 ])->addLayout(__('Add phone Filed'), 'phone', [
                                                                     Text::make(__('text'), 'text'),
                                                                     Boolean::make(__('required'), 'required'),
-                                                                ])
+                                                                ])->addLayout(__('radio select depend'), 'radio_select_depend', [
+
+                                                                    text::make(__('questions text'), 'text'),
+                                                                    text::make(__('true answer'), 'yes'),
+                                                                    text::make(__('false answer'), 'no'),
+
+                                                                    Flexible::make(__('questions'), 'questions')
+                                                                    ->fullWidth()
+                                                                    ->button(__('Add questions'))
+                                                                    ->addLayout(__('Add select'), 'select', [
+                                                                        Text::make(__('text'), 'text'),
+                                                                        Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
+                                                                            ->fullWidth()
+                                                                            ->addLayout(__('Add select choices'), 'choices', [
+                                                                                Text::make(__('text'), 'text'),
+
+                                                                            ]),
+                                                                        Boolean::make(__('required'), 'required'),
+                                                                    ])
 
 
                                                         ]),
