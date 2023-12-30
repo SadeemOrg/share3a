@@ -42,6 +42,9 @@ Route::redirect('/', '/welcome'); //ok
 Route::get('/emar', function () {
     return view('sadaqat.index');
 });
+Route::get('/data1', function () {
+    return view('sadaqat.index');
+});
 
 Route::get('/form_id', [HomeController::class, 'formId'])->name('formId');
 
