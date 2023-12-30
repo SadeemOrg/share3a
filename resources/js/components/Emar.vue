@@ -501,54 +501,25 @@ export default {
                 addNewChildValidation.value = Object.freeze(secondPage.value[3]?.attributes || {});
                 totalPages.value = response.data.length;
 
-                // console.log("🚀 ~ file: emar.vue:92 ~ fetchFormData ~ data:", response.data, addNewChildValidation.value, secondPageAddchild.value);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-        const validateCurrentPage = () => {
-            if (counter.value === 1) {
-                Object.values(firstPageValidation.value).forEach(fieldName => {
-                    const validationRule = fieldName;
-                    const fieldValue = formDataFields[fieldName];
-                    if (validationRule && !fieldValue) {
-                        validationErrors[fieldName] = `${fieldName} is required.`;
-                        console.error(`${fieldName} is required.`);
-                    } else {
-                        validationErrors[fieldName] = null;
-                    }
-                });
-            } else if (counter.value === 2) {
-                Object.values(secondPageValidation.value).forEach(fieldName => {
-                    const validationSecondPageRule = fieldName;
-                    const fieldSecondValue = formDataFields[fieldName];
-
-                    if (validationSecondPageRule && !fieldSecondValue) {
-                        validationSecondPageErrors[fieldName] = `${fieldName} is required.`;
-                        console.error(`${fieldName} is required.`);
-                    } else {
-                        validationSecondPageErrors[fieldName] = null;
-                    }
-                });
-            }
-        };
+        //             if (validationSecondPageRule && !fieldSecondValue) {
+        //                 validationSecondPageErrors[fieldName] = `${fieldName} is required.`;
+        //                 console.error(`${fieldName} is required.`);
+        //             } else {
+        //                 validationSecondPageErrors[fieldName] = null;
+        //             }
+        //         });
+        //     }
+        // };
         const clearError = (fieldName) => {
-            // Clear the error for the specified field
-            validationErrors[fieldName] = null;
-            validationSecondPageErrors[fieldName] = null;
         };
 
         const handleFileInput = (question) => {
-            const inputElement = document.getElementById(question.key);
-            const file = inputElement.files[0];
-            formDataFields[question.attributes.text] = file;
+            // const inputElement = document.getElementById(question.key);
+            // const file = inputElement.files[0];
+            // formDataFields[question.attributes.text] = file;
 
         }
 
-        const handleSubmit = () => {
-            const endpointUrl = `${window.location.origin}/sendform`;
-            // Create a FormData object
-            const formData = new FormData();
 
             // Append each field to formData
             for (const [key, value] of Object.entries(formDataFields)) {
@@ -583,26 +554,14 @@ export default {
             currentPage.value = counter.value === 1 ? firstPage.value : secondPage.value;
         });
         const navigateToFormQuestions = () => {
-            showForm.value = !showForm.value;
+            showForm.value=true
         };
         const navigateToNextPage = () => {
-            // Validate the current page before navigating to the next page
-            validateCurrentPage();
             if (counter.value == 1) {
-                // Check if there are any validation errors
-                if (Object.values(validationErrors).some(error => error !== null)) {
-                    // If there are validation errors, do not proceed to the next page
-                    console.log('Validation errors. Cannot proceed to the next page.');
-                    return;
-                }
                 counter.value = Math.min(counter.value + 1, totalPages.value);
             }
             else if (counter.value == 2) {
 
-                if (Object.values(validationSecondPageErrors).some(error => error !== null)) {
-                    console.log('Validation errors. Cannot proceed to the next page.');
-                    return;
-                }
                 counter.value = Math.min(counter.value + 1, totalPages.value);
                 handleSubmit()
             }
@@ -613,21 +572,11 @@ export default {
             counter.value = Math.max(counter.value - 1, 1);
         }
         const addNewChild = () => {
-            const newItem = {
-                id: childrenCounter.value[0],
-                data: secondPageAddchild.value,
-                validation: addNewChildValidation.value['validation'],
-            };
-            childrenCounter.value[0]++;
-            newItem.validation = newItem.validation.map(item => `${item}_${newItem.id}`);
-
-            newChildren.value.push(newItem);
         }
 
         const onConfirmAddChild = (index, formDataFields) => {
         };
         const handleUpdateFormData = (index, formData) => {
-            formDataFields.value = { ...formDataFields.value, ...formData };
         };
 
         fetchFormId();
@@ -639,6 +588,7 @@ export default {
             navigateToNextPage,
             navigateToPreviousPage,
             addNewChild,
+            SuccessSubmitedForm,
             counter,
             totalPages,
             currentPage,
