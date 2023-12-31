@@ -196,6 +196,7 @@
                             </div>
                         </div>
                     </div>
+                    <p>{{ formDataFields }}</p>
                 </div>
                 <div v-if="counter == 2">
                     <div
@@ -667,17 +668,59 @@ export default {
         const navigateToFormQuestions = () => {
             showForm.value = !showForm.value;
         };
-        const navigateToNextPage = () => {
+        const navigateToNextPage = async () => {
             // Validate the current page before navigating to the next page
-            validateCurrentPage();
+            // validateCurrentPage();
             if (counter.value == 1) {
-                // Check if there are any validation errors
-                if (Object.values(validationErrors).some(error => error !== null)) {
-                    // If there are validation errors, do not proceed to the next page
-                    console.log('Validation errors. Cannot proceed to the next page.');
-                    return;
+                const endpointUrl = `${window.location.origin}/ValidateForm`;
+                const postData = {
+                    page: counter.value-1,
+                };
+                try {
+                    const formData = new FormData();
+
+                    // Append each field to formData
+                    // Append each field to formData
+                    for (const [key, value] of Object.entries(formDataFields)) {
+                        formData.append(key, value);
+                    }
+                    // Append files to formData
+                    for (const [key, file] of Object.entries(formDataFields)) {
+                        formData.append(key, file);
+                    }
+                    // Append additional data to formData
+                    for (const [key, value] of Object.entries(postData)) {
+                        formData.append(key, value);
+                    }
+
+                    formData.append('id', formId.value);
+
+                    // Send the POST request using Axios
+                    const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+                    const response = await axios.post(endpointUrl, formData, {
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Content-Type': 'multipart/form-data', // Use 'multipart/form-data' for FormData
+                        },
+                    });
+
+                    // Handle the response as needed
+                    console.log('Response:', response.data);
+
+                    // Increment the counter and navigate to the next page if needed
+                    // counter.value = Math.min(counter.value + 1, totalPages.value);
+                } catch (error) {
+                    // Handle API request errors
+                    console.error('Error:', error);
                 }
-                counter.value = Math.min(counter.value + 1, totalPages.value);
+
+                // Check if there are any validation errors
+                // if (Object.values(validationErrors).some(error => error !== null)) {
+                //     // If there are validation errors, do not proceed to the next page
+                //     console.log('Validation errors. Cannot proceed to the next page.');
+                //     return;
+                // }
+                // counter.value = Math.min(counter.value + 1, totalPages.value);
             }
             else if (counter.value == 2) {
 
