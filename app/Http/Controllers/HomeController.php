@@ -443,6 +443,7 @@ class HomeController extends Controller
         foreach ($Contents as $key => $page) {
             $array = [];
             foreach ($page->attributes->questions as $key => $sections) {
+
                 if ($sections->layout == "Flexible_section") {
                     $sectionsArray = [];
                     foreach ($sections->attributes->questions as $key22 => $questions) {
@@ -469,5 +470,23 @@ class HomeController extends Controller
         }
 
         return $Contents;
+    }
+
+    public function formQuestionsKey(Request $request)
+    {
+        // dd($request->all());
+        //
+        $forms = Form::where("slug", $request->id)->first();
+
+        $Contents = json_decode($forms->questions);
+        foreach ($Contents as $key => $page) {
+
+            foreach ($page->attributes->questions as $key => $sections) {
+
+                if ($sections->key == $request->key) {
+                    return $sections;
+                }
+            }
+        }
     }
 }
