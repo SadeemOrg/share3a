@@ -11,6 +11,7 @@ use App\Models\RegisterForm;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\JsonDecoder;
 
 class HomeController extends Controller
 {
@@ -300,8 +301,14 @@ class HomeController extends Controller
 
         return $errorArray;
     }
+    function isJsonString($string)
+    {
+        json_decode($string);
+        return (json_last_error() == JSON_ERROR_NONE);
+    }
     public function  sendForm(Request $request)
     {
+
 
         $ip = $_SERVER['REMOTE_ADDR'];
         //Deep detect ip
@@ -402,7 +409,7 @@ class HomeController extends Controller
             }
         }
         $FormResults = new FormResults();
-        $FormResults->form_id = 13;
+        $FormResults->form_id = 15;
         $FormResults->result = json_encode($finallresult);
         $FormResults->user_ip = $ip;
         $FormResults->browser = $browser;
@@ -492,7 +499,7 @@ class HomeController extends Controller
     public function formQuestions(Request $request)
     {
 
-        $forms = Form::where("slug", $request->id)->first();
+        $forms = Form::where("slug", 'emar')->first();
         $Contents = json_decode($forms->questions);
         foreach ($Contents as $key => $page) {
             $array = [];
@@ -540,21 +547,18 @@ class HomeController extends Controller
 
                 if ($sections->key == $request->key) {
                     foreach ($sections->attributes->select as $key => $select) {
-                        if($select->key==$request->choiceKey){
+                        if ($select->key == $request->choiceKey) {
                             if (isset($request->childCoiceSectionKey)) {
                                 foreach ($select->attributes->select as $key => $value) {
                                     foreach ($value->attributes->select as $key => $value2) {
-                                        if($value2->key==$request->childCoiceSectionKey){
-                                            return $value2->attributes->select ;
+                                        if ($value2->key == $request->childCoiceSectionKey) {
+                                            return $value2->attributes->select;
                                         }
                                     }
-
                                 }
-
-
                             }
-//
-                        return $select->attributes->select ;
+                            //
+                            return $select->attributes->select;
                         }
                         # code...
                     }
