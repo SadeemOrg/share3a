@@ -249,10 +249,11 @@ class HomeController extends Controller
     {
 
 
+
         $data = $request->all();
         $forms = Form::where("id", 15)->first();
         $Contents = json_decode($forms->questions);
-        $page = 1;
+        $page = $request->page;
         $errorArray = [];
         // dd($Contents[$page]->attributes->questions[0]->attributes->questions[0]->attributes->required);
         foreach ($Contents[$page]->attributes->questions as $key => $attributes) {
