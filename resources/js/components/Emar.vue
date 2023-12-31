@@ -150,6 +150,8 @@
                                             <label class="mx-1 -pt-1" :for="question.key">{{ question.attributes.no
                                             }}</label>
                                         </div>
+                                        <p v-if="validationErrors[question.attributes.text]" class="text-red-500">{{
+                                            validationErrors[question.attributes.text] }}</p>
                                         <div v-if="question.layout == 'radio_select_depend'" class="w-full  my-4">
                                             <div class="w-full"
                                                 v-if="formDataFields[question.attributes.text] == question.attributes.yes">
@@ -170,14 +172,18 @@
                                                             v-model="formDataFields[question.attributes.text]"
                                                             @input="clearError(question.attributes.text)"
                                                             class="block gap-y-4 w-[45%] my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A]  shadow-sm ring-1 focus:border-[#B1C376] " />
-
+                                                        <p v-if="validationErrors[question.attributes.text]"
+                                                            class="text-red-500">{{
+                                                                validationErrors[question.attributes.text] }}</p>
                                                         <input v-else-if="question.layout == 'phone'" type="number"
                                                             :name="question.attributes.text" :id="question.key"
                                                             :required="question.attributes.required"
                                                             v-model="formDataFields[question.attributes.text]"
                                                             @input="clearError(question.attributes.text)"
                                                             class="block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A]  shadow-sm ring-1 focus:border-[#B1C376] " />
-
+                                                        <p v-if="validationErrors[question.attributes.text]"
+                                                            class="text-red-500">{{
+                                                                validationErrors[question.attributes.text] }}</p>
                                                         <input dir="ltr" v-else-if="question.layout === 'file'"
                                                             :type="question.layout" :name="question.attributes.text"
                                                             :id="question.key" @change="handleFileInput(question)"
@@ -195,7 +201,7 @@
                             </div>
                         </div>
                     </div>
-                    <p>{{ formDataFields }}</p>
+                    <!-- <p>{{ formDataFields }}</p> -->
                 </div>
                 <div v-if="counter == 2">
                     <div
@@ -450,7 +456,6 @@
 
                     </div>
                 </div>
-                <p>{{ formDataFields }}</p>
                 <div class="flex flex-row items-center md:justify-start justify-center gap-x-2 w-full ">
                     <button type="button"
                         class="font-Tijawal-Bold rounded-md bg-[#42542A] mt-3 w-60 h-12 px-2.5 py-1.5 font-bold text-lg text-white shadow-sm hover:bg-[#B0C277]"
@@ -465,7 +470,6 @@
                 </div>
             </div>
         </form>
-        <!-- <p>{{ formDataFields }}</p> -->
         <div v-if="SuccessSubmitedForm" class="my-20">
             <p class="font-Tijawal-Bold text-center text-4xl  text-[#42542A] ">لقد تم تسجيل طلبك بنجاح شكرا لتعاملك مع مؤسسة
                 إعمار الدارين للصدقات</p>
@@ -536,7 +540,8 @@ export default {
                 });
                 data.value = Object.freeze([...response.data]);
                 firstPage.value = Object.freeze(response.data[0].attributes.questions);
-                firstPageValidation.value = response.data[0].validation;
+                // firstPageValidation.value = response.data[0].validation;
+
                 secondPageValidation.value = response.data[1].validation;
                 currentPage.value = firstPage.value;
                 secondPage.value = Object.freeze(response.data[1].attributes.questions);
@@ -596,6 +601,8 @@ export default {
                 Object.values(firstPageValidation.value).forEach(fieldName => {
                     const validationRule = fieldName;
                     const fieldValue = formDataFields[fieldName];
+                    console.log("🚀 ~ file: emar.vue:599 ~ Object.values ~ validationRule:", validationRule)
+                    console.log("🚀 ~ file: emar.vue:601 ~ Object.values ~ fieldValue:", fieldValue)
                     if (validationRule && !fieldValue) {
                         validationErrors[fieldName] = `${fieldName} is required.`;
                         console.error(`${fieldName} is required.`);
@@ -682,10 +689,12 @@ export default {
                 try {
                     const formData = new FormData();
                     for (const [key, value] of Object.entries(formDataFields)) {
-                        formData.append(key, value);
-                    }
-                    for (const [key, file] of Object.entries(formDataFields)) {
-                        formData.append(key, file);
+                        if (key === "value" && typeof value === "object") {
+                            // Convert the nested object to a JSON string
+                            formData.append(key, JSON.stringify(value));
+                        } else {
+                            formData.append(key, value);
+                        }
                     }
                     for (const [key, value] of Object.entries(postData)) {
                         formData.append(key, value);
@@ -701,20 +710,31 @@ export default {
                             'Content-Type': 'multipart/form-data', // Use 'multipart/form-data' for FormData
                         },
                     });
-                    FirstPageValidationFBE.value = response.data
-                    console.log("🚀 ~ file: emar.vue:702 ~ navigateToNextPage ~ value:", FirstPageValidationFBE.value)
+
+                    // Set the validation errors based on the response
+                    firstPageValidation.value = response.data;
+
+                    // Check if there are any validation errors
+                    if (Object.values(validationErrors).some(error => error !== null)) {
+                        console.log('Validation errors. Cannot proceed to the next page.');
+                        return;
+                    }
+
+                    // Validate the current page
+                    await validateCurrentPage();
+
+                    // If there are validation errors, do not proceed to the next page
+                    if (Object.values(validationErrors).some(error => error !== null)) {
+                        console.log('Validation errors. Cannot proceed to the next page.');
+                        return;
+                    }
+
+                    // Proceed to the next page
+                    counter.value = counter.value + 1;
                 } catch (error) {
                     // Handle API request errors
                     console.error('Error:', error);
                 }
-
-                // Check if there are any validation errors
-                // if (Object.values(validationErrors).some(error => error !== null)) {
-                //     // If there are validation errors, do not proceed to the next page
-                //     console.log('Validation errors. Cannot proceed to the next page.');
-                //     return;
-                // }
-                counter.value = Math.min(counter.value + 1);
             }
             else if (counter.value == 2) {
 
