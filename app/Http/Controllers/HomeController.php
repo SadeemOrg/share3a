@@ -301,7 +301,7 @@ class HomeController extends Controller
     }
     public function  sendForm(Request $request)
     {
-        dd($request->all());
+
         $ip = $_SERVER['REMOTE_ADDR'];
         //Deep detect ip
         if (filter_var(@$_SERVER['HTTP_FORWARDED'], FILTER_VALIDATE_IP)) {
