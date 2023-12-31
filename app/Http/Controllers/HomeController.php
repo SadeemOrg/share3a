@@ -487,11 +487,11 @@ class HomeController extends Controller
                 if ($sections->key == $request->key) {
                     foreach ($sections->attributes->select as $key => $select) {
                         if($select->key==$request->choiceKey){
-                            if (isset($request->sectionTypeKey)) {
+                            if (isset($request->childCoiceSectionKey)) {
                                 foreach ($select->attributes->select as $key => $value) {
                                     foreach ($value->attributes->select as $key => $value2) {
-                                        if($value2->key==$request->sectionTypeKey){
-                                            return($value2->attributes->select);
+                                        if($value2->key==$request->childCoiceSectionKey){
+                                            return $value2->attributes->select ;
                                         }
                                     }
 
@@ -500,7 +500,7 @@ class HomeController extends Controller
 
                             }
 //
-                            return $select->attributes->select ;
+                        return $select->attributes->select ;
                         }
                         # code...
                     }
