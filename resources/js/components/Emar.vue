@@ -293,7 +293,7 @@
                                 v-for="(choice, index) in section.attributes.select" :key="index">
                                 <input type="radio" :name="section.text" :id="choice.key" @input="clearError(section.text)"
                                     v-model="formDataFields[section.attributes.text]" :value="choice.attributes.text"
-                                    @change="handleRadioChange(section.key, 'data1', choice.key)"
+                                    @change="handleRadioChange(section.key, 'emar', choice.key)"
                                     class="block  rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]" />
                                 <label class="mx-1 -pt-1" :for="section.key">{{ choice.attributes.text }}</label>
                             </div>
@@ -372,7 +372,7 @@
                                             @input="clearError(sectionType.text)"
                                             v-model="formDataFields[sectionType.attributes.text]"
                                             :value="choice.attributes.text"
-                                            @change="handleRadioChangeSecondStage(section.key, sectionType.key, 'data1', choice.key)"
+                                            @change="handleRadioChangeSecondStage(section.key, sectionType.key, 'emar', choice.key)"
                                             class="block  rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]" />
                                         <label class="mx-1 -pt-1" :for="choice.key">{{ choice.attributes.text }}</label>
                                     </div>
@@ -521,7 +521,7 @@ export default {
                 const response = await axios.get(`${window.location.origin}/form_id`, {
                     params: {
                         id: window.location.pathname.replace(/^\/+|\/+$/g, ''),
-                        // id:'data1'
+                        // id:'emar'
                     },
 
                 });
@@ -535,7 +535,7 @@ export default {
                 const response = await axios.get(`${window.location.origin}/form_questions`, {
                     params: {
                         // id: window.location.pathname.replace(/^\/+|\/+$/g, ''),
-                        id: 'data1',
+                        id: 'emar',
                     },
                 });
                 data.value = Object.freeze([...response.data]);
