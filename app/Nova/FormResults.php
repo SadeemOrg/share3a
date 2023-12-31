@@ -102,11 +102,11 @@ class FormResults extends Resource
     {
         return [
             ID::make()->sortable(),
-            // Text::make(__('Page'), 'form_id',function(){
+            Text::make(__('Page'), 'form_id',function(){
 
-            //    $form= Form::find($this->form_id);
-            //     return$form->slug;
-            // })->sortable(),
+               $form= Form::find($this->form_id);
+                return$form->slug;
+            })->sortable(),
             Text::make(__('user_ip'), 'user_ip'),
             Text::make(__('os'), 'os'),
             Text::make(__('browser'), 'browser'),

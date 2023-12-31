@@ -16,6 +16,6 @@ class FormResults extends Model
 
     public function form()
     {
-        return $this->BelongsTo(form::class,'form_id');
+        return $this->BelongsTo(Form::class,'form_id');
     }
 }
