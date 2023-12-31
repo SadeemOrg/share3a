@@ -122,7 +122,40 @@ export default {
 };
 </script>
 <style scoped>
-  .edit-button::after {
+
+.file_input {
+    padding-left: 10px;
+    max-height: 58px;
+    border: 1px solid #42542A;
+}
+
+input[type="radio"] {
+    /* Your default styles for radio buttons here */
+    background-color: #FBFDF5;
+    border: 1px solid #42542A;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+input[type="radio"]:checked {
+    /* Your styles for checked radio buttons here */
+    background-color: #B1C376;
+    /* Add any other styles you want for the checked state */
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+.edit-button::after {
     content: "تم اضافة الطفل بنجاح";
     padding-bottom: 16px;
   }
