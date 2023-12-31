@@ -73,7 +73,6 @@
                             </p>
                         </div>
                         <div class="flex flex-row items-center justify-center md:justify-start flex-wrap mt-4 ">
-
                             <div :class="{ 'w-full': question.layout === 'radio_select_depend', 'w-[90%] md:w-1/2': question.layout !== 'radio_select_depend' }"
                                 v-for="(question, index) in section.attributes.questions" :key="index">
                                 <div v-if="question.layout !== 'radio_select' && question.layout !== 'radio_select_depend'"
@@ -451,6 +450,7 @@
 
                     </div>
                 </div>
+                <p>{{ formDataFields }}</p>
                 <div class="flex flex-row items-center md:justify-start justify-center gap-x-2 w-full ">
                     <button type="button"
                         class="font-Tijawal-Bold rounded-md bg-[#42542A] mt-3 w-60 h-12 px-2.5 py-1.5 font-bold text-lg text-white shadow-sm hover:bg-[#B0C277]"
@@ -497,6 +497,8 @@ export default {
         const multiSectionApi = ref({})
         const multiSectionSecondStageApiData = ref({})
         const ParentChoiceApi = ref({});
+
+        const FirstPageValidationFBE = ref([]);
 
 
         const secondPageAddchild = ref({});
@@ -635,14 +637,17 @@ export default {
 
             // Append each field to formData
             for (const [key, value] of Object.entries(formDataFields)) {
-                formData.append(key, value);
-            }
-            // Append files to formData
-            for (const [key, file] of Object.entries(formDataFields)) {
-                formData.append(key, file);
+                if (key === "value" && typeof value === "object") {
+                    // Convert the nested object to a JSON string
+                    formData.append(key, JSON.stringify(value));
+                } else {
+                    formData.append(key, value);
+                }
             }
             formData.append('id', formId.value);
+            console.log("🚀 ~ file: emar.vue:647 ~ handleSubmit ~ formData:", formData)
             // Send the POST request using Axios
+
             const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
 
             axios.post(endpointUrl, formData, {
@@ -669,26 +674,19 @@ export default {
             showForm.value = !showForm.value;
         };
         const navigateToNextPage = async () => {
-            // Validate the current page before navigating to the next page
-            // validateCurrentPage();
             if (counter.value == 1) {
                 const endpointUrl = `${window.location.origin}/ValidateForm`;
                 const postData = {
-                    page: counter.value-1,
+                    page: counter.value - 1,
                 };
                 try {
                     const formData = new FormData();
-
-                    // Append each field to formData
-                    // Append each field to formData
                     for (const [key, value] of Object.entries(formDataFields)) {
                         formData.append(key, value);
                     }
-                    // Append files to formData
                     for (const [key, file] of Object.entries(formDataFields)) {
                         formData.append(key, file);
                     }
-                    // Append additional data to formData
                     for (const [key, value] of Object.entries(postData)) {
                         formData.append(key, value);
                     }
@@ -703,12 +701,8 @@ export default {
                             'Content-Type': 'multipart/form-data', // Use 'multipart/form-data' for FormData
                         },
                     });
-
-                    // Handle the response as needed
-                    console.log('Response:', response.data);
-
-                    // Increment the counter and navigate to the next page if needed
-                    // counter.value = Math.min(counter.value + 1, totalPages.value);
+                    FirstPageValidationFBE.value = response.data
+                    console.log("🚀 ~ file: emar.vue:702 ~ navigateToNextPage ~ value:", FirstPageValidationFBE.value)
                 } catch (error) {
                     // Handle API request errors
                     console.error('Error:', error);
@@ -720,7 +714,7 @@ export default {
                 //     console.log('Validation errors. Cannot proceed to the next page.');
                 //     return;
                 // }
-                // counter.value = Math.min(counter.value + 1, totalPages.value);
+                counter.value = Math.min(counter.value + 1);
             }
             else if (counter.value == 2) {
 
