@@ -40,34 +40,18 @@ use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 // });
 Route::redirect('/', '/welcome'); //ok
 Route::get('/emar', function () {
-    $forms = Form::find(13);
-    $Contents = json_decode($forms->questions);
-
-
-    foreach ($Contents as $key => $page) {
-        $array = [];
-        // $sections =[1];
-        foreach ( $page->attributes->questions as $key => $sections) {
-            # code...
-
-        foreach ($sections->attributes->questions as $key22 => $questions) {
-
-            if ( $questions->attributes->required ) {
-                array_push($array,  $questions->attributes->text);
-            }
-
-        }
-    }
-
-    $page->validation=$array;
-        // dd($array);
-    }
-    return view('sadaqat.index', compact('Contents'));
+    return view('sadaqat.index');
+});
+Route::get('/data1', function () {
+    return view('sadaqat.index');
 });
 
+Route::get('/form_id', [HomeController::class, 'formId'])->name('formId');
+Route::get('/form_questions_key', [HomeController::class, 'formQuestionsKey'])->name('formQuestionsKey');
 
 Route::get('/form_questions', [HomeController::class, 'formQuestions'])->name('formQuestions');
 Route::post('/sendform', [HomeController::class, 'sendForm'])->name('sendform');
+Route::post('/ValidateForm', [HomeController::class, 'ValidateForm'])->name('ValidateForm');
 
 Route::get('/share3a', function () {
     $forms = Form::where("slug", 'كلية_الدعوة')->first();

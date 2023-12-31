@@ -245,9 +245,173 @@ class HomeController extends Controller
 
         return Excel::download(new ExportFormReselt($array), 'users123.xlsx');
     }
+    public function  ValidateForm(Request $request)
+    {
 
-    public function  sendForm(Request $request){
-        // dd($request->all());
+
+
+        $data = $request->all();
+        $forms = Form::where("id", 15)->first();
+        $Contents = json_decode($forms->questions);
+        $page = $request->page;
+        $errorArray = [];
+        // dd($Contents[$page]->attributes->questions[0]->attributes->questions[0]->attributes->required);
+        foreach ($Contents[$page]->attributes->questions as $key => $attributes) {
+            if ($attributes->layout != 'multi_section') {
+
+
+                // dd($attributes);
+                foreach ($attributes->attributes->questions as $key => $questions) {
+                    // dump($questions->layout=='radio_select_depend');
+                    if ($questions->layout == 'radio_select_depend') {
+                        // dd($questions->attributes->text);
+                        $val = $questions->attributes->text;
+                        $newString = str_replace(' ', '_', $val);
+                        if (isset($request->$newString) && $request->$newString == 1) {
+
+                            foreach ($questions->attributes->questions as $key => $valueDepend) {
+                                # code...
+                                if ($valueDepend->attributes->required) {
+                                    $val = $valueDepend->attributes->text;
+                                    $newString = str_replace(' ', '_', $val);
+                                    if (!isset($request->$newString)) {
+                                        array_push($errorArray, $val);
+                                        // dd($request->$newString);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if ($questions->attributes->required) {
+
+                        $val = $questions->attributes->text;
+                        $newString = str_replace(' ', '_', $val);
+
+                        if (!isset($request->$newString)) {
+                            array_push($errorArray, $val);
+                            // dd($request->$newString);
+                        }
+                    }
+                }
+            } else {
+                // dd($attributes->attributes->select);
+            }
+        }
+
+        return $errorArray;
+    }
+    public function  sendForm(Request $request)
+    {
+
+        $ip = $_SERVER['REMOTE_ADDR'];
+        //Deep detect ip
+        if (filter_var(@$_SERVER['HTTP_FORWARDED'], FILTER_VALIDATE_IP)) {
+            $ip = $_SERVER['HTTP_FORWARDED'];
+        }
+        if (filter_var(@$_SERVER['HTTP_FORWARDED_FOR'], FILTER_VALIDATE_IP)) {
+            $ip = $_SERVER['HTTP_FORWARDED_FOR'];
+        }
+        if (filter_var(@$_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP)) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        if (filter_var(@$_SERVER['HTTP_CLIENT_IP'], FILTER_VALIDATE_IP)) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        }
+        if (filter_var(@$_SERVER['HTTP_X_REAL_IP'], FILTER_VALIDATE_IP)) {
+            $ip = $_SERVER['HTTP_X_REAL_IP'];
+        }
+        if (filter_var(@$_SERVER['HTTP_CF_CONNECTING_IP'], FILTER_VALIDATE_IP)) {
+            $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
+        }
+        if ($ip == '::1') {
+            $ip = '127.0.0.1';
+        }
+
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+        $osPlatform = "Unknown OS Platform";
+        $osArray = array(
+            '/windows nt 10/i' => 'Windows 10',
+            '/windows nt 6.3/i' => 'Windows 8.1',
+            '/windows nt 6.2/i' => 'Windows 8',
+            '/windows nt 6.1/i' => 'Windows 7',
+            '/windows nt 6.0/i' => 'Windows Vista',
+            '/windows nt 5.2/i' => 'Windows Server 2003/XP x64',
+            '/windows nt 5.1/i' => 'Windows XP',
+            '/windows xp/i' => 'Windows XP',
+            '/windows nt 5.0/i' => 'Windows 2000',
+            '/windows me/i' => 'Windows ME',
+            '/win98/i' => 'Windows 98',
+            '/win95/i' => 'Windows 95',
+            '/win16/i' => 'Windows 3.11',
+            '/macintosh|mac os x/i' => 'Mac OS X',
+            '/mac_powerpc/i' => 'Mac OS 9',
+            '/linux/i' => 'Linux',
+            '/ubuntu/i' => 'Ubuntu',
+            '/iphone/i' => 'iPhone',
+            '/ipod/i' => 'iPod',
+            '/ipad/i' => 'iPad',
+            '/android/i' => 'Android',
+            '/blackberry/i' => 'BlackBerry',
+            '/webos/i' => 'Mobile'
+        );
+        foreach ($osArray as $regex => $value) {
+            if (preg_match($regex, $userAgent)) {
+                $osPlatform = $value;
+            }
+        }
+        $browser = "Unknown Browser";
+        $browserArray = array(
+            '/msie/i' => 'Internet Explorer',
+            '/firefox/i' => 'Firefox',
+            '/safari/i' => 'Safari',
+            '/chrome/i' => 'Chrome',
+            '/edge/i' => 'Edge',
+            '/opera/i' => 'Opera',
+            '/netscape/i' => 'Netscape',
+            '/maxthon/i' => 'Maxthon',
+            '/konqueror/i' => 'Konqueror',
+            '/mobile/i' => 'Handheld Browser'
+        );
+        foreach ($browserArray as $regex => $value) {
+            if (preg_match($regex, $userAgent)) {
+                $browser = $value;
+            }
+        }
+
+
+        $data = $request->all();
+
+        foreach ($data as $key => $value) {
+            if ($request->hasFile($key)) {
+                $file = $request->file($key);
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $file->storeAs('uploads', $fileName, 'public');
+                $data[$key] = $fileName;
+            }
+        }
+
+        $finallresult = array();
+
+        foreach ($data as $key => $value) {
+            if (!($key == 'formid' ||  $key == '_token')) {
+                $pus = array(
+                    'questionskey' => $key,
+                    'questionsanswerkey' => $value,
+                );
+                array_push($finallresult, $pus);
+            }
+        }
+        $FormResults = new FormResults();
+        $FormResults->form_id = 13;
+        $FormResults->result = json_encode($finallresult);
+        $FormResults->user_ip = $ip;
+        $FormResults->browser = $browser;
+        $FormResults->os = $osPlatform;
+
+        $FormResults->save();
+        $form = Form::find($request->formid);
+
+        return view('light_thanks', compact('form'));
     }
 
     public function exportUsers(Request $request, $key)
@@ -319,15 +483,21 @@ class HomeController extends Controller
 
         return redirect('register_thanks')->with('status', 'Blog Post Form Data Has Been inserted');
     }
+    public function formId(Request $request)
+    {
+
+        $forms = Form::where("slug", $request->id)->first();
+        return  $forms->id;
+    }
     public function formQuestions(Request $request)
     {
 
-        $forms = Form::find($request->id);
-
+        $forms = Form::where("slug", $request->id)->first();
         $Contents = json_decode($forms->questions);
         foreach ($Contents as $key => $page) {
             $array = [];
             foreach ($page->attributes->questions as $key => $sections) {
+
                 if ($sections->layout == "Flexible_section") {
                     $sectionsArray = [];
                     foreach ($sections->attributes->questions as $key22 => $questions) {
@@ -338,18 +508,60 @@ class HomeController extends Controller
                     $sections->attributes->validation = $sectionsArray;
                 }
 
+                if ($sections->layout == "section") {
+                    # code...
 
-                foreach ($sections->attributes->questions as $key22 => $questions) {
+                    foreach ($sections->attributes->questions as $key22 => $questions) {
 
-                    if ($questions->attributes->required) {
-                        array_push($array,  $questions->attributes->text);
+                        if ($questions->attributes->required) {
+                            array_push($array,  $questions->attributes->text);
+                        }
                     }
                 }
             }
 
-
             $page->validation = $array;
         }
+
         return $Contents;
+    }
+
+    public function formQuestionsKey(Request $request)
+    {
+        // dd($request->all());
+        //
+        $forms = Form::where("slug", $request->id)->first();
+
+        $Contents = json_decode($forms->questions);
+        foreach ($Contents as $key => $page) {
+
+            foreach ($page->attributes->questions as $key => $sections) {
+
+
+                if ($sections->key == $request->key) {
+                    foreach ($sections->attributes->select as $key => $select) {
+                        if($select->key==$request->choiceKey){
+                            if (isset($request->childCoiceSectionKey)) {
+                                foreach ($select->attributes->select as $key => $value) {
+                                    foreach ($value->attributes->select as $key => $value2) {
+                                        if($value2->key==$request->childCoiceSectionKey){
+                                            return $value2->attributes->select ;
+                                        }
+                                    }
+
+                                }
+
+
+                            }
+//
+                        return $select->attributes->select ;
+                        }
+                        # code...
+                    }
+                    // dd($sections->attributes->select);
+                    // return $sections;
+                }
+            }
+        }
     }
 }

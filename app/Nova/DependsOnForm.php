@@ -2,7 +2,9 @@
 
 namespace App\Nova;
 
+use App\Models\FormUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
@@ -15,6 +17,11 @@ use Laravel\Nova\Fields\Date;
 
 class DependsOnForm extends Resource
 {
+
+    public static function label()
+    {
+        return __('صفحة جديدة');
+    }
     /**
      * The model the resource corresponds to.
      *
@@ -44,6 +51,66 @@ class DependsOnForm extends Resource
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
+
+    public static function authorizedToCreate(Request $request)
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1, 2]))) {
+                return true;
+            } else return false;
+        }
+    }
+    public  function authorizedToUpdate(Request $request)
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1, 2]))) {
+                return true;
+            } else {
+
+                if ($request->user()->usepermission() == 2) {
+                    return true;
+                }
+            }
+            // return false;
+        }
+    }
+
+    public  function authorizedToDelete(Request $request)
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1, 2]))) {
+                return true;
+            } else return false;
+        }
+    }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1]))) {
+                return true;
+            } else return false;
+        }
+    }
+    public  function authorizedToReplicate(Request $request)
+    {
+        if (Auth::check()) {
+            if ((in_array($request->user()->userrole(), [1, 2]))) {
+                return true;
+            } else return false;
+        }
+    }
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->userrole() == 1) {
+            // dd("dd");
+            return $query->where('type', 0);
+        }
+
+        $user = Auth::user();
+        $formsarray = FormUser::where(['user_id' => Auth::id()])->Select('form_id')->pluck('form_id')->toArray();
+
+        $query->where('type', 0)->where('added_by', $user->id)->orWherein('id', $formsarray);
+    }
     public function fields(NovaRequest $request)
     {
         return [
@@ -63,21 +130,21 @@ class DependsOnForm extends Resource
             Text::make(__('note Form'), 'note')->rules('required'),
             Text::make(__('text_thanks'), 'text_thanks'),
             Text::make(__('sup_text_thanks'), 'sup_text_thanks'),
-            Flexible::make('Content', 'questions')
+            Flexible::make(__('Content'), 'questions')
                 ->fullWidth()
                 ->button(__('Add page'))
                 ->confirmRemove($label = '', $yes = 'Delete', $no = 'Cancel')
-                ->addLayout('Depends On', 'page', [
-                    Flexible::make('Content', 'questions')
+                ->addLayout(__('page'), 'page', [
+                    Flexible::make(__('Content page'), 'questions')
                         ->fullWidth()
                         ->button(__('Add section'))
                         ->confirmRemove($label = '', $yes = 'Delete', $no = 'Cancel')
-                        ->addLayout('section', 'section', [
+                        ->addLayout(__('section'), 'section', [
                             Text::make(__('section name'), 'section_name'),
 
-                            Flexible::make('questions', 'questions')
+                            Flexible::make(__('questions'), 'questions')
                                 ->fullWidth()
-                                ->button('Add questions')
+                                ->button(__('Add questions'))
                                 ->addLayout(__('Add select'), 'select', [
                                     Text::make(__('text'), 'text'),
                                     Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
@@ -87,7 +154,7 @@ class DependsOnForm extends Resource
 
                                         ]),
                                     Boolean::make(__('required'), 'required'),
-                                ])  ->addLayout(__('Add radio select'), 'radio_select', [
+                                ])->addLayout(__('Add radio select'), 'radio_select', [
                                     Text::make(__('text'), 'text'),
                                     Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
                                         ->fullWidth()
@@ -96,7 +163,7 @@ class DependsOnForm extends Resource
 
                                         ]),
                                     Boolean::make(__('required'), 'required'),
-                                ])  ->addLayout(__('Add text'), 'text', [
+                                ])->addLayout(__('Add text'), 'text', [
                                     Text::make(__('text'), 'text'),
                                     Boolean::make(__('required'), 'required'),
 
@@ -125,14 +192,335 @@ class DependsOnForm extends Resource
                                     Text::make(__('text'), 'text'),
                                     Boolean::make(__('required'), 'required'),
                                 ])
+                                ->addLayout(__('radio select depend'), 'radio_select_depend', [
+
+                                    text::make(__('questions text'), 'text'),
+                                    text::make(__('true answer'), 'yes'),
+                                    text::make(__('false answer'), 'no'),
+
+                                    Flexible::make(__('questions'), 'questions')
+                                        ->fullWidth()
+                                        ->button(__('Add questions'))
+                                        ->addLayout(__('Add select'), 'select', [
+                                            Text::make(__('text'), 'text'),
+                                            Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
+                                                ->fullWidth()
+                                                ->addLayout(__('Add select choices'), 'choices', [
+                                                    Text::make(__('text'), 'text'),
+
+                                                ]),
+                                            Boolean::make(__('required'), 'required'),
+                                        ])->addLayout(__('Add radio select'), 'radio_select', [
+                                            Text::make(__('text'), 'text'),
+                                            Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
+                                                ->fullWidth()
+                                                ->addLayout(__('Add select choices'), 'choices', [
+                                                    Text::make(__('text'), 'text'),
+
+                                                ]),
+                                            Boolean::make(__('required'), 'required'),
+                                        ])->addLayout(__('Add text'), 'text', [
+                                            Text::make(__('text'), 'text'),
+                                            Boolean::make(__('required'), 'required'),
+
+                                        ])
+                                        ->addLayout(__('Add date'), 'date', [
+
+                                            text::make(__('text'), 'text'),
+                                            Boolean::make(__('required'), 'required'),
+
+                                        ])
+                                        ->addLayout(__('Add file'), 'file', [
+                                            text::make(__('text'), 'text'),
+                                            Boolean::make(__('required'), 'required'),
+
+                                        ])
+                                        ->addLayout(__('Add Note Filed'), 'Note', [
+                                            Text::make(__('text'), 'text'),
+                                            Boolean::make(__('required'), 'required'),
+                                        ])->addLayout(__('Add boolean Filed'), 'boolean', [
+                                            Text::make(__('text'), 'text'),
+                                            Boolean::make(__('required'), 'required'),
+                                        ])->addLayout(__('Add Email Filed'), 'email', [
+                                            Text::make(__('text'), 'text'),
+                                            Boolean::make(__('required'), 'required'),
+                                        ])->addLayout(__('Add phone Filed'), 'phone', [
+                                            Text::make(__('text'), 'text'),
+                                            Boolean::make(__('required'), 'required'),
+                                        ])
+                                        ->addLayout(__('radio select depend'), 'radio_select_depend', [
+
+                                            text::make(__('questions text'), 'text'),
+                                            text::make(__('true answer'), 'yes'),
+                                            text::make(__('false answer'), 'no'),
+
+                                            Boolean::make(__('required'), 'required'),
 
 
-                        ]) ->addLayout('Flexible section', 'Flexible_section', [
+                                        ]),
+                                    Boolean::make(__('required'), 'required'),
+
+
+                                ])
+
+
+                        ])->addLayout(__('Multi section'), 'multi_section', [
+                            Text::make(__('select name'), 'text'),
+
+                            Flexible::make(__('select'), 'select')->button(__('Add select choices'))
+                                ->fullWidth()
+                                ->addLayout(__('Add select choices'), 'choices', [
+                                    Text::make(__('choice'), 'text'),
+
+
+                                    Flexible::make(__('select'), 'select')->button(__('Add select choices'))
+                                        ->fullWidth()
+                                        ->addLayout(__('section'), 'section', [
+                                            Text::make(__('section name'), 'section_name'),
+
+                                            Flexible::make(__('questions'), 'questions')
+                                                ->fullWidth()
+                                                ->button(__('Add questions'))
+                                                ->addLayout(__('Add select'), 'select', [
+                                                    Text::make(__('text'), 'text'),
+                                                    Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
+                                                        ->fullWidth()
+                                                        ->addLayout(__('Add select choices'), 'choices', [
+                                                            Text::make(__('text'), 'text'),
+
+                                                        ]),
+                                                    Boolean::make(__('required'), 'required'),
+                                                ])->addLayout(__('Add radio select'), 'radio_select', [
+                                                    Text::make(__('text'), 'text'),
+                                                    Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
+                                                        ->fullWidth()
+                                                        ->addLayout(__('Add select choices'), 'choices', [
+                                                            Text::make(__('text'), 'text'),
+
+                                                        ]),
+                                                    Boolean::make(__('required'), 'required'),
+                                                ])->addLayout(__('Add text'), 'text', [
+                                                    Text::make(__('text'), 'text'),
+                                                    Boolean::make(__('required'), 'required'),
+
+                                                ])->addLayout(__('Add date'), 'date', [
+
+                                                    text::make(__('text'), 'text'),
+                                                    Boolean::make(__('required'), 'required'),
+
+                                                ])->addLayout(__('Add file'), 'file', [
+                                                    text::make(__('text'), 'text'),
+                                                    Boolean::make(__('required'), 'required'),
+
+                                                ])->addLayout(__('Add Note Filed'), 'Note', [
+                                                    Text::make(__('text'), 'text'),
+                                                    Boolean::make(__('required'), 'required'),
+                                                ])->addLayout(__('Add boolean Filed'), 'boolean', [
+                                                    Text::make(__('text'), 'text'),
+                                                    Boolean::make(__('required'), 'required'),
+                                                ])->addLayout(__('Add Email Filed'), 'email', [
+                                                    Text::make(__('text'), 'text'),
+                                                    Boolean::make(__('required'), 'required'),
+                                                ])->addLayout(__('Add phone Filed'), 'phone', [
+                                                    Text::make(__('text'), 'text'),
+                                                    Boolean::make(__('required'), 'required'),
+                                                ])
+
+
+                                        ])
+                                        ->addLayout(__('Flexible Section'), 'Flexible_section', [
+                                            Text::make(__('section name'), 'section_name'),
+
+                                            Flexible::make(__('questions'), 'questions')
+                                                ->fullWidth()
+                                                ->button(__('Add questions'))
+                                                ->addLayout(__('Add select'), 'select', [
+                                                    Text::make(__('text'), 'text'),
+                                                    Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
+                                                        ->fullWidth()
+                                                        ->addLayout(__('Add select choices'), 'choices', [
+                                                            Text::make(__('text'), 'text'),
+
+                                                        ]),
+                                                    Boolean::make(__('required'), 'required'),
+                                                ])->addLayout(__('Add radio select'), 'radio_select', [
+                                                    Text::make(__('text'), 'text'),
+                                                    Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
+                                                        ->fullWidth()
+                                                        ->addLayout(__('Add select choices'), 'choices', [
+                                                            Text::make(__('text'), 'text'),
+
+                                                        ]),
+                                                    Boolean::make(__('required'), 'required'),
+                                                ])->addLayout(__('Add text'), 'text', [
+                                                    Text::make(__('text'), 'text'),
+                                                    Boolean::make(__('required'), 'required'),
+
+                                                ])
+                                                ->addLayout(__('Add date'), 'date', [
+
+                                                    text::make(__('text'), 'text'),
+                                                    Boolean::make(__('required'), 'required'),
+
+                                                ])
+                                                ->addLayout(__('Add file'), 'file', [
+                                                    text::make(__('text'), 'text'),
+                                                    Boolean::make(__('required'), 'required'),
+
+                                                ])
+                                                ->addLayout(__('Add Note Filed'), 'Note', [
+                                                    Text::make(__('text'), 'text'),
+                                                    Boolean::make(__('required'), 'required'),
+                                                ])->addLayout(__('Add boolean Filed'), 'boolean', [
+                                                    Text::make(__('text'), 'text'),
+                                                    Boolean::make(__('required'), 'required'),
+                                                ])->addLayout(__('Add Email Filed'), 'email', [
+                                                    Text::make(__('text'), 'text'),
+                                                    Boolean::make(__('required'), 'required'),
+                                                ])->addLayout(__('Add phone Filed'), 'phone', [
+                                                    Text::make(__('text'), 'text'),
+                                                    Boolean::make(__('required'), 'required'),
+                                                ])
+
+
+                                        ])->addLayout(__('Multi section'), 'multi_section', [
+                                            Text::make(__('select name'), 'text'),
+
+                                            Flexible::make(__('select'), 'select')->button(__('Add select choices'))
+                                                ->fullWidth()
+                                                ->addLayout(__('Add select choices'), 'choices', [
+                                                    Text::make(__('choice'), 'text'),
+
+
+                                                    Flexible::make(__('select'), 'select')->button(__('Add select choices'))
+                                                        ->fullWidth()
+                                                        ->addLayout(__('section'), 'section', [
+                                                            Text::make(__('section name'), 'section_name'),
+
+                                                            Flexible::make(__('questions'), 'questions')
+                                                                ->fullWidth()
+                                                                ->button(__('Add questions'))
+                                                                ->addLayout(__('Add select'), 'select', [
+                                                                    Text::make(__('text'), 'text'),
+                                                                    Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
+                                                                        ->fullWidth()
+                                                                        ->addLayout(__('Add select choices'), 'choices', [
+                                                                            Text::make(__('text'), 'text'),
+
+                                                                        ]),
+                                                                    Boolean::make(__('required'), 'required'),
+                                                                ])->addLayout(__('Add radio select'), 'radio_select', [
+                                                                    Text::make(__('text'), 'text'),
+                                                                    Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
+                                                                        ->fullWidth()
+                                                                        ->addLayout(__('Add select choices'), 'choices', [
+                                                                            Text::make(__('text'), 'text'),
+
+                                                                        ]),
+                                                                    Boolean::make(__('required'), 'required'),
+                                                                ])->addLayout(__('Add text'), 'text', [
+                                                                    Text::make(__('text'), 'text'),
+                                                                    Boolean::make(__('required'), 'required'),
+
+                                                                ])
+                                                                ->addLayout(__('Add date'), 'date', [
+
+                                                                    text::make(__('text'), 'text'),
+                                                                    Boolean::make(__('required'), 'required'),
+
+                                                                ])
+                                                                ->addLayout(__('Add file'), 'file', [
+                                                                    text::make(__('text'), 'text'),
+                                                                    Boolean::make(__('required'), 'required'),
+
+                                                                ])
+                                                                ->addLayout(__('Add Note Filed'), 'Note', [
+                                                                    Text::make(__('text'), 'text'),
+                                                                    Boolean::make(__('required'), 'required'),
+                                                                ])->addLayout(__('Add boolean Filed'), 'boolean', [
+                                                                    Text::make(__('text'), 'text'),
+                                                                    Boolean::make(__('required'), 'required'),
+                                                                ])->addLayout(__('Add Email Filed'), 'email', [
+                                                                    Text::make(__('text'), 'text'),
+                                                                    Boolean::make(__('required'), 'required'),
+                                                                ])->addLayout(__('Add phone Filed'), 'phone', [
+                                                                    Text::make(__('text'), 'text'),
+                                                                    Boolean::make(__('required'), 'required'),
+                                                                ])
+
+
+                                                        ])
+                                                        ->addLayout(__('Flexible Section'), 'Flexible_section', [
+                                                            Text::make(__('section name'), 'section_name'),
+
+                                                            Flexible::make(__('questions'), 'questions')
+                                                                ->fullWidth()
+                                                                ->button(__('Add questions'))
+                                                                ->addLayout(__('Add select'), 'select', [
+                                                                    Text::make(__('text'), 'text'),
+                                                                    Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
+                                                                        ->fullWidth()
+                                                                        ->addLayout(__('Add select choices'), 'choices', [
+                                                                            Text::make(__('text'), 'text'),
+
+                                                                        ]),
+                                                                    Boolean::make(__('required'), 'required'),
+                                                                ])->addLayout(__('Add radio select'), 'radio_select', [
+                                                                    Text::make(__('text'), 'text'),
+                                                                    Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
+                                                                        ->fullWidth()
+                                                                        ->addLayout(__('Add select choices'), 'choices', [
+                                                                            Text::make(__('text'), 'text'),
+
+                                                                        ]),
+                                                                    Boolean::make(__('required'), 'required'),
+                                                                ])->addLayout(__('Add text'), 'text', [
+                                                                    Text::make(__('text'), 'text'),
+                                                                    Boolean::make(__('required'), 'required'),
+
+                                                                ])
+                                                                ->addLayout(__('Add date'), 'date', [
+
+                                                                    text::make(__('text'), 'text'),
+                                                                    Boolean::make(__('required'), 'required'),
+
+                                                                ])
+                                                                ->addLayout(__('Add file'), 'file', [
+                                                                    text::make(__('text'), 'text'),
+                                                                    Boolean::make(__('required'), 'required'),
+
+                                                                ])
+                                                                ->addLayout(__('Add Note Filed'), 'Note', [
+                                                                    Text::make(__('text'), 'text'),
+                                                                    Boolean::make(__('required'), 'required'),
+                                                                ])->addLayout(__('Add boolean Filed'), 'boolean', [
+                                                                    Text::make(__('text'), 'text'),
+                                                                    Boolean::make(__('required'), 'required'),
+                                                                ])->addLayout(__('Add Email Filed'), 'email', [
+                                                                    Text::make(__('text'), 'text'),
+                                                                    Boolean::make(__('required'), 'required'),
+                                                                ])->addLayout(__('Add phone Filed'), 'phone', [
+                                                                    Text::make(__('text'), 'text'),
+                                                                    Boolean::make(__('required'), 'required'),
+                                                                ])
+
+
+                                                        ]),
+
+
+                                                ]),
+
+                                        ]),
+
+
+                                ]),
+
+                        ])->addLayout(__('Flexible Section'), 'Flexible_section', [
                             Text::make(__('section name'), 'section_name'),
 
-                            Flexible::make('questions', 'questions')
+                            Flexible::make(__('questions'), 'questions')
                                 ->fullWidth()
-                                ->button('Add questions')
+                                ->button(__('Add questions'))
                                 ->addLayout(__('Add select'), 'select', [
                                     Text::make(__('text'), 'text'),
                                     Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
@@ -142,7 +530,7 @@ class DependsOnForm extends Resource
 
                                         ]),
                                     Boolean::make(__('required'), 'required'),
-                                ])  ->addLayout(__('Add radio select'), 'radio_select', [
+                                ])->addLayout(__('Add radio select'), 'radio_select', [
                                     Text::make(__('text'), 'text'),
                                     Flexible::make(__('select'), 'selectform')->button(__('Add select choices'))
                                         ->fullWidth()
@@ -151,7 +539,7 @@ class DependsOnForm extends Resource
 
                                         ]),
                                     Boolean::make(__('required'), 'required'),
-                                ])  ->addLayout(__('Add text'), 'text', [
+                                ])->addLayout(__('Add text'), 'text', [
                                     Text::make(__('text'), 'text'),
                                     Boolean::make(__('required'), 'required'),
 
@@ -186,7 +574,6 @@ class DependsOnForm extends Resource
 
 
 
-
                 ])
 
 
@@ -194,7 +581,16 @@ class DependsOnForm extends Resource
 
         ];
     }
+    public function rules(NovaRequest $request)
+    {
+        return false;
+        return [
+            // Your other validation rules...
 
+            // Custom validation for minimum flexible content sections
+            'flexible_content_field_name' => 'required|array|min:2',
+        ];
+    }
     /**
      * Get the cards available for the request.
      *

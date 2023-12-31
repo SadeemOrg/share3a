@@ -47,7 +47,7 @@ class Form extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'slug';
 
     /**
      * The columns that should be searched.
@@ -64,7 +64,10 @@ class Form extends Resource
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-
+    public static function availableForNavigation(Request $request)
+    {
+        return false;
+    }
     public static function authorizedToCreate(Request $request)
     {
         if (Auth::check()) {

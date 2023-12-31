@@ -70,7 +70,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
                 MenuSection::make(__("pages"), [
                     // MenuItem::resource(Form::class)->name(""),
-                    MenuItem::make(__('Add Form'))->path('/resources/forms/new')->canSee(function (NovaRequest $request) {
+                    MenuItem::make(__('Add Form'))->path('/resources/depends-on-forms/new')->canSee(function (NovaRequest $request) {
                         if(Auth::check())
                         {
                         if ((in_array($request->user()->userrole(), [1, 2]))) {

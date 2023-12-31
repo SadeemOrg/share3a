@@ -13,4 +13,9 @@ class FormResults extends Model
 
         'is_new'
     ];
+
+    public function form()
+    {
+        return $this->BelongsTo(form::class,'form_id');
+    }
 }

@@ -10,4 +10,6 @@
   export default {
     components:{Emar}
   }
-  </script>
+</script>
+
+
