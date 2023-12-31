@@ -539,6 +539,7 @@ export default {
         const secondPage = ref({});
         const multiSectionApi = ref({})
         const multiSectionSecondStageApi = ref({})
+        const ParentChoiceApi= ref({});
 
 
         const secondPageAddchild = ref({});
@@ -597,6 +598,7 @@ export default {
         };
         const makeApiRequest = async (key, slug, choiceKey) => {
             try {
+                ParentChoiceApi.value=choiceKey;
                 const response = await axios.get(`${window.location.origin}/form_questions_key`, {
                     params: {
                         id: slug,
@@ -618,8 +620,8 @@ export default {
                     params: {
                         id: slug,
                         key: key,
-                        choiceKey: choiceKey,
-                        sectionTypeKey:sectionTypeKey
+                        choiceKey: ParentChoiceApi.value,
+                        childCoiceSectionKey:choiceKey
                     },
                 });
                 multiSectionSecondStageApi.value = data.data;
@@ -784,7 +786,8 @@ export default {
             handleRadioChange,
             multiSectionApi,
             handleRadioChangeSecondStage,
-            multiSectionSecondStageApi
+            multiSectionSecondStageApi,
+            ParentChoiceApi
         };
     },
 };
