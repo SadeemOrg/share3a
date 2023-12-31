@@ -47,6 +47,7 @@ Route::get('/data1', function () {
 });
 
 Route::get('/form_id', [HomeController::class, 'formId'])->name('formId');
+Route::get('/form_questions_key', [HomeController::class, 'formQuestionsKey'])->name('formQuestionsKey');
 
 Route::get('/form_questions', [HomeController::class, 'formQuestions'])->name('formQuestions');
 Route::post('/sendform', [HomeController::class, 'sendForm'])->name('sendform');
