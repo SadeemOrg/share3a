@@ -51,6 +51,7 @@ Route::get('/form_questions_key', [HomeController::class, 'formQuestionsKey'])->
 
 Route::get('/form_questions', [HomeController::class, 'formQuestions'])->name('formQuestions');
 Route::post('/sendform', [HomeController::class, 'sendForm'])->name('sendform');
+Route::post('/ValidateForm', [HomeController::class, 'ValidateForm'])->name('ValidateForm');
 
 Route::get('/share3a', function () {
     $forms = Form::where("slug", 'كلية_الدعوة')->first();

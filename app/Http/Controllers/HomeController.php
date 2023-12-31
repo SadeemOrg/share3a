@@ -245,7 +245,60 @@ class HomeController extends Controller
 
         return Excel::download(new ExportFormReselt($array), 'users123.xlsx');
     }
+    public function  ValidateForm(Request $request)
+    {
 
+
+        $data = $request->all();
+        $forms = Form::where("id", 15)->first();
+        $Contents = json_decode($forms->questions);
+        $page = 1;
+        $errorArray = [];
+        // dd($Contents[$page]->attributes->questions[0]->attributes->questions[0]->attributes->required);
+        foreach ($Contents[$page]->attributes->questions as $key => $attributes) {
+            if ($attributes->layout != 'multi_section') {
+
+
+                // dd($attributes);
+                foreach ($attributes->attributes->questions as $key => $questions) {
+                    // dump($questions->layout=='radio_select_depend');
+                    if ($questions->layout == 'radio_select_depend') {
+                        // dd($questions->attributes->text);
+                        $val = $questions->attributes->text;
+                        $newString = str_replace(' ', '_', $val);
+                        if (isset($request->$newString) && $request->$newString == 1) {
+
+                            foreach ($questions->attributes->questions as $key => $valueDepend) {
+                                # code...
+                                if ($valueDepend->attributes->required) {
+                                    $val = $valueDepend->attributes->text;
+                                    $newString = str_replace(' ', '_', $val);
+                                    if (!isset($request->$newString)) {
+                                        array_push($errorArray, $val);
+                                        // dd($request->$newString);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if ($questions->attributes->required) {
+
+                        $val = $questions->attributes->text;
+                        $newString = str_replace(' ', '_', $val);
+
+                        if (!isset($request->$newString)) {
+                            array_push($errorArray, $val);
+                            // dd($request->$newString);
+                        }
+                    }
+                }
+            } else {
+                // dd($attributes->attributes->select);
+            }
+        }
+
+        return $errorArray;
+    }
     public function  sendForm(Request $request)
     {
         dd($request->all());
