@@ -271,13 +271,6 @@
                                                 validationSecondPageErrors[question.attributes.text] }}</p>
                                     </div>
                                 </div>
-                                <div v-if="section.layout == 'Flexible_section'" class="w-1/2 mt-4">
-                                    <button v-if="counter == 2" type="button"
-                                        class="font-Tijawal-Bold bg-[#B1C376] block w-[95%] gap-y-4 my-2 text-white h-14 rounded-md mt-4 shadow-sm ring-1 hover:bg-[#42542A]"
-                                        @click="addNewChild">
-                                        اضافة طفل آخر
-                                    </button>
-                                </div>
                             </div>
                         </div>
                         <div v-else-if="section.layout == 'multi_section'">
@@ -294,16 +287,109 @@
                                 v-for="(choice, index) in section.attributes.select" :key="index">
                                 <input type="radio" :name="section.text" :id="choice.key" @input="clearError(section.text)"
                                     v-model="formDataFields[section.attributes.text]" :value="choice.attributes.text"
+                                    @change="handleRadioChange(section.key, 'data1', choice.key)"
                                     class="block  rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]" />
                                 <label class="mx-1 -pt-1" :for="section.key">{{ choice.attributes.text }}</label>
                             </div>
-                            <div v-for="(choice, index) in section.attributes.select" :key="index">
+                            <div v-for="(sectionType, index) in multiSectionApi">
+                                <div class="my-12 border-t border-[#B1C376] pt-12" v-if="sectionType.layout === 'section'">
+                                    <div class=" flex flex-row items-start justify-start gap-x-2">
+                                        <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="8.5" cy="8.5" r="8.5" fill="#B1C376" />
+                                        </svg>
+                                        <p class="font-Tijawal-Bold text-center text-xl text-[#42542A]">{{
+                                            section.attributes.section_name
+                                        }}
+                                        </p>
+                                    </div>
+                                    <div class="w-[90%] md:w-[45%] "
+                                        v-for="(question, index) in section.attributes.questions" :key="index">
+                                        <div v-if="question.layout !== 'radio_select'" class="w-full">
+                                            <label :for="question.key"
+                                                class="flex flex-row gap-x-3 text-base -pt-2 py-0.5 font-Tijawal-Bold  text-[#42542A]">
+                                                <p class="p-0 m-0">{{ question.attributes.text }}</p>
+                                                <p v-if="question.attributes.required"
+                                                    class="text-[#FF0000] p-0 m-0 text-2xl">*
+                                                </p>
+                                            </label>
+                                            <input v-if="question.layout !== 'file'" :type="question.layout"
+                                                :name="question.attributes.text" :id="question.key"
+                                                v-model="formDataFields[question.attributes.text]"
+                                                @input="clearError(question.attributes.text)"
+                                                class="block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A]  shadow-sm ring-1 focus:border-[#B1C376] " />
+
+                                            <input dir="ltr" v-if="question.layout === 'file'" :type="question.layout"
+                                                :name="question.attributes.text" :id="question.key"
+                                                @input="clearError(question.attributes.text)"
+                                                @change="handleFileInput(question)"
+                                                class="file_input block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A]  shadow-sm ring-1 focus:border-[#B1C376]" />
+
+                                            <p v-if="validationSecondPageErrors[question.attributes.text]"
+                                                class="text-red-500">
+                                                {{
+                                                    validationSecondPageErrors[question.attributes.text] }}</p>
+                                        </div>
+                                        <div v-else-if="question.layout == 'radio_select'">
+                                            <label :for="question.key"
+                                                class="flex flex-row gap-x-3 text-base -pt-2 py-0.5 font-Tijawal-Bold  text-[#42542A]">
+                                                <p class="p-0 m-0 "> {{ question.attributes.name }}</p>
+                                                <p v-if="question.attributes.required"
+                                                    class="text-[#FF0000] p-0 m-0 text-2xl">*
+                                                </p>
+                                            </label>
+                                            <div class="flex flex-row items-start mt-2 "
+                                                v-for="choice in question.attributes.selectform" :key="choice.key">
+                                                <input type="radio" :name="question.attributes.text" :id="choice.key"
+                                                    @input="clearError(question.attributes.text)"
+                                                    v-model="formDataFields[question.attributes.text]"
+                                                    :value="choice.attributes.text"
+                                                    :class="question.layout === 'file' ? 'file_input' : ''"
+                                                    class="block  rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]" />
+                                                <label class="mx-1 -pt-1" :for="choice.key">{{ choice.attributes.text
+                                                }}</label>
+                                            </div>
+                                            <p v-if="validationSecondPageErrors[question.attributes.text]"
+                                                class="text-red-500">
+                                                {{
+                                                    validationSecondPageErrors[question.attributes.text] }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="my-12 border-t border-[#B1C376] pt-12"
+                                    v-if="sectionType.layout === 'multi_section'">
+                                    <div class="flex flex-row items-start mt-2 "
+                                        v-for="(choice, index) in sectionType.attributes.select" :key="index">
+                                        <input type="radio" :name="sectionType.attributes.text" :id="choice.key"
+                                            @input="clearError(sectionType.text)"
+                                            v-model="formDataFields[sectionType.attributes.text]"
+                                            :value="choice.attributes.text"
+                                            @change="handleRadioChangeSecondStage(section.key,sectionType.key, 'data1', choice.key)"
+                                            class="block  rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]" />
+                                        <label class="mx-1 -pt-1" :for="choice.key">{{ choice.attributes.text }}</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div v-if="section.layout == 'Flexible_section'" class="w-1/2 mt-4">
+                            <button v-if="counter == 2" type="button"
+                                class="font-Tijawal-Bold bg-[#B1C376] block w-[95%] gap-y-4 my-2 text-white h-14 rounded-md mt-4 shadow-sm ring-1 hover:bg-[#42542A]"
+                                @click="addNewChild">
+                                اضافة طفل آخر
+                            </button>
+                        </div>
+                        <div class="flex flex-col items-start">
+                            <NewChildrenForm v-for="(children, index) in newChildren" :key="index" :children="children"
+                                :index="index" ltr="ltr" rtl="rtl" @confirmAddChild="onConfirmAddChild"
+                                @updateFormData="handleUpdateFormData" />
+                        </div>
+                        <!-- <div v-for="(choice, index) in section.attributes.select" :key="index">
                                 <div class="" v-if="formDataFields[section.attributes.text] == choice.attributes.text">
                                     <div class="border-t mt-8 pt-8 border-[#B1C376] mb-8 pb-8"
                                         v-for="(subsection, index) in choice.attributes.select" :key="index">
                                         <p class="font-Tijawal-Bold text-right text-xl text-[#42542A]">{{
                                             subsection.attributes.section_name }} </p>
-                                        <!-- basedon section-->
                                         <div v-if="subsection.layout !== 'multi_section'" class="w-[90%] md:w-1/2 "
                                             v-for="(question, index) in subsection.attributes.questions" :key="index">
 
@@ -358,8 +444,7 @@
                                             </div>
                                         </div>
                                         <div v-else-if="subsection.layout == 'multi_section'">
-                                            <!-- tryyyyyy11111-->
-                                            <!-- <div class="flex flex-row items-start mt-2 "
+                                            <div class="flex flex-row items-start mt-2 "
                                                 v-for="(choice, index) in subsection.attributes.select" :key="index">
                                                 <input type="radio" :name="subsection.attributes.text" :id="choice.key"
                                                     @input="clearError(subsection.attributes.text)"
@@ -400,19 +485,13 @@
 
                                                     </div>
                                                 </div>
-                                            </div> -->
+                                            </div>
 
 
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex flex-col items-start">
-                        <NewChildrenForm v-for="(children, index) in newChildren" :key="index" :children="children"
-                            :index="index" ltr="ltr" rtl="rtl" @confirmAddChild="onConfirmAddChild"
-                            @updateFormData="handleUpdateFormData" />
+                            </div> -->
                     </div>
                 </div>
                 <div class="flex flex-row items-center md:justify-start justify-center gap-x-2 w-full ">
@@ -458,6 +537,11 @@ export default {
         const formDataFields = reactive({});
         const firstPage = ref({});
         const secondPage = ref({});
+        const multiSectionApi = ref({})
+        const multiSectionSecondStageApi = ref({})
+        const ParentChoiceApi= ref({});
+
+
         const secondPageAddchild = ref({});
         const newChildren = ref([]);
         const childrenCounter = ref([100]);
@@ -488,7 +572,7 @@ export default {
                 const response = await axios.get(`${window.location.origin}/form_questions`, {
                     params: {
                         // id: window.location.pathname.replace(/^\/+|\/+$/g, ''),
-                        id: 'data1'
+                        id: 'data1',
                     },
                 });
                 data.value = Object.freeze([...response.data]);
@@ -503,6 +587,47 @@ export default {
 
                 // console.log("🚀 ~ file: emar.vue:92 ~ fetchFormData ~ data:", response.data, addNewChildValidation.value, secondPageAddchild.value);
             } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        const handleRadioChange = (key, slug, choiceKey) => {
+            makeApiRequest(key, slug, choiceKey);
+        };
+        const handleRadioChangeSecondStage = (key,sectionTypeKey, slug, choiceKey) => {
+            makeSecondStageApiRequest(key,sectionTypeKey, slug, choiceKey);
+        };
+        const makeApiRequest = async (key, slug, choiceKey) => {
+            try {
+                ParentChoiceApi.value=choiceKey;
+                const response = await axios.get(`${window.location.origin}/form_questions_key`, {
+                    params: {
+                        id: slug,
+                        key: key,
+                        choiceKey: choiceKey,
+                    },
+                });
+                multiSectionApi.value = response.data;
+                console.log("🚀 ~ file: emar.vue:527 ~ makeApiRequest ~ multiSectionApi.value:", multiSectionApi.value[0])
+            } catch (error) {
+                // Handle errors
+                console.error('Error fetching data:', error);
+            }
+        };
+        const makeSecondStageApiRequest = async (key,sectionTypeKey,slug, choiceKey) => {
+            console.log("🚀 ~ file: emar.vue:615 ~ makeSecondStageApiRequest ~ key,sectionTypeKey,slug, choiceKey:", key,sectionTypeKey,slug, choiceKey)
+            try {
+                const data = await axios.get(`${window.location.origin}/form_questions_key`, {
+                    params: {
+                        id: slug,
+                        key: key,
+                        choiceKey: ParentChoiceApi.value,
+                        childCoiceSectionKey:choiceKey
+                    },
+                });
+                multiSectionSecondStageApi.value = data.data;
+                console.log("🚀 ~ file: emar.vue:527 ~ makeApiRequest ~ multiSectionApi.value:", multiSectionSecondStageApi.value)
+            } catch (error) {
+                // Handle errors
                 console.error('Error fetching data:', error);
             }
         };
@@ -616,10 +741,8 @@ export default {
             const newItem = {
                 id: childrenCounter.value[0],
                 data: secondPageAddchild.value,
-                validation: addNewChildValidation.value['validation'],
             };
             childrenCounter.value[0]++;
-            newItem.validation = newItem.validation.map(item => `${item}_${newItem.id}`);
 
             newChildren.value.push(newItem);
         }
@@ -659,7 +782,12 @@ export default {
             handleFileInput,
             formId,
             categoriesList,
-            mainParagraphText
+            mainParagraphText,
+            handleRadioChange,
+            multiSectionApi,
+            handleRadioChangeSecondStage,
+            multiSectionSecondStageApi,
+            ParentChoiceApi
         };
     },
 };
