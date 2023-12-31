@@ -483,8 +483,16 @@ class HomeController extends Controller
 
             foreach ($page->attributes->questions as $key => $sections) {
 
+
                 if ($sections->key == $request->key) {
-                    return $sections;
+                    foreach ($sections->attributes->select as $key => $select) {
+                        if($select->key==$request->choiceKey){
+                            return $select->attributes->select ;
+                        }
+                        # code...
+                    }
+                    dd($sections->attributes->select);
+                    // return $sections;
                 }
             }
         }
