@@ -667,7 +667,7 @@ export default {
             })
                 .then(response => {
                     // Handle the response data as needed
-                    SuccessSubmitedForm.value = true;
+                   
 
                     // Increment the counter or perform any other navigation logic
                     counter.value = Math.min(counter.value + 1, totalPages.value);
@@ -777,6 +777,7 @@ export default {
                         return;
                     } else {
                         counter.value = counter.value + 1;
+                        SuccessSubmitedForm.value = true;
                         handleSubmit()
 
                     }
