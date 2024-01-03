@@ -2,8 +2,10 @@
 
 namespace App\Nova;
 
+use App\Models\FormUser;
 use App\Nova\Actions\ReadRegisterForm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -59,13 +61,13 @@ class RegisterForm extends Resource
     {
         if ($request->user()->userrole() == 1) {
             // dd("dd");
-            return $query->where('is_new',1);
+            return $query->where('is_new',0);
         }
 
         $user = Auth::user();
         $formsarray = FormUser::where(['user_id' => Auth::id()])->Select('form_id')->pluck('form_id')->toArray();
 
-        $query->where('is_new',1)->orWherein('form_id', $formsarray);
+        $query->where('is_new',0)->orWherein('form_id', $formsarray);
     }
     public function fields(NovaRequest $request)
     {
