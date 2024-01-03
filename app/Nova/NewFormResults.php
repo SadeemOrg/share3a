@@ -108,7 +108,7 @@ class NewFormResults extends Resource
         $user = Auth::user();
         $formsarray = FormUser::where(['user_id' => Auth::id()])->Select('form_id')->pluck('form_id')->toArray();
 
-        $query->where('is_new',1)->orWherein('form_id', $formsarray);
+        $query->where('is_new',1)->Wherein('form_id', $formsarray);
     }
     public function fields(NovaRequest $request)
     {
