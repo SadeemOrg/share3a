@@ -55,6 +55,18 @@ class RegisterForm extends Resource
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->userrole() == 1) {
+            // dd("dd");
+            return $query->where('is_new',1);
+        }
+
+        $user = Auth::user();
+        $formsarray = FormUser::where(['user_id' => Auth::id()])->Select('form_id')->pluck('form_id')->toArray();
+
+        $query->where('is_new',1)->orWherein('form_id', $formsarray);
+    }
     public function fields(NovaRequest $request)
     {
         return [
