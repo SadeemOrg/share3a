@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Models\Form;
+use App\Models\FormUser;
 use App\Nova\Actions\ExportForm;
 use App\Nova\Actions\ExportFormReselt;
 use App\Nova\Filters\FormType;
@@ -95,8 +96,15 @@ class FormResults extends Resource
     }
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->where('is_new',0);
-        // return $query->whereNotBetween('created_at', [Carbon::now()->subDays(10), Carbon::now()]);
+        if ($request->user()->userrole() == 1) {
+            // dd("dd");
+            return $query->where('is_new',0);
+        }
+
+        $user = Auth::user();
+        $formsarray = FormUser::where(['user_id' => Auth::id()])->Select('form_id')->pluck('form_id')->toArray();
+
+        $query->where('is_new',0)->Wherein('form_id', $formsarray);
     }
     public function fields(NovaRequest $request)
     {
