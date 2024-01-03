@@ -76,6 +76,10 @@ Route::get('share3a-nqb', function () {
     return view('home', compact('forms', 'nqp'));
 });
 
+Route::get('/emar/{slug}', function () {
+    return view('sadaqat.index');
+});
+
 Route::get('/thanks', function () {
     return view('thanks');
 });

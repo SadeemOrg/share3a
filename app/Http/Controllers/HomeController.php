@@ -493,13 +493,13 @@ class HomeController extends Controller
     public function formId(Request $request)
     {
 
-        $forms = Form::where("slug", $request->id)->first();
+        $forms = Form::where("slug", $request->slug)->first();
         return  $forms->id;
     }
     public function formQuestions(Request $request)
     {
 
-        $forms = Form::where("slug", 'emar')->first();
+        $forms = Form::where("slug", $request->slug)->first();
         $Contents = json_decode($forms->questions);
         foreach ($Contents as $key => $page) {
             $array = [];
