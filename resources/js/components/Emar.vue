@@ -518,10 +518,13 @@ export default {
 
         const fetchFormId = async () => {
             try {
+                const url = window.location.pathname;
+                const parts = url.split('/');
+                const lastPart = parts[parts.length - 1];
+
                 const response = await axios.get(`${window.location.origin}/form_id`, {
                     params: {
-                        id: window.location.pathname.replace(/^\/+|\/+$/g, ''),
-                        // id:'emar'
+                        slug: lastPart,
                     },
 
                 });
@@ -532,17 +535,19 @@ export default {
         };
         const fetchFormData = async () => {
             try {
+                const url = window.location.pathname;
+                const parts = url.split('/');
+                const lastPart = parts[parts.length - 1];
                 const response = await axios.get(`${window.location.origin}/form_questions`, {
                     params: {
-                        // id: window.location.pathname.replace(/^\/+|\/+$/g, ''),
-                        id: 'emar',
+                        slug: lastPart,
                     },
                 });
                 data.value = Object.freeze([...response.data]);
                 firstPage.value = Object.freeze(response.data[0].attributes.questions);
                 // firstPageValidation.value = response.data[0].validation;
 
-                secondPageValidation.value = response.data[1].validation;
+                // secondPageValidation.value = response.data[1].validation;
                 currentPage.value = firstPage.value;
                 secondPage.value = Object.freeze(response.data[1].attributes.questions);
                 secondPageAddchild.value = Object.freeze(secondPage.value.filter((item) => {
@@ -601,8 +606,6 @@ export default {
                 Object.values(firstPageValidation.value).forEach(fieldName => {
                     const validationRule = fieldName;
                     const fieldValue = formDataFields[fieldName];
-                    console.log("🚀 ~ file: emar.vue:599 ~ Object.values ~ validationRule:", validationRule)
-                    console.log("🚀 ~ file: emar.vue:601 ~ Object.values ~ fieldValue:", fieldValue)
                     if (validationRule && !fieldValue) {
                         validationErrors[fieldName] = `${fieldName} is required.`;
                         console.error(`${fieldName} is required.`);
@@ -614,7 +617,6 @@ export default {
                 Object.values(secondPageValidation.value).forEach(fieldName => {
                     const validationSecondPageRule = fieldName;
                     const fieldSecondValue = formDataFields[fieldName];
-
                     if (validationSecondPageRule && !fieldSecondValue) {
                         validationSecondPageErrors[fieldName] = `${fieldName} is required.`;
                         console.error(`${fieldName} is required.`);
@@ -665,7 +667,7 @@ export default {
             })
                 .then(response => {
                     // Handle the response data as needed
-                    SuccessSubmitedForm.value = true;
+                   
 
                     // Increment the counter or perform any other navigation logic
                     counter.value = Math.min(counter.value + 1, totalPages.value);
@@ -713,7 +715,6 @@ export default {
 
                     // Set the validation errors based on the response
                     firstPageValidation.value = response.data;
-
                     // Check if there are any validation errors
                     if (Object.values(validationErrors).some(error => error !== null)) {
                         console.log('Validation errors. Cannot proceed to the next page.');
@@ -737,13 +738,56 @@ export default {
                 }
             }
             else if (counter.value == 2) {
+                const endpointUrl = `${window.location.origin}/ValidateForm`;
+                const postData = {
+                    page: counter.value - 1,
+                };
+                try {
+                    const formData = new FormData();
+                    for (const [key, value] of Object.entries(formDataFields)) {
+                        if (key === "value" && typeof value === "object") {
+                            // Convert the nested object to a JSON string
+                            formData.append(key, JSON.stringify(value));
+                        } else {
+                            formData.append(key, value);
+                        }
+                    }
+                    for (const [key, value] of Object.entries(postData)) {
+                        formData.append(key, value);
+                    }
 
-                if (Object.values(validationSecondPageErrors).some(error => error !== null)) {
-                    console.log('Validation errors. Cannot proceed to the next page.');
-                    return;
+                    formData.append('id', formId.value);
+
+                    // Send the POST request using Axios
+                    const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+                    const response = await axios.post(endpointUrl, formData, {
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Content-Type': 'multipart/form-data', // Use 'multipart/form-data' for FormData
+                        },
+                    });
+
+                    // Set the validation errors based on the response
+                    secondPageValidation.value = response.data;
+                    // Validate the current page
+                    await validateCurrentPage();
+                    // If there are validation errors, do not proceed to the next page
+                    if (Object.values(validationSecondPageErrors).some(error => error !== null)) {
+                        console.log('Validation errors. Cannot proceed to the next page.');
+                        return;
+                    } else {
+                        counter.value = counter.value + 1;
+                        SuccessSubmitedForm.value = true;
+                        handleSubmit()
+
+                    }
+
+                    // Proceed to the next page
+                } catch (error) {
+                    // Handle API request errors
+                    console.error('Error:', error);
                 }
-                counter.value = Math.min(counter.value + 1, totalPages.value);
-                handleSubmit()
+                // counter.value = Math.min(counter.value + 1, totalPages.value);
             }
             // counter.value == 1 ? counter.value = counter.value + 1 : counter.value = counter.value;
         };
