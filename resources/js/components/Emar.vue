@@ -518,10 +518,13 @@ export default {
 
         const fetchFormId = async () => {
             try {
+                const url = window.location.pathname;
+                const parts = url.split('/');
+                const lastPart = parts[parts.length - 1];
+
                 const response = await axios.get(`${window.location.origin}/form_id`, {
                     params: {
-                        id: window.location.pathname.replace(/^\/+|\/+$/g, ''),
-                        // id:'emar'
+                        slug: lastPart,
                     },
 
                 });
@@ -532,10 +535,12 @@ export default {
         };
         const fetchFormData = async () => {
             try {
+                const url = window.location.pathname;
+                const parts = url.split('/');
+                const lastPart = parts[parts.length - 1];
                 const response = await axios.get(`${window.location.origin}/form_questions`, {
                     params: {
-                        // id: window.location.pathname.replace(/^\/+|\/+$/g, ''),
-                        id: 'emar',
+                        slug: lastPart,
                     },
                 });
                 data.value = Object.freeze([...response.data]);
@@ -597,13 +602,10 @@ export default {
             }
         };
         const validateCurrentPage = () => {
-            console.log("🚀 ~ file: emar.vue:601 ~ validateCurrentPage ~ counter.value:", counter.value)
             if (counter.value === 1) {
                 Object.values(firstPageValidation.value).forEach(fieldName => {
                     const validationRule = fieldName;
                     const fieldValue = formDataFields[fieldName];
-                    console.log("🚀 ~ file: emar.vue:599 ~ Object.values ~ validationRule:", validationRule)
-                    console.log("🚀 ~ file: emar.vue:601 ~ Object.values ~ fieldValue:", fieldValue)
                     if (validationRule && !fieldValue) {
                         validationErrors[fieldName] = `${fieldName} is required.`;
                         console.error(`${fieldName} is required.`);
@@ -612,11 +614,9 @@ export default {
                     }
                 });
             } else if (counter.value === 2) {
-                console.log("xxxxx");
                 Object.values(secondPageValidation.value).forEach(fieldName => {
                     const validationSecondPageRule = fieldName;
                     const fieldSecondValue = formDataFields[fieldName];
-                    console.log(validationSecondPageRule, fieldSecondValue);
                     if (validationSecondPageRule && !fieldSecondValue) {
                         validationSecondPageErrors[fieldName] = `${fieldName} is required.`;
                         console.error(`${fieldName} is required.`);
