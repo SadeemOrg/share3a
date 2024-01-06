@@ -18,6 +18,7 @@ use Whitecube\NovaFlexibleContent\Flexible;
 use R64\NovaFields\JSON;
 use Manogi\Tiptap\Tiptap;
 use Illuminate\Support\Str;
+use Laravel\Nova\Fields\BelongsTo;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class FormResults extends Resource
@@ -110,14 +111,24 @@ class FormResults extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make(__('Page'), 'form_id',function(){
+            // Text::make(__('Page'), 'form_id',function(){
+            //     $form= Form::find($this->form_id);
+            //      return $form->slug;
+            //  })->sortable(),
+            BelongsTo::make(__('form'), 'form', \App\Nova\form::class)->hideWhenCreating()->hideWhenUpdating(),
+            Text::make(__('result'), 'result', function () {
+                $data = " ";
+                $healthy = ["__", "_"];
+                $yummy   = ["  ", "  "];
+                // dd( Str::replace('-', '/', '12-28-2021'));
+                foreach (json_decode($this->result) as $key => $value) {
+                    // $series = str_replace(' ',   $healthy, $value->questionskey);
+                    // dd( $series);
+                    $data .= "<p>" .   str_replace($healthy,  $yummy, $value->questionskey)  .  ' :' . $value->questionsanswerkey . '</p>';
+                }
+                return  $data;
+            })->hideFromDetail()->hideWhenCreating()->hideWhenUpdating()->asHtml(),
 
-               $form= Form::find($this->form_id);
-                return$form->slug;
-            })->sortable(),
-            Text::make(__('user_ip'), 'user_ip'),
-            Text::make(__('os'), 'os'),
-            Text::make(__('browser'), 'browser'),
 
             Tiptap::make(__('result'), 'result', function () {
                 $data = " ";
@@ -131,6 +142,7 @@ class FormResults extends Resource
                 }
                 return $data;
             })->alwaysShow(),
+
             // Textarea::make('result', 'result', function () {
             //     $data = "";
             //     // dd($this->result);
