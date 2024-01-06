@@ -48,7 +48,8 @@ class ExportFormReselt extends Action
             $string .= 'reselt' . $key . '=' . $value->id . '&&';
         }
         // dd('/export-form/' .$string);
-        return   Action::download(url('/export-form-reseat/' . $string), 'aaa.cvs');
+
+        return   Action::download(url('/export-form-reseat/' . $string), 'file.cvs');
     }
 
     /**
