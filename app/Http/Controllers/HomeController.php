@@ -9,6 +9,7 @@ use App\Models\Form;
 use App\Models\FormResults;
 use App\Models\RegisterForm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 use PhpParser\JsonDecoder;
@@ -391,9 +392,12 @@ class HomeController extends Controller
         foreach ($data as $key => $value) {
             if ($request->hasFile($key)) {
                 $file = $request->file($key);
-                $fileName = time() . '_' . $file->getClientOriginalName();
+                $originalFilename = $file->getClientOriginalName();
+                $cleanedFilename = str_replace(' ', '', $originalFilename);
+
+                $fileName = time() . '_' . $cleanedFilename;
                 $file->storeAs('uploads', $fileName, 'public');
-                $data[$key] = $fileName;
+                $data[$key] = URL::to('/').'/storage/uploads/'.$fileName;
             }
         }
 

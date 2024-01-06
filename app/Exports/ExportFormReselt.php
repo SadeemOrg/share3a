@@ -8,6 +8,8 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\Exportable;
 
+
+
 class ExportFormReselt implements FromCollection, WithHeadings
 {
     use Exportable;
@@ -30,15 +32,15 @@ class ExportFormReselt implements FromCollection, WithHeadings
         $form = Form::where('id', $FormResults->form_id)->first();
         $questions = $form->questions;
         $questions = json_decode($questions);
-        foreach ($questions as $question) {
-            if ($question->layout == 'select') {
-                array_push($array, str_replace($healthy,  $yummy, $question->attributes->name));
+        // foreach ($questions as $question) {
+        //     if ($question->layout == 'select') {
+        //         array_push($array, str_replace($healthy,  $yummy, $question->attributes->name));
 
-            } else {
-                array_push($array, str_replace($healthy,  $yummy, $question->attributes->text));
+        //     } else {
+        //         array_push($array, str_replace($healthy,  $yummy, $question->attributes->text));
 
-            }
-        }
+        //     }
+        // }
         // foreach (json_decode($FormResults->result) as $key => $value) {
         //     // $series = str_replace(' ',   $healthy, $value->questionskey);
         //     // dd( $series);
