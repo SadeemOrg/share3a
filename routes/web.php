@@ -57,11 +57,12 @@ Route::get('/share3a', function () {
     $forms = Form::where("slug", 'كلية_الدعوة')->first();
     $ip = $_SERVER['REMOTE_ADDR'];
     $exist = FormResults::where('form_id', $forms->id)->where('user_ip', $ip)->first();
-    // dd($exist);
     if ($exist) {
     }
     $nqp = false;
-    return view('home', compact('forms', 'nqp'));
+    $sakhnin = false;
+    $share3a = true;
+    return view('home', compact('forms', 'nqp','sakhnin','share3a'));
 });
 
 
@@ -73,7 +74,23 @@ Route::get('share3a-nqb', function () {
     if ($exist) {
     }
     $nqp = true;
-    return view('home', compact('forms', 'nqp'));
+    $sakhnin = false;
+    $share3a = false;
+    return view('home', compact('forms', 'nqp','sakhnin','share3a'));
+});
+
+Route::get('share3a-sakhnin', function () {
+    $forms = Form::where("slug", 'جمعية التعوية الاسلامية سخنين')->first();
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $exist = FormResults::where('form_id', $forms->id)->where('user_ip', $ip)->first();
+    if ($exist) {
+    }
+    $share3a = false;
+    $nqp = false;
+    $sakhnin = true;
+    // dd($forms);
+
+    return view('home', compact('forms','nqp','sakhnin','share3a'));
 });
 
 Route::get('/emar/{slug}', function () {

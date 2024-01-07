@@ -17,8 +17,8 @@
     <header>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
-                @if ($nqp == false)
-                <div class="grid grid-cols-3 gap-6 ">
+                @if ($nqp == false && $sakhnin == false && $share3a == false)
+                    <div class="grid grid-cols-3 gap-6 ">
                         <div class="col-span-1 flex justify-center items-center">
                             <img class="max-w-[220px] w-full mx-auto"
                                 src="{{ asset('assets/images/header-logos/rt-logo-h.png') }}" alt="left logo">
@@ -32,8 +32,7 @@
                                 src="{{ asset('assets/images/header-logos/lt-logo.svg') }}" alt="left logo">
                         </div>
                     </div>
-                    @else
-
+                @elseif($nqp == true && $sakhnin == false && $share3a == true)
                     <div class="grid grid-cols-3 gap-6 ">
                         <div class="col-span-1 flex justify-center items-center">
                             <img class="max-w-[220px] w-full mx-auto"
@@ -41,14 +40,29 @@
                         </div>
                         <div class="col-span-1 flex justify-center items-center">
                             <img class="max-w-[220px] w-full mx-auto"
-                            src="{{ asset('assets/images/header-logos/middle-logo.png') }}" alt="left logo">
+                                src="{{ asset('assets/images/header-logos/middle-logo.png') }}" alt="left logo">
                         </div>
                         <div class="col-span-1 flex justify-center items-center">
                             <img class="max-w-[220px] w-full mx-auto"
                                 src="{{ asset('assets/images/header-logos/nqp.jpeg') }}" alt="left logo">
                         </div>
                     </div>
-                    @endif
+                @elseif($nqp == false && $sakhnin == true && $share3a == false)
+                    <div class="grid grid-cols-3 gap-6 mt-6">
+                        <div class="col-span-1 flex justify-center items-center">
+                            <img class="max-w-[220px] w-full mx-auto"
+                                src="{{ asset('assets/images/header-logos/share3a-sakhnin_2.jpeg') }}" alt="left logo">
+                        </div>
+                        <div class="col-span-1 flex justify-center items-center">
+                            <img class="max-w-[220px] w-full mx-auto"
+                                src="{{ asset('assets/images/header-logos/share3a-sakhnin_1.jpeg') }}" alt="left logo">
+                        </div>
+                        <div class="col-span-1 flex justify-center items-center">
+                            <img class="max-w-[220px] w-full mx-auto"
+                                src="{{ asset('assets/images/header-logos/middlelogo-nqp1.jpeg') }}" alt="left logo">
+                        </div>
+                    </div>
+                @endif
             </div>
 
         </div>
@@ -72,7 +86,7 @@
 
                     </p> --}}
                     <ul class="text-white features-list titles-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
-                        @if ($nqp == false)
+                        @if ($nqp == false && $share3a == true && $sakhnin == false)
                             <li class="mb-5">
                                 <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
                                     مركز الهدى الثقافي دار القرآن الكريم نحف
@@ -88,8 +102,7 @@
                                     كلية العلوم الشرعية كفربرا
                                 </p>
                             </li>
-                        @else
-  
+                        @elseif($nqp == true && $share3a == false && $sakhnin == false)
                             <li class="mb-5">
                                 <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
                                     جمعية هاجر لتمكين المرأة
@@ -110,28 +123,58 @@
                                     يعلنون للأهل في النقب عن بدء التسجيل لـ :
                                 </p>
                             </li>
+                        @elseif($nqp == false && $share3a == false && $sakhnin == true)
+                            <li class="mb-5">
+                                <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
+                                    كلية العلوم الشرعية كفربرا
+                                </p>
+                            </li>
+                            <li class="mb-5">
+                                <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
+                                    وجمعيّة التّوعيّة الإسلاميّة سخنين
+                                </p>
+                            </li>
+                            <li class="mb-5">
+                                <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
+                                    وجمعية هاجر
+                                </p>
+                            </li>
+                            <li class="mb-5">
+                                <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
+                                    يعلنون للأهل في سخنين ومنطقة البطوف عن بدء التسجيل لمساقات في :
+                                </p>
+                            </li>
                         @endif
                     </ul>
-                    @if($nqp == false)
-                    <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] mb-10">
-                        يعلنون عن بدء التسجيل ل:
-                    </p>
+                    @if ($nqp == false && $share3a == true && $sakhnin == false)
+                        <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] mb-10">
+                            يعلنون عن بدء التسجيل ل:
+                        </p>
                     @endif
-
+                    @if (($nqp == true || $share3a == true) && $sakhnin == false)
+                        <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
+                            {{ $forms->second_text }}
+                        </p>
+                        <p class="text-[23px] md:text-[35px] lg:text-[43px] bg-[#124A85] py-3 px-4">
+                            {{ $forms->second_sup_text }}
+                        </p>
+                    @elseif($sakhnin == true)
                     <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
-                        {{ $forms->second_text }}
+                        دبلوم في الشريعة والعلوم الإسلامية
                     </p>
                     <p class="text-[23px] md:text-[35px] lg:text-[43px] bg-[#124A85] py-3 px-4">
-                        {{ $forms->second_sup_text }}
+                        مكان التعليم: سخنين- في مركز ابن عباس الثقافي- مقابل مسجد النور.
+
                     </p>
+                    @endif
                 </div>
                 @php
                     $Contents = nova_get_setting('Content', '');
                     $Contents = json_decode($Contents);
                 @endphp
 
-                @if ($nqp == false)
-                                 <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
+                @if ($nqp == false && $share3a == true && $sakhnin == false)
+                    <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
                                 أيام التعليم: كل يوم سبت.
@@ -139,7 +182,8 @@
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                التعليم عبارة عن 24 مساقًا، ومن يتمّها يحصل على دبلوم في الشريعة والعلوم الإسلاميّة من كلّيّة كفربرا.
+                                التعليم عبارة عن 24 مساقًا، ومن يتمّها يحصل على دبلوم في الشريعة والعلوم الإسلاميّة من
+                                كلّيّة كفربرا.
                             </p>
                         </li>
                         <li class="mb-5">
@@ -149,7 +193,8 @@
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                التعليم في نحف وشفاعمرو، مساقان كل فصل دراسي، 6 مساقات في السنة. وهناك إمكانيّة للانضمام للمسار المكثّف في كفربرا.   
+                                التعليم في نحف وشفاعمرو، مساقان كل فصل دراسي، 6 مساقات في السنة. وهناك إمكانيّة للانضمام
+                                للمسار المكثّف في كفربرا.
                             </p>
                         </li>
                         <li class="mb-5">
@@ -159,10 +204,10 @@
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                كلفة التسجيل للمساقين: 1800 شيكل، 900 شيكل عن كل مساق.                            </p>
+                                كلفة التسجيل للمساقين: 1800 شيكل، 900 شيكل عن كل مساق. </p>
                         </li>
                     </ul>
-                @else
+                @elseif($nqp == true && $share3a == false && $sakhnin == false)
                     <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
@@ -182,13 +227,53 @@
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                التعليم في قاعة مسجد الأنصار في كسيفة، وفي قاعدة مسجد الرحمة في رهط، مساقان كل فصل دراسي، 6 مساقات بالسنة. وهناك
+                                التعليم في قاعة مسجد الأنصار في كسيفة، وفي قاعدة مسجد الرحمة في رهط، مساقان كل فصل
+                                دراسي، 6 مساقات بالسنة. وهناك
                                 إمكانيّة للانضمام للمسار المكثّف في كفربرا.
                             </p>
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
                                 مساقات الفصل الأول: عقيدة 1 + عبادات 1 .
+                            </p>
+                        </li>
+                        <li class="mb-5">
+                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
+                                كلفة التسجيل للمساقين: 1800 شيكل، 900 شيكل عن كل مساق.
+                            </p>
+                        </li>
+                    </ul>
+                @elseif($nqp == false && $share3a == false && $sakhnin == true)
+                    <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
+                        <li class="mb-5">
+                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
+                                أيام التعليم: كل يوم سبت.
+                            </p>
+                        </li>
+                        <li class="mb-5">
+                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
+                                بداية التعليم: السبت 24/2/2024
+                            </p>
+                        </li>
+                        <li class="mb-5">
+                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
+                                التعليم عبارة عن 24 مساقًا، 6 مساقات كل سنة، مساقين كل فصل دراسي.
+                            </p>
+                        </li>
+                        <li class="mb-5">
+                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
+                                من يتمّ الـ 24 مساقًا يحصل على دبلوم في الشريعة والعلوم الإسلاميّة من كلّيّة كفربرا. ومن
+                                يرغب بالانضمام للمسار المكثّف في كفربرا خلال التعليم بإمكانه ذلك كل الوقت.
+                            </p>
+                        </li>
+                        <li class="mb-5">
+                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
+                                بإمكان الحاصلين على الدبلوم إكمال اللقب الأوّل في كليّة أونو.
+                            </p>
+                        </li>
+                        <li class="mb-5">
+                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
+                                مساقات الفصل الأول: عقيدة 1 + عبادات 1.
                             </p>
                         </li>
                         <li class="mb-5">
@@ -262,18 +347,6 @@
                             </div>
                         @endif
                     @endforeach
-
-                    {{--
-
-
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full px-3">
-                            <textarea name="note" id=""
-                                class="block w-full bg-transparent text-white border border-white rounded-sm py-4 px-4 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
-                                cols="30" rows="10" placeholder="هل لديك سؤال أو استفسار يمكن إضافته؟"></textarea>
-                        </div>
-                    </div> --}}
-
                     <div class="text-right mb-5">
                         <button
                             class="mb-4 block bg-[#124A85] px-20 w-full py-4 hover:bg-blue-700 text-white font-bold py-2 rounded-sm">
@@ -286,16 +359,26 @@
                     </p>
                     <div class="text-white TheSansArabic-regular text-[14px] flex flex-row items-center gap-x-2">
                         <span class="text-[#EBBD22] ">للاستفسار:</span>
-                        @if ($nqp == false)
+                        @if ($nqp == false && $share3a == true && $sakhnin == false)
                             <a href="tel:0545431188" class="underline underline-offset-1">0545431188</a>
-                        @else
+                        @elseif($nqp == true && $share3a == false && $sakhnin == false)
                             <div class="flex flex-col justify-start mt-4">
-
                                 <a href="tel:0508223804" class="underline underline-offset-1">كيان أبو عجاج
                                     0508223804
                                 </a>
                                 <a href="tel:0506300535" class="underline underline-offset-1">آمنة الددا
                                     0506300535</a>
+                            </div>
+                        @elseif($nqp == false && $share3a == false && $sakhnin == true)
+                            <div class="flex flex-row gap-x-4 justify-start">
+                                <a href="tel:0546896365" class="underline underline-offset-1">الشيخ فريد حمزة:
+                                    0546896365</a>
+                                <a href="tel:0506300535" class="underline underline-offset-1">نجاح عثمان:
+                                    0506300535</a>
+                                <a href="tel:0538704518" class="underline underline-offset-1">هدى حجازي ذياب:
+                                    0538704518</a>
+                                <a href="tel:0545431188" class="underline underline-offset-1">إكرام خطيب صبح:
+                                    0545431188</a>
                             </div>
                         @endif
                     </div>
