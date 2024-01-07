@@ -54,6 +54,11 @@
     "validation.required": "هذه الخانة مطلوبه",
     "FormType": "الصفحات",
     "Page": "صفحة",
+    "radio select depend":"Radio Select تعتمد",
+    "questions text":"نص السوال",
+    "true answer":"المتابعه",
+    "false answer":"عدم المتابعه",
+
     "Add boolean Filed": "اضافة سؤال جوابه بنعم او لا",
     "leading": "المسؤلين عن الصفحة",
     "user_ip": "IP للمستخدم",
