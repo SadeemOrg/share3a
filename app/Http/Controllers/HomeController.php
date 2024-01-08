@@ -287,21 +287,21 @@ class HomeController extends Controller
                             }
                         }
                     }
-                    if(isset($questions->attributes->validation_num))   {
+                    if (isset($questions->attributes->validation_num)) {
 
 
 
                         $val = $questions->attributes->text;
                         $newString = str_replace(' ', '_', $val);
-                        if (isset($request->$newString) && (strlen($request->$newString) > $questions->attributes->validation_num)) {
+                        if (isset($request->$newString) && (strlen($request->$newString) != $questions->attributes->validation_num)) {
 
                             $pus = array(
                                 'key' => $questions->attributes->text,
                                 'num' => $questions->attributes->validation_num,
                             );
-                            array_push($errorArray, $pus);
+                            $string = $questions->attributes->text . "يجب ان يحتوي" . $questions->attributes->validation_num . "رقم";
+                            array_push($errorArray, $string);
                         }
-
                     }
                     if ($questions->attributes->required) {
 
@@ -318,6 +318,7 @@ class HomeController extends Controller
                 // dd($attributes->attributes->select);
             }
         }
+        dd($errorArray);
         return $errorArray;
     }
     function isJsonString($string)
@@ -415,7 +416,7 @@ class HomeController extends Controller
 
                 $fileName = time() . '_' . $cleanedFilename;
                 $file->storeAs('uploads', $fileName, 'public');
-                $data[$key] = URL::to('/').'/storage/uploads/'.$fileName;
+                $data[$key] = URL::to('/') . '/storage/uploads/' . $fileName;
             }
         }
 
