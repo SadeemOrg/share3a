@@ -58,7 +58,7 @@
     "questions text":"نص السوال",
     "true answer":"المتابعه",
     "false answer":"عدم المتابعه",
-
+    "validation num":"عدد الارقام",
     "Add boolean Filed": "اضافة سؤال جوابه بنعم او لا",
     "leading": "المسؤلين عن الصفحة",
     "user_ip": "IP للمستخدم",

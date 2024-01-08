@@ -15,6 +15,7 @@ use Laravel\Nova\Fields\Text;
 use Sietse85\NovaButton\Button;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\Number;
 use Outl1ne\MultiselectField\Multiselect;
 
 class DependsOnForm extends Resource
@@ -134,32 +135,32 @@ class DependsOnForm extends Resource
             Text::make(__('sup_text_thanks'), 'sup_text_thanks'),
             Multiselect::make(__('leading'), 'leadings')
 
-            ->placeholder('للبحث عن مسؤولين')
-            ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) {
-                return null;
-            })
-            ->options(function () {
-                if (Auth::user()->userrole() == 1) {
-                    $forms =  User::all();
-                } else {
+                ->placeholder('للبحث عن مسؤولين')
+                ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) {
+                    return null;
+                })
+                ->options(function () {
+                    if (Auth::user()->userrole() == 1) {
+                        $forms =  User::all();
+                    } else {
 
-                    $forms =  User::where("added_by", Auth::id())->get();
-                }
-
-                $address_type_admin_array =  array();
-                $address_type_admin_array += [0 => 'الكل'];
-                foreach ($forms as $forms) {
-
-                    $address_type_admin_array += [$forms['id'] => ($forms['name'])];
-                }
-                return $address_type_admin_array;
-            })->canSee(function (NovaRequest $request) {
-                if (Auth::check()) {
-                    if ((in_array($request->user()->userrole(), [1, 2]))) {
-                        return true;
+                        $forms =  User::where("added_by", Auth::id())->get();
                     }
-                }
-            }),
+
+                    $address_type_admin_array =  array();
+                    $address_type_admin_array += [0 => 'الكل'];
+                    foreach ($forms as $forms) {
+
+                        $address_type_admin_array += [$forms['id'] => ($forms['name'])];
+                    }
+                    return $address_type_admin_array;
+                })->canSee(function (NovaRequest $request) {
+                    if (Auth::check()) {
+                        if ((in_array($request->user()->userrole(), [1, 2]))) {
+                            return true;
+                        }
+                    }
+                }),
 
             Flexible::make(__('Content'), 'questions')
                 ->fullWidth()
@@ -221,6 +222,7 @@ class DependsOnForm extends Resource
                                     Boolean::make(__('required'), 'required'),
                                 ])->addLayout(__('Add phone Filed'), 'phone', [
                                     Text::make(__('text'), 'text'),
+                                    Number::make(__('validation num'), 'validation_num'),
                                     Boolean::make(__('required'), 'required'),
                                 ])
                                 ->addLayout(__('radio select depend'), 'radio_select_depend', [
@@ -277,6 +279,8 @@ class DependsOnForm extends Resource
                                             Boolean::make(__('required'), 'required'),
                                         ])->addLayout(__('Add phone Filed'), 'phone', [
                                             Text::make(__('text'), 'text'),
+                                            Number::make(__('validation num'), 'validation_num'),
+
                                             Boolean::make(__('required'), 'required'),
                                         ])
                                         ->addLayout(__('radio select depend'), 'radio_select_depend', [
@@ -354,6 +358,8 @@ class DependsOnForm extends Resource
                                                     Boolean::make(__('required'), 'required'),
                                                 ])->addLayout(__('Add phone Filed'), 'phone', [
                                                     Text::make(__('text'), 'text'),
+                                                    Number::make(__('validation num'), 'validation_num'),
+
                                                     Boolean::make(__('required'), 'required'),
                                                 ])
 
@@ -410,6 +416,8 @@ class DependsOnForm extends Resource
                                                     Boolean::make(__('required'), 'required'),
                                                 ])->addLayout(__('Add phone Filed'), 'phone', [
                                                     Text::make(__('text'), 'text'),
+                                                    Number::make(__('validation num'), 'validation_num'),
+
                                                     Boolean::make(__('required'), 'required'),
                                                 ])
 
@@ -476,6 +484,8 @@ class DependsOnForm extends Resource
                                                                     Boolean::make(__('required'), 'required'),
                                                                 ])->addLayout(__('Add phone Filed'), 'phone', [
                                                                     Text::make(__('text'), 'text'),
+                                                                    Number::make(__('validation num'), 'validation_num'),
+
                                                                     Boolean::make(__('required'), 'required'),
                                                                 ])
 
@@ -532,6 +542,8 @@ class DependsOnForm extends Resource
                                                                     Boolean::make(__('required'), 'required'),
                                                                 ])->addLayout(__('Add phone Filed'), 'phone', [
                                                                     Text::make(__('text'), 'text'),
+                                                                    Number::make(__('validation num'), 'validation_num'),
+
                                                                     Boolean::make(__('required'), 'required'),
                                                                 ])
 
@@ -597,6 +609,8 @@ class DependsOnForm extends Resource
                                     Boolean::make(__('required'), 'required'),
                                 ])->addLayout(__('Add phone Filed'), 'phone', [
                                     Text::make(__('text'), 'text'),
+                                    Number::make(__('validation num'), 'validation_num'),
+
                                     Boolean::make(__('required'), 'required'),
                                 ])
                                 ->addLayout(__('radio select depend'), 'radio_select_depend', [
@@ -653,6 +667,8 @@ class DependsOnForm extends Resource
                                             Boolean::make(__('required'), 'required'),
                                         ])->addLayout(__('Add phone Filed'), 'phone', [
                                             Text::make(__('text'), 'text'),
+                                            Number::make(__('validation num'), 'validation_num'),
+
                                             Boolean::make(__('required'), 'required'),
                                         ])
                                         ->addLayout(__('radio select depend'), 'radio_select_depend', [

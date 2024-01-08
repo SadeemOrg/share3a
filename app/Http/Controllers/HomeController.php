@@ -253,7 +253,9 @@ class HomeController extends Controller
 
 
         $data = $request->all();
-        $forms = Form::where("id", 15)->first();
+        $forms = Form::where("id", $request->id)->first();
+
+
         $Contents = json_decode($forms->questions);
         $page = $request->page;
         $errorArray = [];
@@ -273,6 +275,7 @@ class HomeController extends Controller
 
                             foreach ($questions->attributes->questions as $key => $valueDepend) {
                                 # code...
+
                                 if ($valueDepend->attributes->required) {
                                     $val = $valueDepend->attributes->text;
                                     $newString = str_replace(' ', '_', $val);
@@ -283,6 +286,22 @@ class HomeController extends Controller
                                 }
                             }
                         }
+                    }
+                    if(isset($questions->attributes->validation_num))   {
+
+
+
+                        $val = $questions->attributes->text;
+                        $newString = str_replace(' ', '_', $val);
+                        if (isset($request->$newString) && (strlen($request->$newString) > $questions->attributes->validation_num)) {
+
+                            $pus = array(
+                                'key' => $questions->attributes->text,
+                                'num' => $questions->attributes->validation_num,
+                            );
+                            array_push($errorArray, $pus);
+                        }
+
                     }
                     if ($questions->attributes->required) {
 
@@ -299,7 +318,6 @@ class HomeController extends Controller
                 // dd($attributes->attributes->select);
             }
         }
-
         return $errorArray;
     }
     function isJsonString($string)
@@ -502,6 +520,7 @@ class HomeController extends Controller
     }
     public function formQuestions(Request $request)
     {
+
 
         $forms = Form::where("slug", $request->slug)->first();
         $Contents = json_decode($forms->questions);
