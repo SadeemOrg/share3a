@@ -124,9 +124,6 @@ class HomeController extends Controller
     }
     public function RegisterForm(Request $request)
     {
-
-
-        // Form validation
         $this->validate($request, [
             'name' => 'required',
             'phone_number' => 'required|digits_between:10,14',
@@ -250,8 +247,6 @@ class HomeController extends Controller
     public function  ValidateForm(Request $request)
     {
 
-
-
         $data = $request->all();
         $forms = Form::where("id", $request->id)->first();
 
@@ -299,7 +294,7 @@ class HomeController extends Controller
                                 'key' => $questions->attributes->text,
                                 'num' => $questions->attributes->validation_num,
                             );
-                            $string = $questions->attributes->text . "يجب ان يحتوي" . $questions->attributes->validation_num . "رقم";
+                            $string = $questions->attributes->text ."**". " يجب ان يحتوي على " . $questions->attributes->validation_num . " ارقام ";
                             array_push($errorArray, $string);
                         }
                     }
@@ -318,7 +313,6 @@ class HomeController extends Controller
                 // dd($attributes->attributes->select);
             }
         }
-        dd($errorArray);
         return $errorArray;
     }
     function isJsonString($string)

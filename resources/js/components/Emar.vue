@@ -101,6 +101,7 @@
                                         :name="question.attributes.text" :id="question.key"
                                         @change="handleFileInput(question)" @input="clearError(question.attributes.text)"
                                         class="file_input block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A]  shadow-sm ring-1 focus:border-[#B1C376]" />
+
                                     <p v-if="validationErrors[question.attributes.text]" class="text-red-500">{{
                                         validationErrors[question.attributes.text] }}</p>
                                 </div>
@@ -219,7 +220,7 @@
                                         {{ validationErrors[question.attributes.text] }}
                                     </p>
                                 </div>
-
+<!-- <p>{{ formDataFields }}</p> -->
                             </div>
                         </div>
                     </div>
@@ -730,15 +731,24 @@ export default {
         const validateCurrentPage = () => {
             if (counter.value === 1) {
                 Object.values(firstPageValidation.value).forEach(fieldName => {
-                    console.log("🚀 ~ file: emar.vue:733 ~ Object.values ~ fieldName:", fieldName)
-                    
-                    const validationRule = fieldName;
-                    const fieldValue = formDataFields[fieldName];                    
-                    if (validationRule && !fieldValue) {
-                        validationErrors[fieldName] = `${fieldName} is required.`;
-                        console.error(`${fieldName} is required.`);
+                    if (fieldName.includes('**') == true) {
+                        let feildNamedData = fieldName;
+                        fieldName = fieldName.split('**')[0];
+                        const validationRule = fieldName;
+                        const fieldValue = formDataFields[fieldName];
+                        if (validationRule && fieldValue) {
+                            validationErrors[fieldName] = `${feildNamedData}`;
+                            console.error(`${feildNamedData}`);
+                        }
                     } else {
-                        validationErrors[fieldName] = null;
+                        const validationRule = fieldName;
+                        const fieldValue = formDataFields[fieldName];
+                        if (validationRule && !fieldValue) {
+                            validationErrors[fieldName] = `يرجى ادخال ${fieldName} `;
+                            console.error(`${fieldName} is required.`);
+                        } else {
+                            validationErrors[fieldName] = null;
+                        }
                     }
                 });
             } else if (counter.value === 2) {
@@ -809,61 +819,56 @@ export default {
         const navigateToFormQuestions = () => {
             showForm.value = !showForm.value;
         };
-        const navigateToNextPage = async () => {
-            if (counter.value == 1) {
-                const endpointUrl = `${window.location.origin}/ValidateForm`;
-                const postData = {
-                    page: counter.value - 1,
-                };
-                try {
-                    const formData = new FormData();
-                    for (const [key, value] of Object.entries(formDataFields)) {
-                        if (key === "value" && typeof value === "object") {
-                            // Convert the nested object to a JSON string
-                            formData.append(key, JSON.stringify(value));
-                        } else {
-                            formData.append(key, value);
-                        }
-                    }
-                    for (const [key, value] of Object.entries(postData)) {
-                        formData.append(key, value);
-                    }
+        const sendFormData = async (formData, endpointUrl) => {
+            try {
+                const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+                const response = await axios.post(endpointUrl, formData, {
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
 
-                    formData.append('id', formId.value);
-
-                    // Send the POST request using Axios
-                    const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
-                    const response = await axios.post(endpointUrl, formData, {
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken,
-                            'Content-Type': 'multipart/form-data', // Use 'multipart/form-data' for FormData
-                        },
-                    });
-
-                    // Set the validation errors based on the response
-                    firstPageValidation.value = response.data;
-                    // Check if there are any validation errors
-                    if (Object.values(validationErrors).some(error => error !== null)) {
-                        console.log('Validation errors. Cannot proceed to the next page.');
-                        return;
-                    }
-
-                    // Validate the current page
-                    await validateCurrentPage();
-
-                    // If there are validation errors, do not proceed to the next page
-                    if (Object.values(validationErrors).some(error => error !== null)) {
-                        console.log('Validation errors. Cannot proceed to the next page.');
-                        return;
-                    }
-
-                    // Proceed to the next page
-                    counter.value = counter.value + 1;
-                } catch (error) {
-                    // Handle API request errors
-                    console.error('Error:', error);
-                }
+                return response.data;
+            } catch (error) {
+                console.error('Error:', error);
+                throw error; // Rethrow the error to handle it elsewhere if needed
             }
+        };
+        const navigateToNextPage = async () => {
+            if (counter.value === 1) {
+        const endpointUrl = `${window.location.origin}/ValidateForm`;
+        const postData = { page: counter.value - 1 };
+
+        const formData = new FormData();
+        for (const [key, value] of Object.entries(formDataFields)) {
+            if (typeof value === 'number') {
+                formData.append(key, value);
+            } else if (typeof value === 'string' && !isNaN(Number(value))) {
+                const blob = new Blob([value], { type: 'text/plain; charset=utf-8' });
+                formData.append(key, blob, key);
+            } else {
+                formData.append(key, value);
+            }
+        }
+        for (const [key, value] of Object.entries(postData)) {
+            formData.append(key, value);
+        }
+        formData.append('id', formId.value);
+        try {
+            const response = await sendFormData(formData, endpointUrl);
+            firstPageValidation.value = response;
+            await validateCurrentPage();
+
+            if (Object.values(validationErrors).some(error => error !== null)) {
+                console.log('Validation errors. Cannot proceed to the next page.');
+                return;
+            }
+            counter.value += 1;
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
             else if (counter.value == 2) {
                 const endpointUrl = `${window.location.origin}/ValidateForm`;
                 const postData = {
