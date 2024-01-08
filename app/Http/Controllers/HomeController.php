@@ -293,7 +293,7 @@ class HomeController extends Controller
 
                         $val = $questions->attributes->text;
                         $newString = str_replace(' ', '_', $val);
-                        if (isset($request->$newString) && (strlen($request->$newString) > $questions->attributes->validation_num)) {
+                        if (isset($request->$newString) && (strlen($request->$newString) != $questions->attributes->validation_num)) {
 
                             $pus = array(
                                 'key' => $questions->attributes->text,

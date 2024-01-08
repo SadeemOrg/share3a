@@ -75,7 +75,7 @@
                         <div class="flex flex-row items-center justify-center md:justify-start flex-wrap mt-4 ">
                             <div :class="{ 'w-full': question.layout === 'radio_select_depend', 'w-[90%] md:w-1/2': question.layout !== 'radio_select_depend' }"
                                 v-for="(question, index) in section.attributes.questions" :key="index">
-                                <div v-if="question.layout !== 'radio_select' && question.layout !== 'radio_select_depend'"
+                                <div v-if="question.layout !== 'radio_select' && question.layout !== 'radio_select_depend' && question.layout !== 'select'"
                                     class="w-full">
                                     <label :for="question.key"
                                         class="flex flex-row gap-x-3 text-base -pt-2 py-0.5 font-Tijawal-Bold  text-[#42542A]">
@@ -198,7 +198,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-if="question.layout == 'select'" class="w-full">
+                                <div v-else-if="question.layout == 'select'" class="w-full">
                                     <label :for="question.key"
                                         class="flex flex-row gap-x-3 text-base -pt-2 py-0.5 font-Tijawal-Bold text-[#42542A]">
                                         <p class="p-0 m-0">{{ question.attributes.text }}</p>
@@ -215,7 +215,6 @@
                                             :key="choiceIndex" :value="choice.attributes.text">{{ choice.attributes.text }}
                                         </option>
                                     </select>
-                                    {{ formDataFields }}
                                     <p v-if="validationErrors[question.attributes.text]" class="text-red-500">
                                         {{ validationErrors[question.attributes.text] }}
                                     </p>
@@ -677,7 +676,6 @@ export default {
                     },
                 });
                 data.value = Object.freeze([...response.data]);
-                console.log("🚀 ~ file: emar.vue:651 ~ fetchFormData ~ data.value:", data.value)
                 firstPage.value = Object.freeze(response.data[0].attributes.questions);
                 currentPage.value = firstPage.value;
                 secondPage.value = Object.freeze(response.data[1].attributes.questions);
@@ -686,7 +684,6 @@ export default {
                 })[0]['attributes']['questions'] || []);
                 addNewChildValidation.value = Object.freeze(secondPage.value[2]?.attributes || {});
                 totalPages.value = response.data.length;
-                // console.log("🚀 ~ file: emar.vue:643 ~ fetchFormData ~ secondPage.value :", secondPageAddchild.value)
 
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -709,7 +706,6 @@ export default {
                     },
                 });
                 multiSectionApi.value = response.data;
-                console.log("🚀 ~ file: emar.vue:527 ~ makeApiRequest ~ multiSectionApi.value:", multiSectionApi.value[0])
             } catch (error) {
                 // Handle errors
                 console.error('Error fetching data:', error);
@@ -726,7 +722,6 @@ export default {
                     },
                 });
                 multiSectionSecondStageApiData.value = data.data;
-                // console.log("🚀 ~ file: emar.vue:527 ~ makeApiRequest ~ multiSectionApi.value:", multiSectionSecondStageApiData.value)
             } catch (error) {
                 // Handle errors
                 console.error('Error fetching data:', error);
@@ -735,8 +730,10 @@ export default {
         const validateCurrentPage = () => {
             if (counter.value === 1) {
                 Object.values(firstPageValidation.value).forEach(fieldName => {
+                    console.log("🚀 ~ file: emar.vue:733 ~ Object.values ~ fieldName:", fieldName)
+                    
                     const validationRule = fieldName;
-                    const fieldValue = formDataFields[fieldName];
+                    const fieldValue = formDataFields[fieldName];                    
                     if (validationRule && !fieldValue) {
                         validationErrors[fieldName] = `${fieldName} is required.`;
                         console.error(`${fieldName} is required.`);
@@ -785,7 +782,6 @@ export default {
                 }
             }
             formData.append('id', formId.value);
-            console.log("🚀 ~ file: emar.vue:647 ~ handleSubmit ~ formData:", formData)
             // Send the POST request using Axios
 
             const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
