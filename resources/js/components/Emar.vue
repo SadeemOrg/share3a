@@ -75,7 +75,7 @@
                         <div class="flex flex-row items-center justify-center md:justify-start flex-wrap mt-4 ">
                             <div :class="{ 'w-full': question.layout === 'radio_select_depend', 'w-[90%] md:w-1/2': question.layout !== 'radio_select_depend' }"
                                 v-for="(question, index) in section.attributes.questions" :key="index">
-                                <div v-if="question.layout !== 'radio_select' && question.layout !== 'radio_select_depend'"
+                                <div v-if="question.layout !== 'radio_select' && question.layout !== 'radio_select_depend' && question.layout !== 'select'"
                                     class="w-full">
                                     <label :for="question.key"
                                         class="flex flex-row gap-x-3 text-base -pt-2 py-0.5 font-Tijawal-Bold  text-[#42542A]">
@@ -101,6 +101,7 @@
                                         :name="question.attributes.text" :id="question.key"
                                         @change="handleFileInput(question)" @input="clearError(question.attributes.text)"
                                         class="file_input block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A]  shadow-sm ring-1 focus:border-[#B1C376]" />
+
                                     <p v-if="validationErrors[question.attributes.text]" class="text-red-500">{{
                                         validationErrors[question.attributes.text] }}</p>
                                 </div>
@@ -198,7 +199,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-if="question.layout == 'select'" class="w-full">
+                                <div v-else-if="question.layout == 'select'" class="w-full">
                                     <label :for="question.key"
                                         class="flex flex-row gap-x-3 text-base -pt-2 py-0.5 font-Tijawal-Bold text-[#42542A]">
                                         <p class="p-0 m-0">{{ question.attributes.text }}</p>
@@ -215,12 +216,11 @@
                                             :key="choiceIndex" :value="choice.attributes.text">{{ choice.attributes.text }}
                                         </option>
                                     </select>
-                                    {{ formDataFields }}
                                     <p v-if="validationErrors[question.attributes.text]" class="text-red-500">
                                         {{ validationErrors[question.attributes.text] }}
                                     </p>
                                 </div>
-
+<!-- <p>{{ formDataFields }}</p> -->
                             </div>
                         </div>
                     </div>
@@ -677,7 +677,6 @@ export default {
                     },
                 });
                 data.value = Object.freeze([...response.data]);
-                console.log("🚀 ~ file: emar.vue:651 ~ fetchFormData ~ data.value:", data.value)
                 firstPage.value = Object.freeze(response.data[0].attributes.questions);
                 currentPage.value = firstPage.value;
                 secondPage.value = Object.freeze(response.data[1].attributes.questions);
@@ -686,7 +685,6 @@ export default {
                 })[0]['attributes']['questions'] || []);
                 addNewChildValidation.value = Object.freeze(secondPage.value[2]?.attributes || {});
                 totalPages.value = response.data.length;
-                // console.log("🚀 ~ file: emar.vue:643 ~ fetchFormData ~ secondPage.value :", secondPageAddchild.value)
 
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -709,7 +707,6 @@ export default {
                     },
                 });
                 multiSectionApi.value = response.data;
-                console.log("🚀 ~ file: emar.vue:527 ~ makeApiRequest ~ multiSectionApi.value:", multiSectionApi.value[0])
             } catch (error) {
                 // Handle errors
                 console.error('Error fetching data:', error);
@@ -726,7 +723,6 @@ export default {
                     },
                 });
                 multiSectionSecondStageApiData.value = data.data;
-                // console.log("🚀 ~ file: emar.vue:527 ~ makeApiRequest ~ multiSectionApi.value:", multiSectionSecondStageApiData.value)
             } catch (error) {
                 // Handle errors
                 console.error('Error fetching data:', error);
@@ -735,13 +731,24 @@ export default {
         const validateCurrentPage = () => {
             if (counter.value === 1) {
                 Object.values(firstPageValidation.value).forEach(fieldName => {
-                    const validationRule = fieldName;
-                    const fieldValue = formDataFields[fieldName];
-                    if (validationRule && !fieldValue) {
-                        validationErrors[fieldName] = `${fieldName} is required.`;
-                        console.error(`${fieldName} is required.`);
+                    if (fieldName.includes('**') == true) {
+                        let feildNamedData = fieldName;
+                        fieldName = fieldName.split('**')[0];
+                        const validationRule = fieldName;
+                        const fieldValue = formDataFields[fieldName];
+                        if (validationRule && fieldValue) {
+                            validationErrors[fieldName] = `${feildNamedData}`;
+                            console.error(`${feildNamedData}`);
+                        }
                     } else {
-                        validationErrors[fieldName] = null;
+                        const validationRule = fieldName;
+                        const fieldValue = formDataFields[fieldName];
+                        if (validationRule && !fieldValue) {
+                            validationErrors[fieldName] = `يرجى ادخال ${fieldName} `;
+                            console.error(`${fieldName} is required.`);
+                        } else {
+                            validationErrors[fieldName] = null;
+                        }
                     }
                 });
             } else if (counter.value === 2) {
@@ -785,7 +792,6 @@ export default {
                 }
             }
             formData.append('id', formId.value);
-            console.log("🚀 ~ file: emar.vue:647 ~ handleSubmit ~ formData:", formData)
             // Send the POST request using Axios
 
             const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
@@ -813,61 +819,56 @@ export default {
         const navigateToFormQuestions = () => {
             showForm.value = !showForm.value;
         };
-        const navigateToNextPage = async () => {
-            if (counter.value == 1) {
-                const endpointUrl = `${window.location.origin}/ValidateForm`;
-                const postData = {
-                    page: counter.value - 1,
-                };
-                try {
-                    const formData = new FormData();
-                    for (const [key, value] of Object.entries(formDataFields)) {
-                        if (key === "value" && typeof value === "object") {
-                            // Convert the nested object to a JSON string
-                            formData.append(key, JSON.stringify(value));
-                        } else {
-                            formData.append(key, value);
-                        }
-                    }
-                    for (const [key, value] of Object.entries(postData)) {
-                        formData.append(key, value);
-                    }
+        const sendFormData = async (formData, endpointUrl) => {
+            try {
+                const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+                const response = await axios.post(endpointUrl, formData, {
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
 
-                    formData.append('id', formId.value);
-
-                    // Send the POST request using Axios
-                    const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
-                    const response = await axios.post(endpointUrl, formData, {
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken,
-                            'Content-Type': 'multipart/form-data', // Use 'multipart/form-data' for FormData
-                        },
-                    });
-
-                    // Set the validation errors based on the response
-                    firstPageValidation.value = response.data;
-                    // Check if there are any validation errors
-                    if (Object.values(validationErrors).some(error => error !== null)) {
-                        console.log('Validation errors. Cannot proceed to the next page.');
-                        return;
-                    }
-
-                    // Validate the current page
-                    await validateCurrentPage();
-
-                    // If there are validation errors, do not proceed to the next page
-                    if (Object.values(validationErrors).some(error => error !== null)) {
-                        console.log('Validation errors. Cannot proceed to the next page.');
-                        return;
-                    }
-
-                    // Proceed to the next page
-                    counter.value = counter.value + 1;
-                } catch (error) {
-                    // Handle API request errors
-                    console.error('Error:', error);
-                }
+                return response.data;
+            } catch (error) {
+                console.error('Error:', error);
+                throw error; // Rethrow the error to handle it elsewhere if needed
             }
+        };
+        const navigateToNextPage = async () => {
+            if (counter.value === 1) {
+        const endpointUrl = `${window.location.origin}/ValidateForm`;
+        const postData = { page: counter.value - 1 };
+
+        const formData = new FormData();
+        for (const [key, value] of Object.entries(formDataFields)) {
+            if (typeof value === 'number') {
+                formData.append(key, value);
+            } else if (typeof value === 'string' && !isNaN(Number(value))) {
+                const blob = new Blob([value], { type: 'text/plain; charset=utf-8' });
+                formData.append(key, blob, key);
+            } else {
+                formData.append(key, value);
+            }
+        }
+        for (const [key, value] of Object.entries(postData)) {
+            formData.append(key, value);
+        }
+        formData.append('id', formId.value);
+        try {
+            const response = await sendFormData(formData, endpointUrl);
+            firstPageValidation.value = response;
+            await validateCurrentPage();
+
+            if (Object.values(validationErrors).some(error => error !== null)) {
+                console.log('Validation errors. Cannot proceed to the next page.');
+                return;
+            }
+            counter.value += 1;
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
             else if (counter.value == 2) {
                 const endpointUrl = `${window.location.origin}/ValidateForm`;
                 const postData = {

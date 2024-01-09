@@ -27,29 +27,90 @@ class ExportFormReselt implements FromCollection, WithHeadings
         array_push($array, 'os');
         $healthy = ["__", "_"];
         $yummy   = ["  ", "  "];
+
+
         $FormResults = FormResults::where('id', $this->year[0])->first();
 
         $form = Form::where('id', $FormResults->form_id)->first();
-        $questions = $form->questions;
-        $questions = json_decode($questions);
-        // foreach ($questions as $question) {
-        //     if ($question->layout == 'select') {
-        //         array_push($array, str_replace($healthy,  $yummy, $question->attributes->name));
-
-        //     } else {
-        //         array_push($array, str_replace($healthy,  $yummy, $question->attributes->text));
-
-        //     }
-        // }
-        // foreach (json_decode($FormResults->result) as $key => $value) {
-        //     // $series = str_replace(' ',   $healthy, $value->questionskey);
-        //     // dd( $series);
-        //     array_push($array, str_replace($healthy,  $yummy, $value->questionskey));
-        // }
 
 
-        // dd($array);
-        return $array;
+
+
+            $Contents = json_decode($form->questions);
+            $array = [];
+            foreach ($Contents as $key => $page) {
+
+                foreach ($page->attributes->questions as $key => $sections) {
+                    if ($sections->layout == "Flexible_section") {
+
+
+                        foreach ($sections->attributes->questions as $key22 => $questions) {
+                            array_push($array,  $questions->attributes->text);
+                        }
+                    }
+
+                    if ($sections->layout == "section") {
+                        foreach ($sections->attributes->questions as $key22 => $questions) {
+                            array_push($array,  $questions->attributes->text);
+                        }
+                    }
+
+                    if ($sections->layout == "multi_section") {
+                        foreach ($sections->attributes->select as $key => $attributes) {
+                            foreach ($attributes->attributes->select as $key => $select) {
+                                if ($select->layout == "section") {
+                                    foreach ($select->attributes->questions as $key22 => $questions) {
+                                        array_push($array,  $questions->attributes->text);
+                                    }
+                                }
+                                if ($select->layout == "Flexible_section") {
+
+
+                                    foreach ($select->attributes->questions as $key22 => $questions) {
+                                        array_push($array,  $questions->attributes->text);
+                                    }
+                                }
+                                if ($select->layout == "multi_section") {
+                                    foreach ($select->attributes->select as $key => $attributes) {
+                                        foreach ($attributes->attributes->select as $key => $select) {
+                                            if ($select->layout == "section") {
+                                                foreach ($select->attributes->questions as $key22 => $questions) {
+                                                    array_push($array,  $questions->attributes->text);
+                                                }
+                                            }
+                                            if ($select->layout == "Flexible_section") {
+
+
+                                                foreach ($select->attributes->questions as $key22 => $questions) {
+                                                    array_push($array,  $questions->attributes->text);
+                                                }
+                                            }
+
+
+
+                                        }
+
+                                        # code...
+
+                                    }
+                                }
+
+
+
+
+                            }
+
+                            # code...
+
+                        }
+                    }
+                }
+
+                $page->validation = $array;
+            }
+
+            return $array;
+
     }
 
 
