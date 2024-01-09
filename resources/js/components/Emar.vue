@@ -75,7 +75,7 @@
                         <div class="flex flex-row items-center justify-center md:justify-start flex-wrap mt-4 ">
                             <div :class="{ 'w-full': question.layout === 'radio_select_depend', 'w-[90%] md:w-1/2': question.layout !== 'radio_select_depend' }"
                                 v-for="(question, index) in section.attributes.questions" :key="index">
-                                <div v-if="question.layout !== 'radio_select' && question.layout !== 'radio_select_depend'"
+                                <div v-if="question.layout !== 'radio_select' && question.layout !== 'radio_select_depend' && question.layout !== 'select'"
                                     class="w-full">
                                     <label :for="question.key"
                                         class="flex flex-row gap-x-3 text-base -pt-2 py-0.5 font-Tijawal-Bold  text-[#42542A]">
@@ -101,6 +101,7 @@
                                         :name="question.attributes.text" :id="question.key"
                                         @change="handleFileInput(question)" @input="clearError(question.attributes.text)"
                                         class="file_input block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A]  shadow-sm ring-1 focus:border-[#B1C376]" />
+
                                     <p v-if="validationErrors[question.attributes.text]" class="text-red-500">{{
                                         validationErrors[question.attributes.text] }}</p>
                                 </div>
@@ -198,10 +199,31 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div v-else-if="question.layout == 'select'" class="w-full">
+                                    <label :for="question.key"
+                                        class="flex flex-row gap-x-3 text-base -pt-2 py-0.5 font-Tijawal-Bold text-[#42542A]">
+                                        <p class="p-0 m-0">{{ question.attributes.text }}</p>
+                                        <p v-if="question.attributes.required" class="text-[#FF0000] p-0 m-0 text-2xl">*</p>
+                                    </label>
+                                    <select :name="question.attributes.text" :id="question.key"
+                                        :required="question.attributes.required"
+                                        v-model="formDataFields[question.attributes.text]"
+                                        @input="clearError(question.attributes.text)"
+                                        class="block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]">
+                                        <option disabled selected value="null">الرجاء اختيار {{ question.attributes.text }}
+                                        </option>
+                                        <option v-for="(choice, choiceIndex) in question.attributes.selectform"
+                                            :key="choiceIndex" :value="choice.attributes.text">{{ choice.attributes.text }}
+                                        </option>
+                                    </select>
+                                    <p v-if="validationErrors[question.attributes.text]" class="text-red-500">
+                                        {{ validationErrors[question.attributes.text] }}
+                                    </p>
+                                </div>
+<!-- <p>{{ formDataFields }}</p> -->
                             </div>
                         </div>
                     </div>
-                    <!-- <p>{{ formDataFields }}</p> -->
                 </div>
                 <div v-if="counter == 2">
                     <div
@@ -311,9 +333,11 @@
                                                 <label class="mx-1 -pt-1" :for="question.key">{{ question.attributes.no
                                                 }}</label>
                                             </div>
-                                            <p v-if="validationSecondPageErrors[question.attributes.text]" class="text-red-500">{{
-                                                validationSecondPageErrors[question.attributes.text] }}</p>
-                                            <div v-if="question.layout == 'radio_select_depend'" class=" w-full flex flex-col  my-4">
+                                            <p v-if="validationSecondPageErrors[question.attributes.text]"
+                                                class="text-red-500">{{
+                                                    validationSecondPageErrors[question.attributes.text] }}</p>
+                                            <div v-if="question.layout == 'radio_select_depend'"
+                                                class=" w-full flex flex-col  my-4">
                                                 <div class="w-full"
                                                     v-if="formDataFields[question.attributes.text] == question.attributes.yes">
                                                     <div class="w-full  "
@@ -355,26 +379,31 @@
                                                                     validationSecondPageErrors[question.attributes.text] }}</p>
                                                         </div>
                                                         <div v-else-if="question.layout == 'radio_select'">
-                                        <label :for="question.key"
-                                            class="flex flex-row gap-x-3 text-base -pt-2 py-0.5 font-Tijawal-Bold  text-[#42542A]">
-                                            <p class="p-0 m-0 "> {{ question.attributes.text }}</p>
-                                            <p v-if="question.attributes.required" class="text-[#FF0000] p-0 m-0 text-2xl">*
-                                            </p>
-                                        </label>
-                                        <div class="flex flex-row items-start mt-2 "
-                                            v-for="choice in question.attributes.selectform" :key="choice.key">
-                                            <input type="radio" :name="question.attributes.text" :id="choice.key"
-                                                @input="clearError(question.attributes.text)"
-                                                v-model="formDataFields[question.attributes.text]"
-                                                :value="choice.attributes.text"
-                                                :class="question.layout === 'file' ? 'file_input' : ''"
-                                                class="block  rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]" />
-                                            <label class="mx-1 -pt-1" :for="choice.key">{{ choice.attributes.text }}</label>
-                                        </div>
-                                        <p v-if="validationSecondPageErrors[question.attributes.text]" class="text-red-500">
-                                            {{
-                                                validationSecondPageErrors[question.attributes.text] }}</p>
-                                    </div>
+                                                            <label :for="question.key"
+                                                                class="flex flex-row gap-x-3 text-base -pt-2 py-0.5 font-Tijawal-Bold  text-[#42542A]">
+                                                                <p class="p-0 m-0 "> {{ question.attributes.text }}</p>
+                                                                <p v-if="question.attributes.required"
+                                                                    class="text-[#FF0000] p-0 m-0 text-2xl">*
+                                                                </p>
+                                                            </label>
+                                                            <div class="flex flex-row items-start mt-2 "
+                                                                v-for="choice in question.attributes.selectform"
+                                                                :key="choice.key">
+                                                                <input type="radio" :name="question.attributes.text"
+                                                                    :id="choice.key"
+                                                                    @input="clearError(question.attributes.text)"
+                                                                    v-model="formDataFields[question.attributes.text]"
+                                                                    :value="choice.attributes.text"
+                                                                    :class="question.layout === 'file' ? 'file_input' : ''"
+                                                                    class="block  rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]" />
+                                                                <label class="mx-1 -pt-1" :for="choice.key">{{
+                                                                    choice.attributes.text }}</label>
+                                                            </div>
+                                                            <p v-if="validationSecondPageErrors[question.attributes.text]"
+                                                                class="text-red-500">
+                                                                {{
+                                                                    validationSecondPageErrors[question.attributes.text] }}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -648,11 +677,7 @@ export default {
                     },
                 });
                 data.value = Object.freeze([...response.data]);
-                console.log("🚀 ~ file: emar.vue:651 ~ fetchFormData ~ data.value:", data.value)
                 firstPage.value = Object.freeze(response.data[0].attributes.questions);
-                // firstPageValidation.value = response.data[0].validation;
-
-                // secondPageValidation.value = response.data[1].validation;
                 currentPage.value = firstPage.value;
                 secondPage.value = Object.freeze(response.data[1].attributes.questions);
                 secondPageAddchild.value = Object.freeze(secondPage.value.filter((item) => {
@@ -660,7 +685,6 @@ export default {
                 })[0]['attributes']['questions'] || []);
                 addNewChildValidation.value = Object.freeze(secondPage.value[2]?.attributes || {});
                 totalPages.value = response.data.length;
-                // console.log("🚀 ~ file: emar.vue:643 ~ fetchFormData ~ secondPage.value :", secondPageAddchild.value)
 
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -683,7 +707,6 @@ export default {
                     },
                 });
                 multiSectionApi.value = response.data;
-                console.log("🚀 ~ file: emar.vue:527 ~ makeApiRequest ~ multiSectionApi.value:", multiSectionApi.value[0])
             } catch (error) {
                 // Handle errors
                 console.error('Error fetching data:', error);
@@ -700,7 +723,6 @@ export default {
                     },
                 });
                 multiSectionSecondStageApiData.value = data.data;
-                // console.log("🚀 ~ file: emar.vue:527 ~ makeApiRequest ~ multiSectionApi.value:", multiSectionSecondStageApiData.value)
             } catch (error) {
                 // Handle errors
                 console.error('Error fetching data:', error);
@@ -709,13 +731,24 @@ export default {
         const validateCurrentPage = () => {
             if (counter.value === 1) {
                 Object.values(firstPageValidation.value).forEach(fieldName => {
-                    const validationRule = fieldName;
-                    const fieldValue = formDataFields[fieldName];
-                    if (validationRule && !fieldValue) {
-                        validationErrors[fieldName] = `${fieldName} is required.`;
-                        console.error(`${fieldName} is required.`);
+                    if (fieldName.includes('**') == true) {
+                        let feildNamedData = fieldName;
+                        fieldName = fieldName.split('**')[0];
+                        const validationRule = fieldName;
+                        const fieldValue = formDataFields[fieldName];
+                        if (validationRule && fieldValue) {
+                            validationErrors[fieldName] = `${feildNamedData}`;
+                            console.error(`${feildNamedData}`);
+                        }
                     } else {
-                        validationErrors[fieldName] = null;
+                        const validationRule = fieldName;
+                        const fieldValue = formDataFields[fieldName];
+                        if (validationRule && !fieldValue) {
+                            validationErrors[fieldName] = `يرجى ادخال ${fieldName} `;
+                            console.error(`${fieldName} is required.`);
+                        } else {
+                            validationErrors[fieldName] = null;
+                        }
                     }
                 });
             } else if (counter.value === 2) {
@@ -759,7 +792,6 @@ export default {
                 }
             }
             formData.append('id', formId.value);
-            console.log("🚀 ~ file: emar.vue:647 ~ handleSubmit ~ formData:", formData)
             // Send the POST request using Axios
 
             const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
@@ -787,61 +819,56 @@ export default {
         const navigateToFormQuestions = () => {
             showForm.value = !showForm.value;
         };
-        const navigateToNextPage = async () => {
-            if (counter.value == 1) {
-                const endpointUrl = `${window.location.origin}/ValidateForm`;
-                const postData = {
-                    page: counter.value - 1,
-                };
-                try {
-                    const formData = new FormData();
-                    for (const [key, value] of Object.entries(formDataFields)) {
-                        if (key === "value" && typeof value === "object") {
-                            // Convert the nested object to a JSON string
-                            formData.append(key, JSON.stringify(value));
-                        } else {
-                            formData.append(key, value);
-                        }
-                    }
-                    for (const [key, value] of Object.entries(postData)) {
-                        formData.append(key, value);
-                    }
+        const sendFormData = async (formData, endpointUrl) => {
+            try {
+                const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+                const response = await axios.post(endpointUrl, formData, {
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
 
-                    formData.append('id', formId.value);
-
-                    // Send the POST request using Axios
-                    const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
-                    const response = await axios.post(endpointUrl, formData, {
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken,
-                            'Content-Type': 'multipart/form-data', // Use 'multipart/form-data' for FormData
-                        },
-                    });
-
-                    // Set the validation errors based on the response
-                    firstPageValidation.value = response.data;
-                    // Check if there are any validation errors
-                    if (Object.values(validationErrors).some(error => error !== null)) {
-                        console.log('Validation errors. Cannot proceed to the next page.');
-                        return;
-                    }
-
-                    // Validate the current page
-                    await validateCurrentPage();
-
-                    // If there are validation errors, do not proceed to the next page
-                    if (Object.values(validationErrors).some(error => error !== null)) {
-                        console.log('Validation errors. Cannot proceed to the next page.');
-                        return;
-                    }
-
-                    // Proceed to the next page
-                    counter.value = counter.value + 1;
-                } catch (error) {
-                    // Handle API request errors
-                    console.error('Error:', error);
-                }
+                return response.data;
+            } catch (error) {
+                console.error('Error:', error);
+                throw error; // Rethrow the error to handle it elsewhere if needed
             }
+        };
+        const navigateToNextPage = async () => {
+            if (counter.value === 1) {
+        const endpointUrl = `${window.location.origin}/ValidateForm`;
+        const postData = { page: counter.value - 1 };
+
+        const formData = new FormData();
+        for (const [key, value] of Object.entries(formDataFields)) {
+            if (typeof value === 'number') {
+                formData.append(key, value);
+            } else if (typeof value === 'string' && !isNaN(Number(value))) {
+                const blob = new Blob([value], { type: 'text/plain; charset=utf-8' });
+                formData.append(key, blob, key);
+            } else {
+                formData.append(key, value);
+            }
+        }
+        for (const [key, value] of Object.entries(postData)) {
+            formData.append(key, value);
+        }
+        formData.append('id', formId.value);
+        try {
+            const response = await sendFormData(formData, endpointUrl);
+            firstPageValidation.value = response;
+            await validateCurrentPage();
+
+            if (Object.values(validationErrors).some(error => error !== null)) {
+                console.log('Validation errors. Cannot proceed to the next page.');
+                return;
+            }
+            counter.value += 1;
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
             else if (counter.value == 2) {
                 const endpointUrl = `${window.location.origin}/ValidateForm`;
                 const postData = {
@@ -914,7 +941,6 @@ export default {
         const handleUpdateFormData = (index, formData) => {
             formDataFields.value = { ...formDataFields.value, ...formData };
         };
-
         fetchFormId();
         fetchFormData(); // Fetch data when the component is mounted
         return {

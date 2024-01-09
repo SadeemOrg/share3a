@@ -124,9 +124,6 @@ class HomeController extends Controller
     }
     public function RegisterForm(Request $request)
     {
-
-
-        // Form validation
         $this->validate($request, [
             'name' => 'required',
             'phone_number' => 'required|digits_between:10,14',
@@ -250,10 +247,10 @@ class HomeController extends Controller
     public function  ValidateForm(Request $request)
     {
 
-
-
         $data = $request->all();
-        $forms = Form::where("id", 15)->first();
+        $forms = Form::where("id", $request->id)->first();
+
+
         $Contents = json_decode($forms->questions);
         $page = $request->page;
         $errorArray = [];
@@ -273,6 +270,7 @@ class HomeController extends Controller
 
                             foreach ($questions->attributes->questions as $key => $valueDepend) {
                                 # code...
+
                                 if ($valueDepend->attributes->required) {
                                     $val = $valueDepend->attributes->text;
                                     $newString = str_replace(' ', '_', $val);
@@ -282,6 +280,22 @@ class HomeController extends Controller
                                     }
                                 }
                             }
+                        }
+                    }
+                    if (isset($questions->attributes->validation_num)) {
+
+
+
+                        $val = $questions->attributes->text;
+                        $newString = str_replace(' ', '_', $val);
+                        if (isset($request->$newString) && (strlen($request->$newString) != $questions->attributes->validation_num)) {
+
+                            $pus = array(
+                                'key' => $questions->attributes->text,
+                                'num' => $questions->attributes->validation_num,
+                            );
+                            $string = $questions->attributes->text ."**". " يجب ان يحتوي على " . $questions->attributes->validation_num . " ارقام ";
+                            array_push($errorArray, $string);
                         }
                     }
                     if ($questions->attributes->required) {
@@ -299,7 +313,6 @@ class HomeController extends Controller
                 // dd($attributes->attributes->select);
             }
         }
-
         return $errorArray;
     }
     function isJsonString($string)
@@ -397,7 +410,7 @@ class HomeController extends Controller
 
                 $fileName = time() . '_' . $cleanedFilename;
                 $file->storeAs('uploads', $fileName, 'public');
-                $data[$key] = URL::to('/').'/storage/uploads/'.$fileName;
+                $data[$key] = URL::to('/') . '/storage/uploads/' . $fileName;
             }
         }
 
@@ -502,6 +515,7 @@ class HomeController extends Controller
     }
     public function formQuestions(Request $request)
     {
+
 
         $forms = Form::where("slug", $request->slug)->first();
         $Contents = json_decode($forms->questions);
