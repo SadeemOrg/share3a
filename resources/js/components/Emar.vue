@@ -208,7 +208,7 @@
                                     <select :name="question.attributes.text" :id="question.key"
                                         :required="question.attributes.required"
                                         v-model="formDataFields[question.attributes.text]"
-                                        @input="clearError(question.attributes.text)"
+                                        @input="clearError(question.attributes.text,'select')"
                                         class="block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]">
                                         <option disabled selected value="null">الرجاء اختيار {{ question.attributes.text }}
                                         </option>
@@ -764,10 +764,11 @@ export default {
                 });
             }
         };
-        const clearError = (fieldName) => {
-            // Clear the error for the specified field
+        const clearError = (fieldName,key) => {
+           if(!key){
             validationErrors[fieldName] = null;
             validationSecondPageErrors[fieldName] = null;
+           }
         };
 
         const handleFileInput = (question) => {
