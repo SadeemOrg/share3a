@@ -220,7 +220,6 @@
                                     <p v-if="validationErrors[question.attributes.text]" class="text-red-500">
                                         {{ validationErrors[question.attributes.text] }}
                                     </p>
-                                    <p>{{ formDataFields }}</p>
                                 </div>
                             </div>
                         </div>
