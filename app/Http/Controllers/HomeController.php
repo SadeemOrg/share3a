@@ -313,6 +313,7 @@ class HomeController extends Controller
                 // dd($attributes->attributes->select);
             }
         }
+        dd($errorArray);
         return $errorArray;
     }
     function isJsonString($string)
