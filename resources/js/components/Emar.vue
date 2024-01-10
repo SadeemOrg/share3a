@@ -10,7 +10,7 @@
         </div>
         <div v-if="!showForm && !SuccessSubmitedForm" class="flex flex-col items-start justify-start mt-8">
             <p class="font-Tijawal-Bold mt-12 text-center text-lg md:text-2xl text-[#42542A]">
-                هذه الاستمارة مخصّصة للفئات التالية:
+                ما هي الفئات المستحقة للحصول على مساعدة والتي باستطاعتها تعبئة الاستمارة المرفقة:
             </p>
             <div
                 class="font-Tijawal flex flex-col items-start justify-start text-lg md:text-xl  text-[#42542A] mt-2 gap-y-1">
@@ -54,9 +54,9 @@
                             <svg width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M13 -1.31134e-06L25.9904 22.5L0.00962073 22.5L13 -1.31134e-06Z" fill="#B1C376" />
                             </svg>
-                            <p class="font-Tijawal-Bold text-right md:text-center text-2xl text-[#42542A]">قم بتعبئة استمارة
-                                تقديم العائلات
-                                المحتاجة</p>
+                            <p class="font-Tijawal-Bold text-right md:text-center text-2xl text-[#42542A]">
+                                قم بتعبئة الاستمارة من أجل تقديم طلب للحصول على مساعدة
+                            </p>
                         </div>
                         <div class="flex flex-row items-center justify-center rounded-full w-14 h-14 bg-[#B1C376] ">
                             <p class="pt-4 text-xl text-white font-Tijawal">{{ counter }}</p>
