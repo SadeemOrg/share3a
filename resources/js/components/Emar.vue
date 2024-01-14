@@ -10,7 +10,7 @@
         </div>
         <div v-if="!showForm && !SuccessSubmitedForm" class="flex flex-col items-start justify-start mt-8">
             <p class="font-Tijawal-Bold mt-12 text-center text-lg md:text-2xl text-[#42542A]">
-                هذه الاستمارة مخصّصة للفئات التالية:
+                ما هي الفئات المستحقة للحصول على مساعدة والتي باستطاعتها تعبئة الاستمارة المرفقة:
             </p>
             <div
                 class="font-Tijawal flex flex-col items-start justify-start text-lg md:text-xl  text-[#42542A] mt-2 gap-y-1">
@@ -54,9 +54,9 @@
                             <svg width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M13 -1.31134e-06L25.9904 22.5L0.00962073 22.5L13 -1.31134e-06Z" fill="#B1C376" />
                             </svg>
-                            <p class="font-Tijawal-Bold text-right md:text-center text-2xl text-[#42542A]">قم بتعبئة استمارة
-                                تقديم العائلات
-                                المحتاجة</p>
+                            <p class="font-Tijawal-Bold text-right md:text-center text-2xl text-[#42542A]">
+                                قم بتعبئة الاستمارة من أجل تقديم طلب للحصول على مساعدة
+                            </p>
                         </div>
                         <div class="flex flex-row items-center justify-center rounded-full w-14 h-14 bg-[#B1C376] ">
                             <p class="pt-4 text-xl text-white font-Tijawal">{{ counter }}</p>
@@ -90,7 +90,7 @@
                                         @input="clearError(question.attributes.text)"
                                         class="block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A]  shadow-sm ring-1 focus:border-[#B1C376] " />
 
-                                    <input v-else-if="question.layout == 'phone'" type="number"
+                                    <input v-else-if="question.layout == 'phone'" type="tel"
                                         :name="question.attributes.text" :id="question.key"
                                         :required="question.attributes.required"
                                         v-model="formDataFields[question.attributes.text]"
@@ -199,7 +199,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-else-if="question.layout == 'select'" class="w-full">
+                                <div v-else-if="question.layout == 'select'" :key="question.key" class="w-full">
                                     <label :for="question.key"
                                         class="flex flex-row gap-x-3 text-base -pt-2 py-0.5 font-Tijawal-Bold text-[#42542A]">
                                         <p class="p-0 m-0">{{ question.attributes.text }}</p>
@@ -208,19 +208,19 @@
                                     <select :name="question.attributes.text" :id="question.key"
                                         :required="question.attributes.required"
                                         v-model="formDataFields[question.attributes.text]"
-                                        @input="clearError(question.attributes.text)"
+                                        @input="clearError(question.attributes.text,'select')"
                                         class="block w-[95%] gap-y-4 my-2 py-3 rounded-md bg-[#FBFDF5] border-[#42542A] shadow-sm ring-1 focus:border-[#B1C376]">
                                         <option disabled selected value="null">الرجاء اختيار {{ question.attributes.text }}
                                         </option>
                                         <option v-for="(choice, choiceIndex) in question.attributes.selectform"
-                                            :key="choiceIndex" :value="choice.attributes.text">{{ choice.attributes.text }}
+                                            :key="choiceIndex.key" :value="choice.attributes.text">{{ choice.attributes.text
+                                            }}
                                         </option>
                                     </select>
                                     <p v-if="validationErrors[question.attributes.text]" class="text-red-500">
                                         {{ validationErrors[question.attributes.text] }}
                                     </p>
                                 </div>
-<!-- <p>{{ formDataFields }}</p> -->
                             </div>
                         </div>
                     </div>
@@ -677,7 +677,7 @@ export default {
                     },
                 });
                 data.value = Object.freeze([...response.data]);
-                firstPage.value = Object.freeze(response.data[0].attributes.questions);
+                firstPage.value = response.data[0].attributes.questions;
                 currentPage.value = firstPage.value;
                 secondPage.value = Object.freeze(response.data[1].attributes.questions);
                 secondPageAddchild.value = Object.freeze(secondPage.value.filter((item) => {
@@ -764,10 +764,11 @@ export default {
                 });
             }
         };
-        const clearError = (fieldName) => {
-            // Clear the error for the specified field
+        const clearError = (fieldName,key) => {
+           if(!key){
             validationErrors[fieldName] = null;
             validationSecondPageErrors[fieldName] = null;
+           }
         };
 
         const handleFileInput = (question) => {
@@ -837,38 +838,43 @@ export default {
         };
         const navigateToNextPage = async () => {
             if (counter.value === 1) {
-        const endpointUrl = `${window.location.origin}/ValidateForm`;
-        const postData = { page: counter.value - 1 };
+    const endpointUrl = `${window.location.origin}/ValidateForm`;
+    const postData = { page: counter.value - 1 };
 
-        const formData = new FormData();
-        for (const [key, value] of Object.entries(formDataFields)) {
-            if (typeof value === 'number') {
-                formData.append(key, value);
-            } else if (typeof value === 'string' && !isNaN(Number(value))) {
-                const blob = new Blob([value], { type: 'text/plain; charset=utf-8' });
-                formData.append(key, blob, key);
-            } else {
-                formData.append(key, value);
-            }
-        }
-        for (const [key, value] of Object.entries(postData)) {
+    const formData = new FormData();
+    for (const [key, value] of Object.entries(formDataFields)) {
+        if (typeof value === 'number' || key === 'phone') {
+            // Convert phone number to string explicitly
+            formData.append(key, key === 'phone' ? String(value) : value.toString());
+        } else if (typeof value === 'string') {
+            // Remove non-numeric characters from the string
+            const cleanedValue = value.replace(/\D/g, '');
+            formData.append(key, cleanedValue);
+        } else {
             formData.append(key, value);
         }
-        formData.append('id', formId.value);
-        try {
-            const response = await sendFormData(formData, endpointUrl);
-            firstPageValidation.value = response;
-            await validateCurrentPage();
-
-            if (Object.values(validationErrors).some(error => error !== null)) {
-                console.log('Validation errors. Cannot proceed to the next page.');
-                return;
-            }
-            counter.value += 1;
-        } catch (error) {
-            console.error('Error:', error);
-        }
     }
+
+    for (const [key, value] of Object.entries(postData)) {
+        formData.append(key, value);
+    }
+    formData.append('id', formId.value);
+
+    try {
+        const response = await sendFormData(formData, endpointUrl);
+        firstPageValidation.value = response;
+        await validateCurrentPage();
+
+        if (Object.values(validationErrors).some(error => error !== null)) {
+            console.log('Validation errors. Cannot proceed to the next page.');
+            return;
+        }
+        counter.value += 1;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
             else if (counter.value == 2) {
                 const endpointUrl = `${window.location.origin}/ValidateForm`;
                 const postData = {
