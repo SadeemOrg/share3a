@@ -102,13 +102,13 @@ class NewFormResults extends Resource
     {
         if ($request->user()->userrole() == 1) {
             // dd("dd");
-            return $query->where('is_new',1);
+            return $query->where('is_new', 1);
         }
 
         $user = Auth::user();
         $formsarray = FormUser::where(['user_id' => Auth::id()])->Select('form_id')->pluck('form_id')->toArray();
 
-        $query->where('is_new',1)->Wherein('form_id', $formsarray);
+        $query->where('is_new', 1)->Wherein('form_id', $formsarray);
     }
     public function fields(NovaRequest $request)
     {
@@ -127,24 +127,28 @@ class NewFormResults extends Resource
                 foreach (json_decode($this->result) as $key => $value) {
                     // $series = str_replace(' ',   $healthy, $value->questionskey);
                     // dd( $series);
-                    $data .= "<p>" .   str_replace($healthy,  $yummy, $value->questionskey)  .  ' :' . $value->questionsanswerkey . '</p>';
+
+                    $substring = 'https://sajilne.com';
+                    if (strpos($value->questionsanswerkey, $substring) !== false) {
+                        $data .= "<p>" .   str_replace($healthy,  $yummy, $value->questionskey)  . '</p>';
+
+                        $data .=    "<a style='color: blue;' href='$value->questionsanswerkey'>اذهب الي المستند</a>";
+
+
+                    }
+                    else
+                    {
+
+                        $data .= "<p style='color: white;'><b>" .   str_replace($healthy,  $yummy, $value->questionskey)  . '</b></p>';
+                        $data .= "<p style='color: green;'>" . $value->questionsanswerkey . '</p>';
+
+                    }
                 }
                 return  $data;
-            })->hideFromDetail()->hideWhenCreating()->hideWhenUpdating()->asHtml(),
+            })->hideWhenCreating()->hideWhenUpdating()->asHtml(),
 
 
-            Tiptap::make(__('result'), 'result', function () {
-                $data = " ";
-                $healthy = ["__", "_"];
-                $yummy   = ["  ", "  "];
-                // dd( Str::replace('-', '/', '12-28-2021'));
-                foreach (json_decode($this->result) as $key => $value) {
-                    // $series = str_replace(' ',   $healthy, $value->questionskey);
-                    // dd( $series);
-                    $data .= "<p>" .   str_replace($healthy,  $yummy, $value->questionskey)  .  ' :' . $value->questionsanswerkey . '</p>';
-                }
-                return $data;
-            })->alwaysShow(),
+
 
             // Textarea::make('result', 'result', function () {
             //     $data = "";
