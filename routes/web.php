@@ -80,7 +80,7 @@ Route::get('share3a-nqb', function () {
 });
 
 Route::get('share3a-sakhnin', function () {
-    $forms = Form::where("slug", 'جمعية التعوية الاسلامية سخنين')->first();
+    $forms = Form::where("slug", 'جمعية التوعية الاسلامية سخنين')->first();
     $ip = $_SERVER['REMOTE_ADDR'];
     $exist = FormResults::where('form_id', $forms->id)->where('user_ip', $ip)->first();
     if ($exist) {
