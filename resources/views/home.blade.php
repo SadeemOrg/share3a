@@ -247,7 +247,7 @@
                     <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                أيام التعليم: كل يوم سبت.
+                                أيام التعليم: كل يوم سبت، بين الساعات 8:30-11:30 صباحًا.
                             </p>
                         </li>
                         <li class="mb-5">
@@ -257,7 +257,7 @@
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                التعليم عبارة عن 24 مساقًا، 6 مساقات كل سنة، مساقين كل فصل دراسي.
+                                التعليم عبارة عن 24 مساقًا، 6 مساقات كل سنة، مساقين كل فصل دراسي، وبدءًا من السنة الثانية 9 مساقات كل سنة.
                             </p>
                         </li>
                         <li class="mb-5">
@@ -273,7 +273,7 @@
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                مساقات الفصل الأول: عقيدة 1 + عبادات 1.
+                                مساقات الفصل الأول: سيرة نبوية + عبادات 1.
                             </p>
                         </li>
                         <li class="mb-5">
@@ -291,7 +291,6 @@
                 @endphp
 
                 <form class="w-full " method="post" action="{{ route('form.store') }}">
-
                     <input type="hidden" name='formid' value="{{ $forms->id }}">
                     <!-- CROSS Site Request Forgery Protection -->
                     @csrf
@@ -299,7 +298,6 @@
                         @if ($question->layout == 'select')
                             <div class="flex flex-wrap -mx-3 mb-6">
                                 <div class="w-full px-3">
-
                                     <div class="relative">
                                         <select name='{{ $question->attributes->name }}'
                                             class="bg-transparent w-full border border-gray-200 text-white py-4 px-4 pr-8 rounded-sm leading-tight focus:outline-none focus:bg-transparent focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
@@ -375,8 +373,8 @@
                                     0546896365</a>
                                 <a href="tel:0506300535" class="underline underline-offset-1">نجاح عثمان:
                                     0506300535</a>
-                                <a href="tel:0538704518" class="underline underline-offset-1">هدى حجازي ذياب:
-                                    0538704518</a>
+                                {{-- <a href="tel:0538704518" class="underline underline-offset-1">هدى حجازي ذياب:
+                                    0538704518</a> --}}
                                 <a href="tel:0545431188" class="underline underline-offset-1">إكرام خطيب صبح:
                                     0545431188</a>
                             </div>
