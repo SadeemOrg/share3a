@@ -37,7 +37,7 @@ class ExportFormReselt implements FromCollection, WithHeadings
 
 
             $Contents = json_decode($form->questions);
-            $array = [];
+
             foreach ($Contents as $key => $page) {
 
                 foreach ($page->attributes->questions as $key => $sections) {
