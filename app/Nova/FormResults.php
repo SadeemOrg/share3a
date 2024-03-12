@@ -207,7 +207,7 @@ class FormResults extends Resource
 
         return [
             // new ExportForm(),
-            // new ExportFormReselt(),
+            new ExportFormReselt(),
             // new ExportForm(),
             //   (  new DownloadExcel())->withHeadings(),
             // new DownloadExcel,

@@ -25,91 +25,112 @@ class ExportFormReselt implements FromCollection, WithHeadings
         array_push($array, '');
         array_push($array, 'browser');
         array_push($array, 'os');
+        // $healthy = ["__", "_"];
+        // $yummy   = ["  ", "  "];
+
+
+        // $FormResults = FormResults::where('id', $this->year[0])->first();
+
+        // $form = Form::where('id', $FormResults->form_id)->first();
+
+
+
+
+        //     $Contents = json_decode($form->questions);
+
+        //     foreach ($Contents as $key => $page) {
+
+        //         foreach ($page->attributes->questions as $key => $sections) {
+        //             if ($sections->layout == "Flexible_section") {
+
+
+        //                 foreach ($sections->attributes->questions as $key22 => $questions) {
+        //                     array_push($array,  $questions->attributes->text);
+        //                 }
+        //             }
+
+        //             if ($sections->layout == "section") {
+        //                 foreach ($sections->attributes->questions as $key22 => $questions) {
+        //                     array_push($array,  $questions->attributes->text);
+        //                 }
+        //             }
+
+        //             if ($sections->layout == "multi_section") {
+        //                 foreach ($sections->attributes->select as $key => $attributes) {
+        //                     foreach ($attributes->attributes->select as $key => $select) {
+        //                         if ($select->layout == "section") {
+        //                             foreach ($select->attributes->questions as $key22 => $questions) {
+        //                                 array_push($array,  $questions->attributes->text);
+        //                             }
+        //                         }
+        //                         if ($select->layout == "Flexible_section") {
+
+
+        //                             foreach ($select->attributes->questions as $key22 => $questions) {
+        //                                 array_push($array,  $questions->attributes->text);
+        //                             }
+        //                         }
+        //                         if ($select->layout == "multi_section") {
+        //                             foreach ($select->attributes->select as $key => $attributes) {
+        //                                 foreach ($attributes->attributes->select as $key => $select) {
+        //                                     if ($select->layout == "section") {
+        //                                         foreach ($select->attributes->questions as $key22 => $questions) {
+        //                                             array_push($array,  $questions->attributes->text);
+        //                                         }
+        //                                     }
+        //                                     if ($select->layout == "Flexible_section") {
+
+
+        //                                         foreach ($select->attributes->questions as $key22 => $questions) {
+        //                                             array_push($array,  $questions->attributes->text);
+        //                                         }
+        //                                     }
+
+
+
+        //                                 }
+
+        //                                 # code...
+
+        //                             }
+        //                         }
+
+
+
+
+        //                     }
+
+        //                     # code...
+
+        //                 }
+        //             }
+        //         }
+
+        //         $page->validation = $array;
+        //     }
+
+        //     return $array;
+        $FormResults = FormResults::select('user_ip', 'result', 'browser', 'os')->wherein('id', $this->year)->get();
+
         $healthy = ["__", "_"];
         $yummy   = ["  ", "  "];
+        foreach ($FormResults as $key => $FormResult) {
+            $data = " ";
 
+            // dd( json_decode($FormResult->result));
 
-        $FormResults = FormResults::where('id', $this->year[0])->first();
+            foreach (json_decode($FormResult->result) as $key => $value) {
+                $KEYS = str_replace($healthy,  $yummy, $value->questionskey);
+                                array_push($array,  $KEYS);
 
-        $form = Form::where('id', $FormResults->form_id)->first();
-
-
-
-
-            $Contents = json_decode($form->questions);
-
-            foreach ($Contents as $key => $page) {
-
-                foreach ($page->attributes->questions as $key => $sections) {
-                    if ($sections->layout == "Flexible_section") {
-
-
-                        foreach ($sections->attributes->questions as $key22 => $questions) {
-                            array_push($array,  $questions->attributes->text);
-                        }
-                    }
-
-                    if ($sections->layout == "section") {
-                        foreach ($sections->attributes->questions as $key22 => $questions) {
-                            array_push($array,  $questions->attributes->text);
-                        }
-                    }
-
-                    if ($sections->layout == "multi_section") {
-                        foreach ($sections->attributes->select as $key => $attributes) {
-                            foreach ($attributes->attributes->select as $key => $select) {
-                                if ($select->layout == "section") {
-                                    foreach ($select->attributes->questions as $key22 => $questions) {
-                                        array_push($array,  $questions->attributes->text);
-                                    }
-                                }
-                                if ($select->layout == "Flexible_section") {
-
-
-                                    foreach ($select->attributes->questions as $key22 => $questions) {
-                                        array_push($array,  $questions->attributes->text);
-                                    }
-                                }
-                                if ($select->layout == "multi_section") {
-                                    foreach ($select->attributes->select as $key => $attributes) {
-                                        foreach ($attributes->attributes->select as $key => $select) {
-                                            if ($select->layout == "section") {
-                                                foreach ($select->attributes->questions as $key22 => $questions) {
-                                                    array_push($array,  $questions->attributes->text);
-                                                }
-                                            }
-                                            if ($select->layout == "Flexible_section") {
-
-
-                                                foreach ($select->attributes->questions as $key22 => $questions) {
-                                                    array_push($array,  $questions->attributes->text);
-                                                }
-                                            }
-
-
-
-                                        }
-
-                                        # code...
-
-                                    }
-                                }
-
-
-
-
-                            }
-
-                            # code...
-
-                        }
-                    }
-                }
-
-                $page->validation = $array;
             }
+            $FormResult->result = [];
+        }
 
-            return $array;
+        // dd($FormResults,$this->array2);
+
+        // dd($array);
+        return $array;
 
     }
 
