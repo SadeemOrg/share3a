@@ -23,7 +23,6 @@ class ExportFormReselt implements FromCollection, WithHeadings
         $array = [];
         array_push($array, 'الاسم');
         array_push($array, 'العائلة');
-
         array_push($array, 'البلد');
         array_push($array, 'رقم الهويه');
         array_push($array, 'رقم الهاتف');
@@ -31,7 +30,7 @@ class ExportFormReselt implements FromCollection, WithHeadings
         array_push($array, 'رقم الفرع');
         array_push($array, 'رقم الحساب');
         array_push($array, 'معدل_الدخل_الشهري_للأسرة');
-
+        array_push($array, 'حالة الاحتياج');
         array_push($array, 'رابط الملف');
 
 
@@ -57,7 +56,8 @@ class ExportFormReselt implements FromCollection, WithHeadings
             "اسم_البنك_ورقمه",
             "الفرع",
             "رقم_الحساب",
-            "معدل_الدخل_الشهري_للأسرة"
+            "معدل_الدخل_الشهري_للأسرة",
+            "تعبئة_استمارة_حالة_الاحتياج_"
         ];
         // dd($valueKey);
         // $finalArray = [];
@@ -82,13 +82,14 @@ class ExportFormReselt implements FromCollection, WithHeadings
 
         foreach ($FormResults as $key => $FormResult) {
             $pushArray = [];
-
             // Initialize the pushArray with 0 for each element in $valueKey
             foreach ($valueKey as $element) {
                 $pushArray[$element] = 0;
             }
 
             foreach (json_decode($FormResult->result) as $item) {
+                // dump($item->questionskey);
+
                 // Check if the questionskey exists in the valueKey array
                 if (in_array($item->questionskey, $valueKey)) {
                     // If found, update the value in pushArray
