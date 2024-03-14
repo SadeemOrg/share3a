@@ -21,117 +21,19 @@ class ExportFormReselt implements FromCollection, WithHeadings
     public function headings(): array
     {
         $array = [];
-        array_push($array, 'user_ip');
-        array_push($array, '');
-        array_push($array, 'browser');
-        array_push($array, 'os');
-        // $healthy = ["__", "_"];
-        // $yummy   = ["  ", "  "];
+        array_push($array, 'الاسم');
+        array_push($array, 'البلد');
+        array_push($array, 'رقم الهويه');
+        array_push($array, 'رقم الهاتف');
+        array_push($array, 'اسم البنك ورقمه');
+        array_push($array, 'رقم الفرع');
+        array_push($array, 'رقم الحساب');
+        array_push($array, 'معدل_الدخل_الشهري_للأسرة');
+
+        array_push($array, 'رابط الملف');
 
 
-        // $FormResults = FormResults::where('id', $this->year[0])->first();
-
-        // $form = Form::where('id', $FormResults->form_id)->first();
-
-
-
-
-        //     $Contents = json_decode($form->questions);
-
-        //     foreach ($Contents as $key => $page) {
-
-        //         foreach ($page->attributes->questions as $key => $sections) {
-        //             if ($sections->layout == "Flexible_section") {
-
-
-        //                 foreach ($sections->attributes->questions as $key22 => $questions) {
-        //                     array_push($array,  $questions->attributes->text);
-        //                 }
-        //             }
-
-        //             if ($sections->layout == "section") {
-        //                 foreach ($sections->attributes->questions as $key22 => $questions) {
-        //                     array_push($array,  $questions->attributes->text);
-        //                 }
-        //             }
-
-        //             if ($sections->layout == "multi_section") {
-        //                 foreach ($sections->attributes->select as $key => $attributes) {
-        //                     foreach ($attributes->attributes->select as $key => $select) {
-        //                         if ($select->layout == "section") {
-        //                             foreach ($select->attributes->questions as $key22 => $questions) {
-        //                                 array_push($array,  $questions->attributes->text);
-        //                             }
-        //                         }
-        //                         if ($select->layout == "Flexible_section") {
-
-
-        //                             foreach ($select->attributes->questions as $key22 => $questions) {
-        //                                 array_push($array,  $questions->attributes->text);
-        //                             }
-        //                         }
-        //                         if ($select->layout == "multi_section") {
-        //                             foreach ($select->attributes->select as $key => $attributes) {
-        //                                 foreach ($attributes->attributes->select as $key => $select) {
-        //                                     if ($select->layout == "section") {
-        //                                         foreach ($select->attributes->questions as $key22 => $questions) {
-        //                                             array_push($array,  $questions->attributes->text);
-        //                                         }
-        //                                     }
-        //                                     if ($select->layout == "Flexible_section") {
-
-
-        //                                         foreach ($select->attributes->questions as $key22 => $questions) {
-        //                                             array_push($array,  $questions->attributes->text);
-        //                                         }
-        //                                     }
-
-
-
-        //                                 }
-
-        //                                 # code...
-
-        //                             }
-        //                         }
-
-
-
-
-        //                     }
-
-        //                     # code...
-
-        //                 }
-        //             }
-        //         }
-
-        //         $page->validation = $array;
-        //     }
-
-        //     return $array;
-        $FormResults = FormResults::select('user_ip', 'result', 'browser', 'os')->wherein('id', $this->year)->get();
-
-        $healthy = ["__", "_"];
-        $yummy   = ["  ", "  "];
-        foreach ($FormResults as $key => $FormResult) {
-            $data = " ";
-
-            // dd( json_decode($FormResult->result));
-
-            foreach (json_decode($FormResult->result) as $key => $value) {
-                $KEYS = str_replace($healthy,  $yummy, $value->questionskey);
-                                array_push($array,  $KEYS);
-
-            }
-            $FormResult->result = [];
-        }
-
-        // dd($FormResults,$this->array2);
-
-        // dd($array);
         return $array;
-
     }
 
 
@@ -141,24 +43,62 @@ class ExportFormReselt implements FromCollection, WithHeadings
     public function collection()
     {
         // dd($this->year);
+
         $FormResults = FormResults::select('user_ip', 'result', 'browser', 'os')->wherein('id', $this->year)->get();
+        // dd($FormResults,$this->year);
+        $valueKey = [
+            "الاسم:_שם",
+            "البلد",
+            "رقم_الهوية:_מספר_ת_ז",
+            'رقم_الجوال__',
+            "اسم_البنك_ورقمه",
+            "الفرع",
+            "رقم_الحساب",
+            "معدل_الدخل_الشهري_للأسرة"
+        ];
+        // dd($valueKey);
+        // $finalArray = [];
+        // foreach ($FormResults as $key => $FormResult) {
+        //     $pushArray = [];
+        //     foreach ($valueKey as $element) {
+        //         foreach (json_decode($FormResult->result) as $item) {
+
+        //             if ($item->questionskey === $element) {
+
+        //                 array_push($pushArray, $item->questionskey);
+        //             }
+
+        //         }
+
+        //     }
+        //     array_push($finalArray,$pushArray);
 
 
-        $healthy = ["__", "_"];
-        $yummy   = ["  ", "  "];
+        // }
+        $finalArray = [];
+
         foreach ($FormResults as $key => $FormResult) {
-            $data = " ";
+            $pushArray = [];
 
-            // dd( Str::replace('-', '/', '12-28-2021'));
-            foreach (json_decode($FormResult->result) as $key => $value) {
-                // $series = str_replace(' ',   $healthy, $value->questionskey);
-                // dd( $series);
-                $KEYS = str_replace($healthy,  $yummy, $value->questionskey);
-                $FormResult->$KEYS  = $value->questionsanswerkey;
+            // Initialize the pushArray with 0 for each element in $valueKey
+            foreach ($valueKey as $element) {
+                $pushArray[$element] = 0;
             }
-            $FormResult->result = [];
+
+            foreach (json_decode($FormResult->result) as $item) {
+                // Check if the questionskey exists in the valueKey array
+                if (in_array($item->questionskey, $valueKey)) {
+                    // If found, update the value in pushArray
+                    // dump($item->questionskey,$item->questionsanswerkey);
+                    $pushArray[$item->questionskey] = $item->questionsanswerkey;
+                }
+            }
+            $pushArray['url'] =url('/Admin/resources/form-results/431');
+            // Push the pushArray to finalArray
+            $finalArray[] = $pushArray;
         }
-        // dd($FormResults);
-        return $FormResults;
+
+
+        return collect($finalArray);
     }
 }
