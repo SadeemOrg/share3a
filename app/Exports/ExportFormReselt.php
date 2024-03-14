@@ -22,6 +22,8 @@ class ExportFormReselt implements FromCollection, WithHeadings
     {
         $array = [];
         array_push($array, 'الاسم');
+        array_push($array, 'العائلة');
+
         array_push($array, 'البلد');
         array_push($array, 'رقم الهويه');
         array_push($array, 'رقم الهاتف');
@@ -44,10 +46,11 @@ class ExportFormReselt implements FromCollection, WithHeadings
     {
         // dd($this->year);
 
-        $FormResults = FormResults::select('user_ip', 'result', 'browser', 'os')->wherein('id', $this->year)->get();
+        $FormResults = FormResults::select('id','user_ip', 'result', 'browser', 'os')->wherein('id', $this->year)->get();
         // dd($FormResults,$this->year);
         $valueKey = [
             "الاسم:_שם",
+            "العائلة:_המשפחה",
             "البلد",
             "رقم_الهوية:_מספר_ת_ז",
             'رقم_الجوال__',
@@ -89,15 +92,15 @@ class ExportFormReselt implements FromCollection, WithHeadings
                 // Check if the questionskey exists in the valueKey array
                 if (in_array($item->questionskey, $valueKey)) {
                     // If found, update the value in pushArray
-                    // dump($item->questionskey,$item->questionsanswerkey);
+
                     $pushArray[$item->questionskey] = $item->questionsanswerkey;
                 }
             }
-            $pushArray['url'] =url('/Admin/resources/form-results/431');
+
+            $pushArray['url'] =url('/Admin/resources/form-results/'.$FormResult->id);
             // Push the pushArray to finalArray
             $finalArray[] = $pushArray;
         }
-
 
         return collect($finalArray);
     }
