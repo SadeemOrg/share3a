@@ -141,7 +141,10 @@
                             </li>
                             <li class="mb-5">
                                 <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
-                                    يعلنون للأهل في سخنين ومنطقة البطوف عن بدء التسجيل لمساقات في :
+                                    يعلنون للأهل في سخنين ومنطقة البطوف عن بدء التسجيل
+                                    للفوج الثاني لدراسة الشريعة الإسلامية
+
+
                                 </p>
                             </li>
                         @endif
@@ -159,13 +162,13 @@
                             {{ $forms->second_sup_text }}
                         </p>
                     @elseif($sakhnin == true)
-                    <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
-                        دبلوم في الشريعة والعلوم الإسلامية
-                    </p>
-                    <p class="text-[23px] md:text-[35px] lg:text-[43px] bg-[#124A85] py-3 px-4">
-                        مكان التعليم: سخنين- في مركز ابن عباس الثقافي- مقابل مسجد النور.
+                        {{-- <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
+                            دبلوم في الشريعة والعلوم الإسلامية
+                        </p>
+                        <p class="text-[23px] md:text-[35px] lg:text-[43px] bg-[#124A85] py-3 px-4">
+                            للفوج الثاني لدراسة الشريعة الإسلامية
 
-                    </p>
+                        </p> --}}
                     @endif
                 </div>
                 @php
@@ -247,25 +250,22 @@
                     <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                أيام التعليم: كل يوم سبت، بين الساعات 8:30-11:30 صباحًا.
+                                بداية التعليم: السبت 7/6/2024
                             </p>
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                بداية التعليم: السبت 24/2/2024
+                                أيام التعليم: كل يوم سبت.
                             </p>
                         </li>
+
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                التعليم عبارة عن 24 مساقًا، 6 مساقات كل سنة، مساقين كل فصل دراسي، وبدءًا من السنة الثانية 9 مساقات كل سنة.
+                                التعليم عبارة عن 24 مساقًا، من يتمّها يحصل على دبلوم في الشريعة والعلوم الإسلاميّة من
+                                كلّيّة كفربرا.
                             </p>
                         </li>
-                        <li class="mb-5">
-                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                من يتمّ الـ 24 مساقًا يحصل على دبلوم في الشريعة والعلوم الإسلاميّة من كلّيّة كفربرا. ومن
-                                يرغب بالانضمام للمسار المكثّف في كفربرا خلال التعليم بإمكانه ذلك كل الوقت.
-                            </p>
-                        </li>
+
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
                                 بإمكان الحاصلين على الدبلوم إكمال اللقب الأوّل في كليّة أونو.
@@ -273,8 +273,8 @@
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                مساقات الفصل الأول: سيرة نبوية + عبادات 1.
-                            </p>
+                                التعليم في مركز ابن عباس الثقافي في سخنين، مساقان كل فصل دراسي، 6 مساقات في السنة. وهناك
+                                إمكانيّة للانضمام للمسار المكثّف في كفربرا </p>
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
@@ -368,7 +368,8 @@
                                     0506300535</a>
                             </div>
                         @elseif($nqp == false && $share3a == false && $sakhnin == true)
-                            <div class="flex flex-row flex-wrap sm:flex-nowrap gap-y-2 sm:gap-y-0 gap-x-4 justify-start">
+                            <div
+                                class="flex flex-row flex-wrap sm:flex-nowrap gap-y-2 sm:gap-y-0 gap-x-4 justify-start">
                                 <a href="tel:0506411910" class="underline underline-offset-1">الشيخ فريد حمزة:
                                     0506411910</a>
                                 <a href="tel:0546896365" class="underline underline-offset-1">نجاح عثمان:
