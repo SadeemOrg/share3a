@@ -197,11 +197,11 @@
                                 للمسار المكثّف في كفربرا.
                             </p>
                         </li>
-                        <li class="mb-5">
+                        {{-- <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
                                 مساقات الفصل الثاني: عقيدة 1 + عبادات 1.
                             </p>
-                        </li>
+                        </li> --}}
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
                                 كلفة التسجيل للمساقين: 1800 شيكل، 900 شيكل عن كل مساق. </p>
