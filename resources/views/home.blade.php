@@ -161,7 +161,14 @@
                         <p class="text-[23px] md:text-[35px] lg:text-[43px] bg-[#124A85] py-3 px-4">
                             {{ $forms->second_sup_text }}
                         </p>
+                    @elseif($sakhnin == true)
+                        {{-- <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
+                            دبلوم في الشريعة والعلوم الإسلامية
+                        </p>
+                        <p class="text-[23px] md:text-[35px] lg:text-[43px] bg-[#124A85] py-3 px-4">
+                            للفوج الثاني لدراسة الشريعة الإسلامية
 
+                        </p> --}}
                     @endif
                 </div>
                 @php
