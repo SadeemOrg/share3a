@@ -21,7 +21,7 @@
         }
 
         input::placeholder {
-            color: black;
+            color: #A2A6B0;
         }
 
         select {
@@ -53,7 +53,7 @@
 
     <body dir="rtl" class="bg-green-700 min-h-full bgg"
         style="background-image:url('https://media.discordapp.net/attachments/938405759996276806/1024261075954319430/D77A8EED_3.png?width=306&height=606') "
-        ;>>
+        ;>
         <!-- header -->
         <header>
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
@@ -69,11 +69,11 @@
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="mx-auto max-w-4xl">
                     <div class="text-white text-center mt-8">
-                        <p class="text-[20px] sm:text-[24px] md:text-[28px] lg:text-[44px] mb-10 font-bold">
+                        <p class="text-[36px] sm:text-[32px] md:text-[36px] lg:text-[44px] mb-10 font-bold">
                             جسور شبابية - نحو بناء قيادات مستقبلية
                         </p>
                     </div>
-                    <p class=" text-center text-[#E3BD2F] text-[31px] md:text-[36px] lg:text-[43px] font bold">
+                    <p class=" text-center text-[#E3BD2F] text-[32px] md:text-[36px] lg:text-[43px] font bold">
                         {{ $forms->text }}
                     </p>
                     <p class=" text-center text-[#E3BD2F] text-[31px] md:text-[36px] lg:text-[44px] mb-10">
@@ -185,7 +185,7 @@
                                                     class="w-full md:h-[65px] border-transparent border rounded-md focus:ring-yellow-300 focus:border-yellow-300 sm:text-sm p-4"
                                                     id="grid-password" type="text"
                                                     placeholder="{{ $question->attributes->text }}"
-                                                    style="color: black; /* Change placeholder color to black */">
+                                                    style="color: rgb(99, 89, 89); /* Change placeholder color to black */">
                                             </div>
                                         </div>
                                     @endif
@@ -194,7 +194,7 @@
                                             <div class="w-full px-3">
                                                 <div class="relative">
                                                     <select dir="rtl" name='{{ $question->attributes->text }}'
-                                                        class=" block w-full md:h-[65px] border-[#A2A6B0] border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-4"
+                                                        class=" block w-full  md:h-[65px] border-[#A2A6B0] text-gray-500 text-[14px] border rounded-md focus:bg-white focus:border-yellow-300 sm:text-sm p-4"
                                                         id="grid-state">
                                                         <option class="text-[#000]"
                                                             name='{{ $question->attributes->text }}'>
