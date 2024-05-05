@@ -93,6 +93,20 @@ Route::get('share3a-sakhnin', function () {
     return view('home', compact('forms','nqp','sakhnin','share3a'));
 });
 
+Route::get('/shbab-mwahadeh', function () {
+    $forms = Form::where("id", '20')->first();
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $exist = FormResults::where('form_id', $forms->id)->where('user_ip', $ip)->first();
+    if ($exist) {
+    }
+    $share3a = false;
+    $nqp = false;
+    $sakhnin = true;
+    // dd($forms);
+
+    return view('shbab-mwahadeh', compact('forms','nqp','sakhnin','share3a'));
+});
+
 Route::get('/emar/{slug}', function () {
     return view('sadaqat.index');
 });
