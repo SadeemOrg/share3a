@@ -162,7 +162,14 @@ class CustomsForm extends Resource
                 ])->addLayout(__('Add boolean Filed'), 'boolean', [
                     Text::make(__('text'), 'text'),
 
+                ])->addLayout(__('Add range Filed'), 'range', [
+                    Text::make(__('text'), 'text'),
+                    Text::make(__('from'), 'from'),
+                    Text::make(__('to'), 'to'),
+
+
                 ]),
+
 
             Multiselect::make(__('leading'), 'leadings')
 
