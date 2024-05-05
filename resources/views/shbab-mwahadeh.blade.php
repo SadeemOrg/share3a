@@ -85,7 +85,7 @@
                         </li>
                         <li class="mb-5 min-w-[350px]">
                             <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10">
-                                المكان: فندق جولدن كراون، الناصرة
+                                المكان: فندق جولدن كراون، الناصرة- مع مبيت.
                             </p>
                         </li>
                         <li class="mb-5 min-w-[350px]">
@@ -119,7 +119,8 @@
                                 ورشات عمل، جولة خارج الفندق، وحوار مع النواب. </p>
                         </li>
                         <li>
-                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10 sm:pb-12 "> اليوم الثالث: ورشات عمل
+                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10 sm:pb-12 "> اليوم الثالث:
+                                ورشات عمل
                                 تفاعلية وإنشاء خطة تفعيلية للأشهر الستة القادمة. </p>
                         </li>
                     </ul>
@@ -251,8 +252,13 @@
                         <span class="text-[#EBBD22] ">ملاحظة:</span>
                         طاقم الموحدة سوف يعود للتواصل معك لتأكيد عملية تسجيلك.
                     </p>
-                    <div
-                        class="text-white TheSansArabic-regular sm:text-base  text-[14px]   flex flex-row items-center gap-x-2">
+
+                    {{-- <p class="text-white TheSansArabic-regular sm:text-lg  text-[14px] mb-3">
+                        <span class="text-red-900 ">ملاحظة:</span>
+                        آخر موعد للتسجيل يوم الخميس القادم الموافق 9 مايو 2024.
+                    </p> --}}
+
+                    <div class="text-white  sm:text-base  text-[14px]   flex flex-row items-center gap-x-2">
                         <span class="text-[#EBBD22] ">للاستفسار:</span>
                         <a href="tel:0509951387" class="underline underline-offset-1">يزن مراد
                             0509951387
@@ -260,6 +266,13 @@
                         <a href="tel:0509951387" class="underline underline-offset-1">احمد عابد
                             0523862002
                         </a>
+                    </div>
+                    <div class="flex flex-row items-center justify-start mt-12">
+                        <button type="button"
+                            class="mt-5 bg-[#ebbd22] text-red-600 text-base px-2 sm:text-xl w-auto md:w-[60%]  md:h-[75px] py-4 font-[700]  ">
+                            <span>ملاحظه:</span>
+                            آخر موعد للتسجيل يوم الخميس القادم الموافق 9 مايو 2024.
+                        </button>
                     </div>
                 </div>
             </div>
