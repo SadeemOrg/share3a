@@ -4,9 +4,10 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ $forms->slug }}</title>
+        <title>جسور شبابية - نحو بناء قيادات مستقبلية</title>
         <!-- Styles -->
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+        <link rel="stylesheet" type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
         @vite('resources/css/app.css')
         <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}?v={{ rand(0, 99) }}">
     </head>
@@ -15,12 +16,13 @@
         style="background-image: url({{ asset('assets/images/website-bg-img.webp') }}); background-size: auto 100%;">
         <!-- header -->
         <header>
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 my-12">
                 <div class="mx-auto max-w-4xl">
                     <div class="">
 
                         <div class="col-span-1 flex justify-center items-center">
-                            <img class="max-w-[220px] w-full mx-auto mt-10" src="/storage/{{ $forms->icons }}" alt="left logo">
+                            <img class="max-w-[220px] w-full mx-auto mt-10" src="/storage/{{ $forms->icons }}"
+                                alt="left logo">
                         </div>
 
                     </div>
@@ -35,16 +37,13 @@
         <section>
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="mx-auto max-w-4xl">
-                    <p class="Hebah-Font text-center text-[#E3BD2F] text-[25px] md:text-[40px] lg:text-[64px] mb-10">
-                        {{-- {{ nova_get_setting('title', '') }} --}}
+                    <p class="Hebah-Font text-center text-[#E3BD2F] text-[31px] md:text-[40px] lg:text-[64px] mb-10">
                         {{ $forms->text }}
                     </p>
 
                     <div class="text-white text-center">
-                        <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] mb-10">
+                        <p class="text-[20px] sm:text-[24px] md:text-[28px] lg:text-[38px] mb-10 font-bold">
                             جسور شبابية - نحو بناء قيادات مستقبلية
-
-
                         </p>
                     </div>
 
@@ -52,7 +51,7 @@
                     <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                📅 الزمان: 23 - 25 أيار 2024                        </p>
+                                📅 الزمان: 23 - 25 أيار 2024 </p>
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
@@ -61,7 +60,7 @@
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                الفئة العمرية: 18 - 30 عامًا                        </p>
+                                الفئة العمرية: 18 -27 عامًا </p>
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
@@ -72,32 +71,40 @@
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
                                 الورشة ستتناول محاور :
                                 سياسية، دينية، إدارية، إعلامية، نفسية، اجتماعية، واستراتيجية.
-                                                        </p>
+                            </p>
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                📝 برنامج اللقاء:
-                                - اليوم الأول: وصول المشاركين، جلسة افتتاحية، ومحاضرات تفاعلية.
-                                - اليوم الثاني: محاضرات، ورشات عمل، جولة خارج الفندق، وحوار مع النواب.
-                                - اليوم الثالث: ورشات عمل تفاعلية وإنشاء خطة تفعيلية للأشهر الستة القادمة.
-
                             </p>
                         </li>
+                        <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">📝 برنامج اللقاء: </p><br>
+                        <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10"> اليوم الأول: وصول
+                            المشاركين، جلسة افتتاحية، ومحاضرات تفاعلية.</p><br>
+                        <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10"> اليوم الثاني: محاضرات،
+                            ورشات عمل، جولة خارج الفندق، وحوار مع النواب. </p><br>
+                        <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10"> اليوم الثالث: ورشات عمل
+                            تفاعلية وإنشاء خطة تفعيلية للأشهر الستة القادمة. </p><br>
+
+
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
                                 شروط الاشتراك:
-                                - رسوم اشتراك رمزية: 100 شيكل للشخص.
-                                - للجادّين فقط والذين يتطلعون للمشاركة الدائمة وبناء مستقبل سياسي قيادي.
-                                - التواجد في كل السيمينار من بدايته لنهايته أمر ضروري.
-
                             </p>
                         </li>
+
+                        <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10"> رسوم اشتراك رمزية: 100
+                            شيكل للشخص.</p><br>
+                        <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10"> للجادّين فقط والذين
+                            يتطلعون للمشاركة الدائمة وبناء مستقبل سياسي قيادي.</p><br>
+                        <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">  التواجد في كل
+                            السيمينار من بدايته لنهايته أمر ضروري.</p><br>
+
+
                     </ul>
 
                     @php
                         $questions = $forms->questions;
                         $questions = json_decode($questions);
-
                     @endphp
 
                     <form class="w-full " method="post" action="{{ route('form.store') }}">
@@ -154,18 +161,39 @@
                                     </div>
                                 </div>
                             @endif
+                            @if ($question->layout == 'range')
+                                <div class="flex flex-wrap -mx-3 mb-6">
+                                    <div class="w-full px-3">
+                                        <div class="relative">
+                                            <select name='{{ $question->attributes->text }}'
+                                                class="block w-full bg-transparent text-white border border-white rounded-sm py-4 px-4 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#EBBD22]"
+                                                id="grid-state">
+                                                <option class="text-[#000]" name='{{ $question->attributes->text }}'>
+                                                    {{ $question->attributes->text }}</option>
+                                                @for ($i = $question->attributes->from; $i <= $question->attributes->to; $i++)
+                                                    <option value="{{ $i }}" class="text-[#000]">
+                                                        {{ $i }}
+                                                    </option>
+                                                @endfor
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            @endif
                         @endforeach
                         <div class="text-right mb-5">
                             <button
-                                class="mb-4 block bg-[#124A85] px-20 w-full py-4 hover:bg-blue-700 text-white font-bold py-2 rounded-sm">
+                                class="mb-4 block bg-[#124A85] px-20 w-full text-sm  sm:text-lg hover:bg-blue-700 text-white font-bold py-4 rounded-sm">
                                 اضغط لإكمال عملية التسجيل
                             </button>
                         </div>
-                        <p class="text-white TheSansArabic-regular text-[14px] mb-3">
+                        <p class="text-white TheSansArabic-regular sm:text-base  text-[14px] mb-3">
                             <span class="text-[#EBBD22] ">ملاحظة:</span>
-                            طاقم الكلية سوف يعود للتواصل معك لتأكيد عملية تسجيلك.
+                            طاقم الموحدة سوف يعود للتواصل معك لتأكيد عملية تسجيلك.
                         </p>
-                        <div class="text-white TheSansArabic-regular text-[14px] flex flex-row items-center gap-x-2">
+                        <div class="text-white TheSansArabic-regular sm:text-base  text-[14px]   flex flex-row items-center gap-x-2">
                             <span class="text-[#EBBD22] ">للاستفسار:</span>
                             <a href="tel:0509951387" class="underline underline-offset-1">يزن مراد
                                 0509951387

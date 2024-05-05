@@ -10,23 +10,37 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}?v={{ rand(0, 99) }}">
 </head>
 
-<body dir="rtl" style="background-image: url({{asset('assets/images/website-bg-img.webp')}}); background-size: auto 100%;">
+<body dir="rtl"
+    style="background-image: url({{ asset('assets/images/website-bg-img.webp') }}); background-size: auto 100%;">
     <!-- header -->
     <header>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
-                {{-- <img src="{{ asset('assets/logos-header.svg') }}" alt=""> --}}
-                <div class="grid grid-cols-3 gap-6 ">
-                    <div class="col-span-1 flex justify-center items-center">
-                        <img class="max-w-[220px] w-full mx-auto" src="{{asset('assets/images/header-logos/rt-logo-h.png')}}" alt="left logo">
+                @if ($id == 20)
+                    <div class="flex flex-row  items-start justify-center my-16 ">
+
+                        <div class="col-span-1 flex justify-center items-center">
+                            <img class="max-w-[220px] w-full mx-auto" src="/storage/{{ $logo }}" alt="logo">
+                        </div>
+
                     </div>
-                    <div class="col-span-1 flex justify-center items-center">
-                        <img class="max-w-[220px] w-full mx-auto" src="{{asset('assets/images/header-logos/middle-logo.png')}}" alt="left logo">
+                @else
+                    <div class="grid grid-cols-3 gap-6 ">
+                        <div class="col-span-1 flex justify-center items-center">
+                            <img class="max-w-[220px] w-full mx-auto"
+                                src="{{ asset('assets/images/header-logos/rt-logo-h.png') }}" alt="left logo">
+                        </div>
+                        <div class="col-span-1 flex justify-center items-center">
+                            <img class="max-w-[220px] w-full mx-auto"
+                                src="{{ asset('assets/images/header-logos/middle-logo.png') }}" alt="left logo">
+                        </div>
+                        <div class="col-span-1 flex justify-center items-center">
+                            <img class="max-w-[220px] w-full mx-auto"
+                                src="{{ asset('assets/images/header-logos/lt-logo.svg') }}" alt="left logo">
+                        </div>
                     </div>
-                    <div class="col-span-1 flex justify-center items-center">
-                        <img class="max-w-[220px] w-full mx-auto" src="{{asset('assets/images/header-logos/lt-logo.svg')}}" alt="left logo">
-                    </div>
-                </div>
+                @endif
+
             </div>
         </div>
     </header>

@@ -113,7 +113,11 @@
     "choice":"خيار",
     "Flexible Section":"قسم متكرر",
     "DependsOnForm Form":"تعديل صفحة جديدة",
-    "":""
+    "Add range Filed":"إضافة حقل النطاق",
+    "from":"من",
+    "to":"الى",
+    "range":"نطاق"
+
 
 
 }
