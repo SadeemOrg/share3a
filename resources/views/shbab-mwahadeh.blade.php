@@ -69,14 +69,14 @@
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="mx-auto max-w-4xl">
                     <div class="text-white text-center mt-8">
-                        <p class="text-[36px] sm:text-[32px] md:text-[36px] lg:text-[44px] mb-10 font-bold">
+                        <p class="text-[30px] sm:text-[32px] md:text-[36px] lg:text-[44px] mb-10 font-bold">
                             جسور شبابية - نحو بناء قيادات مستقبلية
                         </p>
                     </div>
-                    <p class=" text-center text-[#E3BD2F] text-[32px] md:text-[36px] lg:text-[43px] font bold">
+                    <p class=" text-center text-[#E3BD2F] text-[30px] md:text-[36px] lg:text-[43px] font bold">
                         {{ $forms->text }}
                     </p>
-                    <p class=" text-center text-[#E3BD2F] text-[31px] md:text-[36px] lg:text-[44px] mb-10">
+                    <p class=" text-center text-[#E3BD2F] text-[30px] md:text-[36px] lg:text-[44px] mb-10">
                         جسور شبابية - نحو بناء قيادات مستقبلية
                     </p>
 
