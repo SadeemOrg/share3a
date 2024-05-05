@@ -126,7 +126,7 @@ class CustomsForm extends Resource
         return [
             ID::make()->sortable(),
 
-            Button::make(__('go to page'))->link(url('/') . '/share3a' . $this->url)->style('primary'),
+            Button::make(__('go to page'))->link(url('/')  . $this->url)->style('primary'),
             Text::make(__('slug'), 'slug')->rules('required')->hideFromIndex()->hideFromDetail()->hideFromDetail(),
             Text::make(__('url'), 'url')->hideFromIndex()->hideFromDetail()->hideFromDetail(),
 
