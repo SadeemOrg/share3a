@@ -87,7 +87,7 @@ body {font-family: TheSansArabic-bold;}
   }
 }
 
-::placeholder, .select-option {color: #ddd !important;}
+::placeholder, .select-option {color: #ddd ;}
 /* .register-form ::placeholder {
     color: #ffffffa3 !important;
   }

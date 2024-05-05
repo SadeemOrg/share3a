@@ -121,7 +121,8 @@ class HomeController extends Controller
         $form = Form::find($request->formid);
         $id=$form->id;
         $logo=$form->icons;
-        if ($form->type == 1)   return view('thanks',compact('id','logo'));
+        if($id==20) return view('shabab-mwahdeh-success-form',compact('logo'));
+        if ($form->type == 1)   return view('thanks');
         return view('light_thanks', compact('form'));
     }
     public function RegisterForm(Request $request)

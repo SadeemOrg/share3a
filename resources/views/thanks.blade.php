@@ -16,15 +16,6 @@
     <header>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
-                @if ($id == 20)
-                    <div class="flex flex-row  items-start justify-center my-16 ">
-
-                        <div class="col-span-1 flex justify-center items-center">
-                            <img class="max-w-[220px] w-full mx-auto" src="/storage/{{ $logo }}" alt="logo">
-                        </div>
-
-                    </div>
-                @else
                     <div class="grid grid-cols-3 gap-6 ">
                         <div class="col-span-1 flex justify-center items-center">
                             <img class="max-w-[220px] w-full mx-auto"
@@ -39,7 +30,6 @@
                                 src="{{ asset('assets/images/header-logos/lt-logo.svg') }}" alt="left logo">
                         </div>
                     </div>
-                @endif
 
             </div>
         </div>
