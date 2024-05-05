@@ -98,7 +98,7 @@
                             </p>
                         </li>
                         <li class="mb-5">
-                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10">
+                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10 ">
                                 الورشة ستتناول محاور :
                                 سياسية، دينية، إدارية، إعلامية، نفسية، اجتماعية، واستراتيجية.
                             </p>
@@ -109,7 +109,7 @@
                         برنامج اللقاء:
                     </p>
                     <ul
-                        class="text-white flex flex-col gap-y-5 justify-start features-list py-4 sm:py-0 mt-4 pb-8 mb-8 border-b border-[#EBBD22]">
+                        class="text-white flex flex-col gap-y-5 justify-start features-list py-4 sm:py-0  pb-8 mb-8  border-b border-[#EBBD22]">
                         <li>
                             <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10"> اليوم الأول: وصول
                                 المشاركين، جلسة افتتاحية، ومحاضرات تفاعلية.</p>
@@ -119,7 +119,7 @@
                                 ورشات عمل، جولة خارج الفندق، وحوار مع النواب. </p>
                         </li>
                         <li>
-                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10"> اليوم الثالث: ورشات عمل
+                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10 pb-12"> اليوم الثالث: ورشات عمل
                                 تفاعلية وإنشاء خطة تفعيلية للأشهر الستة القادمة. </p>
                         </li>
                     </ul>
@@ -136,7 +136,7 @@
                                 يتطلعون للمشاركة الدائمة وبناء مستقبل سياسي قيادي.</p>
                         </li>
                         <li>
-                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10"> التواجد في كل
+                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10 pb-12"> التواجد في كل
                                 السيمينار من بدايته لنهايته أمر ضروري.</p>
                         </li>
                     </ul>
