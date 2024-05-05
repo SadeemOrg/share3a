@@ -10,9 +10,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}?v={{ rand(0, 99) }}">
 </head>
 
-<body class="bg-green-700 min-h-full "
-    style="background-image:url('https://media.discordapp.net/attachments/938405759996276806/1024261075954319430/D77A8EED_3.png?width=306&height=606') "
-    ;>
+<body dir="rtl" class=" min-h-full "
+style="background-image: url('{{ asset('assets/images/Artboard.png') }}');background-repeat: no-repeat;background-size: cover;min-height: 100vh;">
 
     <!-- Start page content -->
     <section class="flex flex-col items-center justify-center h-screen">

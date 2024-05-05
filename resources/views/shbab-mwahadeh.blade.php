@@ -21,7 +21,7 @@
         }
 
         input::placeholder {
-            color: #A2A6B0;
+            color: white;
         }
 
         select {
@@ -51,14 +51,13 @@
         }
     </style>
 
-    <body dir="rtl" class="bg-green-700 min-h-full bgg"
-        style="background-image:url('https://media.discordapp.net/attachments/938405759996276806/1024261075954319430/D77A8EED_3.png?width=306&height=606') "
-        ;>
+    <body dir="rtl" class=" min-h-full "
+        style="background-image: url('{{ asset('assets/images/Artboard.png') }}');background-repeat: no-repeat;background-size: cover;">
         <!-- header -->
         <header>
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
                 <div class="mx-auto max-w-5xl">
-                    <div class=" flex flex-col justify-start items-center relative ">
+                    <div class=" flex flex-col justify-start items-center relative pt-44">
                         <img class="max-w-xl w-full mx-auto" src="/storage/{{ $forms->icons }}" alt="left logo">
                     </div>
                 </div>
@@ -67,67 +66,79 @@
 
         <section class="-mt-10">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="mx-auto max-w-4xl">
-                    <div class="text-white text-center mt-8">
-                        <p class="text-[30px] sm:text-[32px] md:text-[36px] lg:text-[44px] mb-10 font-bold">
-                            جسور شبابية - نحو بناء قيادات مستقبلية
-                        </p>
-                    </div>
-                    <p class=" text-center text-[#E3BD2F] text-[30px] md:text-[36px] lg:text-[43px] font bold">
+                <div class="mx-auto max-w-6xl">
+
+                    <p
+                        class="Hebah-Font text-center text-[#E3BD2F] text-[42px] sm:text-[50px] md:text-[64px] m-6 sm:mt-0 font bold">
                         {{ $forms->text }}
                     </p>
-                    <p class=" text-center text-[#E3BD2F] text-[30px] md:text-[36px] lg:text-[44px] mb-10">
+                    <p class="font-bold text-center text-white text-[34px] sm:text-[40px]  md:text-[52px] my-10">
                         جسور شبابية - نحو بناء قيادات مستقبلية
                     </p>
 
 
-                    <ul class="text-white features-list mt-24 pb-8 mb-8 border-b border-[#EBBD22] ">
-                        <li class="mb-5">
-                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                📅 الزمان: 23 - 25 أيار 2024 </p>
+                    <ul
+                        class="text-white flex flex-row flex-wrap justify-start  gap-x-28 features-list mt-24 pb-8 mb-8 border-b border-[#EBBD22] ">
+                        <li class="mb-5 min-w-[350px]">
+                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10">
+                                الزمان: 23 - 25 أيار 2024 </p>
                         </li>
-                        <li class="mb-5">
-                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                📍 المكان: فندق جولدن كراون، الناصرة
+                        <li class="mb-5 min-w-[350px]">
+                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10">
+                                المكان: فندق جولدن كراون، الناصرة
                             </p>
                         </li>
-                        <li class="mb-5">
-                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
+                        <li class="mb-5 min-w-[350px]">
+                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10">
                                 الفئة العمرية: 18 -27 عامًا </p>
                         </li>
-                        <li class="mb-5">
-                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
+                        <li class="mb-5 min-w-[350px]">
+                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10">
                                 عدد المشاركين: محدود
                             </p>
                         </li>
                         <li class="mb-5">
-                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
+                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10">
                                 الورشة ستتناول محاور :
                                 سياسية، دينية، إدارية، إعلامية، نفسية، اجتماعية، واستراتيجية.
                             </p>
                         </li>
-                        <li class="mb-5">
-                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                            </p>
+                    </ul>
+
+                    <p class="text-[24px] md:text-[24px] lg:text-[30px] relative text-white  mt-4">
+                        برنامج اللقاء:
+                    </p>
+                    <ul
+                        class="text-white flex flex-col gap-y-5 justify-start features-list py-4 sm:py-0 mt-4 pb-8 mb-8 border-b border-[#EBBD22]">
+                        <li>
+                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10"> اليوم الأول: وصول
+                                المشاركين، جلسة افتتاحية، ومحاضرات تفاعلية.</p>
                         </li>
-                        <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">📝 برنامج اللقاء: </p><br>
-                        <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10"> اليوم الأول: وصول
-                            المشاركين، جلسة افتتاحية، ومحاضرات تفاعلية.</p><br>
-                        <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10"> اليوم الثاني: محاضرات،
-                            ورشات عمل، جولة خارج الفندق، وحوار مع النواب. </p><br>
-                        <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10"> اليوم الثالث: ورشات عمل
-                            تفاعلية وإنشاء خطة تفعيلية للأشهر الستة القادمة. </p><br>
-                        <li class="mb-5">
-                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                شروط الاشتراك:
-                            </p>
+                        <li>
+                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10"> اليوم الثاني: محاضرات،
+                                ورشات عمل، جولة خارج الفندق، وحوار مع النواب. </p>
                         </li>
-                        <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10"> رسوم اشتراك رمزية: 100
-                            شيكل للشخص.</p><br>
-                        <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10"> للجادّين فقط والذين
-                            يتطلعون للمشاركة الدائمة وبناء مستقبل سياسي قيادي.</p><br>
-                        <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10"> التواجد في كل
-                            السيمينار من بدايته لنهايته أمر ضروري.</p><br>
+                        <li>
+                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10"> اليوم الثالث: ورشات عمل
+                                تفاعلية وإنشاء خطة تفعيلية للأشهر الستة القادمة. </p>
+                        </li>
+                    </ul>
+                    <p class="text-[24px] md:text-[24px] lg:text-[30px] relative text-white  mt-4">
+                        شروط الاشتراك:
+                    </p>
+                    <ul class="text-white flex flex-col gap-y-5 py-4 sm:py-0  justify-start features-list mt-4 pb-8 ">
+                        <li>
+                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10"> رسوم اشتراك رمزية: 100
+                                شيكل للشخص.</p>
+                        </li>
+                        <li>
+                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10"> للجادّين فقط والذين
+                                يتطلعون للمشاركة الدائمة وبناء مستقبل سياسي قيادي.</p>
+                        </li>
+                        <li>
+                            <p class="text-[20px] md:text-[24px] lg:text-[30px] relative pr-10"> التواجد في كل
+                                السيمينار من بدايته لنهايته أمر ضروري.</p>
+                        </li>
                     </ul>
 
                     @php
@@ -149,9 +160,9 @@
                         <form method="post" action="{{ route('form.store') }}"
                             class="pb-28  flex flex-col items-center">
                             @csrf
-                            <div class=" bg-[#FFD400] w-[95%] h-auto flex flex-col px-4 md:px-14 pb-8 mx-auto">
+                            <div class=" bg-[#EBBD22] w-[95%] h-auto flex flex-col px-4 md:px-14 pb-8 mx-auto">
                                 <p
-                                    class="formInputData mt-10 sm:mt-14 lg:mt-20 xl:mt-28 text-[20px] sm:text-[28px] md:text-[40px] font-RpT-Bold text-[#000000]">
+                                    class=" mt-10 sm:mt-14 lg:mt-20 xl:mt-28 text-[20px] sm:text-[28px] md:text-[48px] text-center text-white">
                                     للمشاركة في جسور شبابية - نحو بناء قيادات مستقبلية
                                 </p>
                                 <input type="hidden" name='formid' value="{{ $forms->id }}">
@@ -182,7 +193,7 @@
                                         <div class="flex flex-wrap -mx-3 mb-6 mt-3">
                                             <div class="w-full px-3">
                                                 <input required name="{{ $question->attributes->text }}"
-                                                    class="w-full md:h-[65px] border-transparent border rounded-md focus:ring-yellow-300 focus:border-yellow-300 sm:text-sm p-4"
+                                                    class="w-full md:h-[65px] bg-transparent border-transparent border border-white rounded-md focus:ring-white focus:border-white sm:text-sm p-4"
                                                     id="grid-password" type="text"
                                                     placeholder="{{ $question->attributes->text }}"
                                                     style="color: rgb(99, 89, 89); /* Change placeholder color to black */">
@@ -194,7 +205,7 @@
                                             <div class="w-full px-3">
                                                 <div class="relative">
                                                     <select dir="rtl" name='{{ $question->attributes->text }}'
-                                                        class=" block w-full  md:h-[65px] border-[#A2A6B0] text-gray-500 text-[14px] border rounded-md focus:bg-white focus:border-yellow-300 sm:text-sm p-4"
+                                                        class=" block w-full  md:h-[65px] text-white bg-transparent border-transparent border border-white rounded-md focus:ring-white focus:border-white text-[14px] sm:text-sm p-4"
                                                         id="grid-state">
                                                         <option class="text-[#000]"
                                                             name='{{ $question->attributes->text }}'>
@@ -230,10 +241,10 @@
                                         </div>
                                     @endif
                                 @endforeach
+                                <button type="submit"
+                                    class="mt-5 bg-[#124A85] text-white text-base sm:text-xl w-[100%]  md:h-[75px] py-4 font-[700] hover:bg-[#101426] duration-200">اضغط
+                                    لإكمال عملية التسجيل</button>
                             </div>
-                            <button type="submit"
-                                class="mt-5 bg-[#000000] text-white text-base sm:text-xl w-[95%]  md:h-[75px] py-4 font-[700] hover:bg-[#101426] duration-200">اضغط
-                                لإكمال عملية التسجيل</button>
                         </form>
                     </div>
                     <p class="text-white TheSansArabic-regular sm:text-base  text-[14px] mb-3">
