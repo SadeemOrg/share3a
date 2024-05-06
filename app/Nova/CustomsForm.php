@@ -171,7 +171,7 @@ class CustomsForm extends Resource
 
                 ]),
 
-                Tag::make('User'),
+                Tag::make('User')->preload()->withPreview()->displayAsList()->showCreateRelationButton(),
 
          BelongsToMany::make(__("leading"), "leading", \App\Nova\User::class)->hideFromIndex(),
 
