@@ -19,7 +19,10 @@ class Form extends Model
     {
         return $this->hasMany(FormResults::class);
     }
-
+    public function User()
+    {
+        return $this->BelongsToMany(User::class,'form_users');
+    }
 
     public function leading()
     {
