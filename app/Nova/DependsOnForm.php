@@ -6,6 +6,8 @@ use App\Models\FormUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
@@ -15,6 +17,7 @@ use Laravel\Nova\Fields\Text;
 use Sietse85\NovaButton\Button;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Tag;
 use Outl1ne\MultiselectField\Multiselect;
@@ -136,6 +139,18 @@ class DependsOnForm extends Resource
             Text::make(__('sup_text_thanks'), 'sup_text_thanks'),
             Tag::make(__("leading"), "User", \App\Nova\User::class)->preload()->withPreview()->displayAsList()->showCreateRelationButton(),
 
+            BelongsToMany::make(__("leading"), "leading", \App\Nova\User::class)->hideFromIndex(),
+
+            BelongsTo::make(__('added_by'), 'addedby', \App\Nova\User::class)->hideWhenCreating()->hideWhenUpdating()->canSee(function (NovaRequest $request) {
+                if (Auth::check()) {
+                    if ((in_array($request->user()->userrole(), [1, 2]))) {
+                        return true;
+                    }
+                }
+            }),
+
+            HasMany::make(__("new FormResults"), "FormResults", \App\Nova\NewFormResults::class),
+            hasMany::make(__("old FormResults"), "FormResults", \App\Nova\FormResults::class),
 
 
             Flexible::make(__('Content'), 'questions')
