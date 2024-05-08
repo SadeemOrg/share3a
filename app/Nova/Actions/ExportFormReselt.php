@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -43,6 +44,8 @@ class ExportFormReselt extends Action
 
             $value->update([
                 'is_new' => '0',
+                'modified_by' => Auth::id(),
+
 
             ]);
             $string .= 'reselt' . $key . '=' . $value->id . '&&';

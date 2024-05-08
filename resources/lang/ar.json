@@ -65,6 +65,8 @@
     "os": "نظام التشغيل",
     "browser": "نوع المتصفح",
     "result": "النتيجة",
+    "modified_by": "عدل بواسطة",
+    "status":"الحالة",
     "Are you sure you want to run this action?":"هل أنت متأكد أنك تريد تشغيل هذا الإجراء",
     "The :resource was created!":" :resource تم انشاء!",
     "new FormResults": "عملاء جدد",

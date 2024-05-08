@@ -4,5 +4,10 @@
      "phone number":"رقم التليفون",
      "go to page":"انتقل إلى صفحة",
     "Create": "اا",
-    "Details":"dd"
+    "Details":"dd",
+    "modifiedBy":"عدل بواسطة",
+    "He has not been contacted yet":"لم تم التواصل معه بعد ",
+    "has been contacted":"تم التواصل معه",
+    "He was contacted and did not respond":"تم التواصل معه ولم يجيب"
+
 }

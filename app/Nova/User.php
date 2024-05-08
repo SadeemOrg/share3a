@@ -113,7 +113,6 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            // Gravatar::make()->maxWidth(50),
 
             Text::make(__('Name'),'name')
                 ->sortable()
@@ -129,7 +128,6 @@ class User extends Resource
                 ->sortable()
                 ->rules('max:14'),
 
-            // Async model querying
 
 
 
@@ -139,18 +137,6 @@ class User extends Resource
                 ->updateRules('nullable', Rules\Password::defaults()),
 
 
-
-                // Select::make('permission','permission')->options([
-                //     '1' => 'read',
-                //     '2' => 'write && read',
-                // ])->hideFromIndex()
-                // ->canSee(function (NovaRequest $request) {
-                //     if (Auth::check()) {
-                //         if ((in_array($request->user()->userrole(), [1,2]))) {
-                //             return true;
-                //         } else return false;
-                //     }
-                // })->displayUsingLabels(),
 
 
                 Select::make('permission','permission')->options([
@@ -165,7 +151,6 @@ class User extends Resource
                 }
                 })->hideFromIndex()->displayUsingLabels(),
             BelongsTo::make(__('added_by'), 'addedby', \App\Nova\User::class)->hideWhenCreating()->hideWhenUpdating(),
-            // BelongsTo::make(__('role'), 'role', \App\Nova\User::class)->hideWhenCreating()->hideWhenUpdating(),
             FieldsHasMany::make(__('userAdded'), 'useradd', \App\Nova\User::class)->hideWhenCreating()->hideWhenUpdating()
             ->canSee(function (NovaRequest $request) {
                 if(Auth::check())
@@ -182,9 +167,6 @@ class User extends Resource
             FieldsHasMany::make(__('Forms'), 'Forms', \App\Nova\Form::class)->hideWhenCreating()->hideWhenUpdating(),
 
 
-            // Text::make('roles', 'roles')
-            //     ->sortable()
-            //     ->rules('required', 'max:255')->hideWhenCreating(),
         ];
     }
     // Do something before the model is created
