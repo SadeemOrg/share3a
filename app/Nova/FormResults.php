@@ -123,10 +123,12 @@ class FormResults extends Resource
             //  })->sortable(),
             BelongsTo::make(__('form'), 'form', \App\Nova\form::class)->hideWhenCreating()->hideWhenUpdating(),
             BelongsTo::make(__('modified_by'), 'modifiedBy', \App\Nova\User::class),
-            Select::make(__('status'),'status')->options([
-                '0' => __('لم تم التواصل معه بعد'),
-                '1' => __('تم التواصل معه'),
-                '2' =>__('تم التواصل معه ولم يجيب'),
+            Select::make(__('status'), 'status')->options([
+                '0' => __('لم يتم التواصل'),
+                '1' => __('تم التواصل'),
+                '2' => __('تم تأكيد الاشتراك'),
+                '3' => __('لا يريد الاشتراك'),
+                '4' => __('ربما يشترك'),
             ])->displayUsingLabels(),
             Text::make(__('result'), 'result', function () {
                 $data = " ";
