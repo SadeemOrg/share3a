@@ -8,7 +8,10 @@ use App\Nova\Actions\contactedWith;
 use App\Nova\Actions\DeleteUser;
 use App\Nova\Actions\ExportForm;
 use App\Nova\Actions\ExportFormReselt;
+use App\Nova\Actions\MightSubscribe;
 use App\Nova\Actions\notRespond;
+use App\Nova\Actions\NotWantSubscribe;
+use App\Nova\Actions\SubscriptionConfirmed;
 use App\Nova\Filters\FormType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -25,6 +28,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Select;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Pdmfc\NovaFields\ActionButton;
+
 class NewFormResults extends Resource
 {
     /**
@@ -122,10 +126,12 @@ class NewFormResults extends Resource
 
             BelongsTo::make(__('form'), 'form', \App\Nova\form::class)->hideWhenCreating()->hideWhenUpdating(),
             BelongsTo::make(__('modified_by'), 'modifiedBy', \App\Nova\User::class),
-            Select::make(__('status'),'status')->options([
-                '0' => __('لم تم التواصل معه بعد'),
-                '1' => __('تم التواصل معه'),
-                '2' =>__('تم التواصل معه ولم يجيب'),
+            Select::make(__('status'), 'status')->options([
+                '0' => __('لم يتم التواصل'),
+                '1' => __('تم التواصل'),
+                '2' => __('تم تأكيد الاشتراك'),
+                '3' => __('لا يريد الاشتراك'),
+                '4' => __('ربما يشترك'),
             ])->displayUsingLabels(),
             Text::make(__('result'), 'result', function () {
                 $data = " ";
@@ -141,15 +147,10 @@ class NewFormResults extends Resource
                         $data .= "<p>" .   str_replace($healthy,  $yummy, $value->questionskey)  . '</p>';
 
                         $data .=    "<a style='color: blue;' href='$value->questionsanswerkey'>اذهب الي المستند</a>";
-
-
-                    }
-                    else
-                    {
+                    } else {
 
                         $data .= "<p style='color: white;'><b>" .   str_replace($healthy,  $yummy, $value->questionskey)  . '</b></p>';
                         $data .= "<p style='color: green;'>" . $value->questionsanswerkey . '</p>';
-
                     }
                 }
                 return  $data;
@@ -218,7 +219,9 @@ class NewFormResults extends Resource
         return [
             new ExportFormReselt,
             new contactedWith,
-            new notRespond
+            new SubscriptionConfirmed,
+            new   NotWantSubscribe(),
+            new MightSubscribe()
 
         ];
     }

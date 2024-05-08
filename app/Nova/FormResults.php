@@ -7,7 +7,10 @@ use App\Models\FormUser;
 use App\Nova\Actions\contactedWith;
 use App\Nova\Actions\ExportForm;
 use App\Nova\Actions\ExportFormReselt;
+use App\Nova\Actions\MightSubscribe;
 use App\Nova\Actions\notRespond;
+use App\Nova\Actions\NotWantSubscribe;
+use App\Nova\Actions\SubscriptionConfirmed;
 use App\Nova\Filters\FormType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -215,10 +218,12 @@ class FormResults extends Resource
 
         return [
             // new ExportForm(),
-            new ExportFormReselt(),
-            new contactedWith,
-            new notRespond
 
+            new ExportFormReselt,
+            new contactedWith,
+            new SubscriptionConfirmed,
+            new   NotWantSubscribe(),
+            new MightSubscribe()
             // new ExportForm(),
             //   (  new DownloadExcel())->withHeadings(),
             // new DownloadExcel,
