@@ -4,8 +4,10 @@ namespace App\Nova;
 
 use App\Models\Form;
 use App\Models\FormUser;
+use App\Nova\Actions\contactedWith;
 use App\Nova\Actions\ExportForm;
 use App\Nova\Actions\ExportFormReselt;
+use App\Nova\Actions\notRespond;
 use App\Nova\Filters\FormType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,6 +21,7 @@ use R64\NovaFields\JSON;
 use Manogi\Tiptap\Tiptap;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Select;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class FormResults extends Resource
@@ -116,6 +119,12 @@ class FormResults extends Resource
             //      return $form->slug;
             //  })->sortable(),
             BelongsTo::make(__('form'), 'form', \App\Nova\form::class)->hideWhenCreating()->hideWhenUpdating(),
+            BelongsTo::make(__('modified_by'), 'modifiedBy', \App\Nova\User::class),
+            Select::make(__('status'),'status')->options([
+                '0' => __('لم تم التواصل معه بعد'),
+                '1' => __('تم التواصل معه'),
+                '2' =>__('تم التواصل معه ولم يجيب'),
+            ])->displayUsingLabels(),
             Text::make(__('result'), 'result', function () {
                 $data = " ";
                 $healthy = ["__", "_"];
@@ -143,7 +152,6 @@ class FormResults extends Resource
                 }
                 return  $data;
             })->hideWhenCreating()->hideWhenUpdating()->asHtml(),
-
 
 
             // Textarea::make('result', 'result', function () {
@@ -208,6 +216,9 @@ class FormResults extends Resource
         return [
             // new ExportForm(),
             new ExportFormReselt(),
+            new contactedWith,
+            new notRespond
+
             // new ExportForm(),
             //   (  new DownloadExcel())->withHeadings(),
             // new DownloadExcel,
