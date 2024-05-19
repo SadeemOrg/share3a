@@ -103,9 +103,14 @@
                                 </p>
                             </li>
                         @elseif($nqp == true && $share3a == false && $sakhnin == false)
-                            <li class="mb-5">
+                            {{-- <li class="mb-5">
                                 <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
                                     جمعية هاجر لتمكين المرأة
+                                </p>
+                            </li> --}}
+                            <li class="mb-5">
+                                <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
+                                    جمعية السلام كسيفة
                                 </p>
                             </li>
                             <li class="mb-5">
@@ -115,14 +120,14 @@
                             </li>
                             <li class="mb-5">
                                 <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
-                                    جمعية السلام كسيفة
+                                    يعلنون للأهل في النقب عن بدء التسجيل للفوج الثاني (تموز 2024) لدراسة الشريعة
+                                    الإسلامية
                                 </p>
                             </li>
-                            <li class="mb-5">
+                            {{-- <li class="mb-5">
                                 <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
-                                    يعلنون للأهل في النقب عن بدء التسجيل لـ :
-                                </p>
-                            </li>
+                                 دبلوم في الشريعة، التعليم أيام السبت في رهط وكسيفة </p>
+                            </li> --}}
                         @elseif($nqp == false && $share3a == false && $sakhnin == true)
                             <li class="mb-5">
                                 <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] relative pr-10">
@@ -154,7 +159,7 @@
                             يعلنون عن بدء التسجيل ل:
                         </p>
                     @endif
-                    @if (($nqp == true || $share3a == true) && $sakhnin == false)
+                    @if ($share3a == true && $sakhnin == false && $nqp == false)
                         <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
                             {{ $forms->second_text }}
                         </p>
@@ -162,13 +167,16 @@
                             {{ $forms->second_sup_text }}
                         </p>
                     @elseif($sakhnin == true)
-                        {{-- <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
-                            دبلوم في الشريعة والعلوم الإسلامية
+
+                    @elseif($nqp == true)
+                        <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
+                            {{-- {{ $forms->second_text }} --}}
+                            دبلوم في الشريعة الاسلامية
                         </p>
                         <p class="text-[23px] md:text-[35px] lg:text-[43px] bg-[#124A85] py-3 px-4">
-                            للفوج الثاني لدراسة الشريعة الإسلامية
-
-                        </p> --}}
+                            {{-- {{ $forms->second_sup_text }} --}}
+                            افتتاح العام الدراسي: السبت 06/07/2024
+                        </p>
                     @endif
                 </div>
                 @php
@@ -180,7 +188,7 @@
                     <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                أيام التعليم: كل يوم سبت.
+                                أيام التعليم :أيام السبت في رهط وكسيفة.
                             </p>
                         </li>
                         <li class="mb-5">
@@ -214,35 +222,27 @@
                     <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                أيام التعليم: كل يوم سبت بين الساعات 16:00 - 19:00.
+                                التعليم أيام السبت في رهط وكسيفة.
                             </p>
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                التعليم عبارة عن 24 مساقًا، ومن يتمّها يحصل على دبلوم في الشريعة والعلوم الإسلاميّة من
-                                كلّيّة كفربرا.
+                                لقب أول مع شهادة تدريس.
                             </p>
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                هناك إمكانيّة للحاصلين على الدبلوم إكمال اللقب الأوّل في كليّة أونو.
+                                مدة التعليم 3 سنوات.
                             </p>
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                التعليم في قاعة مسجد الأنصار في كسيفة، وفي قاعدة مسجد الرحمة في رهط، مساقان كل فصل
-                                دراسي، 6 مساقات بالسنة. وهناك
-                                إمكانيّة للانضمام للمسار المكثّف في كفربرا.
+                                مساقان كل فصل دراسي، 6 مساقات بالسنة
                             </p>
                         </li>
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                مساقات الفصل الأول: عقيدة 1 + عبادات 1 .
-                            </p>
-                        </li>
-                        <li class="mb-5">
-                            <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                كلفة التسجيل للمساقين: 1800 شيكل، 900 شيكل عن كل مساق.
+                                كلفة التسجيل للمساقين:1800 شيكل، 900 شيكل عن كل مساق.
                             </p>
                         </li>
                     </ul>
@@ -360,12 +360,10 @@
                         @if ($nqp == false && $share3a == true && $sakhnin == false)
                             <a href="tel:0545431188" class="underline underline-offset-1">0545431188</a>
                         @elseif($nqp == true && $share3a == false && $sakhnin == false)
-                            <div class="flex flex-col justify-start mt-4">
+                            <div class="flex flex-col justify-start items-start">
                                 <a href="tel:0508223804" class="underline underline-offset-1">كيان أبو عجاج
                                     0508223804
                                 </a>
-                                <a href="tel:0506300535" class="underline underline-offset-1">آمنة الددا
-                                    0506300535</a>
                             </div>
                         @elseif($nqp == false && $share3a == false && $sakhnin == true)
                             <div
