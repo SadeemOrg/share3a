@@ -171,12 +171,17 @@
                     @elseif($nqp == true)
                         <p class="text-[25px] md:text-[40px] lg:text-[59px] bg-[#EBBD22] py-4 px-4 text-sh">
                             {{-- {{ $forms->second_text }} --}}
-                            دبلوم في الشريعة الاسلامية
+                            دبلوم في الشريعة الاسلامية، التعليم أيام السبت في رهط وكسيفة.
                         </p>
-                        <p class="text-[23px] md:text-[35px] lg:text-[43px] bg-[#124A85] py-3 px-4">
-                            {{-- {{ $forms->second_sup_text }} --}}
-                            افتتاح العام الدراسي: السبت 06/07/2024
-                        </p>
+                        <div>
+                            <div class="text-[23px] md:text-[35px] lg:text-[43px] bg-[#124A85] h-60 flex flex-row items-center px-4">
+                                <p>
+                                    {{-- {{ $forms->second_sup_text }} --}}
+                                    {{-- افتتاح العام الدراسي: السبت 06/07/2024 --}}
+                                    لقب أول مع شهادة تدريس،مدة التعليم 3 سنوات.
+                                </p>
+                            </div>
+                        </div>
                     @endif
                 </div>
                 @php
@@ -220,19 +225,20 @@
                     </ul>
                 @elseif($nqp == true && $share3a == false && $sakhnin == false)
                     <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
-                        <li class="mb-5">
+                        {{-- <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
                                 التعليم أيام السبت في رهط وكسيفة.
                             </p>
-                        </li>
-                        <li class="mb-5">
+                        </li> --}}
+                        {{-- <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
                                 لقب أول مع شهادة تدريس.
                             </p>
-                        </li>
+                        </li> --}}
                         <li class="mb-5">
                             <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                مدة التعليم 3 سنوات.
+                                {{-- مدة التعليم 3 سنوات. --}}
+                                افتتاح العام الدراسي: السبت 06/07/2024
                             </p>
                         </li>
                         <li class="mb-5">
