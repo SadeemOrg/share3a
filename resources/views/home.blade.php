@@ -32,8 +32,9 @@
                                 src="{{ asset('assets/images/header-logos/lt-logo.svg') }}" alt="left logo">
                         </div>
                     </div>
-                @elseif($nqp == true && $sakhnin == false && $share3a == true)
-                    <div class="grid grid-cols-3 gap-6 ">
+                @elseif(($nqp == true || $share3a == false) && $sakhnin == false)
+                
+                    {{-- <div class="grid grid-cols-3 gap-6 ">
                         <div class="col-span-1 flex justify-center items-center">
                             <img class="max-w-[220px] w-full mx-auto"
                                 src="{{ asset('assets/images/header-logos/middlelogo-nqp.jpeg') }}" alt="left logo">
@@ -46,6 +47,11 @@
                             <img class="max-w-[220px] w-full mx-auto"
                                 src="{{ asset('assets/images/header-logos/nqp.jpeg') }}" alt="left logo">
                         </div>
+                    </div> --}}
+                    <div class="flex flex-row items-center justify-center py-2">
+                        <img class="max-w-[280px] w-full mx-auto"
+                        src="{{ asset('assets/images/header-logos/middlelogo-nqp.jpeg') }}" alt="left logo">
+              
                     </div>
                 @elseif($nqp == false && $sakhnin == true && $share3a == false)
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 mt-6 mb-8 sm:mb-0">
@@ -174,7 +180,8 @@
                             دبلوم في الشريعة الاسلامية، التعليم أيام السبت في رهط وكسيفة.
                         </p>
                         <div>
-                            <div class="text-[23px] md:text-[35px] lg:text-[43px] bg-[#124A85] h-60 flex flex-row items-center px-4">
+                            <div
+                                class="text-[23px] md:text-[35px] lg:text-[43px] bg-[#124A85] h-60 flex flex-row items-center px-4">
                                 <p>
                                     {{-- {{ $forms->second_sup_text }} --}}
                                     {{-- افتتاح العام الدراسي: السبت 06/07/2024 --}}
