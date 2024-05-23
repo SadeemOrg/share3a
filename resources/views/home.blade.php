@@ -75,16 +75,10 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
                 <p class="Hebah-Font text-center text-[#E3BD2F] text-[25px] md:text-[40px] lg:text-[64px] mb-10">
-                    {{-- {{ nova_get_setting('title', '') }} --}}
                     {{ $forms->text }}
                 </p>
 
                 <div class="text-white text-center">
-                    {{-- <p class="text-[16px] sm:text-[20px] md:text-[28px] lg:text-[35px] mb-10">
-                        {{ nova_get_setting('subtitle', '') }}
-                    {!! $forms->sup_text !!}
-
-                    </p> --}}
                     <ul class="text-white features-list titles-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
                         @if ($nqp == false && $share3a == true && $sakhnin == false)
                             <li class="mb-5">

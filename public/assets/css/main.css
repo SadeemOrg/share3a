@@ -88,12 +88,6 @@ body {font-family: TheSansArabic-bold;}
 }
 
 ::placeholder, .select-option {color: #ddd ;}
-/* .register-form ::placeholder {
-    color: #ffffffa3 !important;
-  }
-  .register-form-1 ::placeholder, .login-form ::placeholder, .reset-pass-box ::placeholder{
-    color: #ddd !important;
-  } */
 
   /* video style*/
   .video-container {

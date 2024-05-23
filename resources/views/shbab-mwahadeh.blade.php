@@ -1,6 +1,5 @@
     <!DOCTYPE html>
     <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,11 +18,9 @@
             --tw-translate-y: -50%;
             transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
         }
-
         input::placeholder {
             color: white;
         }
-
         select {
             /* Hide default arrow */
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"><path d="M5.5 7.5L10.5 12.5L15.5 7.5H5.5Z" fill="currentColor"/></svg>');
@@ -43,14 +40,12 @@
             line-height: 1.5;
             /* Adjust line height */
         }
-
         @media screen and (min-width: 1024px) {
             .imgform {
                 right: -8px;
             }
         }
     </style>
-
     <body dir="rtl" class=" min-h-full "
         style="background-image: url('{{ asset('assets/images/Artboard.png') }}');background-repeat: no-repeat;background-size: cover;">
         <!-- header -->
@@ -63,11 +58,9 @@
                 </div>
             </div>
         </header>
-
         <section class="-mt-10">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="mx-auto max-w-6xl">
-
                     <p
                         class="Hebah-Font text-center text-[#E3BD2F] text-[42px] sm:text-[50px] md:text-[64px] m-6 sm:mt-0 font bold">
                         {{ $forms->text }}
@@ -75,8 +68,6 @@
                     <p class="font-bold text-center text-white text-[34px] sm:text-[40px]  md:text-[52px] my-10">
                         جسور شبابية - نحو بناء قيادات مستقبلية
                     </p>
-
-
                     <ul
                         class="text-white flex flex-row flex-wrap justify-start  gap-x-28 features-list mt-24 pb-8 mb-8 border-b border-[#EBBD22] ">
                         <li class="mb-5 min-w-[350px]">
@@ -104,7 +95,6 @@
                             </p>
                         </li>
                     </ul>
-
                     <p class="text-[24px] md:text-[24px] lg:text-[30px] relative text-white  mt-4">
                         برنامج اللقاء:
                     </p>
@@ -141,7 +131,6 @@
                                 السيمينار من بدايته لنهايته أمر ضروري.</p>
                         </li>
                     </ul>
-
                     @php
                         $questions = $forms->questions;
                         $questions = json_decode($questions);
@@ -185,7 +174,6 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -252,12 +240,6 @@
                         <span class="text-[#EBBD22] ">ملاحظة:</span>
                         طاقم الموحدة سوف يعود للتواصل معك لتأكيد عملية تسجيلك.
                     </p>
-
-                    {{-- <p class="text-white TheSansArabic-regular sm:text-lg  text-[14px] mb-3">
-                        <span class="text-red-900 ">ملاحظة:</span>
-                        آخر موعد للتسجيل يوم الخميس القادم الموافق 9 مايو 2024.
-                    </p> --}}
-
                     <div class="text-white  sm:text-base  text-[14px]   flex flex-row items-center gap-x-2">
                         <span class="text-[#EBBD22] ">للاستفسار:</span>
                         <a href="tel:0509951387" class="underline underline-offset-1">يزن مراد
@@ -277,17 +259,13 @@
                 </div>
             </div>
         </section>
-
         <!-- footer -->
         <footer class="py-20">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
             </div>
         </footer>
         <!-- /footer -->
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
         <script>
             @if (Session::has('success'))
                 toastr.options = {
@@ -309,7 +287,5 @@
                 @endforeach
             @endif
         </script>
-
     </body>
-
     </html>
