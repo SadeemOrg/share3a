@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportAlmowahde;
 use App\Exports\ExportForm;
 use App\Exports\ExportFormReselt;
 use App\Exports\ExportUser;
@@ -458,14 +459,19 @@ class HomeController extends Controller
     public function exportformreseat(Request $request)
     {
 
+        $FormResults=FormResults::find($request->reselt0);
+
         $array = [];
         $data = $request->all();
 
         foreach ($data as $key => $value) {
             array_push($array, $value);
-        }
 
-        return Excel::download(new ExportFormReselt($array), 'users123.xlsx');
+        }
+        return $FormResults->form_id == 20
+        ? Excel::download(new ExportAlmowahde($array), 'users123.xlsx')
+        : Excel::download(new ExportAlmowahde($array), 'users123.xlsx');
+            return;
     }
     public function store(Request $request)
     {

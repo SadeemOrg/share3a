@@ -253,7 +253,7 @@
                         <button type="button"
                             class="mt-5 bg-[#ebbd22] text-red-600 text-base px-2 sm:text-xl w-auto md:w-[60%]  md:h-[75px] py-4 font-[700]  ">
                             <span>ملاحظه:</span>
-                            آخر موعد للتسجيل يوم الخميس القادم الموافق 9 مايو 2024.
+                            آخر موعد للتسجيل يوم الخميس القادم الموافق 9 ايار 2024.
                         </button>
                     </div>
                 </div>

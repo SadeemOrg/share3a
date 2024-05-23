@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "01beb6382fbb4ebe80307a2d957af5b1",
+    "content-hash": "e2bb77bcece9cf197ecc374b9f6bd71f",
     "packages": [
         {
             "name": "64robots/nova-fields",
@@ -59,7 +59,7 @@
         },
         {
             "name": "acme/analytics",
-            "version": "dev-nser-fe-new",
+            "version": "dev-Amd_Fe_depandsOn",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/Analytics",
@@ -4353,6 +4353,59 @@
                 "source": "https://github.com/outl1ne/nova-translations-loader/tree/5.0.1"
             },
             "time": "2023-02-10T16:14:58+00:00"
+        },
+        {
+            "name": "pdmfc/nova-action-button",
+            "version": "v0.7.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pdmfc/nova-action-button.git",
+                "reference": "f938ea0961589aec1954468ad1eb48751a7fd7b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pdmfc/nova-action-button/zipball/f938ea0961589aec1954468ad1eb48751a7fd7b5",
+                "reference": "f938ea0961589aec1954468ad1eb48751a7fd7b5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Pdmfc\\NovaFields\\ActionButtonFieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Pdmfc\\NovaFields\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "João Santos",
+                    "email": "joao.santos@pdmfc.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel Nova field to run actions.",
+            "homepage": "https://github.com/pdmfc/nova-action-button",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "support": {
+                "issues": "https://github.com/pdmfc/nova-action-button/issues",
+                "source": "https://github.com/pdmfc/nova-action-button/tree/v0.7.4"
+            },
+            "time": "2021-10-09T13:32:17+00:00"
         },
         {
             "name": "phpoffice/phpspreadsheet",
@@ -10812,5 +10865,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }

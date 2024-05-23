@@ -6,6 +6,8 @@ use App\Models\FormUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
@@ -15,7 +17,9 @@ use Laravel\Nova\Fields\Text;
 use Sietse85\NovaButton\Button;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Tag;
 use Outl1ne\MultiselectField\Multiselect;
 
 class DependsOnForm extends Resource
@@ -133,34 +137,21 @@ class DependsOnForm extends Resource
             Text::make(__('note Form'), 'note')->rules('required'),
             Text::make(__('text_thanks'), 'text_thanks'),
             Text::make(__('sup_text_thanks'), 'sup_text_thanks'),
-            Multiselect::make(__('leading'), 'leadings')
+            Tag::make(__("leading"), "User", \App\Nova\User::class)->preload()->withPreview()->displayAsList()->showCreateRelationButton(),
 
-                ->placeholder('للبحث عن مسؤولين')
-                ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) {
-                    return null;
-                })
-                ->options(function () {
-                    if (Auth::user()->userrole() == 1) {
-                        $forms =  User::all();
-                    } else {
+            BelongsToMany::make(__("leading"), "leading", \App\Nova\User::class)->hideFromIndex(),
 
-                        $forms =  User::where("added_by", Auth::id())->get();
+            BelongsTo::make(__('added_by'), 'addedby', \App\Nova\User::class)->hideWhenCreating()->hideWhenUpdating()->canSee(function (NovaRequest $request) {
+                if (Auth::check()) {
+                    if ((in_array($request->user()->userrole(), [1, 2]))) {
+                        return true;
                     }
+                }
+            }),
 
-                    $address_type_admin_array =  array();
-                    $address_type_admin_array += [0 => 'الكل'];
-                    foreach ($forms as $forms) {
+            HasMany::make(__("new FormResults"), "FormResults", \App\Nova\NewFormResults::class),
+            hasMany::make(__("old FormResults"), "FormResults", \App\Nova\FormResults::class),
 
-                        $address_type_admin_array += [$forms['id'] => ($forms['name'])];
-                    }
-                    return $address_type_admin_array;
-                })->canSee(function (NovaRequest $request) {
-                    if (Auth::check()) {
-                        if ((in_array($request->user()->userrole(), [1, 2]))) {
-                            return true;
-                        }
-                    }
-                }),
 
             Flexible::make(__('Content'), 'questions')
                 ->fullWidth()
