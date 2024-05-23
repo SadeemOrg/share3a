@@ -74,8 +74,8 @@ Route::get('/shbab-mwahadeh', function () {
 });
 Route::get('/igatha48', function () {
     $forms = Form::where("id", '21')->first();
-
-    return view('pages.igatha48', compact('forms'));
+    $page_title="جمعية الأغاثة 48";
+    return view('pages.igatha48', compact('forms','page_title'));
 });
 Route::get('/emar/{slug}', function () {
     return view('sadaqat.index');

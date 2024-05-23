@@ -123,8 +123,10 @@ class HomeController extends Controller
         $logo = $form->icons;
         if ($id == 20)
             return view('shabab-mwahdeh-success-form', compact('logo'));
-        if ($id == 21)
-            return view('pages.igatha48-success-form');
+        if ($id == 21) {
+            $page_title = "جمعية الأغاثة 48";
+            return view('pages.igatha48-success-form', compact('page_title'));
+        }
 
         if ($form->type == 1)
             return view('thanks');
@@ -459,7 +461,7 @@ class HomeController extends Controller
     public function exportformreseat(Request $request)
     {
 
-        $FormResults=FormResults::find($request->reselt0);
+        $FormResults = FormResults::find($request->reselt0);
 
         $array = [];
         $data = $request->all();
@@ -469,9 +471,9 @@ class HomeController extends Controller
 
         }
         return $FormResults->form_id == 20
-        ? Excel::download(new ExportAlmowahde($array), 'users123.xlsx')
-        : Excel::download(new ExportAlmowahde($array), 'users123.xlsx');
-            return;
+            ? Excel::download(new ExportAlmowahde($array), 'users123.xlsx')
+            : Excel::download(new ExportAlmowahde($array), 'users123.xlsx');
+        return;
     }
     public function store(Request $request)
     {
