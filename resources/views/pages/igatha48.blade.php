@@ -26,10 +26,10 @@
                             $questions = $forms->questions;
                             $questions = json_decode($questions);
                         @endphp
-                        <ul class="text-white features-list mt-10 pb-8 mb-8 border-b border-[#EBBD22] ">
+                        <ul class="text-white features-list mt-10 pb-8 mb-8  ">
                             <li class="mb-5">
                                 <p class="text-[20px] md:text-[24px] lg:text-[27px] relative pr-10">
-                                    سجّلوا تفاصيلكم هنا وسنعمل كل جهدنا لنوصل إليكم لحوم أضاحي العيد من المتبرّعين خلال أولى
+                                    سجّلوا تفاصيلكم هنا وسنعمل كل جهدنا لنوصل إليكم لحوم الأضاحي من المتبرّعين خلال أولى
                                     أيام العيد.
                                 </p>
                             </li>
@@ -46,12 +46,12 @@
                                 </div>
                             </div>
                             <form method="post" action="{{ route('form.store') }}"
-                                class="pb-28  flex flex-col items-center">
+                                class="pb-28  flex flex-col items-center  w-full">
                                 @csrf
-                                <div class=" bg-[#EBBD22] w-[95%] h-auto flex flex-col px-4 md:px-14 pb-8 mx-auto">
-                                    <p
-                                        class=" mt-10 sm:mt-14 lg:mt-20 xl:mt-28 text-[20px] sm:text-[28px] md:text-[48px] text-center text-white">
-                                        للمشاركة وتسجبل التفاصيل في لحوم أضاحي العيد من هنا </p>
+                                <div class=" bg-[#EBBD22] w-[95%] h-auto flex flex-col px-4 md:px-14 pb-8 mx-auto ">
+                                   <div class="w-full mt-10 sm:mt-14 lg:mt-20 xl:mt-28">
+                                  
+                                </div>
                                     <input type="hidden" name='formid' value="{{ $forms->id }}">
                                     @csrf
                                     @foreach ($questions as $question)
