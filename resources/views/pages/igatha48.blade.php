@@ -1,12 +1,30 @@
 @extends('layouts.appvue')
+
+<style>
+    .igatha48 input::placeholder {
+        color: #124a85;
+    }
+
+    .igatha48 select {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"><path d="M5.5 7.5L10.5 12.5L15.5 7.5H5.5Z" fill="currentColor"/></svg>');
+        background-repeat: no-repeat;
+        background-position: left center;
+        padding-left: 40px;
+        border: 1px solid #A2A6B0;
+        border-radius: 0.375rem;
+        height: 65px;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+</style>
 @section('content')
     <div class="min-h-screen igatha48"
         style="background-image: url({{ asset('assets/images/website-bg-img.webp') }}); background-size: auto 100%;">
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div class="flex flex-row items-center justify-center ">
                 <div class="col-span-1 flex justify-center items-center">
-                    <img class="max-w-sm max-h-96 mx-auto my-14" src="{{ asset('assets/images/header-logos/igatheh48.png') }}"
-                        alt="left logo">
+                    <img class="max-w-sm max-h-96 mx-auto my-14"
+                        src="{{ asset('assets/images/header-logos/igatheh48.png') }}" alt="left logo">
                 </div>
             </div>
             <section dir="rtl">
@@ -72,7 +90,7 @@
                                             <div class="flex flex-wrap -mx-3 mb-6 mt-3">
                                                 <div class="w-full md:px-3">
                                                     <input required name="{{ $question->attributes->text }}"
-                                                        class="w-full h-[35px] md:h-[65px] border-transparent text-[#124a85] font-semibold border border-text-[#124a85] rounded-md focus:ring-text-[#124a85] focus:border-text-[#124a85] sm:text-base p-4"
+                                                        class="w-full h-[35px] md:h-[65px] border-transparent placeholder:text-gray-500 text-[#124a85] font-semibold border border-text-[#124a85] rounded-md focus:ring-text-[#124a85] focus:border-text-[#124a85] sm:text-base p-4"
                                                         id="grid-password" type="text"
                                                         placeholder="{{ $question->attributes->text }}"
                                                         style="color: rgb(99, 89, 89); /* Change placeholder color to black */">
