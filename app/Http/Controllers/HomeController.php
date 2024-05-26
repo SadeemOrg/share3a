@@ -465,7 +465,7 @@ class HomeController extends Controller
         }
         return $FormResults->form_id == 20
         ? Excel::download(new ExportAlmowahde($array), 'users123.xlsx')
-        : Excel::download(new ExportAlmowahde($array), 'users123.xlsx');
+        : Excel::download(new ExportFormReselt($array), 'users123.xlsx');
             return;
     }
     public function store(Request $request)
