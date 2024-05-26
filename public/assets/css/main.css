@@ -87,13 +87,7 @@ body {font-family: TheSansArabic-bold;}
   }
 }
 
-::placeholder, .select-option {color: #ddd !important;}
-/* .register-form ::placeholder {
-    color: #ffffffa3 !important;
-  }
-  .register-form-1 ::placeholder, .login-form ::placeholder, .reset-pass-box ::placeholder{
-    color: #ddd !important;
-  } */
+::placeholder, .select-option {color: #ddd ;}
 
   /* video style*/
   .video-container {

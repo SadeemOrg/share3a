@@ -102,7 +102,7 @@ class HomeController extends Controller
         $data = $request->all();
         // dd($data );
         foreach ($data as $key => $value) {
-            if (!($key == 'formid' ||  $key == '_token')) {
+            if (!($key == 'formid' || $key == '_token')) {
                 $pus = array(
                     'questionskey' => $key,
                     'questionsanswerkey' => $value,
@@ -110,7 +110,6 @@ class HomeController extends Controller
                 array_push($finallresult, $pus);
             }
         }
-        // dd($finallresult);
         $FormResults = new FormResults();
         $FormResults->form_id = $request->formid;
         $FormResults->result = json_encode($finallresult);
@@ -120,9 +119,17 @@ class HomeController extends Controller
 
         $FormResults->save();
         $form = Form::find($request->formid);
-        $id=$form->id;
-        $logo=$form->icons;
-        if ($form->type == 1)   return view('thanks',compact('id','logo'));
+        $id = $form->id;
+        $logo = $form->icons;
+        if ($id == 20)
+            return view('shabab-mwahdeh-success-form', compact('logo'));
+        if ($id == 21) {
+            $page_title = "جمعية الأغاثة 48";
+            return view('pages.igatha48-success-form', compact('page_title'));
+        }
+
+        if ($form->type == 1)
+            return view('thanks');
         return view('light_thanks', compact('form'));
     }
     public function RegisterForm(Request $request)
@@ -227,7 +234,7 @@ class HomeController extends Controller
         }
 
         //  Store data in database
-        $RegisterForm =  RegisterForm::create($request->all());
+        $RegisterForm = RegisterForm::create($request->all());
         $RegisterForm->user_ip = $ip;
         $RegisterForm->browser = $browser;
         $RegisterForm->os = $osPlatform;
@@ -247,7 +254,7 @@ class HomeController extends Controller
 
         return Excel::download(new ExportFormReselt($array), 'users123.xlsx');
     }
-    public function  ValidateForm(Request $request)
+    public function ValidateForm(Request $request)
     {
 
         $data = $request->all();
@@ -297,7 +304,7 @@ class HomeController extends Controller
                                 'key' => $questions->attributes->text,
                                 'num' => $questions->attributes->validation_num,
                             );
-                            $string = $questions->attributes->text ."**". " يجب ان يحتوي على " . $questions->attributes->validation_num . " ارقام ";
+                            $string = $questions->attributes->text . "**" . " يجب ان يحتوي على " . $questions->attributes->validation_num . " ارقام ";
                             array_push($errorArray, $string);
                         }
                     }
@@ -324,7 +331,7 @@ class HomeController extends Controller
         json_decode($string);
         return (json_last_error() == JSON_ERROR_NONE);
     }
-    public function  sendForm(Request $request)
+    public function sendForm(Request $request)
     {
 
 
@@ -421,7 +428,7 @@ class HomeController extends Controller
         $finallresult = array();
 
         foreach ($data as $key => $value) {
-            if (!($key == 'formid' ||  $key == '_token')) {
+            if (!($key == 'formid' || $key == '_token')) {
                 $pus = array(
                     'questionskey' => $key,
                     'questionsanswerkey' => $value,
@@ -454,7 +461,7 @@ class HomeController extends Controller
     public function exportformreseat(Request $request)
     {
 
-        $FormResults=FormResults::find($request->reselt0);
+        $FormResults = FormResults::find($request->reselt0);
 
         $array = [];
         $data = $request->all();
@@ -520,7 +527,7 @@ class HomeController extends Controller
     {
 
         $forms = Form::where("slug", $request->slug)->first();
-        return  $forms->id;
+        return $forms->id;
     }
     public function formQuestions(Request $request)
     {
@@ -536,7 +543,7 @@ class HomeController extends Controller
                     $sectionsArray = [];
                     foreach ($sections->attributes->questions as $key22 => $questions) {
                         if ($questions->attributes->required) {
-                            array_push($sectionsArray,  $questions->attributes->text);
+                            array_push($sectionsArray, $questions->attributes->text);
                         }
                     }
                     $sections->attributes->validation = $sectionsArray;
@@ -548,7 +555,7 @@ class HomeController extends Controller
                     foreach ($sections->attributes->questions as $key22 => $questions) {
 
                         if ($questions->attributes->required) {
-                            array_push($array,  $questions->attributes->text);
+                            array_push($array, $questions->attributes->text);
                         }
                     }
                 }
