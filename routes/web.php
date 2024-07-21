@@ -105,7 +105,9 @@ Route::get('/light_thanks', function () {
 });
 Route::post('/contact', [HomeController::class, 'RegisterForm'])->name('contact.store');
 Route::post('/formstore', [HomeController::class, 'formstore'])->name('form.store');
-Route::get('/formstore', [HomeController::class, 'formstore'])->name('form.store');
+
+Route::post('/form-store-taweieh', [HomeController::class, 'formStoreTaweieh'])->name('form.store.Taweieh');
+
 
 Route::get('/forms/{slug}', function ($slug) {
     $forms = Form::where("slug", $slug)->first();
