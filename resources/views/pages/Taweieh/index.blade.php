@@ -30,7 +30,7 @@
                     </div>
                     <div class=" flex flex-col items-center justify-center gap-y-3 z-10">
                         <p class="text-2xl font-black"> لتفاصيل أخرى عن الوظيفة</p>
-                        <a target="_black" href="{{ asset('assets/file/requierment-pdf.pdf') }}"
+                        <a target="_black" href="{{ asset('assets/file/requirepdf.pdf') }}"
                             class="text-[#207ec6] text-4xl font-black cursor-pointer border-b-2 ">أضغط هنا</a>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                 </div>
                 <div class=" flex flex-col items-center justify-center gap-y-3 z-10 mt-12">
                     <p class="text-2xl font-black"> لتفاصيل أخرى عن الوظيفة</p>
-                    <a target="_black" href="{{ asset('assets/file/requierment-pdf.pdf') }}"
+                    <a target="_black" href="{{ asset('assets/file/requirepdf.pdf') }}"
                         class="text-[#207ec6] text-5xl font-black cursor-pointer border-b-2">أضغط هنا</a>
                 </div>
             </div>
