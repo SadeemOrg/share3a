@@ -126,7 +126,7 @@
                         data[key] = value;
                     });
 
-                    axios.post('/formstore', data)
+                    axios.post('/form-store-taweieh', data)
                         .then(response => {
                             console.log("🚀 ~ form.addEventListener ~ response:", response)
                             if (response.status == 200) {
@@ -135,7 +135,21 @@
                             formContainers.forEach(container => container.style.display = 'none');
                             thankYouMessage.style.display = 'block';
                         })
-                        .catch(err => console.log('Error submitting form:', err));
+                        .catch(err => {
+                            if (err.response && err.response.data && err.response.data.errors) {
+                                const errors = err.response.data.errors;
+                                for (const [field, messages] of Object.entries(errors)) {
+                                    messages.forEach(message => {
+                                        toastr.options={
+                                            "positionClass": "toast-bottom-right",
+                                        }
+                                        toastr.error(message);
+                                    });
+                                }
+                            } else {
+                                toastr.error('An error occurred while submitting the form.');
+                            }
+                        });
                 });
             }
         });
