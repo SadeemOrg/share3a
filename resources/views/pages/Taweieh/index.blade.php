@@ -62,9 +62,9 @@
                         class="text-[#207ec6] text-5xl font-black cursor-pointer border-b-2">أضغط هنا</a>
                 </div>
             </div>
-            <div class="w-full mt-16 xl:mt-36 flex gap-x-2">
+            <div class="w-full mt-16 xl:mt-4 2xl:mt-36 flex gap-x-2">
                 <form id="submission-form"
-                    class="flex flex-col items-center max-w-3xl lg:mx-auto gap-y-2 md:gap-y-4 lg:basis-5/6 mx-6 w-full">
+                    class="flex flex-col items-center max-w-2xl 2xl:max-w-3xl lg:mx-auto gap-y-2 md:gap-y-4 lg:basis-5/6 mx-6 w-full">
                     @csrf
                     <input type="hidden" name='formid' value="{{ $forms->id }}">
                     <div class="flex md:flex-row flex-col items-start gap-x-4 w-full form-containers">
@@ -93,7 +93,7 @@
                     </div>
                 </form>
                 <img src="{{ asset('assets/images/man.png') }}" alt="blue"
-                    class="absolute left-[13%] top-[14%] max-h-[700px] hidden xl:block">
+                    class="absolute left-[10%] top-[25%] h-[510px] 2xl:h-auto 2xl:left-[13%] 2xl:top-[14%] max-h-[700px] hidden xl:block">
             </div>
             <div id="thank-you-message" class="hidden text-center w-full  mt-8 mb-12 xl:mt-36 xl:mb-20">
                 <div class="flex flex-col items-center justify-center gap-y-3">
