@@ -20,8 +20,6 @@ class HomeController extends Controller
     public function formstore(Request $request)
     {
 
-        // dd($request->all());
-
         $ip = $_SERVER['REMOTE_ADDR'];
         //Deep detect ip
         if (filter_var(@$_SERVER['HTTP_FORWARDED'], FILTER_VALIDATE_IP)) {
@@ -126,6 +124,13 @@ class HomeController extends Controller
         if ($id == 21) {
             $page_title = "جمعية الأغاثة 48";
             return view('pages.igatha48-success-form', compact('page_title'));
+        }
+
+        if($id==23) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Page loaded successfully',
+            ], 200);
         }
 
         if ($form->type == 1)

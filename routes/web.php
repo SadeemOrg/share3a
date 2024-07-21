@@ -23,6 +23,14 @@ Route::get('/emar', function () {
 Route::get('/data1', function () {
     return view('sadaqat.index');
 });
+
+
+Route::get('/taweieh', function () {
+    $forms = Form::where("id", '23')->first();
+    return view('pages.Taweieh.index',compact('forms'));
+});
+
+
 Route::get('/form_id', [HomeController::class, 'formId'])->name('formId');
 Route::get('/form_questions_key', [HomeController::class, 'formQuestionsKey'])->name('formQuestionsKey');
 Route::get('/form_questions', [HomeController::class, 'formQuestions'])->name('formQuestions');
@@ -97,6 +105,8 @@ Route::get('/light_thanks', function () {
 });
 Route::post('/contact', [HomeController::class, 'RegisterForm'])->name('contact.store');
 Route::post('/formstore', [HomeController::class, 'formstore'])->name('form.store');
+Route::get('/formstore', [HomeController::class, 'formstore'])->name('form.store');
+
 Route::get('/forms/{slug}', function ($slug) {
     $forms = Form::where("slug", $slug)->first();
     return view('light_lpage', compact('forms'));
