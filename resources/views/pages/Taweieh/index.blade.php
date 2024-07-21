@@ -4,7 +4,7 @@
     <section>
         <img src="{{ asset('assets/images/blue.png') }}" alt="blue" class="absolute left-0 top-0 xl:block hidden">
         <div class="xl:hidden  block h-24 bg-[#207ec6]"></div>
-        <div class="mx-auto max-w-[1250px] sm:px-6 lg:px-8 mt-20">
+        <div class="mx-auto max-w-[1250px] sm:px-6 lg:px-8 mt-4 xl:mt-20">
             <div class="hidden xl:flex flex-row  items-start gap-x-4">
                 <div class="basis-1/4 border-l-4 flex items-center justify-center pr-8">
                     <img class="" src="{{ asset('assets/images/Tawhedlogo.jpeg') }}" alt="Tawhedlogo">
@@ -31,7 +31,7 @@
                     <div class=" flex flex-col items-center justify-center gap-y-3 z-10">
                         <p class="text-2xl font-black"> لتفاصيل أخرى عن الوظيفة</p>
                         <a target="_black" href="{{ asset('assets/file/requierment-pdf.pdf') }}"
-                            class="text-[#207ec6] text-3xl font-black cursor-pointer">أضغط هنا</a>
+                            class="text-[#207ec6] text-4xl font-black cursor-pointer border-b-2 ">أضغط هنا</a>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 <div class=" flex flex-col items-center justify-center gap-y-3 z-10 mt-12">
                     <p class="text-2xl font-black"> لتفاصيل أخرى عن الوظيفة</p>
                     <a target="_black" href="{{ asset('assets/file/requierment-pdf.pdf') }}"
-                        class="text-[#207ec6] text-3xl font-black cursor-pointer">أضغط هنا</a>
+                        class="text-[#207ec6] text-5xl font-black cursor-pointer border-b-2">أضغط هنا</a>
                 </div>
             </div>
             <div class="w-full mt-16 xl:mt-36 flex gap-x-2">
