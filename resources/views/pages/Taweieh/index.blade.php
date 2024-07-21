@@ -31,7 +31,7 @@
                     <div class=" flex flex-col items-center justify-center gap-y-3 z-10">
                         <p class="text-2xl font-black"> لتفاصيل أخرى عن الوظيفة</p>
                         <a target="_black"  href="{{ asset('assets/file/Doc11.pdf') }}"
-                            class="text-[#207ec6] text-4xl font-black cursor-pointer border-b-2 ">أضغط هنا</a>
+                            class="text-[#207ec6] text-4xl font-black cursor-pointer border-b-2 ">إضغط الان</a>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 <div class=" flex flex-col items-center justify-center gap-y-3 z-10 mt-12">
                     <p class="text-2xl font-black"> لتفاصيل أخرى عن الوظيفة</p>
                     <a target="_black"  href="{{ asset('assets/file/Doc11.pdf') }}"
-                        class="text-[#207ec6] text-5xl font-black cursor-pointer border-b-2">أضغط هنا</a>
+                        class="text-[#207ec6] text-5xl font-black cursor-pointer border-b-2">إضغط الان</a>
                 </div>
             </div>
             <div class="w-full mt-16 xl:mt-4 2xl:mt-36 flex gap-x-2">
@@ -69,7 +69,7 @@
                     <input type="hidden" name='formid' value="{{ $forms->id }}">
                     <div class="flex md:flex-row flex-col items-start gap-x-4 w-full form-containers">
                         <div class="md:basis-1/2 w-full">
-                            <input type="text" id="full-name" name="الاسم الكامل" placeholder="الاٍسم الكامل"
+                            <input type="text" id="full-name" name="الاسم الكامل" placeholder="الإسم كامل"
                                 class="mt-1 block w-full border-[#207ec6] py-3 font-black placeholder-black text-black rounded-md shadow-sm focus:border-none focus:ring-2 focus:ring-opacity-50"
                                 required>
                         </div>
