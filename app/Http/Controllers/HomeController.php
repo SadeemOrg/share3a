@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\ExportAlmowahde;
 use App\Exports\ExportForm;
 use App\Exports\ExportFormReselt;
+use App\Exports\ExportTaweieh;
 use App\Exports\ExportUser;
 use App\Models\Form;
 use App\Models\FormResults;
@@ -604,9 +605,13 @@ class HomeController extends Controller
         foreach ($data as $key => $value) {
             array_push($array, $value);
         }
-        return $FormResults->form_id == 20
-            ? Excel::download(new ExportAlmowahde($array), 'users123.xlsx')
-            : Excel::download(new ExportFormReselt($array), 'users123.xlsx');
+        if ($FormResults->form_id == 20) {
+            return Excel::download(new ExportAlmowahde($array), 'users123.xlsx');
+        } elseif ($FormResults->form_id == 23) {
+            return Excel::download(new ExportTaweieh($array), 'users123.xlsx');
+        } else {
+            return Excel::download(new ExportFormReselt($array), 'users123.xlsx');
+        }
         return;
     }
     public function store(Request $request)
