@@ -16,24 +16,23 @@
 
 <body>
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 mt-32">
-        <div class="flex flex-col items-center justify-center gap-y-4 mx-4 text-lg">
-            <h1 class="text-3xl">حملة تبرع كسوة طالب</h1>
-
-            <div class="flex flex-col items-center justify-center">
-                <div class="max-w-sm md:max-w-7xl mx-4 flex flex-col items-center justify-center text-lg text-center">
-                    للتبرع بحواله بنكيه بنك مركنتيل فرع 699 حساب رقم 101805324 לגנת אלزכאת אלקוטריה
-                    <span>وهناك امكانية سحب بطاقة اعتماد ،bit من خلال الدخول للرابط </span>
-                    <span>سيتم إعادة توجيهك بعد لحظات...</span>
-                </div>
+        <div class="flex flex-col items-center justify-center">
+            <div class="max-w-sm md:max-w-7xl mx-4 flex flex-col items-center justify-center text-lg text-center">
+                <p>للتبرع بحواله بنكيه بنك مركنتيل فرع 699 حساب رقم 101805324 לגנת אלזכאת אלקוטריה</p>
+                <p>وهناك امكانية سحب بطاقة اعتماد ،bit من خلال الدخول للرابط</p>
+                <p>سيتم إعادة توجيهك بعد لحظات...</p>
+                <p>اذا لم يتم اعادة توجيهك <a
+                        href="https://secure.cardcom.solutions/EA/EA5/8NhphoWNYEyiRKr2vaaTiA/Intro"
+                        class="text-blue-500 underline">اضغط هنا</a></p>
             </div>
         </div>
     </div>
 
-    {{-- <script>
+    <script>
         setTimeout(function() {
             window.location.href = "https://secure.cardcom.solutions/EA/EA5/8NhphoWNYEyiRKr2vaaTiA/Intro";
         }, 2000);
-    </script> --}}
+    </script>
 </body>
 
 </html>
