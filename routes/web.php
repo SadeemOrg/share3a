@@ -108,6 +108,10 @@ Route::post('/formstore', [HomeController::class, 'formstore'])->name('form.stor
 
 Route::post('/form-store-taweieh', [HomeController::class, 'formStoreTaweieh'])->name('form.store.Taweieh');
 
+Route::get('/zakah-w-sadqah', function () {
+    return view('pages.zakah-w-sadqah');
+});
+
 
 Route::get('/forms/{slug}', function ($slug) {
     $forms = Form::where("slug", $slug)->first();
