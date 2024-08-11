@@ -7,8 +7,8 @@
     {{-- <meta http-equiv="refresh" content="5;url=https://secure.cardcom.solutions/EA/EA5/8NhphoWNYEyiRKr2vaaTiA/Intro"> --}}
     <meta property="og:title" content="Support Zakah and Sadqah">
     <meta property="og:image" content="{{ asset('assets/images/zakah-w-sadaqah_11.jpg') }}" />
-    <meta property="og:description"
-        content="للتبرع بحواله بنكيه بنك مركنتيل فرع 699 حساب رقم 101805324 לגנת אלזכאת אלקוטריה . وهناك امكانية سحب بطاقة اعتماد ،bit من خلال الدخول للرابط :">
+    {{-- <meta property="og:description"
+        content="للتبرع بحواله بنكيه بنك مركنتيل فرع 699 حساب رقم 101805324 לגנת אלזכאת אלקוטריה . وهناك امكانية سحب بطاقة اعتماد ،bit من خلال الدخول للرابط :"> --}}
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url('/zakah-w-sadqah') }}">
     <meta name="twitter:card" content="summary_large_image">
