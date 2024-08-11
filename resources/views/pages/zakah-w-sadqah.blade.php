@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:title" content="Support Zakah and Sadqah">
-    <meta property="og:image" content="{{ asset('assets/images/zakah-w-sadaqah_12.jpeg') }}" />
+    <meta property="og:image" content="{{ asset('assets/images/zakah-w-sadaqah_13.jpeg') }}" />
     <meta property="og:description" content="للتبرع بحواله بنكيه بنك مركنتيل فرع 699 حساب رقم 101805324 לגנת אלزכאת אלקוטריה . وهناك امكانية سحب بطاقة اعتماد ،bit من خلال الدخول للرابط :">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url('/zakah-w-sadqah') }}">
