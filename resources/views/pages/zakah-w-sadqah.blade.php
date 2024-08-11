@@ -10,12 +10,10 @@
         content="للتبرع بحواله بنكيه بنك مركنتيل فرع 699 حساب رقم 101805324 לגנת אלזכאת אלקוטריה . وهناك امكانية سحب بطاقة اعتماد ،bit من خلال الدخول للرابط :">
     <meta property="og:type" content="website">
     <meta property="og:image" content="{{ asset('assets/images/zakah-w-sadaqah_11.jpg') }}" />
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
     <meta property="og:url" content="{{ url('/zakah-w-sadqah') }}">
     <meta name="twitter:card" content="summary_large_image">
-    @vite('resources/css/app.css')
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    {{-- @vite('resources/css/app.css')
+    @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
     <title>حملة تبرع كسوة طالب</title>
 </head>
 
