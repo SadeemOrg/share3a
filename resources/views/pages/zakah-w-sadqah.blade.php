@@ -3,14 +3,19 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta property="og:title" content="How to change the address bar color in Chrome, Firefox, Opera, Safari" />
+    <meta property="og:description" content="How to change the address bar color in Chrome, Firefox, Opera, Safari" />
+    <meta property="og:url"
+        content="http://webdevelopmentscripts.com/64-how-to-change-the-address-bar-color-in-chrome-firefox-opera-safari" />
+    <meta property="og:image"
+        content="http://webdevelopmentscripts.com/post-images/685b-change-browser-address-bar-color-chrome-android.jpeg" />
+    {{-- <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="5;url=https://secure.cardcom.solutions/EA/EA5/8NhphoWNYEyiRKr2vaaTiA/Intro">
-    <!-- Open Graph Meta Tags for Social Media Preview -->
     <meta property="og:title" content="Support Zakah and Sadqah">
     <meta property="og:description"
         content="للتبرع بحواله بنكيه بنك مركنتيل فرع 699 حساب رقم 101805324 לגנת אלזכאת אלקוטריה . وهناك امكانية سحب بطاقة اعتماد ،bit من خلال الدخول للرابط :">
         <meta property="og:type" content="website">
-        {{-- <meta property="og:image" content="{{ asset('assets/images/zakah-w-sadaqah.jpg') }}"> --}}
         <meta property="og:image" content="http://webdevelopmentscripts.com/post-images/685b-change-browser-address-bar-color-chrome-android.jpeg" />
 
     <meta property="og:image:width" content="1200">
@@ -18,7 +23,7 @@
     <meta property="og:url" content="{{ url('/zakah-w-sadqah') }}">
     <meta name="twitter:card" content="summary_large_image">
     @vite('resources/css/app.css')
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
     <title>حملة تبرع كسوة طالب</title>
 </head>
 
@@ -34,11 +39,11 @@
         </div>
     </div>
 
-    <script>
+    {{-- <script>
         setTimeout(function() {
             window.location.href = "https://secure.cardcom.solutions/EA/EA5/8NhphoWNYEyiRKr2vaaTiA/Intro";
         }, 3000);
-    </script>
+    </script> --}}
 </body>
 
 </html>
