@@ -10,29 +10,30 @@
         content="للتبرع بحواله بنكيه بنك مركنتيل فرع 699 حساب رقم 101805324 לגנת אלزכאת אלקוטריה . وهناك امكانية سحب بطاقة اعتماد ،bit من خلال الدخول للرابط :">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url('/zakah-w-sadqah') }}">
-    <meta name="twitter:card" content="summary_large_image" 
-    @vite('resources/css/app.css') @vite(['resources/sass/app.scss', 'resources/js/app.js'])  
-    <title>حملة تبرع كسوة
+    <meta name="twitter:card" content="summary_large_image" @vite('resources/css/app.css') @vite(['resources/sass/app.scss', 'resources/js/app.js']) <title>حملة تبرع كسوة
     طالب</title>
 </head>
 
 <body>
-    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 mt-32">
-        <div class="flex flex-col items-center justify-center gap-y-4 text-lg">
+    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 mt-32">
+        <div class="flex flex-col items-center justify-center gap-y-4 mx-4 text-lg">
             <h1 class="text-3xl">حملة تبرع كسوة طالب</h1>
-            <p>
-                للتبرع بحواله بنكيه بنك مركنتيل فرع 699 حساب رقم 101805324 לגנת אלزכאת אלקוטריה
-            </p>
-            <p>وهناك امكانية سحب بطاقة اعتماد ،bit من خلال الدخول للرابط </p>
-            <p>سيتم إعادة توجيهك بعد لحظات...</p>
+
+            <div class="flex flex-col items-center justify-center">
+                <div class="max-w-sm md:max-w-7xl mx-4 flex flex-col items-center justify-center text-lg text-center">
+                    للتبرع بحواله بنكيه بنك مركنتيل فرع 699 حساب رقم 101805324 לגנת אלزכאת אלקוטריה
+                    <span>وهناك امكانية سحب بطاقة اعتماد ،bit من خلال الدخول للرابط </span>
+                    <span>سيتم إعادة توجيهك بعد لحظات...</span>
+                </div>
+            </div>
         </div>
     </div>
-    {{--
+
     <script>
         setTimeout(function() {
             window.location.href = "https://secure.cardcom.solutions/EA/EA5/8NhphoWNYEyiRKr2vaaTiA/Intro";
         }, 3000);
-    </script> --}}
+    </script>
 </body>
 
 </html>
