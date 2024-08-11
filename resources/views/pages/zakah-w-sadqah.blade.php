@@ -32,7 +32,7 @@
     <script>
         setTimeout(function() {
             window.location.href = "https://secure.cardcom.solutions/EA/EA5/8NhphoWNYEyiRKr2vaaTiA/Intro";
-        }, 3000);
+        }, 2000);
     </script>
 </body>
 
