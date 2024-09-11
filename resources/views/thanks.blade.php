@@ -16,19 +16,19 @@
     <header>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl">
-                    <div class="grid grid-cols-3 gap-6 ">
-                        <div class="col-span-1 flex justify-center items-center">
+                    <div class="flex flex-row items-center justify-center my-4 ">
+                        {{-- <div class="col-span-1 flex justify-center items-center">
                             <img class="max-w-[220px] w-full mx-auto"
                                 src="{{ asset('assets/images/header-logos/rt-logo-h.png') }}" alt="left logo">
-                        </div>
+                        </div> --}}
                         <div class="col-span-1 flex justify-center items-center">
-                            <img class="max-w-[220px] w-full mx-auto"
+                            <img class="max-w-[260px] w-full mx-auto"
                                 src="{{ asset('assets/images/header-logos/middle-logo.png') }}" alt="left logo">
                         </div>
-                        <div class="col-span-1 flex justify-center items-center">
+                        {{-- <div class="col-span-1 flex justify-center items-center">
                             <img class="max-w-[220px] w-full mx-auto"
                                 src="{{ asset('assets/images/header-logos/lt-logo.svg') }}" alt="left logo">
-                        </div>
+                        </div> --}}
                     </div>
 
             </div>
