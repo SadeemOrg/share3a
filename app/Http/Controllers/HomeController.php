@@ -118,6 +118,7 @@ class HomeController extends Controller
 
         $FormResults->save();
         $form = Form::find($request->formid);
+        dd($form->id);
         $id = $form->id;
         $logo = $form->icons;
         if ($id == 20)
