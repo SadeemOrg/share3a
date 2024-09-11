@@ -36,16 +36,22 @@ Route::get('/form_questions_key', [HomeController::class, 'formQuestionsKey'])->
 Route::get('/form_questions', [HomeController::class, 'formQuestions'])->name('formQuestions');
 Route::post('/sendform', [HomeController::class, 'sendForm'])->name('sendform');
 Route::post('/ValidateForm', [HomeController::class, 'ValidateForm'])->name('ValidateForm');
+// Route::get('/share3a', function () {
+//     $forms = Form::where("slug", 'كلية_الدعوة')->first();
+//     $ip = $_SERVER['REMOTE_ADDR'];
+//     $exist = FormResults::where('form_id', $forms->id)->where('user_ip', $ip)->first();
+//     if ($exist) {
+//     }
+//     $nqp = false;
+//     $sakhnin = false;
+//     $share3a = true;
+//     return view('home', compact('forms', 'nqp','sakhnin','share3a'));
+// });
+
 Route::get('/share3a', function () {
-    $forms = Form::where("slug", 'كلية_الدعوة')->first();
-    $ip = $_SERVER['REMOTE_ADDR'];
-    $exist = FormResults::where('form_id', $forms->id)->where('user_ip', $ip)->first();
-    if ($exist) {
-    }
-    $nqp = false;
-    $sakhnin = false;
-    $share3a = true;
-    return view('home', compact('forms', 'nqp','sakhnin','share3a'));
+    $forms = Form::find(24);
+   
+    return view('onoo', compact('forms'));
 });
 Route::get('share3a-nqb', function () {
     $forms = Form::where("slug", 'كلية_الدعوة_النقب')->first();
