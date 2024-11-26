@@ -134,7 +134,9 @@ class DependsOnForm extends Resource
 
             Text::make(__('text'), 'text')->rules('required'),
             Text::make(__('sub_text'), 'sup_text')->rules('required'),
-            Text::make(__('note Form'), 'note')->rules('required'),
+            Text::make(__('note Form'), 'form_note')->rules('required'),
+
+            Text::make(__('note Register'), 'note')->rules('required'),
             Text::make(__('text_thanks'), 'text_thanks'),
             Text::make(__('sup_text_thanks'), 'sup_text_thanks'),
             Tag::make(__("leading"), "User", \App\Nova\User::class)->preload()->withPreview()->displayAsList()->showCreateRelationButton(),
