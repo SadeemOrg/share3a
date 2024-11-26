@@ -464,11 +464,7 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl text-center">
                 {{-- <img class="mx-auto" src="{{ asset('assets/images/lpage-2/footer-logo.svg') }}" alt="logo footer"> --}}
-                <h2 class="text-[20px] sm:text-[35px] text-white">{{ nova_get_setting('main_text_footer', '') }}</h2>
-                <p class="my-5 text-[18px] sm:text-[20px] text-white">
-
-                    {{ nova_get_setting('sub_text_footer', '') }} </p>
-                {{-- <div class="flex gap-x-3 items-center justify-center text-white ">
+               {{-- <div class="flex gap-x-3 items-center justify-center text-white ">
                     <svg width="40" height="40" viewBox="0 0 49 49" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_80_38)">
@@ -502,7 +498,7 @@
                     </ul>
                     <a class="text-white TheSansArabic-regular hover:text-[#E3BD2F]" href="#">
                         سديم جروب
-                        <span>2023</span>
+                        <span>2024</span>
                     </a>
                 </div>
             </div>
