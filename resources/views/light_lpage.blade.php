@@ -21,7 +21,33 @@
 
                     <div>
                         @php
-                            $imageExtensions = ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'svg', 'svgz', 'cgm', 'djv', 'djvu', 'ico', 'ief', 'jpe', 'pbm', 'pgm', 'pnm', 'ppm', 'ras', 'rgb', 'tif', 'tiff', 'wbmp', 'xbm', 'xpm', 'xwd'];
+                            $imageExtensions = [
+                                'jpg',
+                                'jpeg',
+                                'gif',
+                                'png',
+                                'bmp',
+                                'svg',
+                                'svgz',
+                                'cgm',
+                                'djv',
+                                'djvu',
+                                'ico',
+                                'ief',
+                                'jpe',
+                                'pbm',
+                                'pgm',
+                                'pnm',
+                                'ppm',
+                                'ras',
+                                'rgb',
+                                'tif',
+                                'tiff',
+                                'wbmp',
+                                'xbm',
+                                'xpm',
+                                'xwd',
+                            ];
 
                             $explodeImage = nova_get_setting('header_logo', '');
 
@@ -86,7 +112,33 @@
                     <div class="rounded-full w-[200px] h-[200px] p-3 mx-auto bg-[#eaebed] overflow-hidden">
 
                         @php
-                            $imageExtensions = ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'svg', 'svgz', 'cgm', 'djv', 'djvu', 'ico', 'ief', 'jpe', 'pbm', 'pgm', 'pnm', 'ppm', 'ras', 'rgb', 'tif', 'tiff', 'wbmp', 'xbm', 'xpm', 'xwd'];
+                            $imageExtensions = [
+                                'jpg',
+                                'jpeg',
+                                'gif',
+                                'png',
+                                'bmp',
+                                'svg',
+                                'svgz',
+                                'cgm',
+                                'djv',
+                                'djvu',
+                                'ico',
+                                'ief',
+                                'jpe',
+                                'pbm',
+                                'pgm',
+                                'pnm',
+                                'ppm',
+                                'ras',
+                                'rgb',
+                                'tif',
+                                'tiff',
+                                'wbmp',
+                                'xbm',
+                                'xpm',
+                                'xwd',
+                            ];
 
                             $explodeImage = explode('.', 'path/image.jpg');
                             $extension = end($explodeImage);
@@ -145,16 +197,10 @@
 
                     <h3 class="text-[25px] text-[#115A48]">سجل معنا</h3>
                 </div>
-                @php
-                    $questions = $forms->questions;
-                    $questions = json_decode($questions);
-                    if (count($questions) === 1) {
-                        $questions = $questions[0]->attributes->questions[0]->attributes->questions;
 
-                    }
-                @endphp
 
-                <form id="register_form" class="w-full register-form" method="post" action="{{ route('form.store') }}">
+                <form id="register_form" class="w-full register-form" method="post"
+                    action="{{ route('form.store') }}">
                     @csrf
                     <input type="hidden" name='formid' value="{{ $forms->id }}">
                     <!-- CROSS Site Request Forgery Protection -->
@@ -190,8 +236,7 @@
                                         class="block mb-3 text-sm font-medium text-gray-900 ">{{ $question->attributes->text }}</label>
                                     <input name="{{ $question->attributes->text }}"
                                         class="block w-full bg-[#f7f7f8] placeholder:text-[#f7f7f8] text-black border border-gray-200 rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#115A48]"
-                                        type="text"
-                                        placeholder="{{ $question->attributes->text }}"
+                                        type="text" placeholder="{{ $question->attributes->text }}"
                                         @if ($question->attributes->required == '1') required @endif>
                                 </div>
                             </div>
@@ -252,19 +297,19 @@
 
                                     <input name="{{ $question->attributes->text }}"
                                         class=" block w-full bg-[#f7f7f8] text-black border border-gray-200 rounded-sm py-4  px-4 mb-3 leading-tight focus:ring-0 focus:outline-transparent focus:border-[#115A48]"
-                                         type="email" placeholder="البريد الالكتروني"  required>
+                                        type="email" placeholder="البريد الالكتروني" required>
                                 </div>
                             </div>
                         @endif
                     @endforeach
                     @foreach ($questions as $question)
                         @if ($question->layout == 'Privacy_Policy')
-                        @isset($question->attributes->choices[0])
-                            <div class="flex  -mx-3 mb-6">
-                                <div class="checkbox w-full px-3">
-                                    <input id="remember" type="checkbox" name="{{ $question->attributes->text }}"
-                                        class=" w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 "
-                                        required>
+                            @isset($question->attributes->choices[0])
+                                <div class="flex  -mx-3 mb-6">
+                                    <div class="checkbox w-full px-3">
+                                        <input id="remember" type="checkbox" name="{{ $question->attributes->text }}"
+                                            class=" w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 "
+                                            required>
 
                                         @if ($question->attributes->choices[0]->layout == 'text')
                                             <a href="{{ $question->attributes->choices[0]->attributes->text }}"
@@ -332,9 +377,9 @@
 
 
 
-                                </div>
+                                    </div>
 
-                            </div>
+                                </div>
                             @endisset
                         @endif
                     @endforeach
@@ -344,9 +389,10 @@
                             تسجيل الان
                         </button>
                     </div>
-                    <div
-                        class="flex flex-row items-center justify-start gap-x-1 text-black TheSansArabic-regular text-[16px]">
-                        <span class="text-[#115A48] font-bold "> ملاحظات : </span>
+                    <div class="flex items-start justify-start gap-x-1 text-black TheSansArabic-regular text-[16px]">
+                        <div class="flex flex-row gap-x-1 text-[#115A48] font-bold ">
+                            <p>ملاحظات</p><span>:</span>
+                        </div>
                         <span class="text-black "> {{ $forms->note }}</span>
                     </div>
                 </form>
@@ -481,7 +527,7 @@
             @endforeach
         @endif
 
-        $( document ).ready(function() {
+        $(document).ready(function() {
             // validation form
             $("#register_form").validate({
                 rules: {
