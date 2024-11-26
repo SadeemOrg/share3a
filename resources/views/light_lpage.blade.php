@@ -148,7 +148,10 @@
                 @php
                     $questions = $forms->questions;
                     $questions = json_decode($questions);
+                    if (count($questions) === 1) {
+                        $questions = $questions[0]->attributes->questions[0]->attributes->questions;
 
+                    }
                 @endphp
 
                 <form id="register_form" class="w-full register-form" method="post" action="{{ route('form.store') }}">
