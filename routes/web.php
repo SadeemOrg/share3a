@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\HomeController;
 use App\Models\Form;
 use App\Models\FormResults;
@@ -16,6 +17,7 @@ use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::redirect('/', '/welcome'); //ok
 Route::get('/emar', function () {
     return view('sadaqat.index');
@@ -27,7 +29,7 @@ Route::get('/data1', function () {
 
 Route::get('/taweieh', function () {
     $forms = Form::where("id", '23')->first();
-    return view('pages.Taweieh.index',compact('forms'));
+    return view('pages.Taweieh.index', compact('forms'));
 });
 
 
@@ -50,7 +52,7 @@ Route::post('/ValidateForm', [HomeController::class, 'ValidateForm'])->name('Val
 
 Route::get('/share3a', function () {
     $forms = Form::find(24);
-   
+
     return view('onoo', compact('forms'));
 });
 Route::get('share3a-nqb', function () {
@@ -62,7 +64,7 @@ Route::get('share3a-nqb', function () {
     $nqp = true;
     $sakhnin = false;
     $share3a = false;
-    return view('home', compact('forms', 'nqp','sakhnin','share3a'));
+    return view('home', compact('forms', 'nqp', 'sakhnin', 'share3a'));
 });
 Route::get('share3a-sakhnin', function () {
     $forms = Form::where("id", '18')->first();
@@ -73,7 +75,7 @@ Route::get('share3a-sakhnin', function () {
     $share3a = false;
     $nqp = false;
     $sakhnin = true;
-    return view('home', compact('forms','nqp','sakhnin','share3a'));
+    return view('home', compact('forms', 'nqp', 'sakhnin', 'share3a'));
 });
 Route::get('/shbab-mwahadeh', function () {
     $forms = Form::where("id", '20')->first();
@@ -84,12 +86,12 @@ Route::get('/shbab-mwahadeh', function () {
     $share3a = false;
     $nqp = false;
     $sakhnin = true;
-    return view('shbab-mwahadeh', compact('forms','nqp','sakhnin','share3a'));
+    return view('shbab-mwahadeh', compact('forms', 'nqp', 'sakhnin', 'share3a'));
 });
 Route::get('/igatha48', function () {
     $forms = Form::where("id", '21')->first();
-    $page_title="جمعية الأغاثة 48";
-    return view('pages.igatha48', compact('forms','page_title'));
+    $page_title = "جمعية الأغاثة 48";
+    return view('pages.igatha48', compact('forms', 'page_title'));
 });
 Route::get('/emar/{slug}', function () {
     return view('sadaqat.index');
@@ -121,7 +123,15 @@ Route::get('/zakah-w-sadqah', function () {
 
 Route::get('/forms/{slug}', function ($slug) {
     $forms = Form::where("slug", $slug)->first();
-    return view('light_lpage', compact('forms'));
+    $questions = $forms->questions;
+    $questions = json_decode($questions);
+    if (count($questions) === 1) {
+        $questions = $questions[0]->attributes->questions[0]->attributes->questions;
+    } else {
+
+        return view('sadaqat.index');
+    }
+    return view('light_lpage', compact('forms', 'questions'));
 });
 Route::get('/export-users/{key}', [HomeController::class, 'exportUsers'])->name('export-users');
 Route::get('/export-form', [HomeController::class, 'exportForm'])->name('exportForm');
