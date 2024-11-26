@@ -194,7 +194,15 @@
                         <rect width="9.61218" height="9.61218"
                             transform="matrix(0.719705 -0.69428 0.719705 0.69428 0 13.8494)" fill="#115A48" />
                     </svg>
-               {{$forms->form_note}}
+                    @if (empty($forms->form_note))
+                    <h3 class="text-[25px] text-[#115A48]">سجل معنا</h3>
+
+                    @else
+                    <h3 class="text-[25px] text-[#115A48]">   {{ $forms->form_note }} </h3>
+
+
+                    @endif
+
                 </div>
 
 
