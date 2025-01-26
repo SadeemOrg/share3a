@@ -120,6 +120,11 @@ Route::get('/zakah-w-sadqah', function () {
     return view('pages.zakah-w-sadqah');
 });
 
+Route::get('/Baqa_shareaa', function () {
+    $forms = Form::find(28);
+
+    return view('Baqa_shareaa', compact('forms'));
+});
 
 Route::get('/forms/{slug}', function ($slug) {
     $forms = Form::where("slug", $slug)->first();
