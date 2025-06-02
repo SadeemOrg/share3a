@@ -21,26 +21,27 @@
 
         <!-- Main Title -->
         <div class="text-center mt-2">
-            <div class="font-tajawal text-[26px] font-normal text-gray-800 leading-tight">مؤتمر تنظيم القدرات البشرية</div>
+            <div class="TheSansArabic-regular text-[26px] font-normal leading-tight">مؤتمر تنظيم القدرات البشرية</div>
             <div class="font-tajawal text-[36px] md:text-[38px] font-black text-black leading-snug mt-2">
                 المشروع الاستراتيجي لمكافحة العنف<br>والجريمة في المجتمع العربي
             </div>
-            <div class="font-tajawal text-[26px] font-normal text-gray-700 mt-2 leading-tight">
+            <div class="TheSansArabic-regular text-[26px] font-normal  mt-2 leading-tight">
                 بالتعاون مع بلدية سخنين<br>
                 يدعوكم/ن لحضور المؤتمر القطري تحت عنوان:
             </div>
         </div>
+        
 
         <!-- Green Section Title -->
         <div class="text-center mt-4">
-            <div class="font-tajawal text-[6px] md:text-[36px] font-black text-[#009966]  ">
-                تعزيز الحصانة<br>المجتمعية
+            <div class="font-tajawal text-[6px] md:text-[42px] font-black text-[#016436]  ">
+                تـعزيـز الحـصـانة<br>المجتمعية
             </div>
         </div>
 
         <!-- Handshake Image -->
         <div class="flex justify-center my-4">
-            <img class=" mx-auto rounded-lg max-w-[500px] w-full h-52 object-cover shadow border" src="{{ asset('assets/images/onf/HANDS.png') }}"
+            <img class=" mx-auto rounded-lg max-w-[500px] w-full h-52 object-cover  " src="{{ asset('assets/images/onf/HANDS.png') }}"
                     alt="Qatar onf logo">
         </div>
 
@@ -182,7 +183,7 @@
                 <!-- Blue header -->
                 <div class="flex items-center justify-center max-w-[200px] mx-auto">
                     <div
-                        class="flex items-center justify-center bg-[#00bcd4] text-white font-tajawal font-bold text-[22px] w-full py-2 rounded-md">
+                        class="flex items-center justify-center bg-[#01c2c9] text-white font-tajawal font-bold text-[22px] w-full py-2 rounded-md">
                         <p class="w-full text-center m-0">برنامج المؤتمر</p>
                     </div>
                 </div>
@@ -304,10 +305,14 @@
                         <label class="block mb-2 text-right font-tajawal font-bold text-gray-700 text-[18px]">
                             {{ $question->attributes->text }}
                         </label>
-                        <input required name="{{ $question->attributes->text }}"
+                        <input
+                            @if ($question->attributes->text == 'رقم الهاتف') data-role="phone" @endif
+                            required
+                            name="{{ $question->attributes->text }}"
                             class="block w-full border border-gray-300 rounded-lg py-3 px-4 text-gray-800 bg-white focus:border-[#00bcd4] focus:ring-2 focus:ring-[#00bcd4] font-tajawal text-[16px]"
                             type="text"
                             placeholder="{{ $question->attributes->text }}">
+                        <span class="input-error-message text-red-600 text-sm font-bold block mt-1"></span>
                     </div>
                 @endif
                 @if ($question->layout == 'boolean')
@@ -347,3 +352,49 @@
     </div>
  
 @endsection
+
+<script>
+$(document).ready(function() {
+    $('form').on('submit', function(e) {
+        var empty = false;
+        var missingPhone = false;
+        var phoneField = $(this).find('input[data-role="phone"]');
+        var phoneVal = phoneField.val();
+
+        // Clear all previous error messages
+        $(this).find('.input-error-message').text('');
+
+        // Check all required fields
+        $(this).find('input[required], select[required], textarea[required]').each(function() {
+            if (!$(this).val() || $(this).val().trim() === '') {
+                empty = true;
+                $(this).addClass('border-red-500');
+                // Show error under the input
+                if ($(this).is('[data-role="phone"]')) {
+                    missingPhone = true;
+                    $(this).next('.input-error-message').text('يرجى إدخال رقم الهاتف');
+                } else {
+                    $(this).next('.input-error-message').text('هذا الحقل مطلوب');
+                }
+            } else {
+                $(this).removeClass('border-red-500');
+                $(this).next('.input-error-message').text('');
+            }
+        });
+
+        if (empty) {
+            e.preventDefault();
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            };
+            if (missingPhone) {
+                toastr.error('يرجى إدخال رقم الهاتف');
+            } else {
+                toastr.error('يرجى تعبئة جميع الحقول المطلوبة');
+            }
+            return false;
+        }
+    });
+});
+</script>
