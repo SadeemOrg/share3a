@@ -2,7 +2,7 @@
 
 @section('header')
     <div class="mx-auto max-w-5xl  ">
-        <div class="flex flex-row items-center justify-center my-8 gap-x-8">
+        <div class="flex md:flex-row flex-col gap-y-6 items-center justify-center my-8 gap-x-8">
             <div class="max-w-[290px] flex flex-col items-center  ">
                 <img class=" w-full mx-auto rounded shadow" src="{{ asset('assets/images/onf/onf_logo.png') }}" alt="onf logo">
             </div>
@@ -20,7 +20,7 @@
         <!-- Already in header -->
 
         <!-- Main Title -->
-        <div class="text-center mt-2">
+        <div class="text-center mt-2 md:mx-0 mx-4">
             <div class="TheSansArabic-regular text-[26px] font-normal leading-tight">مؤتمر تنظيم القدرات البشرية</div>
             <div class="font-tajawal text-[36px] md:text-[38px] font-black text-black leading-snug mt-2">
                 المشروع الاستراتيجي لمكافحة العنف<br>والجريمة في المجتمع العربي
@@ -33,14 +33,14 @@
         
 
         <!-- Green Section Title -->
-        <div class="text-center mt-4">
-            <div class="font-tajawal text-[6px] md:text-[42px] font-black text-[#016436]  ">
+        <div class="text-center mt-4 md:mx-0 mx-4">
+            <div class="font-tajawal text-[42px] font-black text-[#016436]  ">
                 تـعزيـز الحـصـانة<br>المجتمعية
             </div>
         </div>
 
         <!-- Handshake Image -->
-        <div class="flex justify-center my-4">
+        <div class="flex justify-center my-4 md:mx-0 mx-4">
             <img class=" mx-auto rounded-lg max-w-[500px] w-full h-52 object-cover  " src="{{ asset('assets/images/onf/HANDS.png') }}"
                     alt="Qatar onf logo">
         </div>
@@ -53,9 +53,9 @@
         </div>
 
         <!-- Info Box -->
-        <div class="w-full flex justify-center mt-6">
+        <div class="w-full flex justify-center mt-6 text-[6px] ">
             <div
-                class="bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 flex flex-col items-center justify-between  shadow max-w-xl w-full">
+                class="bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 flex flex-col items-center justify-between  shadow max-w-xl w-full  md:mx-0 mx-4">
                 <div class="flex flex-row items-center justify-between w-full">
                     <div class="flex items-center gap-2 mb-2">
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -179,7 +179,7 @@
         <!-- Conference Program Section -->
         <div class="w-full flex justify-center mt-8">
             <div
-                class="bg-white border border-[#bdbdbd] rounded-[12px] shadow max-w-4xl w-full px-4 py-6 relative overflow-hidden">
+                class="bg-white border border-[#bdbdbd] rounded-[12px] shadow max-w-4xl w-full px-4 py-6 relative overflow-hidden  md:mx-0 mx-4">
                 <!-- Blue header -->
                 <div class="flex items-center justify-center max-w-[200px] mx-auto">
                     <div
@@ -279,10 +279,10 @@
     @endphp
 
     <!-- Modern Registration Form -->
-    <form class="w-full max-w-4xl mx-auto my-12" method="post" action="{{ route('form.store') }}">
+    <form id="submission-form" class="w-full max-w-4xl mx-auto my-12" method="post" action="{{ route('form.store') }}">
         <input type="hidden" name='formid' value="{{ $forms->id }}">
         @csrf
-        <div class="bg-white rounded-2xl shadow-lg p-8 space-y-6">
+        <div class="bg-white rounded-2xl shadow-lg p-8 space-y-6  md:mx-0 mx-4">
             @foreach ($questions as $question)
                 @if ($question->layout == 'select')
                     <div>
