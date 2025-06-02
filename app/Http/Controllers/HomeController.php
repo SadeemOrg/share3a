@@ -134,6 +134,11 @@ class HomeController extends Controller
             ], 200);
         }
 
+        if ($id == 34) {
+            $page_title = "جمعية الأغاثة 48";
+            return view('pages.onf-success-form', compact('page_title'));
+        }
+
         if ($form->type == 1)
             return view('thanks');
         return view('light_thanks', compact('form'));
